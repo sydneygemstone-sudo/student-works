@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学员作品 · Student Works</title>
+<style>
+  :root { --bg: #fff7e6; --ink: #4a3b2a; --muted: #8a7a66; --card: #fff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif; padding: 28px 18px 60px; }
+  main { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 40px; margin: 0 0 6px; text-align: center; }
+  .sub { text-align: center; color: var(--muted); font-size: 18px; margin-bottom: 30px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+  .work { background: var(--card); border-radius: 22px; padding: 24px; box-shadow: 0 6px 24px rgba(120, 80, 30, .12); display: flex; flex-direction: column; gap: 10px; }
+  .work .icon { font-size: 56px; line-height: 1; }
+  .work h2 { margin: 4px 0 0; font-size: 26px; }
+  .work .meta { color: var(--muted); font-size: 16px; }
+  .work p { font-size: 18px; line-height: 1.5; margin: 0; flex: 1; }
+  .btn { display: inline-block; text-align: center; font-size: 22px; font-weight: 700; padding: 14px 28px; border-radius: 999px; background: #6cc070; color: #fff; text-decoration: none; box-shadow: 0 6px 0 #4d9a52; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #4d9a52; }
+  .btn.src { background: #f0e6d2; color: var(--ink); box-shadow: 0 6px 0 #d3c6ab; font-size: 16px; padding: 10px 20px; }
+  .btn.src:active { box-shadow: 0 2px 0 #d3c6ab; }
+  footer { text-align: center; color: var(--muted); font-size: 15px; margin-top: 40px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🎮 学员作品</h1>
+  <div class="sub">课堂与家庭里「一句话下单 → AI 交付」的学生作品集 · 点「开始玩」直接在浏览器里玩</div>
+  <div class="grid">
+    <div class="work">
+      <div class="icon">🐻🐰</div>
+      <h2>小动物回家</h2>
+      <div class="meta">Naomi · 2026-08-25 · 两人合作桌游</div>
+      <p>两个人在同一台电脑上轮流玩：小熊和小兔要在暴风雨到达之前，把 8 只走丢的小动物送回家。一局约 10 分钟。</p>
+      <a class="btn" href="naomi-pet-rescue/">▶ 开始玩</a>
+      <a class="btn src" href="naomi-pet-rescue/README.md">怎么玩 / 怎么调难度</a>
+    </div>
+    <div class="work">
+      <div class="icon">🥊</div>
+      <h2>Victory vs Alex · 拳击</h2>
+      <div class="meta">Victory & Alex · 2026-08-17 · 双人格斗</div>
+      <p>一句话「make a fighting game, Victory vs Alex, boxing fighting.」下单，AI 交付的 2D 拳击游戏：连击、闪避、体力、KO 演出。需要实体键盘。</p>
+      <a class="btn" href="victory-vs-alex-boxing/">▶ 开始玩</a>
+      <a class="btn src" href="victory-vs-alex-boxing/README.md">制作记录</a>
+    </div>
+  </div>
+  <footer>每件作品的问答、生产过程与预算都记录在仓库 README 里。<br>本页只写学生的名字，不含姓氏或其他个人信息。</footer>
+</main>
+</body>
+</html>

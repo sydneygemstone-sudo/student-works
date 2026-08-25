@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VICTORY VS ALEX - Championship Boxing</title>
+    <meta name="description" content="Experience high-octane 2D boxing combat between Victory 'The Iron Sovereign' and Alex 'The Emerald Hurricane'. Authentic boxing mechanics, combos, slips, stamina management, and cinematic KOs.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="arcade-header">
+        <div class="arcade-title-group">
+            <h1 class="arcade-logo">
+                <span class="victory-text">VICTORY</span>
+                <span class="vs-text">VS</span>
+                <span class="alex-text">ALEX</span>
+            </h1>
+            <span class="arcade-subtitle">World Championship Boxing</span>
+        </div>
+        <div class="top-controls">
+            <button id="btnMute" class="btn-icon" title="Toggle Audio (M)">🔊 MUTE</button>
+            <button id="btnHelpToggle" class="btn-icon" title="View Controls">📖 CONTROLS</button>
+        </div>
+    </header>
+
+    <!-- Main Game Arena Viewport -->
+    <main class="arena-wrapper">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Fight HUD Overlay -->
+        <div id="hudContainer" class="hud-layer" style="display: none;">
+            <!-- Top Status Bars -->
+            <div class="hud-top">
+                <!-- Player 1 (Victory/Left) HUD -->
+                <div class="fighter-hud-card p1">
+                    <div class="fighter-name-bar">
+                        <span id="p1HudName" class="hud-fighter-name">VICTORY</span>
+                    </div>
+                    <div class="health-bar-frame">
+                        <div id="p1HealthFill" class="health-bar-fill"></div>
+                    </div>
+                    <div class="stamina-bar-frame">
+                        <div id="p1StaminaFill" class="stamina-bar-fill"></div>
+                    </div>
+                    <div class="super-bar-frame">
+                        <div id="p1SuperFill" class="super-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Center Round Timer -->
+                <div class="timer-container">
+                    <span id="roundNumberBadge" class="round-badge">R1</span>
+                    <span id="roundClock" class="round-clock">90</span>
+                </div>
+
+                <!-- Player 2 (Alex/Right) HUD -->
+                <div class="fighter-hud-card p2">
+                    <div class="fighter-name-bar">
+                        <span id="p2HudName" class="hud-fighter-name">ALEX</span>
+                    </div>
+                    <div class="health-bar-frame">
+                        <div id="p2HealthFill" class="health-bar-fill"></div>
+                    </div>
+                    <div class="stamina-bar-frame">
+                        <div id="p2StaminaFill" class="stamina-bar-fill"></div>
+                    </div>
+                    <div class="super-bar-frame">
+                        <div id="p2SuperFill" class="super-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Hit Combo Banner -->
+            <div id="comboBadge" class="combo-badge">COMBO x3</div>
+
+            <!-- Downed 10-Count Mash Recovery Prompt -->
+            <div id="mashPrompt" class="mash-prompt">
+                <div class="mash-title">MASH BUTTONS TO GET UP!</div>
+                <div class="mash-bar">
+                    <div id="mashBarFill" class="mash-bar-fill"></div>
+                </div>
+            </div>
+
+            <!-- Touch Controls for Mobile / Tablets -->
+            <div class="touch-controls">
+                <div class="touch-dpad">
+                    <div></div>
+                    <button id="btnTouchDash" class="btn-touch">DASH</button>
+                    <div></div>
+                    <button id="btnTouchLeft" class="btn-touch">◄</button>
+                    <button id="btnTouchWeave" class="btn-touch">SLIP</button>
+                    <button id="btnTouchRight" class="btn-touch">►</button>
+                </div>
+                <div class="touch-actions">
+                    <button id="btnTouchJab" class="btn-touch">JAB</button>
+                    <button id="btnTouchCross" class="btn-touch">STR</button>
+                    <button id="btnTouchHook" class="btn-touch">HOOK</button>
+                    <button id="btnTouchUppercut" class="btn-touch">UPPER</button>
+                    <button id="btnTouchGuard" class="btn-touch">GUARD</button>
+                    <button id="btnTouchSuper" class="btn-touch super">SUPER</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Selection / Main Menu Screen -->
+        <div id="screenMenu" class="overlay-screen">
+            <div class="char-select-container">
+                <!-- Game Mode Tabs -->
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="ARCADE">🥊 ARCADE (VS CPU)</button>
+                    <button class="mode-btn" data-mode="VERSUS">👥 2-PLAYER LOCAL</button>
+                </div>
+
+                <!-- Fighter Cards -->
+                <div class="fighters-grid">
+                    <!-- VICTORY CARD -->
+                    <div class="char-card victory-card selected" data-char="VICTORY" data-player="1">
+                        <div class="char-card-header">
+                            <h2 class="char-card-name">VICTORY</h2>
+                            <span class="char-card-badge">ORTHODOX</span>
+                        </div>
+                        <div class="char-card-nickname">"THE IRON SOVEREIGN"</div>
+                        <div class="char-card-stats">
+                            Heavyweight • 215 lbs • Reach 79"<br>
+                            <strong>Archetype:</strong> Devastating Powerhouse Slugger. Bone-crushing body hooks and unstoppable Titan Overdrive.
+                        </div>
+                        <div class="char-card-super">⚡ SUPER: TITAN OVERDRIVE</div>
+                    </div>
+
+                    <!-- ALEX CARD -->
+                    <div class="char-card alex-card" data-char="ALEX" data-player="1">
+                        <div class="char-card-header">
+                            <h2 class="char-card-name">ALEX</h2>
+                            <span class="char-card-badge">SOUTHPAW</span>
+                        </div>
+                        <div class="char-card-nickname">"THE EMERALD HURRICANE"</div>
+                        <div class="char-card-stats">
+                            Middleweight • 175 lbs • Reach 75"<br>
+                            <strong>Archetype:</strong> Lightning Fast Outboxer. Rapid multi-jab chains, agile slip-and-counter, and Gazelle Uppercuts.
+                        </div>
+                        <div class="char-card-super">🌪️ SUPER: TEMPEST FLURRY</div>
+                    </div>
+                </div>
+
+                <!-- Start Action Bar -->
+                <div class="start-match-area">
+                    <div class="difficulty-group">
+                        <label for="difficultySelect">AI DIFFICULTY:</label>
+                        <select id="difficultySelect" class="select-box">
+                            <option value="EASY">EASY</option>
+                            <option value="MEDIUM" selected>MEDIUM</option>
+                            <option value="HARD">CHALLENGER (HARD)</option>
+                            <option value="CHAMPION">WORLD CHAMPION</option>
+                        </select>
+                    </div>
+                    <button id="btnStartMatch" class="btn-fight">ENTER THE RING ➔</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Overlay -->
+        <div id="screenPause" class="overlay-screen" style="display: none;">
+            <div class="game-over-box">
+                <h2 class="game-over-title">MATCH PAUSED</h2>
+                <div class="game-over-subtitle">PRESS P OR ESCAPE TO RESUME</div>
+                <div class="game-over-actions">
+                    <button class="btn-fight" onclick="window.gameEngine.togglePause()">RESUME</button>
+                    <button class="btn-icon" onclick="window.gameEngine.returnToMenu()">MAIN MENU</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over / Victory Modal -->
+        <div id="screenGameOver" class="overlay-screen" style="display: none;">
+            <div class="game-over-box">
+                <h2 id="winnerName" class="game-over-title">VICTORY WINS!</h2>
+                <div id="winnerNickname" class="char-card-nickname">"THE IRON SOVEREIGN"</div>
+                <div id="victoryType" class="game-over-subtitle">VICTORY BY KNOCKOUT (ROUND 1)</div>
+
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>STATISTIC</th>
+                            <th>P1</th>
+                            <th>P2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Damage Dealt</td>
+                            <td id="statP1Damage">0</td>
+                            <td id="statP2Damage">0</td>
+                        </tr>
+                        <tr>
+                            <td>Knockdowns Scored</td>
+                            <td id="statP1KD">0</td>
+                            <td id="statP2KD">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="game-over-actions">
+                    <button id="btnRematch" class="btn-fight">REMATCH</button>
+                    <button id="btnReturnMenu" class="btn-icon">CHARACTER SELECT</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Controls & Move Technique Guide -->
+    <section class="guide-container">
+        <div class="guide-heading">
+            <span>BOXING CONTROLS & COMBAT MECHANICS</span>
+            <span style="font-size: 13px; color: var(--text-muted);">Gamepad Supported (Xbox / PlayStation / Switch)</span>
+        </div>
+        <div class="guide-grid">
+            <div class="guide-item">
+                <span class="guide-item-title">Movement & Footwork</span>
+                <div class="guide-item-keys">
+                    <span class="key-badge">A</span>
+                    <span class="key-badge">D</span>
+                    <span class="key-badge">Shift</span> (Dash)
+                </div>
+                <span class="guide-item-desc">Step into punching range or back up to create spacing. Tap Shift to dash forward/backward.</span>
+            </div>
+
+            <div class="guide-item">
+                <span class="guide-item-title">Jabs & Straight Punches</span>
+                <div class="guide-item-keys">
+                    <span class="key-badge">J</span> (Jab)
+                    <span class="key-badge">K</span> (Cross)
+                </div>
+                <span class="guide-item-desc">Fast straight punches. Jabs can interrupt opponent attacks; Crosses deliver solid impact.</span>
+            </div>
+
+            <div class="guide-item">
+                <span class="guide-item-title">Power Hooks & Uppercuts</span>
+                <div class="guide-item-keys">
+                    <span class="key-badge">U</span> (Body Hook)
+                    <span class="key-badge">I</span> (Uppercut)
+                </div>
+                <span class="guide-item-desc">Body hooks deal heavy stamina drain. Uppercuts deal maximum damage and lift opponents.</span>
+            </div>
+
+            <div class="guide-item">
+                <span class="guide-item-title">Defense & Super K.O.</span>
+                <div class="guide-item-keys">
+                    <span class="key-badge">L</span> (Guard)
+                    <span class="key-badge">Space</span> (Slip/Weave)
+                    <span class="key-badge">O</span> (Super)
+                </div>
+                <span class="guide-item-desc">Hold L to absorb hits. Tap Space right as punch lands to trigger a Counter window! Unleash O when Super Meter is full.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/ring.js"></script>
+    <script src="js/fighters_data.js"></script>
+    <script src="js/fighter.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小动物回家 · Naomi 的合作桌游</title>
+<style>
+  :root {
+    --cell: 76px;
+    --bg: #fff7e6; --card: #ffffff; --ink: #4a3b2a; --muted: #8a7a66;
+    --grass: #e4f5d9; --grass2: #d5eec7; --home: #ffe9a8; --accent: #ff8a5b; --accent2: #6cc070;
+    --sky: #cfe8ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif; }
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 18px; }
+  h1 { font-size: 40px; margin: 8px 0 4px; }
+  .screen { display: none; width: 100%; max-width: 1080px; }
+  .screen.on { display: block; }
+  .card { background: var(--card); border-radius: 22px; padding: 22px 26px; box-shadow: 0 6px 24px rgba(120, 80, 30, .12); }
+  .btn { font: inherit; font-size: 26px; font-weight: 700; padding: 16px 34px; border: 0; border-radius: 999px;
+    background: var(--accent); color: #fff; cursor: pointer; box-shadow: 0 6px 0 #d96a3f; transition: transform .08s; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #d96a3f; }
+  .btn.green { background: var(--accent2); box-shadow: 0 6px 0 #4d9a52; }
+  .btn.green:active { box-shadow: 0 2px 0 #4d9a52; }
+  .btn:disabled { background: #d9d2c5; box-shadow: 0 6px 0 #b9b1a3; cursor: not-allowed; color: #fff; }
+  .btn.small { font-size: 20px; padding: 12px 24px; }
+
+  /* 开始页 */
+  #start { text-align: center; }
+  .story { font-size: 22px; line-height: 1.6; max-width: 760px; margin: 0 auto 18px; }
+  .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 18px 0; text-align: left; }
+  .rule { background: #fff3dd; border-radius: 18px; padding: 16px; font-size: 19px; line-height: 1.5; }
+  .rule .big { font-size: 44px; text-align: center; margin-bottom: 6px; }
+  .names { display: flex; gap: 20px; justify-content: center; margin: 14px 0 20px; flex-wrap: wrap; }
+  .names label { font-size: 22px; display: flex; align-items: center; gap: 10px; }
+  .names input { font: inherit; font-size: 22px; padding: 10px 14px; border-radius: 14px; border: 2px solid #e6d8c0; width: 160px; }
+
+  /* 游戏页 */
+  .game { display: flex; gap: 22px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+  .board { display: grid; grid-template-columns: repeat(var(--n), var(--cell)); gap: 5px; padding: 12px; background: #bfe0a8;
+    border-radius: 20px; box-shadow: 0 6px 24px rgba(120, 80, 30, .15); }
+  .cell { width: var(--cell); height: var(--cell); border-radius: 14px; background: var(--grass); position: relative;
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; font-size: 30px; user-select: none; }
+  .cell:nth-child(odd) { background: var(--grass2); }
+  .cell.home { background: var(--home); }
+  .cell.home::before { content: "🏠"; font-size: 40px; position: absolute; opacity: .55; }
+  .cell.can { cursor: pointer; outline: 4px dashed var(--accent); outline-offset: -4px; animation: blink 1s infinite; }
+  .cell.can:hover { background: #ffd9c7; }
+  @keyframes blink { 50% { outline-color: #ffc4a8; } }
+  .cell .pet { font-size: 30px; line-height: 1; z-index: 1; }
+  .cell .pl { font-size: 38px; line-height: 1; z-index: 2; filter: drop-shadow(0 3px 2px rgba(0,0,0,.25)); }
+  .cell .pl.me { animation: bounce .8s infinite; }
+  @keyframes bounce { 50% { transform: translateY(-5px); } }
+  .cell .hold { position: absolute; bottom: 2px; right: 4px; font-size: 16px; z-index: 3; }
+  .cell .rescued { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; font-size: 14px; font-weight: 700; z-index: 3; }
+
+  .panel { width: 340px; display: flex; flex-direction: column; gap: 14px; }
+  .banner { border-radius: 18px; padding: 14px 18px; font-size: 26px; font-weight: 800; text-align: center; color: #fff; }
+  .banner.p0 { background: #b8763f; } .banner.p1 { background: #e07a9a; }
+  .banner.flash { animation: pop .6s; }
+  @keyframes pop { 0% { transform: scale(.9); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
+  .stat { font-size: 20px; line-height: 1.6; }
+  .stat b { font-size: 22px; }
+  .dots { letter-spacing: 4px; font-size: 24px; color: var(--accent); }
+  .storm { background: var(--sky); border-radius: 14px; padding: 10px 12px; }
+  .storm .bar { height: 22px; background: #fff; border-radius: 999px; overflow: hidden; position: relative; margin-top: 6px; }
+  .storm .fill { height: 100%; background: linear-gradient(90deg, #9fc9ff, #5b7fbf); border-radius: 999px; transition: width .3s; }
+  .storm .cloud { position: absolute; top: -8px; font-size: 30px; transition: left .3s; transform: translateX(-50%); }
+  .pets { font-size: 26px; line-height: 1.4; }
+  .pets .done { opacity: .45; }
+  .event { background: #fff0b3; border-radius: 14px; padding: 10px 12px; font-size: 19px; min-height: 48px; }
+  .log { font-size: 16px; color: var(--muted); line-height: 1.5; max-height: 110px; overflow: auto; }
+  .actions { display: flex; flex-direction: column; gap: 10px; }
+  .hint { font-size: 17px; color: var(--muted); text-align: center; }
+
+  /* 终局 */
+  #end { position: fixed; inset: 0; z-index: 50; background: rgba(60, 40, 20, .55); display: none; align-items: center; justify-content: center; }
+  #end.on { display: flex; }
+  #end .card { text-align: center; max-width: 620px; width: 92%; }
+  #end h2 { font-size: 40px; margin: 6px 0 10px; }
+  #end .big { font-size: 64px; }
+  #end p { font-size: 22px; line-height: 1.6; }
+  @media (max-width: 720px) { :root { --cell: 44px; } .rules { grid-template-columns: 1fr; } h1 { font-size: 30px; } .cell .pl { font-size: 26px; } .cell .pet { font-size: 20px; } }
+</style>
+</head>
+<body>
+
+<section id="start" class="screen on">
+  <h1>🐻🐰 小动物回家</h1>
+  <div class="card">
+    <p class="story">花园里的小动物们走丢啦！🌧️ 暴风雨马上就要来了。<br>小熊和小兔要<b>一起合作</b>，在暴风雨到达之前把所有小动物都送回家。</p>
+    <div class="rules">
+      <div class="rule"><div class="big">🐻 🐰</div><b>两个角色不一样：</b><br>🐻 小熊一回合走 <b>2 步</b>，能抱 <b>2 只</b>。<br>🐰 小兔一回合走 <b>3 步</b>，只能抱 <b>1 只</b>。</div>
+      <div class="rule"><div class="big">👉 🐱 🏠</div><b>怎么玩：</b><br>点亮起来的格子就能走。走到小动物那里会自动抱起来，走回 🏠 家就放下。挨着队友时可以把小动物<b>递给队友</b>。</div>
+      <div class="rule"><div class="big">🌧️ ⏳</div><b>怎么赢：</b><br>每走完一手，暴风雨就近一步。暴风雨到达之前把 <b>全部 8 只</b> 小动物送回家，你们就<b>一起赢</b>啦！记得商量一下谁去接谁哦。</div>
+    </div>
+    <div class="names">
+      <label>🐻 小熊是 <input id="n0" value="Naomi" maxlength="10"></label>
+      <label>🐰 小兔是 <input id="n1" value="爸爸" maxlength="10"></label>
+    </div>
+    <button class="btn green" id="startBtn">开始救援！</button>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div class="game">
+    <div class="board" id="board"></div>
+    <div class="panel">
+      <div class="banner p0" id="banner">轮到 🐻 小熊</div>
+      <div class="card stat" id="stat"></div>
+      <div class="storm">
+        <div id="stormLabel" style="font-size:20px;font-weight:700"></div>
+        <div class="bar"><div class="fill" id="stormFill"></div><div class="cloud" id="stormCloud">🌧️</div></div>
+      </div>
+      <div class="card pets" id="petsBox"></div>
+      <div class="event" id="event"></div>
+      <div class="actions">
+        <button class="btn small" id="giveBtn">🤝 递给队友</button>
+        <button class="btn small green" id="endBtn">✅ 结束回合</button>
+        <div class="hint">也可以用键盘 ↑ ↓ ← → 走路</div>
+      </div>
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+</section>
+
+<div id="end">
+  <div class="card">
+    <div class="big" id="endEmoji">🎉</div>
+    <h2 id="endTitle"></h2>
+    <p id="endText"></p>
+    <button class="btn green" id="againBtn">🔁 再玩一次</button>
+  </div>
+</div>
+
+<script src="game-core.js"></script>
+<script>
+(function () {
+  const P = PetRescue;
+  const params = new URLSearchParams(location.search);
+  const $ = id => document.getElementById(id);
+  let g = null, lastCurrent = -1, names = ['Naomi', '爸爸'];
+
+  function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
+
+  function start(seed) {
+    g = P.newGame({ names, seed });
+    lastCurrent = -1;
+    $('end').classList.remove('on');
+    show('game');
+    render();
+  }
+
+  function render() {
+    const n = g.n, me = P.cur(g), mateP = P.mate(g);
+    const board = $('board');
+    board.style.setProperty('--n', n);
+    const legal = g.status === 'playing' ? P.legalMoves(g) : [];
+    let html = '';
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      const isHome = x === g.home.x && y === g.home.y;
+      const can = legal.some(t => t.x === x && t.y === y);
+      let inner = '';
+      const petsHere = g.pets.filter(p => !p.home && p.carriedBy === null && p.x === x && p.y === y);
+      petsHere.forEach(p => inner += '<span class="pet" title="' + p.name + '">' + p.emoji + '</span>');
+      g.players.forEach(pl => {
+        if (pl.x === x && pl.y === y) {
+          const hold = P.carried(g, pl.id).map(p => p.emoji).join('');
+          inner += '<span class="pl' + (pl === me ? ' me' : '') + '">' + pl.emoji + '</span>' + (hold ? '<span class="hold">' + hold + '</span>' : '');
+        }
+      });
+      if (isHome) { const r = g.pets.filter(p => p.home).length; if (r) inner += '<span class="rescued">✅ ' + r + '</span>'; }
+      html += '<div class="cell' + (isHome ? ' home' : '') + (can ? ' can' : '') + '" data-x="' + x + '" data-y="' + y + '">' + inner + '</div>';
+    }
+    board.innerHTML = html;
+
+    const banner = $('banner');
+    banner.textContent = '轮到 ' + me.emoji + ' ' + me.role + ' · ' + me.name;
+    banner.className = 'banner p' + me.id;
+    if (lastCurrent !== me.id) { void banner.offsetWidth; banner.classList.add('flash'); lastCurrent = me.id; }
+
+    const holdMe = P.carried(g, me.id).map(p => p.emoji).join('') || '（空手）';
+    const holdMate = P.carried(g, mateP.id).map(p => p.emoji).join('') || '（空手）';
+    $('stat').innerHTML =
+      '还能走 <span class="dots">' + '●'.repeat(me.ap) + '○'.repeat(me.moves - me.ap) + '</span><br>' +
+      '<b>' + me.emoji + ' 抱着：</b>' + holdMe + '（最多 ' + me.carry + ' 只）<br>' +
+      '<span style="color:var(--muted)">' + mateP.emoji + ' ' + mateP.name + ' 抱着：' + holdMate + '</span>';
+
+    const left = g.cfg.STORM_STEPS - g.storm;
+    const pct = Math.min(100, g.storm / g.cfg.STORM_STEPS * 100);
+    $('stormLabel').textContent = '🌧️ 暴风雨还有 ' + left + ' 手到达';
+    $('stormFill').style.width = pct + '%';
+    $('stormCloud').style.left = pct + '%';
+
+    const home = g.pets.filter(p => p.home), out = g.pets.filter(p => !p.home);
+    $('petsBox').innerHTML = '🏠 已回家 <b>' + home.length + '/' + g.pets.length + '</b>：' + (home.map(p => p.emoji).join('') || '还没有') +
+      '<br><span class="done">还在外面：' + (out.map(p => p.emoji).join('') || '没有啦！') + '</span>';
+
+    $('event').textContent = g.lastEvent || (P.canGive(g) ? '🤝 你和队友挨在一起，可以把小动物递过去！' : '💬 商量一下：谁去接哪只小动物？');
+    $('giveBtn').disabled = !P.canGive(g);
+    $('endBtn').disabled = g.status !== 'playing';
+    $('log').innerHTML = g.log.slice(-4).reverse().map(l => '· ' + l).join('<br>');
+
+    if (g.status !== 'playing') showEnd();
+  }
+
+  function showEnd() {
+    const home = g.pets.filter(p => p.home).length, total = g.pets.length;
+    if (g.status === 'win') {
+      $('endEmoji').textContent = '🎉🏠🎉';
+      $('endTitle').textContent = '全部小动物都回家啦！';
+      $('endText').innerHTML = names[0] + ' 和 ' + names[1] + ' 一起用了 <b>' + g.turn + ' 手</b>，比暴风雨早了 <b>' + (g.cfg.STORM_STEPS - g.storm) + ' 手</b>。<br>你们是最棒的救援队！';
+    } else {
+      $('endEmoji').textContent = '🌧️☁️🌧️';
+      $('endTitle').textContent = '暴风雨来了……';
+      $('endText').innerHTML = '你们救回了 <b>' + home + ' / ' + total + '</b> 只小动物，差一点点！<br>再来一局，这次商量好谁去接谁吧。';
+    }
+    $('end').classList.add('on');
+  }
+
+  function tryMove(x, y) {
+    if (!g || g.status !== 'playing') return;
+    if (P.move(g, x, y)) render();
+  }
+
+  $('board').addEventListener('click', e => {
+    const c = e.target.closest('.cell.can');
+    if (c) tryMove(+c.dataset.x, +c.dataset.y);
+  });
+  document.addEventListener('keydown', e => {
+    if (!g || g.status !== 'playing' || !$('game').classList.contains('on')) return;
+    const d = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    const me = P.cur(g);
+    tryMove(me.x + d[0], me.y + d[1]);
+  });
+  $('giveBtn').addEventListener('click', () => { if (P.give(g)) render(); });
+  $('endBtn').addEventListener('click', () => { if (P.endTurn(g)) render(); });
+  $('startBtn').addEventListener('click', () => {
+    names = [$('n0').value.trim() || 'Naomi', $('n1').value.trim() || '爸爸'];
+    start();
+  });
+  $('againBtn').addEventListener('click', () => start());
+
+  // QA 钩子：?seed=数字 固定随机；?auto=N 加载时同步走 N 手再首绘；?end=win|lose 直跳终局
+  const seed = params.get('seed') ? +params.get('seed') : undefined;
+  if (params.has('auto') || params.has('end')) {
+    start(seed);
+    const n = +params.get('auto') || 0;
+    for (let i = 0; i < n && g.status === 'playing'; i++) P.heuristicTurn(g);
+    if (params.get('end') === 'win') { g.pets.forEach(p => { p.home = true; p.carriedBy = null; }); g.status = 'win'; }
+    if (params.get('end') === 'lose') { g.pets.slice(0, 5).forEach(p => { p.home = true; p.carriedBy = null; }); g.storm = g.cfg.STORM_STEPS; g.status = 'lose'; }
+    render();
+  }
+})();
+</script>
+</body>
+</html>
