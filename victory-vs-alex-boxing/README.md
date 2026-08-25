@@ -86,13 +86,13 @@ make a fighting game, Victory vs Alex, boxing fighting.
 
 ## 六个版本一览
 
-同一句需求、不同 worker/不同侧重，交付了 6 个可对比的版本——本身就是「同样的话，AI 每次答的不一样」的最佳教具。**本仓库只收录 agy 版**（本目录），其余 5 个单文件版留在课程仓库。
+同一句需求、不同 worker/不同侧重，交付了 6 个可对比的版本——本身就是「同样的话，AI 每次答的不一样」的最佳教具。六个版本已全部收录：
 
-| 版本 | worker | 侧重 | 备注 |
-|---|---|---|---|
-| 快速版 | Claude Fable 5 主会话 | 最快交付（约 15 分钟） | 含 `?demo=1&ff=秒数` 自动化测试快进钩子 |
-| 手感版 | Fable 5 子智能体（juice） | 打击手感与特效 | 双镜头评审通过，无阻断项 |
-| 深度版 | Fable 5 子智能体（depth） | CPU 对手智能与策略深度 | 同上 |
-| 萌系版 | Fable 5 子智能体（charm） | 萌系画风与儿童友好 | **评审综合分第一** |
-| 合成版（PUNCH PALS!） | Fable 5 合成智能体 | 以萌系版为底融合各版优点 | 终验因断网未跑完；标题页与控制台已人工验证 |
-| **agy 版**（本目录） | agy（Antigravity CLI），Dean 亲自派单 | 多文件工程结构 | `index.html` + `style.css` + `js/` 七模块 |
+| 版本 | worker | 侧重 | 文件 | 在线玩 |
+|---|---|---|---|---|
+| agy 版 | agy（Antigravity CLI），Dean 亲自派单 | 多文件工程结构 | index.html + style.css + js/ 七模块 | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/ |
+| 快速版 | Claude Fable 5 主会话 | 最快交付（约 15 分钟） | versions/quick.html | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/versions/quick.html |
+| 手感版 | Fable 5 子智能体（juice） | 打击手感与特效 | versions/juice.html | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/versions/juice.html |
+| 深度版 | Fable 5 子智能体（depth） | CPU 对手智能与策略深度 | versions/depth.html | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/versions/depth.html |
+| 萌系版 | Fable 5 子智能体（charm） | 萌系画风与儿童友好（评审综合分第一） | versions/charm.html | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/versions/charm.html |
+| 合成版 PUNCH PALS! | Fable 5 合成智能体 | 以萌系版为底融合各版优点 | versions/fusion.html | https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/versions/fusion.html |

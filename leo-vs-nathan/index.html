@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leo vs Nathan</title>
+<style>
+  /* 单主题街机风：深夜擂台，显式铺底色，不随宿主主题翻转 */
+  :root{
+    --bg:#0E0C16; --panel:#181427; --panel-edge:#2A2440;
+    --ink:#F2EFE6; --ink-dim:#8B85A0;
+    --leo:#FFB13D; --leo-deep:#C87A18;
+    --nathan:#3DD6C8; --nathan-deep:#1E8F86;
+    --danger:#FF4757;
+  }
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:14px; padding:18px; box-sizing:border-box;
+  }
+  .display{font-family:Impact,"Arial Narrow Bold","Arial Narrow",sans-serif; letter-spacing:.04em}
+  #stage{position:relative; width:min(960px,100%);}
+  canvas{
+    display:block; width:100%; height:auto; border-radius:8px;
+    background:#131022; box-shadow:0 12px 48px rgba(0,0,0,.55), 0 0 0 1px var(--panel-edge);
+  }
+  #overlay{
+    position:absolute; inset:0; border-radius:8px; cursor:pointer;
+    background:rgba(10,8,18,.88); backdrop-filter:blur(3px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+    text-align:center; padding:20px; box-sizing:border-box;
+  }
+  #overlay.hidden{display:none}
+  h1{margin:0; font-size:clamp(40px,8vw,72px); line-height:1; text-transform:uppercase}
+  h1 .leo{color:var(--leo)} h1 .vs{color:var(--ink-dim); font-size:.55em; vertical-align:.12em; padding:0 .18em}
+  h1 .nathan{color:var(--nathan)}
+  .tagline{margin:0; color:var(--ink-dim); font-size:14px; letter-spacing:.22em; text-transform:uppercase}
+  .controls{display:flex; gap:14px; flex-wrap:wrap; justify-content:center}
+  .card{
+    background:var(--panel); border:1px solid var(--panel-edge); border-radius:8px;
+    padding:14px 18px; min-width:200px; text-align:left; font-size:14px; line-height:1.9;
+  }
+  .card h2{margin:0 0 6px; font-size:16px; text-transform:uppercase; letter-spacing:.08em}
+  .card.p1 h2{color:var(--leo)} .card.p2 h2{color:var(--nathan)}
+  kbd{
+    display:inline-block; min-width:1.5em; text-align:center; padding:1px 6px; margin-right:6px;
+    background:#0B0914; border:1px solid var(--panel-edge); border-bottom-width:3px;
+    border-radius:5px; font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--ink);
+  }
+  .modes{display:flex; gap:10px}
+  .modes button{
+    font:inherit; font-size:15px; font-weight:700; letter-spacing:.06em; cursor:pointer;
+    color:var(--ink); background:var(--panel); border:1px solid var(--panel-edge);
+    border-radius:8px; padding:10px 26px;
+  }
+  .modes button.on{background:var(--leo); border-color:var(--leo); color:#1A1206}
+  .modes button:focus-visible{outline:2px solid var(--nathan); outline-offset:2px}
+  .go{color:var(--ink-dim); font-size:13px; letter-spacing:.14em; text-transform:uppercase}
+  @media (prefers-reduced-motion:no-preference){
+    .go{animation:pulse 1.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <canvas id="game" width="960" height="540" aria-label="Leo vs Nathan 格斗游戏画面"></canvas>
+  <div id="overlay">
+    <div>
+      <h1 class="display"><span class="leo">Leo</span><span class="vs">vs</span><span class="nathan">Nathan</span></h1>
+      <p class="tagline">One arena · Sixty seconds · No mercy</p>
+    </div>
+    <div class="controls">
+      <div class="card p1">
+        <h2 class="display">Leo</h2>
+        <kbd>A</kbd><kbd>D</kbd> 移动　<kbd>W</kbd> 跳跃<br>
+        <kbd>F</kbd> 快拳　<kbd>G</kbd> 重踢
+      </div>
+      <div class="card p2">
+        <h2 class="display">Nathan</h2>
+        <kbd>←</kbd><kbd>→</kbd> 移动　<kbd>↑</kbd> 跳跃<br>
+        <kbd>K</kbd> 快拳　<kbd>L</kbd> 重踢
+      </div>
+    </div>
+    <div class="modes" role="group" aria-label="选择模式">
+      <button id="mode2p" class="on" type="button">双人对战</button>
+      <button id="modeCpu" type="button">挑战电脑 Nathan</button>
+    </div>
+    <div class="go">点击任意处开始</div>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const cvs = document.getElementById('game');
+const ctx = cvs.getContext('2d');
+const overlay = document.getElementById('overlay');
+const W = 960, H = 540, GROUND = 464;
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const COL = {
+  leo:'#FFB13D', leoDeep:'#C87A18', leoSkin:'#F0C9A0',
+  nathan:'#3DD6C8', nathanDeep:'#1E8F86', nathanSkin:'#D8B48E',
+  ink:'#F2EFE6', dim:'#8B85A0', danger:'#FF4757',
+};
+
+const ATTACKS = {
+  punch:{ startup:.08, active:.10, recover:.15, range:60, damage:7,  kb:230, kbY:-60,  stun:.26 },
+  kick: { startup:.17, active:.12, recover:.28, range:86, damage:12, kb:430, kbY:-220, stun:.38 },
+};
+
+let vsCpu = false;
+let state = 'menu';            // menu | fight | ko
+let timer = 60, koText = '', koSub = '';
+let shake = 0, hitFreeze = 0;
+const wins = { leo:0, nathan:0 };
+const keys = new Set();
+const particles = [];
+
+function makeFighter(name, color, deep, skin, x, dir){
+  return {
+    name, color, deep, skin,
+    x, y:GROUND, vx:0, vy:0, dir,        // dir: 1 朝右, -1 朝左
+    w:46, h:112, hp:100,
+    onGround:true, stun:0, attack:null,   // attack: {type,t,hasHit}
+    walk:0, flash:0, alive:true,
+  };
+}
+let leo, nathan;
+
+function resetRound(){
+  leo    = makeFighter('LEO',    COL.leo,    COL.leoDeep,    COL.leoSkin,    240,  1);
+  nathan = makeFighter('NATHAN', COL.nathan, COL.nathanDeep, COL.nathanSkin, 720, -1);
+  timer = 60; particles.length = 0; shake = 0; hitFreeze = 0;
+}
+
+/* ---------- 输入 ---------- */
+const GAME_KEYS = new Set(['KeyA','KeyD','KeyW','KeyF','KeyG','ArrowLeft','ArrowRight','ArrowUp','KeyK','KeyL','KeyR','Space']);
+addEventListener('keydown', e => {
+  if (GAME_KEYS.has(e.code)) e.preventDefault();
+  keys.add(e.code);
+  if (state === 'ko' && (e.code === 'KeyR' || e.code === 'Space')) startFight();
+});
+addEventListener('keyup', e => keys.delete(e.code));
+addEventListener('blur', () => keys.clear());
+
+const btn2p = document.getElementById('mode2p');
+const btnCpu = document.getElementById('modeCpu');
+function setMode(cpu){
+  vsCpu = cpu;
+  btn2p.classList.toggle('on', !cpu);
+  btnCpu.classList.toggle('on', cpu);
+}
+btn2p.addEventListener('click', e => { e.stopPropagation(); setMode(false); });
+btnCpu.addEventListener('click', e => { e.stopPropagation(); setMode(true); });
+overlay.addEventListener('click', () => { startFight(); });
+
+function startFight(){
+  overlay.classList.add('hidden');
+  resetRound();
+  state = 'fight';
+  cvs.focus?.();
+}
+
+/* ---------- 战斗逻辑 ---------- */
+function tryAttack(f, type){
+  if (f.attack || f.stun > 0 || !f.alive) return;
+  f.attack = { type, t:0, hasHit:false };
+}
+
+function controlHuman(f, left, right, up, punch, kick){
+  if (f.stun > 0 || f.attack || !f.alive) { if (f.onGround) f.vx *= .78; return; }
+  let mv = 0;
+  if (keys.has(left)) mv -= 1;
+  if (keys.has(right)) mv += 1;
+  f.vx = mv * 330;
+  if (mv !== 0) f.dir = mv;
+  if (keys.has(up) && f.onGround) { f.vy = -760; f.onGround = false; }
+  if (keys.has(punch)) tryAttack(f, 'punch');
+  else if (keys.has(kick)) tryAttack(f, 'kick');
+}
+
+let aiTimer = 0, aiMove = 0;
+function controlCpu(f, foe, dt){
+  if (f.stun > 0 || f.attack || !f.alive) { if (f.onGround) f.vx *= .78; return; }
+  const gap = foe.x - f.x, dist = Math.abs(gap), toward = Math.sign(gap) || 1;
+  aiTimer -= dt;
+  if (aiTimer <= 0){
+    aiTimer = .18 + Math.abs(Math.sin(timer * 7.3)) * .22;   // 伪随机节奏（脚本内禁用 Math.random）
+    const roll = Math.abs(Math.sin(timer * 13.7 + f.x * .05));
+    if (dist < 95){
+      if (roll < .45) tryAttack(f, 'punch');
+      else if (roll < .75) tryAttack(f, 'kick');
+      else aiMove = -toward;                                  // 后撤拉开
+    } else if (dist < 200 && roll < .25 && f.onGround){
+      f.vy = -760; f.onGround = false; aiMove = toward;       // 跳进
+    } else {
+      aiMove = toward;
+    }
+  }
+  f.dir = toward;
+  f.vx = aiMove * 300;
+}
+
+function updateFighter(f, dt){
+  f.stun = Math.max(0, f.stun - dt);
+  f.flash = Math.max(0, f.flash - dt);
+  if (f.attack){
+    f.attack.t += dt;
+    const a = ATTACKS[f.attack.type];
+    if (f.attack.t >= a.startup + a.active + a.recover) f.attack = null;
+    if (f.onGround) f.vx *= .82;
+  }
+  f.vy += 1900 * dt;
+  f.x += f.vx * dt;
+  f.y += f.vy * dt;
+  if (f.y >= GROUND){ f.y = GROUND; f.vy = 0; f.onGround = true; }
+  f.x = Math.max(40, Math.min(W - 40, f.x));
+  f.walk += Math.abs(f.vx) * dt * .05;
+}
+
+function attackActive(f){
+  if (!f.attack) return null;
+  const a = ATTACKS[f.attack.type];
+  if (f.attack.t < a.startup || f.attack.t > a.startup + a.active || f.attack.hasHit) return null;
+  return a;
+}
+
+function resolveHits(atk, def){
+  const a = attackActive(atk);
+  if (!a || !def.alive) return;
+  const hx = atk.x + atk.dir * (atk.w * .5 + a.range * .55);   // 命中盒中心
+  const hy = atk.y - (atk.attack.type === 'punch' ? 78 : 46);
+  if (Math.abs(hx - def.x) < a.range * .55 + def.w * .5 && Math.abs(hy - (def.y - def.h * .5)) < def.h * .62){
+    atk.attack.hasHit = true;
+    def.hp = Math.max(0, def.hp - a.damage);
+    def.stun = a.stun;
+    def.flash = .18;
+    def.vx = atk.dir * a.kb;
+    def.vy = a.kbY; def.onGround = false;
+    if (!reduceMotion){ shake = Math.min(14, shake + (atk.attack.type === 'kick' ? 10 : 5)); hitFreeze = .045; }
+    spawnSparks(hx, hy, atk.color);
+    if (def.hp <= 0){ def.alive = false; endRound(); }
+  }
+}
+
+function spawnSparks(x, y, color){
+  const n = reduceMotion ? 4 : 14;
+  for (let i = 0; i < n; i++){
+    const ang = (i / n) * Math.PI * 2 + Math.sin(timer * 31 + i);
+    const sp = 140 + 220 * Math.abs(Math.sin(timer * 17 + i * 2.1));
+    particles.push({ x, y, vx:Math.cos(ang) * sp, vy:Math.sin(ang) * sp - 120, life:.45, color });
+  }
+}
+
+function endRound(){
+  state = 'ko';
+  let winner = null;
+  if (!leo.alive && !nathan.alive) koText = 'DOUBLE KO';
+  else if (!nathan.alive) winner = leo;
+  else if (!leo.alive) winner = nathan;
+  else { // 时间到
+    if (leo.hp > nathan.hp) winner = leo;
+    else if (nathan.hp > leo.hp) winner = nathan;
+    else koText = 'DRAW';
+  }
+  if (winner){
+    koText = winner.name + ' WINS';
+    wins[winner === leo ? 'leo' : 'nathan']++;
+  }
+  koSub = '按 R 或点击画面再战一局';
+}
+cvs.addEventListener('click', () => { if (state === 'ko') startFight(); });
+
+/* ---------- 绘制 ---------- */
+function drawArena(){
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#171330'); g.addColorStop(.68, '#131022'); g.addColorStop(1, '#0E0C16');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(255,177,61,.05)';
+  ctx.beginPath(); ctx.arc(240, 120, 150, 0, 7); ctx.fill();
+  ctx.fillStyle = 'rgba(61,214,200,.05)';
+  ctx.beginPath(); ctx.arc(720, 120, 150, 0, 7); ctx.fill();
+  // 远景城市剪影
+  ctx.fillStyle = '#1B1730';
+  for (let i = 0; i < 12; i++){
+    const bw = 60 + (i * 37) % 50, bh = 90 + (i * 53) % 130, bx = i * 84 - 20;
+    ctx.fillRect(bx, GROUND - 120 - bh + 90, bw, bh);
+  }
+  // 擂台地面
+  ctx.fillStyle = '#221D38'; ctx.fillRect(0, GROUND, W, H - GROUND);
+  ctx.strokeStyle = '#3A3358'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, GROUND + 1); ctx.lineTo(W, GROUND + 1); ctx.stroke();
+  ctx.strokeStyle = 'rgba(58,51,88,.5)'; ctx.lineWidth = 1;
+  for (let i = 1; i < 8; i++){
+    ctx.beginPath(); ctx.moveTo(i * 120, GROUND); ctx.lineTo(i * 120 - 40 + i * 10, H); ctx.stroke();
+  }
+}
+
+function drawFighter(f, t){
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  ctx.scale(f.dir, 1);
+  const bob = f.onGround && !f.attack ? Math.sin(t * 5 + (f === leo ? 0 : 2)) * 2.5 : 0;
+  const hurt = f.flash > 0;
+  const a = f.attack ? ATTACKS[f.attack.type] : null;
+  const phase = a ? (f.attack.t < a.startup ? 'wind' : f.attack.t < a.startup + a.active ? 'hit' : 'rec') : null;
+  const ext = phase === 'hit' ? 1 : phase === 'rec' ? .35 : phase === 'wind' ? .15 : 0;
+
+  if (!f.alive){ ctx.rotate(-Math.PI / 2 * .92); ctx.translate(-20, 26); }
+  ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  const body = hurt ? '#FFFFFF' : f.color;
+  const deep = hurt ? '#DDDDDD' : f.deep;
+  const skin = hurt ? '#FFFFFF' : f.skin;
+
+  // 腿
+  const stride = f.onGround ? Math.sin(f.walk * 6) * (Math.abs(f.vx) > 10 ? 14 : 0) : 10;
+  ctx.strokeStyle = deep;
+  ctx.lineWidth = 11;
+  const kickLeg = f.attack && f.attack.type === 'kick' ? ext : 0;
+  ctx.beginPath(); ctx.moveTo(-4, -52 + bob);
+  ctx.lineTo(-10 - stride * .6, -2);
+  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(4, -52 + bob);
+  if (kickLeg > 0){ ctx.lineTo(18 + 52 * kickLeg, -58 - 8 * kickLeg); }
+  else ctx.lineTo(8 + stride * .6, -2);
+  ctx.stroke();
+
+  // 躯干
+  ctx.fillStyle = body;
+  ctx.beginPath();
+  ctx.roundRect(-15, -100 + bob, 30, 52, 8);
+  ctx.fill();
+  ctx.fillStyle = deep;
+  ctx.fillRect(-15, -62 + bob, 30, 7); // 腰带
+
+  // 手臂
+  ctx.strokeStyle = skin; ctx.lineWidth = 9;
+  const punchArm = f.attack && f.attack.type === 'punch' ? ext : 0;
+  ctx.beginPath(); ctx.moveTo(-10, -92 + bob); ctx.lineTo(-20, -68 + bob); ctx.stroke(); // 后手
+  ctx.beginPath(); ctx.moveTo(10, -92 + bob);
+  if (punchArm > 0) ctx.lineTo(16 + 46 * punchArm, -88 + bob);
+  else ctx.lineTo(20, -70 + bob);
+  ctx.stroke();
+  // 拳头
+  ctx.fillStyle = body;
+  ctx.beginPath();
+  ctx.arc(punchArm > 0 ? 20 + 46 * punchArm : 21, punchArm > 0 ? -88 + bob : -69 + bob, 7, 0, 7);
+  ctx.fill();
+
+  // 头
+  ctx.fillStyle = skin;
+  ctx.beginPath(); ctx.arc(0, -114 + bob, 15, 0, 7); ctx.fill();
+  if (f === leo){
+    ctx.fillStyle = body;                       // Leo：鬃毛式尖发
+    for (let i = -2; i <= 2; i++){
+      ctx.beginPath();
+      ctx.moveTo(i * 6 - 4, -122 + bob); ctx.lineTo(i * 6, -140 - Math.abs(i) * -3 + bob); ctx.lineTo(i * 6 + 4, -122 + bob);
+      ctx.closePath(); ctx.fill();
+    }
+  } else {
+    ctx.fillStyle = body;                       // Nathan：护目镜
+    ctx.fillRect(-2, -120 + bob, 18, 8);
+    ctx.fillStyle = '#0E0C16';
+    ctx.fillRect(2, -118 + bob, 12, 4);
+    ctx.fillStyle = body;                        // 平头
+    ctx.beginPath(); ctx.roundRect(-13, -130 + bob, 26, 10, 4); ctx.fill();
+  }
+  // 眼睛
+  ctx.fillStyle = '#0E0C16';
+  ctx.fillRect(6, -117 + bob, 4, 4);
+  ctx.restore();
+
+  // 落地阴影
+  ctx.fillStyle = 'rgba(0,0,0,.35)';
+  ctx.beginPath();
+  ctx.ellipse(f.x, GROUND + 8, 30 * Math.max(.4, 1 - (GROUND - f.y) / 400), 7, 0, 0, 7);
+  ctx.fill();
+}
+
+function drawHud(){
+  const barW = 360, barH = 22, pad = 34, top = 26;
+  ctx.font = '700 20px Impact, "Arial Narrow", sans-serif';
+  ctx.textBaseline = 'top';
+  for (const [f, left] of [[leo, true], [nathan, false]]){
+    const x = left ? pad : W - pad - barW;
+    ctx.fillStyle = '#0B0914';
+    ctx.fillRect(x - 3, top - 3, barW + 6, barH + 6);
+    ctx.fillStyle = '#241F3A';
+    ctx.fillRect(x, top, barW, barH);
+    const w = barW * f.hp / 100;
+    ctx.fillStyle = f.hp <= 25 ? COL.danger : f.color;
+    ctx.fillRect(left ? x + barW - w : x, top, w, barH);
+    ctx.fillStyle = COL.ink;
+    ctx.textAlign = left ? 'left' : 'right';
+    ctx.fillText(f.name, left ? x : x + barW, top + barH + 8);
+    // 胜场星
+    const n = wins[f === leo ? 'leo' : 'nathan'];
+    ctx.fillStyle = f.color;
+    for (let i = 0; i < Math.min(n, 8); i++){
+      const sx = left ? x + 70 + i * 16 : x + barW - 82 - i * 16;
+      ctx.beginPath(); ctx.arc(sx, top + barH + 18, 5, 0, 7); ctx.fill();
+    }
+  }
+  // 计时器
+  ctx.fillStyle = '#0B0914';
+  ctx.fillRect(W / 2 - 44, top - 5, 88, 40);
+  ctx.strokeStyle = '#3A3358'; ctx.lineWidth = 1.5;
+  ctx.strokeRect(W / 2 - 44, top - 5, 88, 40);
+  ctx.fillStyle = timer <= 10 ? COL.danger : COL.ink;
+  ctx.font = '700 26px ui-monospace, Menlo, monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(String(Math.ceil(Math.max(0, timer))).padStart(2, '0'), W / 2, top + 2);
+  if (vsCpu){
+    ctx.fillStyle = COL.dim;
+    ctx.font = '600 12px system-ui, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('CPU', W - pad, top + barH + 30);
+  }
+}
+
+function drawKo(){
+  ctx.fillStyle = 'rgba(10,8,18,.55)';
+  ctx.fillRect(0, 0, W, H);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = '700 84px Impact, "Arial Narrow", sans-serif';
+  ctx.fillStyle = koText.startsWith('LEO') ? COL.leo : koText.startsWith('NATHAN') ? COL.nathan : COL.ink;
+  ctx.fillText(koText, W / 2, H / 2 - 24);
+  ctx.font = '600 18px system-ui, sans-serif';
+  ctx.fillStyle = COL.ink;
+  ctx.fillText(koSub, W / 2, H / 2 + 42);
+}
+
+/* ---------- 主循环 ---------- */
+let last = 0, elapsed = 0;
+function frame(ts){
+  requestAnimationFrame(frame);
+  if (!last) last = ts;
+  let dt = Math.min(.033, (ts - last) / 1000);
+  last = ts;
+  elapsed += dt;
+
+  if (state === 'fight'){
+    if (hitFreeze > 0){ hitFreeze -= dt; dt = 0; }   // 命中定帧
+    if (dt > 0){
+      timer -= dt;
+      controlHuman(leo, 'KeyA', 'KeyD', 'KeyW', 'KeyF', 'KeyG');
+      if (vsCpu) controlCpu(nathan, leo, dt);
+      else controlHuman(nathan, 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'KeyK', 'KeyL');
+      updateFighter(leo, dt);
+      updateFighter(nathan, dt);
+      // 身体推挤
+      const overlap = leo.w - Math.abs(leo.x - nathan.x);
+      if (overlap > 0 && Math.abs(leo.y - nathan.y) < 90){
+        const push = overlap / 2 * Math.sign(leo.x - nathan.x || 1);
+        leo.x += push; nathan.x -= push;
+      }
+      resolveHits(leo, nathan);
+      resolveHits(nathan, leo);
+      if (timer <= 0) endRound();
+    }
+  }
+  for (let i = particles.length - 1; i >= 0; i--){
+    const p = particles[i];
+    p.life -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 900 * dt;
+    if (p.life <= 0) particles.splice(i, 1);
+  }
+  shake = Math.max(0, shake - dt * 40);
+
+  ctx.save();
+  if (shake > 0) ctx.translate(Math.sin(elapsed * 90) * shake, Math.cos(elapsed * 77) * shake * .6);
+  drawArena();
+  if (leo){
+    drawFighter(leo, elapsed);
+    drawFighter(nathan, elapsed);
+    for (const p of particles){
+      ctx.globalAlpha = Math.max(0, p.life / .45);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
+    }
+    ctx.globalAlpha = 1;
+    drawHud();
+  }
+  if (state === 'ko') drawKo();
+  ctx.restore();
+}
+resetRound();       // 菜单背景里先摆好两位角色
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

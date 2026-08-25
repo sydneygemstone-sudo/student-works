@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Victory vs Alex 拳击大赛</title>
+<style>
+  html,body{margin:0;padding:0;background:#1a2340;height:100%;overflow:hidden;touch-action:none;
+    font-family:"Arial Rounded MT Bold","PingFang SC","Hiragino Sans GB",Arial,sans-serif;}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  canvas{display:block;background:#7ec8ff;border-radius:6px;}
+  #touch{position:fixed;left:0;right:0;bottom:0;display:none;justify-content:space-between;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));pointer-events:none;z-index:5;}
+  .tgroup{display:flex;gap:12px;}
+  .tbtn{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,255,255,.8);
+    background:rgba(20,30,60,.55);color:#fff;font-size:15px;font-weight:bold;
+    display:flex;align-items:center;justify-content:center;user-select:none;-webkit-user-select:none;
+    pointer-events:auto;}
+  .tbtn:active,.tbtn.on{background:rgba(255,200,60,.85);color:#402800;}
+  @media (max-width:560px){
+    .tbtn{width:54px;height:54px;font-size:13px;}
+    .tgroup{gap:8px;}
+    #touch{padding:8px 8px calc(8px + env(safe-area-inset-bottom));}
+  }
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="cv" width="960" height="540"></canvas></div>
+<div id="touch">
+  <div class="tgroup"><div class="tbtn" data-k="left">◀</div><div class="tbtn" data-k="right">▶</div></div>
+  <div class="tgroup"><div class="tbtn" data-k="block">防</div><div class="tbtn" data-k="jab">拳</div><div class="tbtn" data-k="power">重拳</div></div>
+</div>
+<script>
+(function(){
+"use strict";
+var W=960,H=540,GROUND=430;
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+var DEMO=/[?&]demo=1/.test(location.search);
+
+/* ---------- 缩放适配 ---------- */
+function fit(){
+  var ww=window.innerWidth,wh=window.innerHeight;
+  var s=Math.min(ww/W,wh/H);
+  cv.style.width=(W*s)+'px';cv.style.height=(H*s)+'px';
+}
+window.addEventListener('resize',fit);fit();
+
+/* ---------- 音效（首次手势后才建 AudioContext，任何失败都吞掉） ---------- */
+var AC=null;
+function ensureAudio(){
+  try{
+    if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C();}
+    if(AC&&AC.state==='suspended')AC.resume().catch(function(){});
+  }catch(e){}
+}
+function tone(freq,dur,type,vol,slide){
+  if(!AC)return;
+  try{
+    var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;
+    o.type=type||'square';o.frequency.setValueAtTime(freq,t);
+    if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(30,slide),t+dur);
+    g.gain.setValueAtTime(vol||0.15,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+dur+0.02);
+  }catch(e){}
+}
+function noise(dur,vol,hp){
+  if(!AC)return;
+  try{
+    var t=AC.currentTime,n=Math.floor(AC.sampleRate*dur),buf=AC.createBuffer(1,n,AC.sampleRate),d=buf.getChannelData(0);
+    for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+    var src=AC.createBufferSource();src.buffer=buf;
+    var f=AC.createBiquadFilter();f.type=hp?'highpass':'lowpass';f.frequency.value=hp?2000:900;
+    var g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    src.connect(f);f.connect(g);g.connect(AC.destination);src.start(t);
+  }catch(e){}
+}
+var SFX={
+  jab:function(){noise(0.08,0.25);tone(180,0.08,'square',0.12,120);},
+  power:function(){noise(0.16,0.4);tone(90,0.18,'square',0.22,50);},
+  whiff:function(){noise(0.07,0.10,true);},
+  blockHit:function(){tone(700,0.06,'triangle',0.12);noise(0.05,0.08,true);},
+  hurt:function(){tone(300,0.15,'sawtooth',0.10,140);},
+  bell:function(){tone(1400,0.7,'triangle',0.18);tone(2100,0.5,'sine',0.10);},
+  ko:function(){tone(500,0.7,'sawtooth',0.16,60);},
+  cheer:function(){noise(0.9,0.16);},
+  win:function(){[523,659,784,1046].forEach(function(f,i){setTimeout(function(){tone(f,0.25,'triangle',0.16);},i*130);});},
+  select:function(){tone(880,0.09,'square',0.10);}
+};
+
+/* ---------- 输入 ---------- */
+var keys={};
+var touchState={left:false,right:false,jab:false,power:false,block:false};
+var anyInputThisFrame=false;
+window.addEventListener('keydown',function(e){
+  ensureAudio();anyInputThisFrame=true;
+  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].indexOf(e.key)>=0)e.preventDefault();
+  keys[e.key.length===1?e.key.toLowerCase():e.key]=true;
+  uiKey(e.key);
+});
+window.addEventListener('keyup',function(e){
+  keys[e.key.length===1?e.key.toLowerCase():e.key]=false;
+});
+var touchDiv=document.getElementById('touch');
+Array.prototype.forEach.call(document.querySelectorAll('.tbtn'),function(b){
+  var k=b.getAttribute('data-k');
+  function on(e){e.preventDefault();ensureAudio();anyInputThisFrame=true;touchState[k]=true;b.classList.add('on');
+    if(state==='title')uiTap();
+    if(state==='matchEnd')uiKey('r');}
+  function off(e){e.preventDefault();touchState[k]=false;b.classList.remove('on');}
+  b.addEventListener('pointerdown',on);
+  b.addEventListener('pointerup',off);
+  b.addEventListener('pointercancel',off);
+  b.addEventListener('pointerleave',off);
+});
+function showTouch(){
+  var small=Math.min(window.innerWidth,window.innerHeight)<560;
+  var isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+  touchDiv.style.display=(isTouch||small)?'flex':'none';
+}
+showTouch();window.addEventListener('resize',showTouch);
+
+function toLogical(e){
+  var r=cv.getBoundingClientRect();
+  return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};
+}
+var pointerHandlers=[];// {x,y,w,h,fn} 当前画面上的可点区域
+cv.addEventListener('pointerdown',function(e){
+  ensureAudio();anyInputThisFrame=true;
+  var p=toLogical(e);
+  for(var i=0;i<pointerHandlers.length;i++){
+    var b=pointerHandlers[i];
+    if(p.x>=b.x&&p.x<=b.x+b.w&&p.y>=b.y&&p.y<=b.y+b.h){b.fn();return;}
+  }
+  uiTap();
+});
+
+/* ---------- 选手 ---------- */
+function makeFighter(name,side,pal){
+  return {
+    name:name,side:side,pal:pal,
+    x:side===0?300:660,facing:side===0?1:-1,
+    hp:100,sta:100,rounds:0,
+    st:'idle',t:0,punchDone:false,penalty:0,
+    input:{left:false,right:false,jab:false,power:false,block:false},
+    prevJab:false,prevPower:false,
+    cpu:false,ai:{t:0,move:0,blockT:0},
+    bobPh:side*1.9,combo:0,comboT:0
+  };
+}
+var PAL_V={glove:'#e8402a',glove2:'#ff7a5c',trunk:'#d92b1f',trunkTrim:'#ffd34d',skin:'#ffd9b3',
+  hair:'#f7a02b',name:'#ff5138',accent:'#ffd34d'};
+var PAL_A={glove:'#2a6fe8',glove2:'#6db3ff',trunk:'#1f5fd9',trunkTrim:'#9ff0ff',skin:'#f0c9a4',
+  hair:'#274069',name:'#3f8bff',accent:'#7de8ff'};
+var F1,F2;
+
+/* ---------- 全局状态 ---------- */
+var state='title'; // title | fight | matchEnd
+var mode2P=false,attract=false;
+var flow={phase:'intro',t:0}; // intro | go | live | roundEnd | koFall
+var round=1,roundTime=60,MAXROUNDWINS=2;
+var roundMsg='',matchWinner=null;
+var particles=[],floaters=[],confetti=[];
+var shake=0,hitstop=0,timeScale=1,slowT=0;
+var idleT=0,gtime=0;
+
+function startMatch(twoP,asAttract){
+  F1=makeFighter('VICTORY',0,PAL_V);
+  F2=makeFighter('ALEX',1,PAL_A);
+  F2.cpu=true;
+  if(twoP)F2.cpu=false;
+  if(asAttract||DEMO){F1.cpu=true;F2.cpu=true;}
+  mode2P=twoP;attract=!!asAttract;
+  round=1;matchWinner=null;
+  particles=[];floaters=[];confetti=[];
+  startRound();
+  state='fight';
+}
+function startRound(){
+  F1.hp=100;F1.sta=100;F1.st='idle';F1.t=0;F1.x=300;F1.facing=1;F1.combo=0;
+  F2.hp=100;F2.sta=100;F2.st='idle';F2.t=0;F2.x=660;F2.facing=-1;F2.combo=0;
+  roundTime=60;flow={phase:'intro',t:0};timeScale=1;
+}
+function uiTap(){
+  if(state==='title'){ if(attractStartBtnHandled)return; }
+  if(state==='matchEnd'){restart();}
+  if(state==='fight'&&attract){toTitle();}
+}
+var attractStartBtnHandled=false;
+function uiKey(k){
+  if(state==='title'){
+    if(k==='Enter'||k===' '){SFX.select();startMatch(false,false);}
+    else if(k==='2'){SFX.select();startMatch(true,false);}
+    else idleT=0;
+  }else if(state==='matchEnd'){
+    if(k==='r'||k==='R'||k==='Enter')restart();
+  }else if(state==='fight'&&attract&&!DEMO){
+    toTitle();
+  }
+}
+function restart(){SFX.select();startMatch(mode2P,false);}
+function toTitle(){state='title';idleT=0;attract=false;}
+
+/* ---------- 战斗逻辑 ---------- */
+var JAB={wind:0.10,hitEnd:0.20,rec:0.32,reach:128,dmg:7,sta:8,stun:0.28,kb:60};
+var POW={wind:0.30,hitEnd:0.42,rec:0.68,reach:148,dmg:15,sta:20,stun:0.5,kb:150};
+
+function readHuman(f,p1){
+  var i=f.input;
+  if(p1){
+    i.left=!!keys['a']||touchState.left;
+    i.right=!!keys['d']||touchState.right;
+    i.jab=!!keys['f']||touchState.jab;
+    i.power=!!keys['g']||touchState.power;
+    i.block=!!keys['s']||touchState.block;
+  }else{
+    i.left=!!keys['ArrowLeft'];i.right=!!keys['ArrowRight'];
+    i.jab=!!keys['k'];i.power=!!keys['l'];i.block=!!keys['ArrowDown'];
+  }
+}
+function thinkCPU(f,o,dt){
+  var ai=f.ai,i=f.input,d=Math.abs(o.x-f.x),toward=(o.x>f.x)?1:-1;
+  ai.t-=dt;ai.blockT-=dt;
+  i.left=i.right=i.jab=i.power=false;
+  i.block=ai.blockT>0;
+  if(ai.t<=0){
+    ai.t=0.10+Math.random()*0.16;
+    var oAttacking=(o.st==='jab'||o.st==='power');
+    if(f.sta<15&&Math.random()<0.6){ai.move=-toward;ai.blockT=0.25+Math.random()*0.3;}
+    else if(oAttacking&&d<170&&Math.random()<0.38){ai.blockT=0.22+Math.random()*0.25;ai.move=0;}
+    else if(o.st==='hurt'&&d<POW.reach+20&&f.sta>25&&Math.random()<0.55){i.power=true;ai.move=0;}
+    else if(d>JAB.reach+14){ai.move=toward;}
+    else if(d<74&&Math.random()<0.5){ai.move=-toward;}
+    else{
+      var r=Math.random();
+      if(r<0.42&&f.sta>10)i.jab=true;
+      else if(r<0.56&&f.sta>24)i.power=true;
+      else if(r<0.75)ai.move=toward*(Math.random()<0.5?1:-1);
+      else ai.move=0;
+    }
+  }
+  if(ai.move===1){i.right=true;}else if(ai.move===-1){i.left=true;}
+}
+function tryPunch(f,type){
+  var P=type==='jab'?JAB:POW;
+  if(f.sta<4)return;
+  f.st=type;f.t=0;f.punchDone=false;
+  f.sta=Math.max(0,f.sta-P.sta);
+  if(type==='jab')SFX.jab();else SFX.power();
+}
+function updateFighter(f,o,dt){
+  f.t+=dt;f.comboT-=dt;if(f.comboT<=0)f.combo=0;
+  f.facing=(o.x>f.x)?1:-1;
+  f.sta=Math.min(100,f.sta+13*dt);
+  var i=f.input,speed=210;
+  switch(f.st){
+    case 'idle':case 'move':case 'block':
+      if(f.penalty>0){f.penalty-=dt;f.st='idle';break;}
+      if(i.block){f.st='block';}
+      else if(i.jab&&!f.prevJab){tryPunch(f,'jab');}
+      else if(i.power&&!f.prevPower){tryPunch(f,'power');}
+      else{
+        var vx=0;
+        if(i.left)vx-=speed;if(i.right)vx+=speed;
+        if(f.st==='block')f.st='idle';
+        f.st=vx!==0?'move':'idle';
+        f.x+=vx*dt;
+      }
+      break;
+    case 'jab':case 'power':
+      var P=f.st==='jab'?JAB:POW;
+      if(f.t>=P.wind&&f.t<=P.hitEnd&&!f.punchDone){
+        f.punchDone=true;
+        var d=Math.abs(o.x-f.x);
+        if(d<=P.reach&&o.st!=='ko'){landPunch(f,o,P,f.st==='power');}
+        else SFX.whiff();
+      }
+      if(f.t>=P.rec)f.st='idle';
+      break;
+    case 'hurt':
+      f.x+=f.kbv*dt;f.kbv*=Math.pow(0.02,dt);
+      if(f.t>=f.stunT)f.st='idle';
+      break;
+    case 'ko':break;
+    case 'win':break;
+  }
+  f.prevJab=i.jab;f.prevPower=i.power;
+  f.x=Math.max(120,Math.min(W-120,f.x));
+  // 不许穿过对方
+  if(f.st!=='ko'&&o.st!=='ko'){
+    var minGap=62;
+    if(Math.abs(f.x-o.x)<minGap){
+      var mid=(f.x+o.x)/2,dir=f.x<o.x?-1:1;
+      f.x=mid+dir*minGap/2;o.x=mid-dir*minGap/2;
+      f.x=Math.max(120,Math.min(W-120,f.x));o.x=Math.max(120,Math.min(W-120,o.x));
+    }
+  }
+}
+function landPunch(atk,def,P,isPower){
+  var blocked=(def.st==='block');
+  var dmg=P.dmg*(blocked?0.15:1);
+  if(atk.sta<10)dmg*=0.6; // 没力气了
+  def.hp=Math.max(0,def.hp-dmg);
+  var dir=(def.x>atk.x)?1:-1;
+  var gx=atk.x+dir*70,gy=GROUND-150;
+  if(blocked){
+    SFX.blockHit();
+    atk.penalty=isPower?0.35:0.12; // 被格挡后僵直，给反击窗口
+    def.x+=dir*14;
+    spawnSparks(gx,gy,'#9ff0ff',6);
+    addFloater(gx,gy-30,'挡住!','#7de8ff',22);
+  }else{
+    SFX.hurt();if(isPower)SFX.power();
+    def.st='hurt';def.t=0;def.stunT=P.stun;def.kbv=dir*P.kb;
+    atk.combo++;atk.comboT=1.4;
+    hitstop=isPower?5:3;
+    shake=Math.min(20,shake+(isPower?13:6));
+    spawnSparks(gx,gy,isPower?'#ffd34d':'#ffffff',isPower?14:8);
+    addFloater(gx,gy-40,isPower?'BAM!':'POW!',isPower?'#ffd34d':'#fff',isPower?34:24);
+    if(atk.combo>=3)addFloater(atk.x,GROUND-230,atk.combo+' 连击!','#aff58c',20);
+    if(def.hp<=0){startKO(def,dir);}
+  }
+}
+function startKO(def,dir){
+  def.st='ko';def.t=0;def.kbdir=dir;
+  SFX.ko();SFX.cheer();
+  timeScale=0.3;slowT=1.0;
+  shake=18;
+  flow={phase:'koFall',t:0};
+}
+function endRound(winner,byKO){
+  winner.rounds++;
+  roundMsg=byKO?(winner.name+' KO 获胜!'):(winner.name+' 赢下本回合!');
+  flow={phase:'roundEnd',t:0};
+  SFX.bell();
+  spawnConfetti(30);
+}
+function updateFight(dt){
+  var ph=flow.phase;flow.t+=dt;
+  if(ph==='intro'){
+    if(flow.t>1.2){flow.phase='go';flow.t=0;SFX.bell();}
+  }else if(ph==='go'){
+    if(flow.t>0.8){flow.phase='live';flow.t=0;}
+  }else if(ph==='live'){
+    roundTime-=dt;
+    if(F1.cpu)thinkCPU(F1,F2,dt);else readHuman(F1,true);
+    if(F2.cpu)thinkCPU(F2,F1,dt);else readHuman(F2,false);
+    updateFighter(F1,F2,dt);updateFighter(F2,F1,dt);
+    if(roundTime<=0){
+      roundTime=0;
+      var w=F1.hp>=F2.hp?F1:F2; // 平手判给左边，够简单
+      endRound(w,false);
+    }
+  }else if(ph==='koFall'){
+    F1.t+=dt;F2.t+=dt; // 倒地/庆祝动画的计时也要走
+    var down=(F1.st==='ko')?F1:F2,up=(down===F1)?F2:F1;
+    if(flow.t>1.6){up.st='win';endRound(up,true);}
+  }else if(ph==='roundEnd'){
+    F1.t+=dt;F2.t+=dt;
+    if(flow.t>2.2){
+      var champ=(F1.rounds>=MAXROUNDWINS)?F1:(F2.rounds>=MAXROUNDWINS)?F2:null;
+      if(champ){
+        matchWinner=champ;state='matchEnd';flow.t=0;
+        SFX.win();spawnConfetti(80);
+        if(attract||DEMO){/* demo 结束后自动重开 */setTimeout(function(){if(state==='matchEnd'&&(attract||DEMO))startMatch(false,attract);},2600);}
+      }else{round++;startRound();}
+    }
+  }
+}
+
+/* ---------- 粒子与漂字 ---------- */
+function spawnSparks(x,y,col,n){
+  for(var i=0;i<n;i++)particles.push({x:x,y:y,vx:(Math.random()*2-1)*260,vy:(Math.random()*2-1)*220-60,
+    life:0.35+Math.random()*0.25,t:0,col:col,r:3+Math.random()*4});
+}
+function spawnConfetti(n){
+  for(var i=0;i<n;i++)confetti.push({x:Math.random()*W,y:-20-Math.random()*220,
+    vy:90+Math.random()*130,vx:(Math.random()*2-1)*40,rot:Math.random()*6.3,vr:(Math.random()*2-1)*5,
+    col:['#ff5138','#ffd34d','#7de8ff','#aff58c','#f78ce8'][i%5],life:5,t:0});
+}
+function addFloater(x,y,txt,col,size){
+  floaters.push({x:x,y:y,txt:txt,col:col,size:size,t:0,life:0.8});
+}
+function updateFx(dt){
+  var i;
+  for(i=particles.length-1;i>=0;i--){var p=particles[i];p.t+=dt;
+    p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=500*dt;if(p.t>p.life)particles.splice(i,1);}
+  for(i=floaters.length-1;i>=0;i--){var f=floaters[i];f.t+=dt;f.y-=45*dt;if(f.t>f.life)floaters.splice(i,1);}
+  for(i=confetti.length-1;i>=0;i--){var c=confetti[i];c.t+=dt;
+    c.x+=c.vx*dt+Math.sin(c.t*6+c.rot)*22*dt;c.y+=c.vy*dt;c.rot+=c.vr*dt;if(c.t>c.life||c.y>H+30)confetti.splice(i,1);}
+}
+
+/* ---------- 绘制 ---------- */
+function rr(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+}
+function capsule(x1,y1,x2,y2,r,col){
+  ctx.strokeStyle=col;ctx.lineWidth=r*2;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+}
+function drawBG(){
+  var g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#8fd4ff');g.addColorStop(0.55,'#cfeeff');g.addColorStop(0.62,'#5a4a8c');g.addColorStop(1,'#3d3260');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  // 彩旗
+  ctx.lineWidth=3;ctx.strokeStyle='#ffffff55';
+  ctx.beginPath();ctx.moveTo(0,40);ctx.quadraticCurveTo(W/2,95,W,40);ctx.stroke();
+  for(var i=0;i<16;i++){
+    var t=i/15,x=t*W,y=40+Math.sin(Math.PI*t)*52;
+    ctx.fillStyle=['#ff5138','#ffd34d','#7de8ff','#aff58c'][i%4];
+    ctx.beginPath();ctx.moveTo(x-9,y);ctx.lineTo(x+9,y);ctx.lineTo(x,y+18);ctx.closePath();ctx.fill();
+  }
+  // 观众
+  for(var r2=0;r2<3;r2++){
+    for(var c=0;c<24;c++){
+      var cx=20+c*40+(r2%2)*20,cy=250-r2*36+Math.sin(gtime*2.2+c*1.7+r2)*3.5;
+      ctx.fillStyle=['#e8b07a','#c98d5f','#f2c9a4','#a9764f'][(c+r2)%4];
+      ctx.beginPath();ctx.arc(cx,cy,11,0,7);ctx.fill();
+      ctx.fillStyle=['#5a7fd4','#d45a90','#5ad48c','#d4c15a','#9a5ad4'][(c*3+r2)%5];
+      rr(cx-12,cy+7,24,16,6);ctx.fill();
+    }
+  }
+  ctx.fillStyle='#00000022';ctx.fillRect(0,250,W,50);
+  // 擂台
+  ctx.fillStyle='#4a3f7a';rr(60,300,W-120,60,10);ctx.fill();
+  var fg=ctx.createLinearGradient(0,340,0,H);
+  fg.addColorStop(0,'#77b7e8');fg.addColorStop(1,'#4a7fb5');
+  ctx.fillStyle=fg;ctx.fillRect(40,340,W-80,H-340-30);
+  ctx.fillStyle='#365f8a';ctx.fillRect(40,H-32,W-80,14);
+  // 台面 logo
+  ctx.save();ctx.globalAlpha=0.25;ctx.fillStyle='#fff';
+  ctx.font='bold 34px Arial';ctx.textAlign='center';
+  ctx.fillText('V ★ A',W/2,GROUND+40);ctx.restore();
+  // 围绳
+  var posts=[[70,180],[W-70,180]];
+  ctx.fillStyle='#e8e2f5';
+  posts.forEach(function(p){rr(p[0]-9,p[1],18,GROUND-p[1]+20,8);ctx.fill();});
+  ['#ff5f5f','#ffffff','#5fa8ff'].forEach(function(col,i){
+    var y=225+i*52;
+    ctx.strokeStyle=col;ctx.lineWidth=6;
+    ctx.beginPath();ctx.moveTo(70,y);ctx.quadraticCurveTo(W/2,y+14,W-70,y);ctx.stroke();
+  });
+}
+function drawFighter(f){
+  var o=(f===F1)?F2:F1;
+  var bob=Math.sin(gtime*4.6+f.bobPh)*3;
+  var lean=0,crouch=0,armL=0.15,armR=0.15,faceMood='normal',lying=false;
+  var P=null,ext=0;
+  if(f.st==='jab'||f.st==='power'){
+    P=f.st==='jab'?JAB:POW;
+    var t=f.t;
+    if(t<P.wind)ext=-0.3*(t/P.wind);
+    else if(t<P.hitEnd)ext=1;
+    else ext=Math.max(0,1-(t-P.hitEnd)/(P.rec-P.hitEnd));
+    if(f.st==='jab')armL=0.15+ext*0.9;else{armR=0.15+ext*1.0;lean=ext*0.12;}
+    faceMood='attack';
+  }else if(f.st==='block'){armL=0.05;armR=0.05;crouch=8;faceMood='block';}
+  else if(f.st==='hurt'){lean=-0.22;faceMood='hurt';}
+  else if(f.st==='ko'){lying=true;faceMood='ko';}
+  else if(f.st==='win'){faceMood='win';}
+  ctx.save();
+  ctx.translate(f.x,GROUND+bob*(lying?0:1));
+  ctx.scale(f.facing,1);
+  if(lying){
+    var fall=Math.min(1,f.t/0.5);
+    ctx.rotate(-fall*Math.PI/2*0.94);
+    ctx.translate(0,fall*8);
+  }
+  if(f.st==='win'){ctx.translate(0,-Math.abs(Math.sin(gtime*7))*26);}
+  ctx.rotate(lean);
+  var pal=f.pal;
+  // 影子画在世界坐标，先跳过——见 drawShadow
+  // 腿
+  capsule(-14,-52,-20,0,10,pal.skin);capsule(14,-52,22,-2,10,pal.skin);
+  ctx.fillStyle='#fff';rr(-30,-8,20,10,4);ctx.fill();rr(12,-10,20,10,4);ctx.fill();
+  ctx.fillStyle=pal.glove2;rr(-30,-4,20,6,3);ctx.fill();rr(12,-6,20,6,3);ctx.fill();
+  // 短裤
+  ctx.fillStyle=pal.trunk;rr(-24,-78,48,34,12);ctx.fill();
+  ctx.fillStyle=pal.trunkTrim;rr(-24,-80,48,9,4);ctx.fill();
+  // 身体
+  ctx.fillStyle=pal.skin;rr(-22,-128+crouch,44,58,20);ctx.fill();
+  ctx.fillStyle=pal.trunkTrim;
+  if(f===F1){ // Victory 胸口一颗星
+    drawStar(0,-102+crouch,9,pal.accent);
+  }else{ // Alex 胸前闪电
+    ctx.save();ctx.fillStyle=pal.accent;ctx.beginPath();
+    ctx.moveTo(-3,-114+crouch);ctx.lineTo(6,-104+crouch);ctx.lineTo(0,-102+crouch);
+    ctx.lineTo(5,-92+crouch);ctx.lineTo(-6,-103+crouch);ctx.lineTo(0,-105+crouch);ctx.closePath();ctx.fill();ctx.restore();
+  }
+  // 后臂（远侧）
+  var shx=-6,shy=-118+crouch;
+  var rx=shx+22+armR*66,ry=shy+16-armR*16;
+  capsule(shx,shy,rx,ry,9,pal.skin);
+  ctx.fillStyle=pal.glove;ctx.beginPath();ctx.arc(rx+8,ry,15,0,7);ctx.fill();
+  ctx.fillStyle=pal.glove2;ctx.beginPath();ctx.arc(rx+5,ry-4,6,0,7);ctx.fill();
+  // 头
+  var hx=8,hy=-160+crouch;
+  ctx.fillStyle=pal.skin;ctx.beginPath();ctx.arc(hx,hy,30,0,7);ctx.fill();
+  // 头发
+  ctx.fillStyle=pal.hair;
+  if(f===F1){
+    ctx.beginPath();ctx.arc(hx-4,hy-8,29,Math.PI*1.05,Math.PI*1.95);ctx.fill();
+    for(var s=0;s<4;s++){ctx.beginPath();
+      var a=Math.PI*1.15+s*0.25,px=hx-4+Math.cos(a)*29,py=hy-8+Math.sin(a)*29;
+      ctx.moveTo(px,py);ctx.lineTo(px+6-s*2,py-14);ctx.lineTo(px+12-s*2,py+2);ctx.closePath();ctx.fill();}
+  }else{
+    ctx.beginPath();ctx.arc(hx-5,hy-9,29,Math.PI,Math.PI*2);ctx.fill();
+    rr(hx-34,hy-12,20,10,5);ctx.fill();
+  }
+  // 耳朵+护耳
+  ctx.fillStyle=pal.skin;ctx.beginPath();ctx.arc(hx-24,hy+2,7,0,7);ctx.fill();
+  // 脸
+  drawFace(hx,hy,faceMood,f);
+  // 前臂（近侧）
+  var shx2=10,shy2=-116+crouch;
+  var lx=shx2+20+armL*70,ly=shy2+6-armL*10;
+  if(f.st==='block'){lx=shx2+26;ly=shy2-26;}
+  capsule(shx2,shy2,lx,ly,10,pal.skin);
+  ctx.fillStyle=pal.glove;ctx.beginPath();ctx.arc(lx+9,ly,17,0,7);ctx.fill();
+  ctx.fillStyle=pal.glove2;ctx.beginPath();ctx.arc(lx+5,ly-5,7,0,7);ctx.fill();
+  if(f.st==='block'){ // 第二只手也举起来
+    ctx.fillStyle=pal.glove;ctx.beginPath();ctx.arc(shx+30,shy-24,15,0,7);ctx.fill();
+  }
+  // KO 星星
+  if(f.st==='ko'){
+    for(var k=0;k<3;k++){
+      var a2=gtime*3+k*2.1;
+      drawStar(hx+Math.cos(a2)*26,hy-14+Math.sin(a2)*10,6,'#ffd34d');
+    }
+  }
+  ctx.restore();
+}
+function drawStar(x,y,r,col){
+  ctx.save();ctx.fillStyle=col;ctx.translate(x,y);ctx.beginPath();
+  for(var i=0;i<10;i++){
+    var rad=i%2===0?r:r*0.45,a=Math.PI/5*i-Math.PI/2;
+    ctx.lineTo(Math.cos(a)*rad,Math.sin(a)*rad);
+  }
+  ctx.closePath();ctx.fill();ctx.restore();
+}
+function drawFace(hx,hy,mood,f){
+  ctx.save();
+  ctx.fillStyle='#3a2a20';
+  var ex=hx+10,ey=hy-4;
+  if(mood==='ko'){
+    ctx.strokeStyle='#3a2a20';ctx.lineWidth=3;ctx.lineCap='round';
+    [[ex,ey],[ex+14,ey+1]].forEach(function(p){
+      ctx.beginPath();ctx.moveTo(p[0]-4,p[1]-4);ctx.lineTo(p[0]+4,p[1]+4);
+      ctx.moveTo(p[0]+4,p[1]-4);ctx.lineTo(p[0]-4,p[1]+4);ctx.stroke();});
+    ctx.beginPath();ctx.arc(hx+8,hy+14,6,0,7);ctx.stroke();
+  }else if(mood==='hurt'){
+    ctx.strokeStyle='#3a2a20';ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(ex-4,ey-3);ctx.lineTo(ex+3,ey+2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ex+16,ey-3);ctx.lineTo(ex+9,ey+2);ctx.stroke();
+    ctx.beginPath();ctx.arc(hx+9,hy+13,5,0,Math.PI,true);ctx.stroke();
+  }else{
+    // 眼睛
+    ctx.fillStyle='#fff';
+    ctx.beginPath();ctx.arc(ex,ey,6.5,0,7);ctx.fill();ctx.beginPath();ctx.arc(ex+15,ey,6.5,0,7);ctx.fill();
+    ctx.fillStyle='#2a2a3a';
+    var look=mood==='attack'?2.5:1;
+    ctx.beginPath();ctx.arc(ex+look,ey,3,0,7);ctx.fill();ctx.beginPath();ctx.arc(ex+15+look,ey,3,0,7);ctx.fill();
+    // 眉毛
+    ctx.strokeStyle=f.pal.hair;ctx.lineWidth=3;ctx.lineCap='round';
+    if(mood==='attack'||f===F2){
+      ctx.beginPath();ctx.moveTo(ex-6,ey-12);ctx.lineTo(ex+4,ey-8);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(ex+10,ey-9);ctx.lineTo(ex+20,ey-12);ctx.stroke();
+    }else{
+      ctx.beginPath();ctx.moveTo(ex-5,ey-10);ctx.lineTo(ex+4,ey-11);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(ex+11,ey-11);ctx.lineTo(ex+20,ey-10);ctx.stroke();
+    }
+    // 嘴
+    ctx.strokeStyle='#3a2a20';ctx.lineWidth=3;
+    ctx.beginPath();
+    if(mood==='win'){ctx.arc(hx+9,hy+10,8,0,Math.PI);}
+    else if(mood==='block'){ctx.moveTo(hx+4,hy+14);ctx.lineTo(hx+15,hy+14);}
+    else if(mood==='attack'){ctx.arc(hx+9,hy+13,5,0,Math.PI);}
+    else{ctx.arc(hx+9,hy+11,6,0.2,Math.PI-0.2);}
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawShadows(){
+  [F1,F2].forEach(function(f){
+    ctx.save();ctx.globalAlpha=0.22;ctx.fillStyle='#123';
+    ctx.beginPath();ctx.ellipse(f.x,GROUND+4,f.st==='ko'?58:36,9,0,0,7);ctx.fill();ctx.restore();
+  });
+}
+function drawHUD(){
+  ctx.save();
+  // 血条底
+  function bar(x,w,frac,col,alignRight){
+    ctx.fillStyle='#00000066';rr(x-3,17,w+6,26,8);ctx.fill();
+    ctx.fillStyle='#2a2a3acc';rr(x,20,w,20,6);ctx.fill();
+    var fw=Math.max(0,w*frac);
+    ctx.fillStyle=col;
+    if(alignRight)rr(x+w-fw,20,fw,20,6);else rr(x,20,fw,20,6);
+    if(fw>0)ctx.fill();
+    ctx.strokeStyle='#ffffffaa';ctx.lineWidth=2;rr(x,20,w,20,6);ctx.stroke();
+  }
+  var bw=350;
+  bar(30,bw,F1.hp/100,F1.hp>30?'#4ade4a':'#ffb020',false);
+  bar(W-30-bw,bw,F2.hp/100,F2.hp>30?'#4ade4a':'#ffb020',true);
+  // 体力条
+  ctx.fillStyle='#00000044';rr(30,46,bw*0.7,8,4);ctx.fill();rr(W-30-bw*0.7,46,bw*0.7,8,4);ctx.fill();
+  ctx.fillStyle='#5ecbff';rr(30,46,bw*0.7*F1.sta/100,8,4);ctx.fill();
+  var sw=bw*0.7*F2.sta/100;ctx.fillStyle='#5ecbff';rr(W-30-sw,46,sw,8,4);ctx.fill();
+  // 名字
+  ctx.textBaseline='alphabetic';
+  ctx.font='bold 24px "Arial Rounded MT Bold",Arial';
+  ctx.lineWidth=5;ctx.strokeStyle='#00000088';ctx.textAlign='left';
+  ctx.strokeText('VICTORY',32,80);ctx.fillStyle=F1.pal.name;ctx.fillText('VICTORY',32,80);
+  ctx.textAlign='right';
+  ctx.strokeText('ALEX',W-32,80);ctx.fillStyle=F2.pal.name;ctx.fillText('ALEX',W-32,80);
+  // 回合小星
+  for(var i=0;i<MAXROUNDWINS;i++){
+    drawStar(150+i*26,95,9,i<F1.rounds?'#ffd34d':'#ffffff44');
+    drawStar(W-150-i*26,95,9,i<F2.rounds?'#ffd34d':'#ffffff44');
+  }
+  // 计时器
+  ctx.fillStyle='#1d2440ee';ctx.beginPath();ctx.arc(W/2,42,32,0,7);ctx.fill();
+  ctx.strokeStyle='#ffd34d';ctx.lineWidth=3;ctx.beginPath();ctx.arc(W/2,42,32,0,7);ctx.stroke();
+  ctx.fillStyle=roundTime<=10?'#ff7a5c':'#fff';
+  ctx.font='bold 26px Arial';ctx.textAlign='center';
+  ctx.fillText(''+Math.ceil(roundTime),W/2,51);
+  ctx.fillStyle='#ffd34d';ctx.font='bold 13px "PingFang SC",Arial';
+  ctx.fillText('第 '+round+' 回合',W/2,90);
+  // CPU 标记
+  ctx.font='12px "PingFang SC",Arial';ctx.fillStyle='#ffffffbb';
+  if(F1.cpu)ctx.fillText('(电脑)',60,97);
+  ctx.textAlign='center';
+  if(F2.cpu)ctx.fillText('(电脑)',W-60,97);
+  ctx.restore();
+}
+function centerCard(big,small,col){
+  ctx.save();ctx.textAlign='center';
+  ctx.font='bold 64px "Arial Rounded MT Bold","PingFang SC",Arial';
+  ctx.lineWidth=10;ctx.strokeStyle='#00000088';
+  ctx.strokeText(big,W/2,H/2-20);ctx.fillStyle=col||'#ffd34d';ctx.fillText(big,W/2,H/2-20);
+  if(small){
+    ctx.font='bold 24px "PingFang SC",Arial';ctx.lineWidth=6;
+    ctx.strokeText(small,W/2,H/2+30);ctx.fillStyle='#fff';ctx.fillText(small,W/2,H/2+30);
+  }
+  ctx.restore();
+}
+function drawFx(){
+  particles.forEach(function(p){
+    ctx.save();ctx.globalAlpha=Math.max(0,1-p.t/p.life);
+    ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();ctx.restore();
+  });
+  floaters.forEach(function(f){
+    ctx.save();ctx.globalAlpha=Math.max(0,1-f.t/f.life);
+    ctx.font='bold '+f.size+'px "Arial Rounded MT Bold","PingFang SC",Arial';ctx.textAlign='center';
+    ctx.lineWidth=5;ctx.strokeStyle='#00000099';ctx.strokeText(f.txt,f.x,f.y);
+    ctx.fillStyle=f.col;ctx.fillText(f.txt,f.x,f.y);ctx.restore();
+  });
+  confetti.forEach(function(c){
+    ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rot);
+    ctx.fillStyle=c.col;ctx.fillRect(-5,-3,10,6);ctx.restore();
+  });
+}
+function drawTitle(){
+  drawBG();
+  pointerHandlers=[];
+  // 两位选手站台
+  F1t.x=250;F2t.x=710;
+  drawFighterStatic(F1t);drawFighterStatic(F2t);
+  ctx.save();
+  ctx.textAlign='center';
+  ctx.font='bold 74px "Arial Rounded MT Bold",Arial';
+  ctx.lineWidth=12;ctx.strokeStyle='#00000077';
+  ctx.strokeText('VICTORY',W/2-160,150);
+  ctx.fillStyle='#ff5138';ctx.fillText('VICTORY',W/2-160,150);
+  ctx.font='bold 44px Arial';ctx.strokeText('vs',W/2+62,142);
+  ctx.fillStyle='#ffd34d';ctx.fillText('vs',W/2+62,142);
+  ctx.font='bold 74px "Arial Rounded MT Bold",Arial';
+  ctx.strokeText('ALEX',W/2+210,150);
+  ctx.fillStyle='#3f8bff';ctx.fillText('ALEX',W/2+210,150);
+  ctx.font='bold 30px "PingFang SC",Arial';ctx.lineWidth=7;
+  ctx.strokeText('🥊 拳击大赛 🥊',W/2,196);
+  ctx.fillStyle='#fff';ctx.fillText('🥊 拳击大赛 🥊',W/2,196);
+  // 按钮
+  function btn(x,y,w,h,label,fn,col){
+    ctx.fillStyle='#00000055';rr(x+3,y+4,w,h,14);ctx.fill();
+    ctx.fillStyle=col;rr(x,y,w,h,14);ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=3;rr(x,y,w,h,14);ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 24px "PingFang SC",Arial';
+    ctx.fillText(label,x+w/2,y+h/2+9);
+    pointerHandlers.push({x:x,y:y,w:w,h:h,fn:fn});
+  }
+  var pulse=1+Math.sin(gtime*4)*0.02;
+  ctx.save();ctx.translate(W/2,0);ctx.scale(pulse,pulse);ctx.translate(-W/2,0);
+  btn(W/2-150,268,300,58,'单人 · 我打电脑',function(){SFX.select();startMatch(false,false);},'#e8402a');
+  ctx.restore();
+  btn(W/2-150,340,300,52,'双人 · 一起打',function(){SFX.select();startMatch(true,false);},'#2a6fe8');
+  // 操作说明
+  ctx.font='15px "PingFang SC",Arial';ctx.fillStyle='#ffffffee';
+  ctx.fillText('玩家1（Victory）：A/D 移动 · F 出拳 · G 重拳 · S 防御',W/2,430);
+  ctx.fillText('玩家2（Alex）：←/→ 移动 · K 出拳 · L 重拳 · ↓ 防御',W/2,456);
+  ctx.fillStyle='#ffd34d';ctx.font='bold 16px "PingFang SC",Arial';
+  ctx.fillText('按 Enter 或点按钮开始 · 手机用屏幕按钮',W/2,492);
+  ctx.restore();
+}
+var F1t=null,F2t=null; // 标题页展示用
+function drawFighterStatic(f){
+  drawFighter(f);
+}
+function drawFightScene(){
+  drawBG();drawShadows();
+  // 后画近侧、先画远侧：按 x 简单排序即可
+  if(F1.x<F2.x){drawFighter(F2);drawFighter(F1);}else{drawFighter(F1);drawFighter(F2);}
+  drawFx();
+  drawHUD();
+  var ph=flow.phase;
+  if(ph==='intro')centerCard('第 '+round+' 回合','准备…','#7de8ff');
+  else if(ph==='go')centerCard('开打!','','#ffd34d');
+  else if(ph==='roundEnd')centerCard(roundMsg,'','#aff58c');
+  else if(ph==='koFall')centerCard('K.O.!','','#ff5138');
+  if(attract&&!DEMO){
+    ctx.save();ctx.textAlign='center';ctx.font='bold 18px "PingFang SC",Arial';
+    ctx.fillStyle='#ffffffcc';ctx.fillText('— 电脑表演赛 · 按任意键回到标题 —',W/2,H-14);ctx.restore();
+  }
+}
+function drawMatchEnd(){
+  drawBG();drawShadows();
+  if(matchWinner)matchWinner.st='win';
+  var loser=(matchWinner===F1)?F2:F1;loser.st='ko';loser.t=1;
+  drawFighter(loser);drawFighter(matchWinner);
+  drawFx();
+  pointerHandlers=[];
+  ctx.save();ctx.textAlign='center';
+  ctx.font='bold 72px "Arial Rounded MT Bold",Arial';
+  ctx.lineWidth=12;ctx.strokeStyle='#00000088';
+  var txt=matchWinner.name+' WINS!';
+  ctx.strokeText(txt,W/2,170);
+  ctx.fillStyle=matchWinner.pal.name;ctx.fillText(txt,W/2,170);
+  ctx.font='bold 30px "PingFang SC",Arial';ctx.lineWidth=7;
+  ctx.strokeText('🏆 冠军!',W/2,220);ctx.fillStyle='#ffd34d';ctx.fillText('🏆 冠军!',W/2,220);
+  // 再来一场按钮
+  var x=W/2-130,y=300,w=260,h=54;
+  ctx.fillStyle='#00000055';rr(x+3,y+4,w,h,14);ctx.fill();
+  ctx.fillStyle='#e8402a';rr(x,y,w,h,14);ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=3;rr(x,y,w,h,14);ctx.stroke();
+  ctx.fillStyle='#fff';ctx.font='bold 24px "PingFang SC",Arial';
+  ctx.fillText('再来一场（R）',W/2,y+h/2+9);
+  pointerHandlers.push({x:x,y:y,w:w,h:h,fn:restart});
+  ctx.font='16px "PingFang SC",Arial';ctx.fillStyle='#ffffffdd';
+  ctx.fillText('按 Esc 回标题',W/2,y+h+34);
+  ctx.restore();
+}
+
+/* ---------- 主循环 ---------- */
+var last=0,fitCk=0,lastW=0,lastH=0;
+function loop(ts){
+  requestAnimationFrame(loop);
+  if(!last)last=ts;
+  var dt=Math.min(0.04,(ts-last)/1000);last=ts;
+  gtime+=dt;
+  if(++fitCk>=30){fitCk=0; // 有些环境不派发 resize，兜底重适配
+    if(window.innerWidth!==lastW||window.innerHeight!==lastH){lastW=window.innerWidth;lastH=window.innerHeight;fit();showTouch();}}
+  if(slowT>0){slowT-=dt;if(slowT<=0)timeScale=1;}
+  var gdt=dt*timeScale;
+  if(hitstop>0){hitstop--;gdt=0;}
+  if(state==='title'){
+    idleT+=dt;
+    if(!F1t){F1t=makeFighter('VICTORY',0,PAL_V);F2t=makeFighter('ALEX',1,PAL_A);F1t.x=250;F2t.x=710;}
+    if(idleT>7){startMatch(false,true);}
+    drawTitle();
+  }else if(state==='fight'){
+    updateFight(gdt);
+    updateFx(dt);
+    var sx=0,sy=0;
+    if(shake>0){shake=Math.max(0,shake-40*dt);sx=(Math.random()*2-1)*shake;sy=(Math.random()*2-1)*shake;}
+    ctx.save();ctx.translate(sx,sy);
+    drawFightScene();
+    ctx.restore();
+  }else if(state==='matchEnd'){
+    updateFx(dt);
+    drawMatchEnd();
+    if(keys['Escape'])toTitle();
+  }
+}
+if(DEMO){startMatch(false,false);F1.cpu=true;F2.cpu=true;attract=false;}
+/* QA 快进钩子：?ff=秒数 —— headless 虚拟时间下 rAF 只有约 1fps，
+   截图自测时用 ?demo=1&ff=8 直接把比赛快进到第 8 秒再画首帧 */
+var ffm=location.search.match(/[?&]ff=(\d+)/);
+if(ffm&&state==='fight'){
+  var ffSteps=Math.min(400,parseInt(ffm[1],10))*60;
+  for(var ffi=0;ffi<ffSteps&&state==='fight';ffi++){updateFight(1/60);updateFx(1/60);}
+}
+window.addEventListener('keydown',function(e){
+  if(state==='fight'&&attract&&!DEMO&&e.key!=='F5')toTitle();
+});
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

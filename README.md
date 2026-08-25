@@ -13,6 +13,7 @@
 |---|---|---|---|---|---|
 | 🐻🐰 小动物回家 | Naomi | 2026-08-25 | <https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/> | [`naomi-pet-rescue/`](naomi-pet-rescue/) | 两人同机轮流的合作桌游：小熊和小兔在暴风雨到达前把 8 只走丢的小动物送回家，一局约 10 分钟。详见 [naomi-pet-rescue/README.md](naomi-pet-rescue/README.md) |
 | 🥊 Victory vs Alex · 拳击 | Victory、Alex | 2026-08-17 | <https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/> | [`victory-vs-alex-boxing/`](victory-vs-alex-boxing/) | 一句话下单的 2D 双人拳击格斗：连击、闪避、体力、KO 演出，需要实体键盘。详见 [victory-vs-alex-boxing/README.md](victory-vs-alex-boxing/README.md) |
+| 🥋 Leo vs Nathan · 格斗 | Leo、Nathan | 2026-08-15 | <https://sydneygemstone-sudo.github.io/student-works/leo-vs-nathan/> | [`leo-vs-nathan/`](leo-vs-nathan/) | 一句话下单（原文：make a fihgting game，2 characters， Leo and nathan）由 Claude Fable 5 一次成型的双人格斗，需要实体键盘。详见 [leo-vs-nathan/README.md](leo-vs-nathan/README.md) |
 
 ## 🐻🐰 小动物回家（Naomi，2026-08-25）
 
@@ -67,6 +68,7 @@
 - 牌价与换算口径：与课程仓库同口径：Claude Fable 5 牌价 US$10（输入）/ US$50（输出）每百万 token；缓存写按输入价 ×1.25、缓存读按输入价 ×0.1；汇率按 1 USD ≈ 1.52 AUD。
 - 子代理数字来自工作流转录文件统计，主会话为估算。
 - 仓库整理与发布（2026-08-25 晚）：ultracode 工作流，worker 全部改用 Claude Haiku 4.5（便宜档），4 个代理；此前一次 Fable 5 发布工作流在写完总 README 后即被停止。
+- 收齐拳击各版本与 Leo vs Nathan（2026-08-25 晚）：1 个 Haiku 探针全盘扫描去重（约 3.6 万 token、2.5 分钟）+ 4 个 Haiku worker 归档、审核、推送、验收。
 
 ### 校准数据
 
@@ -82,8 +84,16 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 - 原始指令：`make a fighting game, Victory vs Alex, boxing fighting.`（后追加：快点做出来）
 - 日期：2026-08-17
 - 本仓库收录的是 agy（Antigravity CLI）做的多文件版（`index.html` + `style.css` + `js/`）。
-- 同一句需求还有 5 个单文件版本留在课程仓库，未收录。
+- 同一句需求共 6 个版本已全部收录：[agy 版](victory-vs-alex-boxing/) · [快速版](victory-vs-alex-boxing/versions/quick.html) · [手感版](victory-vs-alex-boxing/versions/juice.html) · [深度版](victory-vs-alex-boxing/versions/depth.html) · [萌系版](victory-vs-alex-boxing/versions/charm.html) · [合成版 PUNCH PALS!](victory-vs-alex-boxing/versions/fusion.html)
 - 制作记录与操作说明详见 [victory-vs-alex-boxing/README.md](victory-vs-alex-boxing/README.md)。
+
+## 🥋 Leo vs Nathan · 格斗（Leo、Nathan，2026-08-15）
+
+- 原始指令（一字不改）：`make a fihgting game，2 characters， Leo and nathan`
+- worker：Claude（Fable 5）主会话一次成型
+- 日期：2026-08-15
+- 一句话下单时就包含错别字（"fihgting"应为"fighting"），AI 理解了意图，直接交付了一个完整的、可玩的、支持双人对战与人机模式的格斗游戏。
+- 详见 [leo-vs-nathan/README.md](leo-vs-nathan/README.md)。
 
 ## 迭代开发约定
 
