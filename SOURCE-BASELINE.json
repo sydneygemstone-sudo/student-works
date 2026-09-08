@@ -1,0 +1,12 @@
+{
+  "source": "/Users/gemstone/student-works/naomi-pet-rescue",
+  "source_commit": "beb05a9",
+  "source_collection_head": "796daf8",
+  "batch_started_at": "2026-09-08T17:06:10+10:00",
+  "delivery_deadline": "2026-09-08T17:26:10+10:00",
+  "budget_usd_api_equivalent_target": 15,
+  "files": {
+    "index.html": "de847aaa0994ef6f723da64d5f0e6c754d9a5dfafed82c603dfa3aee1dfc1a62",
+    "game-core.js": "7270dfbb3932905558bebf4e64a1d6faab9bd78761c04f29742be1279414e545"
+  }
+}

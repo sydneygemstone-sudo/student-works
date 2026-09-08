@@ -1,0 +1,50 @@
+{
+  "completed_at": "2026-09-08T17:25:10.925732+10:00",
+  "elapsed_minutes": 19.02,
+  "original_source_unchanged": true,
+  "rule_tests": {
+    "passed": 19,
+    "failed": 0,
+    "reachability_seeds": 200,
+    "kind": "in-memory node tests"
+  },
+  "browser": {
+    "kind": "real UI clicks using DOM-visible board, not internal heuristic or win hook",
+    "initial_support_and_gift_actions": 2,
+    "subsequent_logged_actions": 53,
+    "outcome": "win",
+    "rescued": 8,
+    "storm_turns_remaining": 14,
+    "displayed_current_turn_at_win": 15,
+    "viewport_verified": [
+      847,
+      780
+    ],
+    "board_timer_all_action_buttons_in_viewport": true,
+    "console_errors_warnings": [],
+    "features_observed": [
+      "movement",
+      "pickup",
+      "delivery",
+      "forest traversal",
+      "rock avoidance",
+      "energy gift",
+      "energy boost",
+      "net",
+      "home support",
+      "shield blocks thunder"
+    ],
+    "bomb_pause": "implemented and unit-tested; not encountered in the real winning run",
+    "handoff": "start screen, viewport override reset, browser tab retained"
+  },
+  "budget": {
+    "target_usd_api_equivalent": 15,
+    "actual_tokens": null,
+    "actual_usd": null,
+    "note": "executor did not provide a complete billing receipt; no paid image or voice generation used"
+  },
+  "source_hashes": {
+    "index.html": "1536fe7fba6f6323d03df72bd65b4c322c35f967256912dd9473295d80829bdc",
+    "game-core.js": "c1c11b44413f2e9c4bb1c38c1701187ad36240698c6cfde65c39fcc06cba5c04"
+  }
+}
