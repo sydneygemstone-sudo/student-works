@@ -1,0 +1,38 @@
+{
+  "completed_at": "2026-09-08T17:45:12.264845+10:00",
+  "rule_tests": {
+    "passed": 20,
+    "failed": 0,
+    "no_net_route_seeds": 200
+  },
+  "browser": {
+    "kind": "real visible DOM and legal button clicks in separate seed 12 test tab",
+    "rescue_auto_boost_bear_remaining_steps": 2,
+    "rescue_auto_boost_bunny_remaining_steps": 4,
+    "net_cost_without_shield": 3,
+    "cleared_net_tile_cost": 2,
+    "cleared_net_visual_count": 0,
+    "actor_net_visual_count": 0,
+    "real_full_game": "not repeated in this repair",
+    "browser_console": "not separately queried in this repair",
+    "legal_movement_clicks": 10,
+    "end_turn_clicks": 1,
+    "handoff": "Fresh start screen opened visibly at http://127.0.0.1:18784/?v=2; bear dean, bunny naomi. Existing player game not refreshed."
+  },
+  "simulation": {
+    "seeds": 200,
+    "wins": 196,
+    "median_turns": 20,
+    "note": "rule heuristic, not child success rate"
+  },
+  "source_hashes": {
+    "index.html": "8cd0b292faddbe396cf5619013f61f1e807727795ced1b1de2fbc0e7626d28a1",
+    "game-core.js": "591172406673b5dd07281b5885d942580b6e6e371806cba484ed4a94cc1feb41"
+  },
+  "budget": {
+    "new_subagents": 0,
+    "new_paid_services": 0,
+    "actual_tokens": null,
+    "actual_usd": null
+  }
+}

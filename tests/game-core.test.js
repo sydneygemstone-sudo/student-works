@@ -81,71 +81,70 @@ test('森林消耗2步；仅剩1步时不能进入森林', () => {
   assert.equal(g.current, 0);
 });
 
-test('抱起动物不直接奖励，真正送回才奖励2能量且只算一次', () => {
-  const g = fixture();
+test('救回立即自动用2勇气多走2步，最后一步送回也不直接换人', () => {
+  const g = fixture(), p = game.cur(g);
   g.pets.push(pet(1, 4, 3));
-  const p = game.cur(g);
-  assert.equal(game.move(g, 4, 3), true);
-  assert.equal(game.carried(g, p.id).length, 1);
+  game.move(g, 4, 3);
   assert.equal(g.energy, 0);
-  assert.equal(game.move(g, 3, 3), true);
+  assert.equal(p.ap, 1);
+  game.move(g, 3, 3);
   assert.equal(g.pets[1].home, true);
-  assert.equal(g.pets[1].carriedBy, null);
-  assert.equal(g.energy, 2);
-  assert.equal(game.move(g, 4, 3), true);
-  assert.equal(game.move(g, 3, 3), true);
-  assert.equal(g.energy, 2);
+  assert.equal(g.energy, 0);
+  assert.equal(p.ap, 2);
+  assert.equal(p.boosted, true);
+  assert.equal(g.current, 0);
+  assert.match(g.log.join(' '), /自动使用2点勇气/);
 });
 
-test('同次送回两只均记救援，能量最多6', () => {
-  const g = fixture();
-  const p = game.cur(g);
+test('勇气满格救两只不丢奖励，本回合自动加步，余量逐回合给两个角色', () => {
+  const g = fixture(), p = game.cur(g);
   p.x = 4;
-  g.energy = 5;
+  g.energy = 6;
   g.pets.push(pet(1, 4, 3, p.id), pet(2, 4, 3, p.id));
-  assert.equal(game.move(g, 3, 3), true);
-  assert.equal(g.pets.filter(p => p.home).length, 2);
+  game.move(g, 3, 3);
+  assert.equal(g.pets.filter(p=>p.home).length, 2);
+  assert.equal(g.energy, 8);
+  assert.equal(p.ap, 3);
+  game.endTurn(g);
+  assert.equal(game.cur(g).ap, 5);
   assert.equal(g.energy, 6);
+  game.endTurn(g);
+  assert.equal(game.cur(g).ap, 4);
+  assert.equal(g.energy, 4);
 });
 
-test('能量加步花2能量，每回合仅一次，不改变角色基础步数', () => {
-  const g = fixture();
-  const p = game.cur(g);
+test('自动加步每回合一次，不能重复消费，不改变基础步数', () => {
+  const g = fixture(), p = game.cur(g);
   g.energy = 1;
-  assert.equal(game.canBoost(g), false);
   assert.equal(game.boost(g), false);
   g.energy = 6;
-  assert.equal(game.boost(g), true);
-  assert.equal(g.energy, 4);
-  assert.equal(p.ap, 4);
+  game.move(g, 4, 3);
+  assert.equal(p.ap, 3);
   assert.equal(p.moves, 2);
-  assert.equal(p.boosted, true);
-  assert.equal(game.canBoost(g), false);
+  assert.equal(g.energy, 4);
   assert.equal(game.boost(g), false);
+  game.move(g, 3, 3);
+  assert.equal(p.ap, 2);
   assert.equal(g.energy, 4);
   game.endTurn(g);
-  assert.equal(game.boost(g), true);
   assert.equal(game.cur(g).ap, 5);
   assert.equal(game.cur(g).moves, 3);
-  game.endTurn(g);
-  assert.equal(game.cur(g).id, p.id);
-  assert.equal(p.boosted, false);
-  assert.equal(p.ap, 2);
-  assert.equal(game.canBoost(g), true);
+  assert.equal(g.energy, 2);
 });
 
-test('能量礼物仅触发一次，能量仍受6点上限限制', () => {
-  const g = fixture();
-  const p = game.cur(g);
-  g.gifts = [{ id: 1, x: 4, y: 3, opened: false, kind: 'energy' }];
-  g.energy = 5;
-  p.ap = 4;
-  assert.equal(game.move(g, 4, 3), true);
-  assert.equal(g.energy, 6);
-  assert.equal(g.gifts[0].opened, true);
-  g.energy = 0;
-  game.move(g, 3, 3);
+test('礼物立即自动加步，已加步后再获勇气保留到下回合，不重复开奖', () => {
+  const g = fixture(), p = game.cur(g);
+  g.gifts = [{ id: 1, x: 4, y: 3, opened: false, kind: 'energy' },{ id: 2, x: 5, y: 3, opened: false, kind: 'energy' }];
   game.move(g, 4, 3);
+  assert.equal(p.ap, 3);
+  assert.equal(g.energy, 0);
+  game.move(g, 5, 3);
+  assert.equal(p.ap, 2);
+  assert.equal(g.energy, 2);
+  game.move(g, 4, 3);
+  assert.equal(g.energy, 2);
+  game.endTurn(g);
+  assert.equal(game.cur(g).ap, 5);
   assert.equal(g.energy, 0);
 });
 
@@ -185,31 +184,55 @@ test('双方均待暂停时仍能自动消费，不无限交接或死锁', () =>
   assert.ok(game.legalMoves(g).length > 0);
 });
 
-test('第6回合绳网只减下个行动者本次1步，下次恢复正常', () => {
+test('连续18回合不会空降绳网或偏向任何角色，旧的网状态会清除', () => {
   const g = fixture();
-  g.turn = g.storm = 5;
-  game.endTurn(g);
-  const bunny = game.cur(g);
-  assert.equal(g.current, 1);
-  assert.equal(bunny.snared, true);
-  assert.equal(bunny.ap, Math.max(1, bunny.moves - 1));
-  game.endTurn(g);
-  game.endTurn(g);
-  assert.equal(game.cur(g), bunny);
-  assert.equal(bunny.snared, false);
-  assert.equal(bunny.ap, bunny.moves);
+  g.players[0].snared = true;
+  for(let i=0;i<18;i++){
+    game.endTurn(g);
+    assert.ok(g.players.every(p=>!p.snared));
+    assert.equal(game.cur(g).ap, game.cur(g).moves);
+  }
 });
 
-test('绳网至少留1步；遇暂停角色会落在真正行动者身上', () => {
-  const g = fixture();
-  g.turn = g.storm = 5;
-  g.players[1].skipTurns = 1;
-  g.players[0].moves = 1;
-  game.endTurn(g);
-  assert.equal(g.current, 0);
-  assert.equal(game.cur(g).snared, true);
-  assert.equal(game.cur(g).ap, 1);
-  assert.equal(g.turn, 7);
+test('可见森林网共花3步，熊兔同价；拆掉后恢复2步且不附着角色', () => {
+  for(const pid of [0,1]){
+    const g = fixture(); g.current = pid;
+    const p = game.cur(g); p.ap = 2;
+    g.terrain = [{x:4,y:3,type:'forest',net:true,cleared:false}];
+    assert.equal(game.moveCost(g,4,3),3);
+    assert.equal(game.move(g,4,3),false);
+    assert.equal(g.terrain[0].cleared,false);
+    p.ap=4;
+    assert.equal(game.move(g,4,3),true);
+    assert.equal(p.ap,1);
+    assert.equal(g.terrain[0].cleared,true);
+    assert.equal(game.moveCost(g,4,3),2);
+    assert.ok(g.players.every(p=>!p.snared));
+    game.endTurn(g);
+    assert.ok(g.players.every(p=>!p.snared));
+  }
+});
+
+test('200个seed：绳网可绕开，不挡动物或礼物，开局所有目标都有无网路线', () => {
+  let count=0;
+  for(let seed=1;seed<=200;seed++){
+    const g=game.newGame({seed}), nets=g.terrain.filter(t=>t.net);
+    count+=nets.length;
+    assert.ok(nets.length<=g.cfg.NETS);
+    for(const net of nets){
+      assert.equal(net.type,'forest');
+      assert.equal(net.cleared,false);
+      assert.ok(![...g.pets,...g.gifts,g.home].some(p=>key(p)===key(net)));
+    }
+    const seen=new Set([key(g.home)]), queue=[g.home];
+    for(let i=0;i<queue.length;i++)for(const [dx,dy] of [[0,1],[0,-1],[1,0],[-1,0]]){
+      const t={x:queue[i].x+dx,y:queue[i].y+dy};
+      if(game.moveCost(g,t.x,t.y)>2||seen.has(key(t)))continue;
+      seen.add(key(t));queue.push(t);
+    }
+    for(const target of [...g.pets,...g.gifts])assert.ok(seen.has(key(target)),`seed ${seed}`);
+  }
+  assert.ok(count>200,'多数地图含可见陷阱');
 });
 
 test('在家守护花1步获1层庇护，每回合一次；离家、无步或满层不可守护', () => {
@@ -237,14 +260,19 @@ test('在家守护花1步获1层庇护，每回合一次；离家、无步或满
   assert.equal(game.canSupport(g), false);
 });
 
-test('庇护抵消一次绳网并消费1层，未被网住的角色步数正常', () => {
-  const g = fixture();
-  g.shield = 2;
-  g.turn = g.storm = 5;
-  game.endTurn(g);
-  assert.equal(g.shield, 1);
-  assert.equal(game.cur(g).snared, false);
-  assert.equal(game.cur(g).ap, game.cur(g).moves);
+test('庇护让森林网只花2步并消耗1层，重复走不再耗盾', () => {
+  const g = fixture(), p=game.cur(g);
+  g.shield=2; p.ap=5;
+  g.terrain=[{x:4,y:3,type:'forest',net:true,cleared:false}];
+  assert.equal(game.moveCost(g,4,3),2);
+  game.move(g,4,3);
+  assert.equal(g.shield,1);
+  assert.equal(p.ap,3);
+  assert.equal(g.terrain[0].cleared,true);
+  game.move(g,3,3);
+  game.move(g,4,3);
+  assert.equal(g.shield,1);
+  assert.ok(g.players.every(p=>!p.snared));
 });
 
 test('庇护抵消雷雨并消费1层，耗尽后下次雷雨会惊动动物', () => {
@@ -281,9 +309,11 @@ test('交接需要相邻和空位；交给家中队友立即救回并奖励', ()
   assert.equal(game.give(g), true);
   assert.equal(g.pets[1].home, true);
   assert.equal(g.pets[1].carriedBy, null);
-  assert.equal(g.energy, 2);
+  assert.equal(g.energy, 0);
+  assert.equal(bear.ap, 4);
+  assert.equal(bear.boosted, true);
   assert.equal(game.give(g), false);
-  assert.equal(g.energy, 2);
+  assert.equal(g.energy, 0);
 });
 
 test('最终动物到家立即胜利，终局不再推进回合或消费资源', () => {

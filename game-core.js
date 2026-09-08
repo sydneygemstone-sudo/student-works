@@ -4,7 +4,7 @@
   else root.PetRescue = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   const CONFIG = {
-    GRID: 7, PETS: 8, STORM_STEPS: 28, SCARE_EVERY: 4, NET_EVERY: 6,
+    GRID: 7, PETS: 8, STORM_STEPS: 28, SCARE_EVERY: 4, NETS: 2,
     ROCKS: 4, FORESTS: 5, GIFTS: 3,
     BEAR: { moves: 2, carry: 2 }, BUNNY: { moves: 3, carry: 1 },
   };
@@ -42,7 +42,7 @@
   function moveCost(g, x, y) {
     if (!inBounds(g, x, y)) return Infinity;
     const terrain = g.terrain.find(t => t.x === x && t.y === y);
-    return terrain ? (terrain.type === 'rock' ? Infinity : terrain.type === 'forest' ? 2 : 1) : 1;
+    return terrain ? (terrain.type === 'rock' ? Infinity : terrain.type === 'forest' ? 2 + (terrain.net && !terrain.cleared && !g.shield ? 1 : 0) : 1) : 1;
   }
   // 石头只在移除该格后，全部可行走格仍与家连通时落下。
   function connected(g) {
@@ -94,6 +94,19 @@
     const giftSpots = shuffled(g, walkable.filter(t => !occupied.has(key(t)))).slice(0, cfg.GIFTS);
     const bomb = Math.floor(g.rng() * giftSpots.length);
     g.gifts = giftSpots.map((t, i) => ({ id: i, ...t, opened: false, kind: i === bomb ? 'bomb' : 'energy' }));
+    // 绳网从开局即可看见。只放在可绕开的空森林，不封住任何救援目标。
+    let nets = 0;
+    for (const t of g.terrain.filter(t => t.type === 'forest' && !occupied.has(key(t)) && !g.gifts.some(gift => same(gift, t)))) {
+      if (nets >= cfg.NETS) break;
+      t.net = true; t.cleared = false;
+      const seen = new Set([key(g.home)]), queue = [g.home];
+      for (let i = 0; i < queue.length; i++) for (const next of neighbors(queue[i])) {
+        if (moveCost(g, next.x, next.y) > 2 || seen.has(key(next))) continue;
+        seen.add(key(next)); queue.push(next);
+      }
+      if (seen.size === n * n - g.terrain.filter(t => t.type === 'rock').length - nets - 1) nets++;
+      else { delete t.net; delete t.cleared; }
+    }
     g.log.push('小动物们在花园里走丢啦！绕过石头、穿过森林，一起把它们送回家吧。');
     return g;
   }
@@ -111,13 +124,14 @@
   function canBoost(g) {
     return g.status === 'playing' && g.energy >= 2 && !cur(g).boosted && cur(g).ap < cur(g).moves + 2;
   }
-  function boost(g) {
+  function boost(g, automatic) {
     if (!canBoost(g)) return false;
     const p = cur(g);
     g.energy -= 2; p.ap = Math.min(p.moves + 2, p.ap + 2); p.boosted = true;
-    g.log.push('✨ ' + p.emoji + ' 使用2点团队能量，这回合多走2步！');
+    event(g, '✨ ' + p.emoji + p.name + (automatic ? ' 自动使用' : ' 使用') + '2点勇气，这回合多走2步！');
     return true;
   }
+  function autoBoost(g) { if (canBoost(g)) boost(g, true); }
   function canSupport(g) {
     const p = cur(g);
     return g.status === 'playing' && same(p, g.home) && p.ap >= 1 && !p.supported && g.shield < 2;
@@ -136,8 +150,8 @@
       const saved = carried(g, p.id);
       saved.forEach(pet => { pet.carriedBy = null; pet.home = true; pet.x = g.home.x; pet.y = g.home.y; });
       if (saved.length) {
-        g.energy = Math.min(6, g.energy + saved.length * 2);
-        ev.push(p.emoji + ' 把 ' + saved.map(x => x.emoji).join('') + ' 送回家啦！每只带来2点能量（现有' + g.energy + '）。');
+        g.energy += saved.length * 2;
+        ev.push(p.emoji + ' 把 ' + saved.map(x => x.emoji).join('') + ' 送回家啦！每只带来2点勇气，多余勇气留给后面的回合。');
       }
     } else {
       for (const pet of g.pets.filter(pet => !pet.home && pet.carriedBy === null && same(pet, p))) {
@@ -153,8 +167,8 @@
         p.skipTurns = Math.max(p.skipTurns, 1);
         ev.push('🎁💥 是恶作剧炸弹！' + p.emoji + ' 下次暂停一回合，小动物们都安全。');
       } else {
-        g.energy = Math.min(6, g.energy + 2);
-        ev.push('🎁✨ 找到能量礼物，团队能量+2（现有' + g.energy + '）！');
+        g.energy += 2;
+        ev.push('🎁✨ 找到勇气礼物，团队勇气+2！');
       }
     }
     return ev;
@@ -165,10 +179,17 @@
   function move(g, x, y) {
     if (!legalMoves(g).some(t => t.x === x && t.y === y)) return false;
     const p = cur(g), cost = moveCost(g, x, y);
+    g.lastEvent = null;
     p.x = x; p.y = y; p.ap -= cost;
-    if (cost === 2) g.log.push('🌲 ' + p.emoji + ' 穿过森林，花了2步。');
+    const terrain = g.terrain.find(t => t.x === x && t.y === y);
+    if (terrain && terrain.type === 'forest') g.log.push('🌲 ' + p.emoji + ' 穿过森林，花了' + cost + '步。');
+    if (terrain && terrain.net && !terrain.cleared) {
+      terrain.cleared = true;
+      if (!shelter(g, '森林绳网')) event(g, '🕸️ ' + p.emoji + ' 多花1步拆掉了森林绳网，这里以后安全了。');
+    }
     g.log.push(...enterCell(g, p));
     checkWin(g);
+    autoBoost(g);
     if (g.status === 'playing' && p.ap === 0) endTurn(g);
     return true;
   }
@@ -179,6 +200,7 @@
     g.log.push(p.emoji + ' 把 ' + pet.emoji + ' 递给了 ' + m.emoji + '，好队友！');
     if (same(m, g.home)) g.log.push(...enterCell(g, m));
     checkWin(g);
+    autoBoost(g);
     return true;
   }
   function event(g, message) {
@@ -207,7 +229,7 @@
   function endTurn(g) {
     if (g.status !== 'playing') return false;
     g.lastEvent = null;
-    let pendingNet = false;
+    g.players.forEach(p => { p.snared = false; });
     // 跳过也是真实的一手；有界于风暴期限，双方同时暂停也不会递归或卡住。
     while (g.status === 'playing') {
       g.turn++; g.storm++;
@@ -217,7 +239,6 @@
         return true;
       }
       if (g.cfg.SCARE_EVERY > 0 && g.turn % g.cfg.SCARE_EVERY === 0) scare(g);
-      if (g.cfg.NET_EVERY > 0 && g.turn % g.cfg.NET_EVERY === 0 && !shelter(g, '绳网')) pendingNet = true;
       g.current = 1 - g.current;
       const p = cur(g);
       p.boosted = false; p.supported = false; p.snared = false;
@@ -226,9 +247,8 @@
         event(g, '💫 ' + p.emoji + p.name + ' 被炸弹逗晕了，暂停这一回合；暴风雨继续靠近。');
         continue;
       }
-      p.snared = pendingNet;
-      p.ap = Math.max(1, p.moves - (p.snared ? 1 : 0));
-      if (p.snared) event(g, '🕸️ 绳网落下！' + p.emoji + ' 这回合少1步，下回合恢复。');
+      p.ap = p.moves;
+      autoBoost(g);
       return true;
     }
     return true;
