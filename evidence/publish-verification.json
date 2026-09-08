@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-09-08T17:51:47.251005+10:00",
+  "repository": "https://github.com/sydneygemstone-sudo/student-works",
+  "commit": "fd61995a87b11f0bd0ae2eb023beac014b120afc",
+  "play_url": "https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/",
+  "local_browser_full_game": {
+    "seed": 12,
+    "method": "read rendered board and use legal UI button clicks; no internal game state or win hooks",
+    "actions": 71,
+    "rescued": 8,
+    "remaining_storm_turns": 5,
+    "result": "win",
+    "actor_net_residue": false,
+    "strategy": "visible nets avoided during full game; net traversal already covered in previous focused browser run"
+  },
+  "publication_tests": {
+    "passed": 20,
+    "failed": 0,
+    "no_net_route_seeds": 200
+  },
+  "pages_status": "built",
+  "source_hashes": {
+    "index.html": "5e098398881b92391323e717faf6842c7f5069e29e4f1f586ce81d89cb99e192",
+    "game-core.js": "591172406673b5dd07281b5885d942580b6e6e371806cba484ed4a94cc1feb41"
+  },
+  "budget": {
+    "new_subagents": 0,
+    "actual_tokens": null,
+    "actual_usd": null
+  },
+  "pages_build_commit": "fd61995a87b11f0bd0ae2eb023beac014b120afc",
+  "verified_at": "2026-09-08T17:54:01.267115+10:00",
+  "public_http": {
+    "index_status": 200,
+    "core_status": 200,
+    "both_exactly_match_local_source": true
+  },
+  "public_browser": {
+    "opened_official_url": true,
+    "started_game": true,
+    "visible_forest_nets": 2,
+    "automatic_courage_status_present": true,
+    "legal_movement_confirmed": "bear from row4 col4 with 2 steps to row3 col4 with 1 step",
+    "versioned_script_loaded": "game-core.js?v=20260908-r2",
+    "handoff": "Official public start screen left open and marked deliverable"
+  }
+}
