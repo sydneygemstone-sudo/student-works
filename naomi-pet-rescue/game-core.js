@@ -1,24 +1,28 @@
-/* 小动物回家 —— 纯游戏逻辑（浏览器挂 window.PetRescue，node 下 module.exports）
-   难度常量全部在 CONFIG 里，调数字不动规则。 */
+/* 小动物回家 —— 纯游戏逻辑（浏览器挂 window.PetRescue，node 下 module.exports） */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.PetRescue = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   const CONFIG = {
-    GRID: 7,          // 棋盘边长（奇数，家在正中）
-    PETS: 8,          // 走丢的小动物数量
-    STORM_STEPS: 28,  // 暴风雨到达前的总手数（两人合计）——主要控制时长与难度；启发式模拟中位 22 手、胜率约 96%
-    SCARE_EVERY: 4,   // 每隔几手，有一只小动物受惊跑走一格
-    BEAR: { moves: 2, carry: 2 }, // 小熊：慢但能抱两只
-    BUNNY: { moves: 3, carry: 1 }, // 小兔：快但只能抱一只
+    GRID: 7, PETS: 8, STORM_STEPS: 28, SCARE_EVERY: 4, NETS: 2,
+    ROCKS: 4, FORESTS: 5, GIFTS: 3,
+    BEAR: { moves: 2, carry: 2 }, BUNNY: { moves: 3, carry: 1 },
   };
-
   const PET_POOL = [
     { emoji: '🐱', name: '小猫' }, { emoji: '🐶', name: '小狗' }, { emoji: '🐹', name: '小仓鼠' },
     { emoji: '🐥', name: '小鸡' }, { emoji: '🐢', name: '小乌龟' }, { emoji: '🐰', name: '小兔宝宝' },
     { emoji: '🐷', name: '小猪' }, { emoji: '🦆', name: '小鸭' }, { emoji: '🐑', name: '小羊' },
     { emoji: '🐸', name: '小青蛙' },
   ];
+  const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  const cur = g => g.players[g.current];
+  const mate = g => g.players[1 - g.current];
+  const carried = (g, pid) => g.pets.filter(p => p.carriedBy === pid);
+  const inBounds = (g, x, y) => Number.isInteger(x) && Number.isInteger(y) && x >= 0 && y >= 0 && x < g.n && y < g.n;
+  const adjacent = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y) === 1;
+  const same = (a, b) => a.x === b.x && a.y === b.y;
+  const key = p => p.x + ',' + p.y;
+  const neighbors = p => DIRS.map(d => ({ x: p.x + d[0], y: p.y + d[1] }));
 
   function makeRng(seed) {
     let s = (seed >>> 0) || 123456789;
@@ -27,162 +31,276 @@
       return (s >>> 0) / 4294967296;
     };
   }
-
+  function shuffled(g, items) {
+    const result = items.slice();
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(g.rng() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+  function moveCost(g, x, y) {
+    if (!inBounds(g, x, y)) return Infinity;
+    const terrain = g.terrain.find(t => t.x === x && t.y === y);
+    return terrain ? (terrain.type === 'rock' ? Infinity : terrain.type === 'forest' ? 2 + (terrain.net && !terrain.cleared && !g.shield ? 1 : 0) : 1) : 1;
+  }
+  // 石头只在移除该格后，全部可行走格仍与家连通时落下。
+  function connected(g) {
+    const seen = new Set([key(g.home)]), queue = [g.home];
+    for (let i = 0; i < queue.length; i++) {
+      for (const t of neighbors(queue[i])) {
+        if (!Number.isFinite(moveCost(g, t.x, t.y)) || seen.has(key(t))) continue;
+        seen.add(key(t)); queue.push(t);
+      }
+    }
+    return seen.size === g.n * g.n - g.terrain.filter(t => t.type === 'rock').length;
+  }
   function newGame(opts) {
     opts = opts || {};
     const cfg = Object.assign({}, CONFIG, opts.config || {});
-    const rng = makeRng(opts.seed || Math.floor(Math.random() * 1e9));
+    cfg.BEAR = Object.assign({}, CONFIG.BEAR, cfg.BEAR);
+    cfg.BUNNY = Object.assign({}, CONFIG.BUNNY, cfg.BUNNY);
+    const seed = opts.seed == null ? Math.floor(Math.random() * 1e9) : opts.seed;
     const n = cfg.GRID, c = Math.floor(n / 2);
     const g = {
-      cfg, rng, n, home: { x: c, y: c },
-      players: [
-        { id: 0, key: 'BEAR', emoji: '🐻', role: '小熊', name: opts.names ? opts.names[0] : '玩家一', x: c, y: c, ap: cfg.BEAR.moves, moves: cfg.BEAR.moves, carry: cfg.BEAR.carry },
-        { id: 1, key: 'BUNNY', emoji: '🐰', role: '小兔', name: opts.names ? opts.names[1] : '玩家二', x: c, y: c, ap: cfg.BUNNY.moves, moves: cfg.BUNNY.moves, carry: cfg.BUNNY.carry },
-      ],
-      pets: [], current: 0, turn: 0, storm: 0, status: 'playing', log: [], lastEvent: null,
+      cfg, rng: makeRng(seed), n, home: { x: c, y: c },
+      players: ['BEAR', 'BUNNY'].map((role, i) => ({
+        id: i, key: role, emoji: i ? '🐰' : '🐻', role: i ? '小兔' : '小熊',
+        name: opts.names && opts.names[i] ? opts.names[i] : (i ? '玩家二' : '玩家一'),
+        x: c, y: c, ap: cfg[role].moves, moves: cfg[role].moves, carry: cfg[role].carry,
+        boosted: false, supported: false, skipTurns: 0, snared: false,
+      })),
+      pets: [], terrain: [], gifts: [], energy: 0, shield: 0,
+      current: 0, turn: 0, storm: 0, status: 'playing', log: [], lastEvent: null,
     };
-    const used = new Set([c + ',' + c]);
+    const cells = [];
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (x !== c || y !== c) cells.push({ x, y });
+    const distant = shuffled(g, cells.filter(t => Math.abs(t.x - c) + Math.abs(t.y - c) >= 2));
+    const nearby = shuffled(g, cells.filter(t => Math.abs(t.x - c) + Math.abs(t.y - c) < 2));
+    const spots = distant.concat(nearby);
+    if (cfg.PETS > spots.length) throw new RangeError('棋盘没有足够的位置安置小动物');
     for (let i = 0; i < cfg.PETS; i++) {
-      let x, y, tries = 0;
-      do {
-        x = Math.floor(rng() * n); y = Math.floor(rng() * n); tries++;
-      } while ((used.has(x + ',' + y) || Math.abs(x - c) + Math.abs(y - c) < 2) && tries < 500);
-      used.add(x + ',' + y);
       const p = PET_POOL[i % PET_POOL.length];
-      g.pets.push({ id: i, emoji: p.emoji, name: p.name, x, y, carriedBy: null, home: false });
+      g.pets.push({ id: i, emoji: p.emoji, name: p.name, ...spots[i], carriedBy: null, home: false });
     }
-    g.log.push('小动物们在花园里走丢啦！暴风雨快来了，一起把它们送回家吧。');
+    const occupied = new Set(g.pets.map(key));
+    for (const t of shuffled(g, cells.filter(t => !occupied.has(key(t))))) {
+      if (g.terrain.length >= cfg.ROCKS) break;
+      g.terrain.push({ ...t, type: 'rock' });
+      if (!connected(g)) g.terrain.pop();
+    }
+    const walkable = cells.filter(t => Number.isFinite(moveCost(g, t.x, t.y)));
+    for (const t of shuffled(g, walkable).slice(0, cfg.FORESTS)) g.terrain.push({ ...t, type: 'forest' });
+    const giftSpots = shuffled(g, walkable.filter(t => !occupied.has(key(t)))).slice(0, cfg.GIFTS);
+    const bomb = Math.floor(g.rng() * giftSpots.length);
+    g.gifts = giftSpots.map((t, i) => ({ id: i, ...t, opened: false, kind: i === bomb ? 'bomb' : 'energy' }));
+    // 绳网从开局即可看见。只放在可绕开的空森林，不封住任何救援目标。
+    let nets = 0;
+    for (const t of g.terrain.filter(t => t.type === 'forest' && !occupied.has(key(t)) && !g.gifts.some(gift => same(gift, t)))) {
+      if (nets >= cfg.NETS) break;
+      t.net = true; t.cleared = false;
+      const seen = new Set([key(g.home)]), queue = [g.home];
+      for (let i = 0; i < queue.length; i++) for (const next of neighbors(queue[i])) {
+        if (moveCost(g, next.x, next.y) > 2 || seen.has(key(next))) continue;
+        seen.add(key(next)); queue.push(next);
+      }
+      if (seen.size === n * n - g.terrain.filter(t => t.type === 'rock').length - nets - 1) nets++;
+      else { delete t.net; delete t.cleared; }
+    }
+    g.log.push('小动物们在花园里走丢啦！绕过石头、穿过森林，一起把它们送回家吧。');
     return g;
   }
-
-  const cur = g => g.players[g.current];
-  const mate = g => g.players[1 - g.current];
-  const carried = (g, pid) => g.pets.filter(p => p.carriedBy === pid);
-  const inBounds = (g, x, y) => x >= 0 && y >= 0 && x < g.n && y < g.n;
-  const adjacent = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y) === 1;
-  const same = (a, b) => a.x === b.x && a.y === b.y;
 
   function legalMoves(g) {
     if (g.status !== 'playing') return [];
     const p = cur(g);
-    if (p.ap <= 0) return [];
-    return [[1, 0], [-1, 0], [0, 1], [0, -1]]
-      .map(d => ({ x: p.x + d[0], y: p.y + d[1] }))
-      .filter(t => inBounds(g, t.x, t.y));
+    return neighbors(p).filter(t => moveCost(g, t.x, t.y) <= p.ap);
   }
-
   function canGive(g) {
     if (g.status !== 'playing') return false;
     const p = cur(g), m = mate(g);
-    if (!(same(p, m) || adjacent(p, m))) return false;
-    return carried(g, p.id).length > 0 && carried(g, m.id).length < m.carry;
+    return (same(p, m) || adjacent(p, m)) && carried(g, p.id).length > 0 && carried(g, m.id).length < m.carry;
   }
-
+  function canBoost(g) {
+    return g.status === 'playing' && g.energy >= 2 && !cur(g).boosted && cur(g).ap < cur(g).moves + 2;
+  }
+  function boost(g, automatic) {
+    if (!canBoost(g)) return false;
+    const p = cur(g);
+    g.energy -= 2; p.ap = Math.min(p.moves + 2, p.ap + 2); p.boosted = true;
+    event(g, '✨ ' + p.emoji + p.name + (automatic ? ' 自动使用' : ' 使用') + '2点勇气，这回合多走2步！');
+    return true;
+  }
+  function autoBoost(g) { if (canBoost(g)) boost(g, true); }
+  function canSupport(g) {
+    const p = cur(g);
+    return g.status === 'playing' && same(p, g.home) && p.ap >= 1 && !p.supported && g.shield < 2;
+  }
+  function support(g) {
+    if (!canSupport(g)) return false;
+    const p = cur(g);
+    p.ap--; p.supported = true; g.shield++;
+    g.log.push('🏡 ' + p.emoji + ' 花1步守护家园，庇护增加到' + g.shield + '层。');
+    if (p.ap === 0) endTurn(g);
+    return true;
+  }
   function enterCell(g, p) {
     const ev = [];
     if (same(p, g.home)) {
-      const c = carried(g, p.id);
-      c.forEach(pet => { pet.carriedBy = null; pet.home = true; pet.x = g.home.x; pet.y = g.home.y; });
-      if (c.length) ev.push(p.emoji + ' 把 ' + c.map(x => x.emoji).join('') + ' 送回家啦！');
+      const saved = carried(g, p.id);
+      saved.forEach(pet => { pet.carriedBy = null; pet.home = true; pet.x = g.home.x; pet.y = g.home.y; });
+      if (saved.length) {
+        g.energy += saved.length * 2;
+        ev.push(p.emoji + ' 把 ' + saved.map(x => x.emoji).join('') + ' 送回家啦！每只带来2点勇气，多余勇气留给后面的回合。');
+      }
     } else {
-      const here = g.pets.filter(pet => !pet.home && pet.carriedBy === null && pet.x === p.x && pet.y === p.y);
-      for (const pet of here) {
+      for (const pet of g.pets.filter(pet => !pet.home && pet.carriedBy === null && same(pet, p))) {
         if (carried(g, p.id).length >= p.carry) { ev.push(p.emoji + ' 抱不下更多了，' + pet.emoji + ' 还在这里等着'); break; }
         pet.carriedBy = p.id;
         ev.push(p.emoji + ' 抱起了 ' + pet.emoji + pet.name);
       }
     }
+    const gift = g.gifts.find(t => !t.opened && same(t, p));
+    if (gift) {
+      gift.opened = true;
+      if (gift.kind === 'bomb') {
+        p.skipTurns = Math.max(p.skipTurns, 1);
+        ev.push('🎁💥 是恶作剧炸弹！' + p.emoji + ' 下次暂停一回合，小动物们都安全。');
+      } else {
+        g.energy += 2;
+        ev.push('🎁✨ 找到勇气礼物，团队勇气+2！');
+      }
+    }
     return ev;
   }
-
+  function checkWin(g) {
+    if (g.status === 'playing' && g.pets.every(p => p.home)) { g.status = 'win'; g.log.push('🎉 全部小动物都回家啦！'); }
+  }
   function move(g, x, y) {
     if (!legalMoves(g).some(t => t.x === x && t.y === y)) return false;
-    const p = cur(g);
-    p.x = x; p.y = y; p.ap -= 1;
+    const p = cur(g), cost = moveCost(g, x, y);
+    g.lastEvent = null;
+    p.x = x; p.y = y; p.ap -= cost;
+    const terrain = g.terrain.find(t => t.x === x && t.y === y);
+    if (terrain && terrain.type === 'forest') g.log.push('🌲 ' + p.emoji + ' 穿过森林，花了' + cost + '步。');
+    if (terrain && terrain.net && !terrain.cleared) {
+      terrain.cleared = true;
+      if (!shelter(g, '森林绳网')) event(g, '🕸️ ' + p.emoji + ' 多花1步拆掉了森林绳网，这里以后安全了。');
+    }
     g.log.push(...enterCell(g, p));
     checkWin(g);
+    autoBoost(g);
     if (g.status === 'playing' && p.ap === 0) endTurn(g);
     return true;
   }
-
   function give(g) {
     if (!canGive(g)) return false;
-    const p = cur(g), m = mate(g);
-    const pet = carried(g, p.id)[0];
+    const p = cur(g), m = mate(g), pet = carried(g, p.id)[0];
     pet.carriedBy = m.id;
     g.log.push(p.emoji + ' 把 ' + pet.emoji + ' 递给了 ' + m.emoji + '，好队友！');
+    if (same(m, g.home)) g.log.push(...enterCell(g, m));
+    checkWin(g);
+    autoBoost(g);
     return true;
   }
-
-  function checkWin(g) {
-    if (g.pets.every(p => p.home)) { g.status = 'win'; g.log.push('🎉 全部小动物都回家啦！'); }
+  function event(g, message) {
+    g.lastEvent = g.lastEvent ? g.lastEvent + ' ' + message : message;
+    g.log.push(message);
   }
-
+  function shelter(g, hazard) {
+    if (g.shield <= 0) return false;
+    g.shield--;
+    event(g, '🛡️ 家园庇护挡住了' + hazard + '，还剩' + g.shield + '层。');
+    return true;
+  }
   function scare(g) {
+    if (shelter(g, '雷雨')) return;
     const loose = g.pets.filter(p => !p.home && p.carriedBy === null);
-    if (!loose.length) return;
+    if (!loose.length) { event(g, '⚡ 打雷了！被抱着和在家的小动物都很安全。'); return; }
     const pet = loose[Math.floor(g.rng() * loose.length)];
-    const opts = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-      .map(d => ({ x: pet.x + d[0], y: pet.y + d[1] }))
-      .filter(t => inBounds(g, t.x, t.y) && !same(t, g.home));
+    const opts = neighbors(pet).filter(t => Number.isFinite(moveCost(g, t.x, t.y)) && !same(t, g.home));
     if (!opts.length) return;
     const t = opts[Math.floor(g.rng() * opts.length)];
     pet.x = t.x; pet.y = t.y;
-    g.lastEvent = '⚡ 打雷了！' + pet.emoji + pet.name + ' 吓得跑了一格';
-    g.log.push(g.lastEvent);
+    event(g, '⚡ 打雷了！' + pet.emoji + pet.name + ' 吓得跑了一格');
+    // 受惊后跑进队友所在格，也由该队友立即接住。
+    for (const player of g.players) if (same(player, pet)) g.log.push(...enterCell(g, player));
   }
-
   function endTurn(g) {
     if (g.status !== 'playing') return false;
-    g.turn += 1;
-    g.storm += 1;
     g.lastEvent = null;
-    if (g.storm >= g.cfg.STORM_STEPS) {
-      g.status = 'lose';
-      g.log.push('🌧️ 暴风雨来了……还有 ' + g.pets.filter(p => !p.home).length + ' 只小动物没回家');
+    g.players.forEach(p => { p.snared = false; });
+    // 跳过也是真实的一手；有界于风暴期限，双方同时暂停也不会递归或卡住。
+    while (g.status === 'playing') {
+      g.turn++; g.storm++;
+      if (g.storm >= g.cfg.STORM_STEPS) {
+        g.status = 'lose';
+        event(g, '🌧️ 暴风雨来了……还有 ' + g.pets.filter(p => !p.home).length + ' 只小动物没回家');
+        return true;
+      }
+      if (g.cfg.SCARE_EVERY > 0 && g.turn % g.cfg.SCARE_EVERY === 0) scare(g);
+      g.current = 1 - g.current;
+      const p = cur(g);
+      p.boosted = false; p.supported = false; p.snared = false;
+      if (p.skipTurns > 0) {
+        p.skipTurns--; p.ap = 0;
+        event(g, '💫 ' + p.emoji + p.name + ' 被炸弹逗晕了，暂停这一回合；暴风雨继续靠近。');
+        continue;
+      }
+      p.ap = p.moves;
+      autoBoost(g);
       return true;
     }
-    if (g.turn % g.cfg.SCARE_EVERY === 0) scare(g);
-    g.current = 1 - g.current;
-    const p = cur(g);
-    p.ap = p.moves;
     return true;
   }
 
-  // 合理但不完美的启发式：抱满或没剩余就回家，否则去最近的小动物；不会用递宠物
-  function stepToward(g, p, target) {
-    const opts = legalMoves(g);
-    if (!opts.length) return null;
-    let best = null, bd = Infinity;
-    for (const t of opts) {
-      const d = Math.abs(t.x - target.x) + Math.abs(t.y - target.y);
-      if (d < bd || (d === bd && g.rng() < 0.5)) { bd = d; best = t; }
+  // 小棋盘 Dijkstra：森林用2步、石头不能穿过；保留seed可复现。
+  function pathsFrom(g, p) {
+    const dist = new Map([[key(p), 0]]), first = new Map(), done = new Set();
+    while (true) {
+      let cell = null, best = Infinity;
+      for (const [k, d] of dist) if (!done.has(k) && d < best) { best = d; cell = k; }
+      if (cell === null) break;
+      done.add(cell);
+      const [x, y] = cell.split(',').map(Number);
+      for (const t of neighbors({ x, y })) {
+        const d = best + moveCost(g, t.x, t.y), k = key(t);
+        if (d < (dist.has(k) ? dist.get(k) : Infinity)) {
+          dist.set(k, d); first.set(k, cell === key(p) ? t : first.get(cell));
+        }
+      }
     }
-    return best;
+    return { dist, first };
   }
-
   function heuristicTurn(g) {
-    const p = cur(g);
+    if (g.status !== 'playing') return;
+    const p = cur(g), started = g.turn;
     let guard = 0;
-    while (g.status === 'playing' && cur(g) === p && p.ap > 0 && guard++ < 20) {
+    while (g.status === 'playing' && g.turn === started && p.ap > 0 && guard++ < 20) {
       const mine = carried(g, p.id).length;
       const loose = g.pets.filter(x => !x.home && x.carriedBy === null);
-      let target;
-      if (mine >= p.carry || (mine > 0 && !loose.length)) target = g.home;
-      else if (loose.length) {
-        target = loose.reduce((a, b) => (Math.abs(b.x - p.x) + Math.abs(b.y - p.y) < Math.abs(a.x - p.x) + Math.abs(a.y - p.y) ? b : a));
-      } else target = g.home;
-      const t = stepToward(g, p, target);
-      if (!t) break;
+      const paths = pathsFrom(g, p), distance = t => paths.dist.get(key(t)) ?? Infinity;
+      let target = g.home;
+      if (mine < p.carry && loose.length) {
+        target = loose.reduce((a, b) => distance(b) < distance(a) ? b : a);
+        if (mine > 0 && distance(g.home) <= distance(target) + 1) target = g.home;
+      }
+      if (same(p, target)) {
+        if (mine || loose.some(t => same(t, p))) { g.log.push(...enterCell(g, p)); checkWin(g); }
+        else if (canSupport(g)) support(g);
+        break;
+      }
+      if (canBoost(g) && distance(target) > p.ap) boost(g);
+      const t = paths.first.get(key(target));
+      if (!t || moveCost(g, t.x, t.y) > p.ap) break;
       move(g, t.x, t.y);
     }
-    if (g.status === 'playing' && cur(g) === p) endTurn(g);
+    if (g.status === 'playing' && g.turn === started) endTurn(g);
   }
-
   function simulate(games, config, seed) {
     let wins = 0; const turns = [];
     for (let i = 0; i < games; i++) {
-      const g = newGame({ seed: (seed || 1) + i, config });
+      const g = newGame({ seed: (seed == null ? 1 : seed) + i, config });
       let guard = 0;
       while (g.status === 'playing' && guard++ < 500) heuristicTurn(g);
       if (g.status === 'win') wins++;
@@ -190,8 +308,8 @@
     }
     turns.sort((a, b) => a - b);
     const q = f => turns[Math.min(turns.length - 1, Math.floor(f * turns.length))];
-    return { games, winRate: wins / games, turnsMedian: q(0.5), turnsP25: q(0.25), turnsP75: q(0.75), turnsMin: turns[0], turnsMax: turns[turns.length - 1] };
+    return { games, winRate: games ? wins / games : 0, turnsMedian: q(0.5), turnsP25: q(0.25), turnsP75: q(0.75), turnsMin: turns[0], turnsMax: turns[turns.length - 1] };
   }
-
-  return { CONFIG, newGame, legalMoves, canGive, move, give, endTurn, heuristicTurn, simulate, cur, mate, carried };
+  return { CONFIG, newGame, legalMoves, moveCost, canGive, canBoost, boost, canSupport, support,
+    move, give, endTurn, heuristicTurn, simulate, cur, mate, carried };
 });
