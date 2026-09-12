@@ -2,7 +2,17 @@
 
 作品 / Project: Beast Kings · Nathan & Leo · cooperation. 日期 / Date: 2026-09-12. 教师 / Teacher: Dean. AI: Astra.
 
-## 最新：使魔选角与公开归档 / Latest: Familiar roster and public archive
+## 最新：Legends 3.0 · 原使魔与不同招式 / Latest: Original Familiars and distinct moves
+
+Dean 指出使魔不像原形、招式相同，并授权串行升级与新增约 35 USD 参考额度。Astra 从原使魔模型渲染 Fluffy 和壬子·水鼠的 2D 动作图集；重绘其他五种轮廓与三个场景；实现 42 个角色招式定义及实际不同的弹道、范围、延迟、控制、护盾、回复与双兽补刀。选角页提供招式说明，战斗按钮显示当前招数，修复快速轻点漏招。
+
+Dean reported inaccurate Familiar shapes and repetitive moves, authorizing serial work and an additional approximately US$35 reference ceiling. Astra rendered 2D pose atlases from the original Fluffy and Water Rat rigs, redrew five other silhouettes and three arenas, and implemented 42 character move definitions with distinct projectiles, reach, delays, control, shields, healing and paired follow-ups. The roster explains moves, combat buttons name them, and quick taps are buffered.
+
+33 项引擎／服务器／战斗检查通过；三档案通过 Tailscale HTTPS 同步新特效、暂停重玩、双指操作和离线素材／收益保存。十项双语测评表的保存、历史、导出、离线流程通过。真实 iPad 与孩子验收待进行；全部新伤害与冷却为 Astra 默认平衡值。详见 [Legends 日志及测评重点](LEGENDS.zh-en.md) 与 [本轮预算](LEGENDS-USAGE.json)。
+
+Thirty-three engine/server/combat checks passed. Three browser profiles through Tailscale HTTPS verified new effect synchronization, pause/rematch, multitouch and offline atlases/earnings. The ten-check bilingual review passed saving, history, export and offline flows. Physical iPad and child acceptance remain pending; balance values are Astra's defaults. See [the Legends notes](LEGENDS.zh-en.md) and [this pass's usage](LEGENDS-USAGE.json).
+
+## 之前：使魔选角与公开归档 / Earlier: Familiar roster and public archive
 
 Dean 确认可读取今天建立的 AI Familiar 角色，并批准上传到公开 `student-works` 独立游戏目录。核对后新增 Leo 的火龙 Fluffy、Nathan 的壬子·水鼠，共七种选角。两位均支持练习、任务、联机、存档和进化；新增外观是轻量 2D 改编。账号、对话、凭证与钱包不随游戏复制。20 项引擎/服务器检查、两档案的选角/保存/技能/联机同步检查通过，实体 iPad 验收待进行。旧的“Fluffy 等待参考”记录现已被本段取代。
 

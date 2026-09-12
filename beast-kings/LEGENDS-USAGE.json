@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "pass": "Legends 3.0 serial visual and combat upgrade",
+  "baseline_at": "2026-09-12T12:18:05.705Z",
+  "snapshot_at": "2026-09-12T13:01:36.869Z",
+  "additional_budget_usd": 35,
+  "standard_api_reference_usd": 12.4172,
+  "requests": 52,
+  "tokens": {
+    "input_tokens": 6982314,
+    "cached_input_tokens": 6716928,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 60928,
+    "reasoning_output_tokens": 11734,
+    "total_tokens": 7043242
+  },
+  "all_game_standard_api_reference_usd": 52.5243,
+  "actual_billed_usd": null,
+  "rate_source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+  "account_weekly_used_percent_last_observed": 3,
+  "notes": [
+    "Approximate Standard API text-token equivalent, not an actual Codex subscription charge.",
+    "The budget is a ceiling, not a spending target. No new subagents or paid image generation were used in this pass.",
+    "The closing snapshot excludes subsequent publication and final-response calls.",
+    "Weekly usage is account-wide, rounded, and not attributable solely to this task."
+  ],
+  "budget_used_percent": 35.4777,
+  "reference_remaining_usd": 22.5828
+}

@@ -1,0 +1,29 @@
+{
+  "results": [
+    "Three independent profiles join and retain all three species",
+    "Bubble projectiles, dragon breath and Volt afterimages synchronize to other clients",
+    "Shared pause freezes new combat state; rematch clears all projectiles and zones",
+    "Real two-pointer touch dispatch moves and flies together, then releases cleanly",
+    "Offline reload retains both atlases, resolves practice reward and persists earned gems",
+    "1024×768, 768×1024 and 1180×820 layouts: no horizontal overflow, all controls ≥44px",
+    "Rendered all seven power/signature pairs using actual combat state"
+  ],
+  "errors": [],
+  "desktopHeadlessFps": [
+    44,
+    60,
+    60,
+    60
+  ],
+  "atlasBounds": {
+    "water-rat": {
+      "minY": 79,
+      "maxY": 313
+    },
+    "fluffy": {
+      "minY": 21,
+      "maxY": 314
+    }
+  },
+  "physicalIPadTested": false
+}

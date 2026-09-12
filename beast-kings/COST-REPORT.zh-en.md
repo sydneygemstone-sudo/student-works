@@ -1,5 +1,13 @@
 # 预算与用量核算 / Budget and usage report
 
+<!-- LEGENDS COST START -->
+**Legends 本轮快照 / This pass: 2026-09-12T13:01:36.869Z** — 新增约 **12.42 USD**，占本轮 35 USD 参考上限 **35.5%**，参考余量 **22.58 USD**。累计各轮约 **52.52 USD**。52 次已记录请求，7,043,242 tokens（输入含缓存）。这不是实际订阅账单；之后收尾不含在固定快照内。[数据](LEGENDS-USAGE.json)
+
+**Legends pass:** approximately **US# 预算与用量核算 / Budget and usage report
+
+2.42** in Standard API-equivalent usage, **35.5% of the US$35 ceiling**, leaving approximately **US$22.58** on that reference basis. All-game equivalent: **US$52.52**. This is not actual subscription billing and excludes later wrap-up calls. Last account-wide weekly display: 3% used, 97% remaining; this cannot be assigned entirely to this game. [Data](LEGENDS-USAGE.json)
+<!-- LEGENDS COST END -->
+
 **最新快照 / Latest snapshot — 2026-09-12 19:57 China time:** 当前游戏及构建助手共 182 次已记录请求、19,271,003 tokens，标准 API 文本参考合计 **35.2535 USD（约 35.25 USD / 49.15 AUD）**。包括此前归档和截至快照的使魔接入；不包含此后的发布收尾。真实额外扣款未取得账单，不能把参考金额当作已付款。此快照取代下面较早的合计。[可复核数据 / Data](CURRENT-USAGE-SNAPSHOT.json)
 
 The latest snapshot covers 182 recorded requests and 19,271,003 tokens across this task and its build assistant: **$35.2535 Standard API text-token equivalent**, approximately **A$49.15** at the RBA 2026-09-11 rate. It includes archival and Familiar work through the snapshot, excluding later publication calls. Actual incremental billing is unavailable; this is not money paid. Earlier totals below remain historical checkpoints. [RBA](https://www.rba.gov.au/statistics/frequency/exchange-rates.html)

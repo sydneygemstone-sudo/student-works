@@ -1,42 +1,43 @@
-# Beast Kings · Nathan & Leo
+# Beast Kings · Legends / 兽王传奇
 
-2D 野兽格斗合作作品 / A cooperative creation: a 2D beast fighting game.
+Nathan 与 Leo 的 2D 合作格斗作品。 / A 2D fighting game created with Nathan and Leo.
 
-[单人试玩 / Solo preview](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-evolved/) · [结构化测评 / Structured review](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-evolved/review.html)
+[单人试玩 / Solo play](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-legends/) · [双语测评 / Bilingual review](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-legends/review.html)
 
-可选七种角色，包括 Leo 的火龙 Fluffy 和 Nathan 的壬子·水鼠。支持飞行、俯冲、瞬移、格挡、技能、练习任务、宝石升级、科技装备与进化。角色图像为轻量 2D 改编；游戏与 AI Familiar 账号成长独立。
+![七种角色 / Seven guardians](qa/legends-lineup.png)
 
-Seven selectable characters include Leo's Fluffy fire dragon and Nathan's Water Rat. Fly, swoop, blink, block, use specials, complete practice/quests, and earn gems for gear and evolution. Artwork is a lightweight 2D adaptation; progression is independent of AI Familiar accounts.
+七种可选角色，包括使用原 AI Familiar 造型的 Fluffy 与壬子·水鼠。42 个角色招式定义带来不同的弹道、陷阱、位移、控制、护盾、回血、龙息和双兽合击。三个场景、练习与 AI 任务、宝石装备升级、进化、离线练习收益与三人联机。
 
-## 联机 / Multiplayer
+Seven selectable guardians include the original AI Familiar shapes for Fluffy and Water Rat. Forty-two character move definitions provide distinct projectiles, traps, escapes, control, shields, healing, dragon breath and paired combos. Three arenas, practice and AI quests, earned equipment/upgrades, evolution, offline earnings and three-player multiplayer.
 
-GitHub Pages 只能提供单人试玩。两至三人联机由家庭电脑运行 Node 服务，所有设备通过自己的 Tailscale 游戏地址进入。示例地址仅为占位；没有公开家庭网络地址。
+## 开始 / Start
 
-GitHub Pages serves the solo preview. For two-to-three-player multiplayer, run the Node server on your computer and open its shared Tailscale address on every device. Addresses in this archive are placeholders.
+GitHub Pages 提供单人模式。联机请在电脑运行服务，所有设备打开自己的 Tailscale HTTPS 地址。
+
+GitHub Pages supports solo play. For multiplayer, run the server on a computer and open its Tailscale HTTPS address on every device.
 
 ```sh
-cd builds/astra-evolved
+cd builds/astra-legends
 npm ci
 npm start
 ```
 
-The local game opens at http://localhost:8765. For HTTPS/offline installation, configure your own Tailscale Serve route to this port. Keep the host online for multiplayer. Saves are local to the device/browser/address; switching from the private host to this preview creates a separate save.
+Local default: http://localhost:8765. Configure your Tailscale Serve HTTPS route to that port. Keep the host running for multiplayer. Published addresses are placeholders; this archive does not expose the family's network. Saves stay in the same browser/origin. GitHub Pages and your private server have separate saves. After the HTTPS page finishes caching, solo play can reopen offline, including both Familiar atlases.
 
-离线收益来自实际完成练习和任务，没有挂机收入、付费购买或真实货币奖励。 / Offline earnings come from completed play, with no idle income, purchases or real-money rewards.
+收益来自实际练习与任务，无挂机收益或真钱商店。游戏存档独立于 AI Familiar 账号；没有公开账户、聊天或钱包数据。
 
-## 日志与下次迭代 / Logs and next iteration
+Earnings come from completed practice/quests, with no idle income or real-money shop. Game saves remain separate from AI Familiar accounts. No account records, conversations or wallets are published.
 
-- [双语开发日志 / Bilingual development log](CHANGELOG.zh-en.md)
-- [已用预算口径 / Cost reconciliation](COST-REPORT.zh-en.md)
-- [100 AUD 与周额度 / Next-budget analysis](BUDGET-NEXT.zh-en.md)
-- [使魔角色说明 / Familiar characters](FAMILIARS.zh-en.md)
-- [结构化测评模板 / Playtest template](PLAYTEST.zh-en.md)
-- [工程验证及限制 / Engineering checks and limits](QA-EVOLVED.md)
+## 日志、验证与下一轮 / Logs, checks and next round
 
-下次先玩一轮，再填测评：设备和网络、九项通过/失败/未测、一个问题的复现步骤、预期与实际、优先级、老师验收决定。表单自动保存在设备，可导出 Markdown/JSON，不会自动上传。没有代填孩子评价。
+- [本次画面与招式 / Legends art and move log](LEGENDS.zh-en.md)
+- [历次双语日志 / Bilingual changelog](CHANGELOG.zh-en.md)
+- [预算参考 / Usage reference](COST-REPORT.zh-en.md)
+- [使魔来源 / Familiar reference](FAMILIARS.zh-en.md)
+- [测评模板 / Review template](PLAYTEST.zh-en.md)
 
-Play one round, then record devices/network, nine pass/fail/untested checks, one issue with reproduction steps and expected/actual behavior, priority and teacher acceptance. The form saves locally and exports Markdown/JSON without automatic upload. Child feedback is never prefilled.
+33 engine/server/combat checks passed, including all 42 moves, plus three-profile browser synchronization, simulated multitouch, offline atlases/rewards and review-form checks. Physical iPad smoothness, real remote latency and child/teacher acceptance are still pending. Run `npm test` in the Legends build. This is a classroom iteration, with initial balance values awaiting a real round.
 
-20 engine/server checks, two-profile Familiar browser checks and seven review-form checks passed. Physical iPad acceptance remains pending. Run engine checks with `node --test server-tests.js` inside the evolved build.
+下次从大厅打开测评表：十项默认未测检查、一个问题、复现步骤和老师决定；草稿与历史保存在设备，可导出 Markdown/JSON。 / Start the next session with the lobby review: ten untested checks, one issue, reproduction steps and teacher decision. Drafts/history save on-device and export as Markdown/JSON.
 
-Original `builds/astra` and `builds/antigravity` sources are preserved for comparison. Dependencies, runtime logs, account data, private host addresses and raw classroom/session recordings are excluded.
+Earlier published builds are retained for comparison. Dependencies, local sessions, secrets and private classroom records are excluded.

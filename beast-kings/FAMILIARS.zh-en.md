@@ -1,22 +1,16 @@
 # AI 使魔角色 / AI Familiar characters
 
-2026-09-12 · Dean 授权参照当天 AI Familiar 账号。Astra 只读核对当前运行项目的角色名称、物种和元素。
+2026-09-12 · Dean 授权只读参照当天 AI Familiar 角色与造型。 / Dean authorized read-only reference to today's AI Familiar characters and appearances.
 
-Dean authorized referencing today's AI Familiar accounts. Astra checked character names, species and elements in the active project's data using read-only access.
-
-| 玩家 / Player | 使魔 / Familiar | 物种、元素 / Species and element | 游戏角色 / Game ID |
-|---|---|---|---|
+| 玩家 / Player | 使魔 / Familiar | 物种、元素 / Species and element | 游戏 ID |
+| --- | --- | --- | --- |
 | Leo | Fluffy · 丙辰·火龙 | 龙、火 / Dragon, fire | `fluffy` |
 | Nathan | 壬子·水鼠 / Water Rat | 鼠、水 / Rat, water | `water-rat` |
 
-两位均可在 Beasts 选角页选择，参加练习、任务和联机。外观是 Astra 为本游戏绘制的轻量 2D 改编；不是 AI Familiar 原始三维模型。火龙沿用火焰爆发平衡，水鼠沿用冰霜控制平衡；细节为 AI 实现默认值，等待试玩反馈。
+两位均可在 Beasts 选角页选择，参加练习、任务和联机。Legends 3.0 使用原始 AI Familiar 造型预渲染的 2D 动作图集；Fluffy 保留鹿角、圆身、短爪和心形魂石，水鼠保留圆耳、蓝色圆身和蓝色魂石。Fluffy 使用火焰龙息与俯冲，水鼠使用护盾、水流和泡泡控制。详见 [画面与招式升级](LEGENDS.zh-en.md)。
 
-Both can be selected in Beasts and used in practice, quests and multiplayer. Artwork is a lightweight 2D adaptation created for this game, not the original AI Familiar 3D model. The dragon uses the existing fire-burst balance; the rat uses the existing frost-control balance. These are implementation defaults awaiting playtest feedback.
+Both are selectable for practice, quests and multiplayer. Legends 3.0 uses 2D pose atlases rendered from the original AI Familiar rigs: Fluffy's antlers, round body, short paws and heart; Water Rat's round ears, blue body and soulstone. Fluffy uses fire breath and sky dives; Water Rat uses shields, jets and bubble control. See [the Legends update](LEGENDS.zh-en.md).
 
-本次不是账号联通：没有复制登录凭证、召唤口令、聊天、声音、生辰信息或钱包。游戏成长保存在游戏浏览器档案内，不会更改使魔账户。
+游戏档案与 AI Familiar 账号独立。没有复制凭证、召唤口令、对话、声音、生辰信息或钱包。仅引用角色名称、物种、元素与造型。实体 iPad 验收仍待进行。
 
-This is character inclusion, not account federation. No credentials, summon phrases, conversations, voices, birth information or wallets were copied. Game progression remains in this game's browser profile and does not change Familiar accounts.
-
-验证：20 项引擎/服务器检查通过；两个独立浏览器档案通过选角、刷新保存、练习、技能及双方联机角色/移动同步检查。实体 iPad 测试仍待验收。
-
-Validation: 20 engine/server checks passed, plus two independent browser profiles covering selection, persistence, practice, specials and multiplayer identity/movement synchronization. Physical iPad acceptance remains pending.
+Game progression stays separate from AI Familiar accounts. No credentials, summon phrases, conversations, voices, birth information or wallets were copied. Only names, species, elements and appearance were referenced. Physical iPad acceptance remains pending.
