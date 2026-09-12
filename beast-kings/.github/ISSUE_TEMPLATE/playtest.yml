@@ -1,0 +1,42 @@
+name: 试玩问题 / Playtest issue
+description: 一次记录一个可复现问题 / One reproducible issue at a time
+title: "[Playtest] "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: 版本、设备与网络 / Version, device and network
+      placeholder: Evolve 2.0, iPadOS, Safari, Tailscale, 2 players
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 操作步骤与复现次数 / Steps and frequency
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 期望与实际 / Expected and observed
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据与玩家原话 / Evidence and player feedback
+      description: 不确定的发言归属请标注 / Mark uncertain speaker attribution.
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 优先级 / Priority
+      options:
+        - 待讨论 / Discuss
+        - P0 无法玩 / Cannot play
+        - P1 主要玩法受损 / Core play impaired
+        - P2 体验改进 / Polish
+  - type: textarea
+    id: retest
+    attributes:
+      label: 复测标准与老师确认 / Retest criterion and teacher decision
+      description: 未验收请写待验收，不要默认通过 / Use Pending until actually accepted.

@@ -1,0 +1,13 @@
+{
+  "results": [
+    "Two browsers join distinct beasts",
+    "Simultaneous touch move and flight; cancellation releases input",
+    "Both browsers see teacher pause",
+    "Refresh rejoins same beast and preserves recoverable pause",
+    "Crown Hunt starts from visible controls on both browsers",
+    "All action buttons fit 1024 by 768 landscape",
+    "Portrait rotate hint visible",
+    "No browser JavaScript errors"
+  ],
+  "errors": []
+}

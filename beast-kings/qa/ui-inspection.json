@@ -1,0 +1,212 @@
+{
+  "ui": "♛\nBEAST KINGS\nNATHAN + LEO · ONE ARENA. TWO LEGENDS.\n● Not joined\nⅡ Pause\nLeave\nFROST\n100 HP\nICE GUARDIAN · 0 POWER\nDUEL\nROOM · BEASTS\nEMBER\n100 HP\nFIRE GUARDIAN · 0 POWER\nTHE SKY IS YOUR ARENA\nAwaken your beast.\n\nTwo players. Two iPads. One mighty showdown.\n\n⚔ Duel\nOpponent HP → 0\n♛ Crown Hunt\nDefeat 5 targets → King\nEnter the arena →\n\n◀ ▶ Move · Tap ↑ to jump, hold to fly\nPunch close · Kick farther · Spin all around\nBlink forward · Star fires your superpower\n\nOpen this address on both iPads. Stay on the same Wi-Fi.\n◀\nA\n▶\nD\n↑\nFLY\nSPACE\nJOIN TO PLAY\nFLIGHT ENERGY\nϟ\nBLINK\nL\n↻\nSPIN\nK\n✦\nSUPER\nU\n⌁\nKICK\nI\n✊\nPUNCH\nJ\nORIGINAL BEASTS · BIG POWERS · FRIENDLY RIVALRY\nAstra build / classroom prototype",
+  "controls": [
+    {
+      "tag": "BUTTON",
+      "id": "pause",
+      "text": "Ⅱ Pause",
+      "aria": null,
+      "box": {
+        "x": 1000.171875,
+        "y": 28.5,
+        "w": 77.125,
+        "h": 37
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "leave",
+      "text": "Leave",
+      "aria": null,
+      "box": {
+        "x": 1087.296875,
+        "y": 29,
+        "w": 64.703125,
+        "h": 36
+      }
+    },
+    {
+      "tag": "CANVAS",
+      "id": "canvas",
+      "text": "",
+      "aria": "Shared beast fighting arena",
+      "box": {
+        "x": 29,
+        "y": 174,
+        "w": 1122,
+        "h": 520
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "⚔ DuelOpponent HP → 0",
+      "aria": null,
+      "box": {
+        "x": 435.671875,
+        "y": 373.78125,
+        "w": 133.546875,
+        "h": 65
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "♛ Crown HuntDefeat 5 targets → King",
+      "aria": null,
+      "box": {
+        "x": 581.21875,
+        "y": 373.78125,
+        "w": 163.09375,
+        "h": 65
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "join",
+      "text": "Enter the arena →",
+      "aria": null,
+      "box": {
+        "x": 476.1875,
+        "y": 450.78125,
+        "w": 227.609375,
+        "h": 51
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "start",
+      "text": "Start round →",
+      "aria": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "resume",
+      "text": "Resume round →",
+      "aria": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "rematch",
+      "text": "New round ↻",
+      "aria": null,
+      "box": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "◀A",
+      "aria": "Move left",
+      "box": {
+        "x": 28,
+        "y": 713,
+        "w": 74,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "▶D",
+      "aria": "Move right",
+      "box": {
+        "x": 111,
+        "y": 713,
+        "w": 74,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "↑FLYSPACE",
+      "aria": "Jump and hold to fly",
+      "box": {
+        "x": 202,
+        "y": 713,
+        "w": 74,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "ϟBLINKL",
+      "aria": null,
+      "box": {
+        "x": 757,
+        "y": 713,
+        "w": 69,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "↻SPINK",
+      "aria": null,
+      "box": {
+        "x": 835,
+        "y": 713,
+        "w": 69,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "✦SUPERU",
+      "aria": null,
+      "box": {
+        "x": 913,
+        "y": 713,
+        "w": 69,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "⌁KICKI",
+      "aria": null,
+      "box": {
+        "x": 991,
+        "y": 713,
+        "w": 69,
+        "h": 76
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "text": "✊PUNCHJ",
+      "aria": null,
+      "box": {
+        "x": 1069,
+        "y": 713,
+        "w": 83,
+        "h": 76
+      }
+    }
+  ],
+  "errors": [
+    "Unexpected identifier '#overlay'"
+  ]
+}

@@ -113,3 +113,10 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 
 - `naomi-pet-rescue/index.html`
 - `victory-vs-alex-boxing/index.html`
+
+
+## Beast Kings - Nathan & Leo (2026-09-12)
+
+[Play / 单人试玩](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-evolved/) | [Source and bilingual logs / 源码及双语日志](beast-kings/) | [Playtest review / 试玩测评](https://sydneygemstone-sudo.github.io/student-works/beast-kings/builds/astra-evolved/review.html)
+
+Seven beasts including Fluffy and Water Rat, practice/quests, upgrades, and a structured review. Multiplayer uses your own computer-hosted Tailscale address; this public preview supports solo play.

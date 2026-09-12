@@ -1,0 +1,17 @@
+{
+  "rendering": {
+    "frames": 301,
+    "seconds": 5.0056999999940395,
+    "medianFrameMs": 16.699999999999818,
+    "p95FrameMs": 16.799999999999272,
+    "reportedFPS": 60,
+    "reducedEffects": true
+  },
+  "quest": {
+    "winner": "player",
+    "gems": 12,
+    "xp": 25,
+    "energy": 15,
+    "time": 4.849999999999988
+  }
+}

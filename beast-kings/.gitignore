@@ -1,0 +1,17 @@
+node_modules/
+*.log
+*.pid
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+.DS_Store
+Thumbs.db
+.local/
+dist/
+reviews/private/
+playwright-report/
+test-results/

@@ -1,0 +1,19 @@
+{
+  "as_of_utc": "2026-09-12T11:10:04.743Z",
+  "scope": "Current archiving and bilingual review-form turn, through the last completed usage record at this snapshot",
+  "input_tokens": 3146545,
+  "cached_input_tokens": 2969728,
+  "cache_write_input_tokens": 0,
+  "output_tokens": 21354,
+  "reasoning_output_tokens": 4515,
+  "total_tokens": 3167899,
+  "standard_api_reference_usd": 5.805598,
+  "prior_game_standard_api_reference_usd": 21.947132,
+  "combined_standard_api_reference_usd": 27.75273,
+  "actual_billed_usd": null,
+  "notes": [
+    "This is a fixed usage snapshot, not an invoice or a final bill.",
+    "Excludes remaining wrap-up after this snapshot, frontend voice, independent Antigravity, plan allocation, speed modifiers, tools and taxes.",
+    "Cached input and reasoning output are subsets, not extra tokens."
+  ]
+}

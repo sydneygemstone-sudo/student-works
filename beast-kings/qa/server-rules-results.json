@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Movement stays inside arena",
+    "passed": true
+  },
+  {
+    "name": "Paused movement and damage remain frozen",
+    "passed": true
+  },
+  {
+    "name": "Duel winner is final until rematch",
+    "passed": true
+  },
+  {
+    "name": "Simultaneous final hits produce a draw",
+    "passed": true
+  },
+  {
+    "name": "Held attack obeys cooldown",
+    "passed": true
+  },
+  {
+    "name": "Crown target gives one charge per defeat",
+    "passed": true
+  },
+  {
+    "name": "Five targets finish Crown Hunt",
+    "passed": true
+  },
+  {
+    "name": "Crown knockout has an observable respawn delay",
+    "passed": true
+  },
+  {
+    "name": "Flight is bounded and uses energy",
+    "passed": true
+  },
+  {
+    "name": "Teleport stays within the arena",
+    "passed": true
+  }
+]

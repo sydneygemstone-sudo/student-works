@@ -1,0 +1,1 @@
+{"name":"beast-kings-evolved","version":"2.0.0","private":true,"scripts":{"start":"node server.js","test":"node server-tests.js"},"dependencies":{"ws":"^8.18.0"}}

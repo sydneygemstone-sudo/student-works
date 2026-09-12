@@ -1,0 +1,12 @@
+{
+  "results": [
+    "Lobby opens a bilingual review with nine untested checks and pending acceptance",
+    "Draft fields and results survive reload",
+    "Markdown exports bilingual labels and exact observations",
+    "JSON exports structured field data without changing teacher acceptance",
+    "New round preserves the previous draft and allows reopening it",
+    "Form reopens fully offline and saves edits offline",
+    "iPad portrait form has no horizontal overflow"
+  ],
+  "errors": []
+}

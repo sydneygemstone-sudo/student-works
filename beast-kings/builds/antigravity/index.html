@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Beast Kings · Antigravity Edition (Nathan + Leo)</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="game-app">
+    <!-- Top Header & HUD -->
+    <header id="header">
+      <div class="brand">
+        <span class="crown-icon">👑</span>
+        <div class="titles">
+          <h1>BEAST KINGS</h1>
+          <p>NATHAN + LEO · ANTIGRAVITY ARENA</p>
+        </div>
+      </div>
+      <div class="session-info">
+        <span id="role-badge" class="badge">Connecting...</span>
+        <button id="btn-pause" class="btn-sm">⏸ Pause</button>
+        <button id="btn-rematch" class="btn-sm gold">↻ Rematch</button>
+      </div>
+    </header>
+
+    <!-- Fighter HUD -->
+    <section id="hud">
+      <!-- Player 0: Frost -->
+      <div class="fighter-hud frost" id="hud-frost">
+        <div class="fighter-name">
+          <span class="beast-tag">❄ FROST</span>
+          <span class="hp-text" id="hp-val-0">100 HP</span>
+        </div>
+        <div class="hp-bar-bg"><div class="hp-bar-fill" id="bar-0" style="width: 100%;"></div></div>
+        <div class="beast-meta">
+          <span class="element-label">ICE GUARDIAN</span>
+          <span class="power-level" id="power-0">POWER 0</span>
+        </div>
+      </div>
+
+      <!-- Center Match Status -->
+      <div class="match-center">
+        <div class="mode-pill" id="current-mode">⚔ DUEL</div>
+        <div class="round-pill" id="round-label">ROUND 1</div>
+        <div class="targets-pill" id="targets-hud" style="display: none;">
+          <span class="t-label">TARGETS</span>
+          <span class="t-count" id="targets-score">0 - 0 / 5</span>
+        </div>
+      </div>
+
+      <!-- Player 1: Ember -->
+      <div class="fighter-hud ember" id="hud-ember">
+        <div class="fighter-name">
+          <span class="beast-tag">🔥 EMBER</span>
+          <span class="hp-text" id="hp-val-1">100 HP</span>
+        </div>
+        <div class="hp-bar-bg"><div class="hp-bar-fill" id="bar-1" style="width: 100%;"></div></div>
+        <div class="beast-meta">
+          <span class="element-label">FIRE GUARDIAN</span>
+          <span class="power-level" id="power-1">POWER 0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arena Canvas Container -->
+    <main id="arena-container">
+      <canvas id="arena" width="1200" height="580"></canvas>
+      
+      <!-- In-Arena Toast / Announcement -->
+      <div id="toast" class="toast hidden"></div>
+
+      <!-- Overlays & Modals -->
+      <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-card">
+          <div class="eyebrow">TWO LEGENDS · ONE ARENA</div>
+          <h2 id="modal-title">BEAST KINGS ARENA</h2>
+          <p id="modal-desc">Tap below to enter the battle or select game mode.</p>
+          
+          <div class="mode-selectors" id="mode-selectors">
+            <button class="mode-btn active" data-mode="duel">
+              <span class="icon">⚔</span>
+              <span class="label">Duel</span>
+              <small>Reduce opponent HP to 0</small>
+            </button>
+            <button class="mode-btn" data-mode="crown">
+              <span class="icon">👑</span>
+              <span class="label">Crown Hunt</span>
+              <small>Defeat 5 targets to be King</small>
+            </button>
+          </div>
+
+          <button id="btn-modal-action" class="primary-btn">ENTER ARENA →</button>
+          
+          <div class="control-legend">
+            <span><b>A / D / ◀ ▶</b> Move</span> · 
+            <span><b>SPACE / ↑</b> Jump (Hold = Fly)</span> · 
+            <span><b>J</b> Punch</span> · 
+            <span><b>I</b> Kick</span> · 
+            <span><b>K</b> Spin</span> · 
+            <span><b>L</b> Blink</span> · 
+            <span><b>U</b> Super</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- iPad Touch Controls Section -->
+    <section id="touch-controls">
+      <!-- Left side: Movement & Flight -->
+      <div class="control-group movement">
+        <button id="ctrl-left" class="touch-btn move-btn" data-action="left">
+          <span class="arrow">◀</span>
+          <small>A</small>
+        </button>
+        <button id="ctrl-right" class="touch-btn move-btn" data-action="right">
+          <span class="arrow">▶</span>
+          <small>D</small>
+        </button>
+        <button id="ctrl-jump" class="touch-btn fly-btn" data-action="jump">
+          <span class="action-icon">↑</span>
+          <span class="fly-label">FLY</span>
+          <small>SPACE</small>
+        </button>
+      </div>
+
+      <!-- Center: Flight Energy Meter -->
+      <div class="energy-center">
+        <div class="energy-label">
+          <span id="player-identity">JOINED AS SPECTATOR</span>
+          <span id="energy-val">100%</span>
+        </div>
+        <div class="energy-bar-bg"><div class="energy-bar-fill" id="energy-fill" style="width: 100%;"></div></div>
+        <small class="energy-hint">HOLD FLY TO LEVITATE</small>
+      </div>
+
+      <!-- Right side: Combat Actions -->
+      <div class="control-group combat">
+        <button id="ctrl-blink" class="touch-btn action-btn blink" data-action="blink">
+          <span class="action-icon">⚡</span>
+          <span>BLINK</span>
+          <small>L</small>
+          <div class="cd-overlay" id="cd-blink"></div>
+        </button>
+        <button id="ctrl-spin" class="touch-btn action-btn spin" data-action="spin">
+          <span class="action-icon">🌀</span>
+          <span>SPIN</span>
+          <small>K</small>
+          <div class="cd-overlay" id="cd-spin"></div>
+        </button>
+        <button id="ctrl-super" class="touch-btn action-btn super" data-action="super">
+          <span class="action-icon">⭐</span>
+          <span>SUPER</span>
+          <small>U</small>
+          <div class="cd-overlay" id="cd-super"></div>
+        </button>
+        <button id="ctrl-kick" class="touch-btn action-btn kick" data-action="kick">
+          <span class="action-icon">🦵</span>
+          <span>KICK</span>
+          <small>I</small>
+        </button>
+        <button id="ctrl-punch" class="touch-btn action-btn punch" data-action="punch">
+          <span class="action-icon">✊</span>
+          <span>PUNCH</span>
+          <small>J</small>
+        </button>
+      </div>
+    </section>
+
+    <!-- Portrait Orientation Hint -->
+    <div id="portrait-hint">
+      <div class="hint-card">
+        <span class="rotate-icon">🔄</span>
+        <h3>Please Rotate iPad to Landscape</h3>
+        <p>Beast Kings is built for wide dual-side action!</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/client.js"></script>
+</body>
+</html>

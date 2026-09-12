@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101d29"><title>Beast Kings · 试玩测评 / Playtest review</title><link rel="stylesheet" href="./review.css"></head>
+<body><main><header><a href="./">← 返回游戏 / Back to game</a><span>BEAST KINGS · EVOLVE 2.0</span></header>
+<p class="eyebrow">PLAY → OBSERVE → IMPROVE</p><h1>试玩测评 <small>Playtest review</small></h1>
+<p>先玩一轮，再记录看到的现象。本表评价游戏，不评价孩子。每次选一个问题继续改进。<br><span lang="en">Play one round, then record what happened. Review the game, not the child. Choose one issue for the next iteration.</span></p>
+<div class="savebar"><strong id="saveState" role="status">准备草稿 / Preparing draft</strong><span id="completion">0 / 9</span></div>
+<form id="reviewForm">
+<section><h2>01 · 本次试玩 <small>This session</small></h2><div class="fields">
+<label>日期 / Date<input name="date" type="date"></label><label>测试者 / Testers<input name="testers" maxlength="100" placeholder="Nathan, Leo, Dean"></label>
+<label>游戏版本 / Version<input name="version" value="Evolve 2.0" maxlength="60"></label><label>设备与系统 / Device & OS<input name="device" maxlength="160" placeholder="iPad model · iPadOS · Safari"></label>
+<label>模式 / Mode<select name="mode"><option value="">请选择 / Select</option><option>双人对战 / 2-player battle</option><option>三人混战 / 3-player FFA</option><option>王冠争夺 / Crown Hunt</option><option>练习 / Practice</option><option>单人任务 / Solo quest</option></select></label>
+<label>连接方式 / Connection<select name="connection"><option value="">请选择 / Select</option><option>Tailscale + 同 Wi-Fi / same Wi-Fi</option><option>Tailscale + 不同网络 / different networks</option><option>已断网 / Offline</option></select></label>
+</div></section>
+<section><h2>02 · 一轮检查 <small>One-round checks</small></h2><p>默认“未测试”，只按实际操作填写。/ Defaults to Not tested; record only observed results.</p><div id="checks"></div></section>
+<section><h2>03 · 玩家的感受 <small>Player feedback</small></h2><div class="fields">
+<label>好玩程度 / Fun<select name="fun"><option value="">未评分 / Unrated</option><option value="1">1 · 不想再玩 / Would not replay</option><option value="2">2</option><option value="3">3 · 还可以 / Okay</option><option value="4">4</option><option value="5">5 · 想再玩一轮 / Want another round</option></select></label>
+<label>操作是否容易 / Control ease<select name="ease"><option value="">未评分 / Unrated</option><option value="1">1 · 很难 / Very difficult</option><option value="2">2</option><option value="3">3 · 需要一点帮助 / Some help</option><option value="4">4</option><option value="5">5 · 很容易 / Very easy</option></select></label>
+<label class="wide">最喜欢什么？谁说的？/ Favourite part and speaker<textarea name="favourite" maxlength="1200" placeholder="保留原话；归属不清写待确认。 / Quote only actual feedback; mark unclear attribution."></textarea></label>
+<label class="wide">哪里困惑或不好玩？/ Confusing or frustrating part<textarea name="friction" maxlength="1200"></textarea></label></div></section>
+<section><h2>04 · 只选一个改进 <small>One next improvement</small></h2><div class="fields">
+<label class="wide">问题标题 / Issue title<input name="issue" maxlength="160" placeholder="例如：飞行时攻击按钮没有反应 / Attack does not respond during flight"></label>
+<label>优先级 / Priority<select name="priority"><option value="">待讨论 / Discuss</option><option>P0 · 无法玩 / Cannot play</option><option>P1 · 影响主要玩法 / Core play impaired</option><option>P2 · 体验改进 / Polish</option></select></label>
+<label>复现次数 / Reproduction<input name="frequency" maxlength="80" placeholder="3 / 5 rounds"></label>
+<label class="wide">操作步骤 / Steps to reproduce<textarea name="steps" maxlength="1600" placeholder="1. … 2. … 3. …"></textarea></label>
+<label>期望结果 / Expected<textarea name="expected" maxlength="1200"></textarea></label><label>实际现象 / Observed<textarea name="observed" maxlength="1200"></textarea></label>
+<label class="wide">证据文件名或链接 / Evidence filename or link<input name="evidence" maxlength="500" placeholder="例如 / e.g. ipad-flight-round-2.mp4"></label>
+<label class="wide">改好后如何验收？/ How will we verify the fix?<textarea name="acceptance" maxlength="1200" placeholder="可观察的操作和结果 / An observable action and result"></textarea></label>
+<label>老师决定 / Teacher decision<select name="decision"><option value="pending">待验收 / Pending</option><option value="accepted">本轮通过 / Accepted for this round</option><option value="revise">修改后复测 / Revise and retest</option></select></label><label>确认者 / Confirmed by<input name="teacher" maxlength="80" placeholder="Dean"></label>
+<label>下一轮时间上限 / Next time limit<input name="nextTime" maxlength="80" placeholder="例如 / e.g. 20 minutes"></label><label>下一轮预算 / Next budget<input name="nextBudget" maxlength="100" placeholder="填写币种与上限 / Currency and ceiling"></label>
+</div><p>填写预算不会自动启动开发。/ A budget entry does not automatically start development.</p></section>
+</form>
+<nav class="actions"><button id="exportMarkdown">导出双语报告 / Export Markdown</button><button id="exportJSON" class="secondary">导出数据 / Export JSON</button><button id="newSession" class="secondary">新一轮（保存当前）/ New round</button><button id="print" class="secondary">打印 / Print</button></nav>
+<details><summary>以往草稿 / Previous drafts</summary><div id="history"></div></details>
+<p class="footnote">自动保存在此浏览器；清除网站数据会删除草稿。请导出报告交给 Astra，导出不会自动上传到 GitHub。<br>Saved in this browser. Clearing site data removes drafts. Export the report for Astra; nothing is uploaded automatically.</p>
+</main><script src="./review.js"></script></body></html>

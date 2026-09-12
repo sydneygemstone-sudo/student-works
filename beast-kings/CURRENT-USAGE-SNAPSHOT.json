@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12T11:57:01.366Z",
+  "cutoff_exclusive": "2026-09-12T11:57:01.366Z",
+  "evolve_since_inclusive": null,
+  "actual_billed_usd": null,
+  "actual_billed_status": "Unavailable: local token logs and account-wide limits are not task invoices.",
+  "rate_source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+  "reference_rates_usd_per_million": {
+    "uncached_input": 10,
+    "cached_input": 1,
+    "cache_write_input": 12.5,
+    "output": 50
+  },
+  "notes": [
+    "Standard API text-token reference only; not actual Codex Pro charges.",
+    "Cached input is included in input tokens; reasoning output is included in output tokens. Neither is added twice.",
+    "Response identifiers are deduplicated locally and omitted from this report.",
+    "Excludes frontend voice, Antigravity, subscription allocation, speed modifiers, tools, taxes and calls after the snapshot. Includes archive and Familiar work before this snapshot."
+  ],
+  "all_game_work": {
+    "requests": 182,
+    "totals": {
+      "input_tokens": 19112517,
+      "cached_input_tokens": 18199552,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 158486,
+      "reasoning_output_tokens": 31842,
+      "total_tokens": 19271003
+    },
+    "uncached_input_tokens": 912965,
+    "max_input_per_request": 235727,
+    "standard_api_reference_usd": 35.2535,
+    "unpriced_requests": 0
+  },
+  "by_role": {
+    "coordinator": {
+      "requests": 144,
+      "totals": {
+        "input_tokens": 16900853,
+        "cached_input_tokens": 16122880,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 128886,
+        "reasoning_output_tokens": 28700,
+        "total_tokens": 17029739
+      },
+      "uncached_input_tokens": 777973,
+      "max_input_per_request": 235727,
+      "standard_api_reference_usd": 30.3469,
+      "unpriced_requests": 0
+    },
+    "build-agent": {
+      "requests": 38,
+      "totals": {
+        "input_tokens": 2211664,
+        "cached_input_tokens": 2076672,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 29600,
+        "reasoning_output_tokens": 3142,
+        "total_tokens": 2241264
+      },
+      "uncached_input_tokens": 134992,
+      "max_input_per_request": 77826,
+      "standard_api_reference_usd": 4.9066,
+      "unpriced_requests": 0
+    }
+  }
+}

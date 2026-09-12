@@ -1,0 +1,10 @@
+{
+  "results": [
+    "A lost Wi-Fi connection pauses the shared round and shows recovery",
+    "Restoring Wi-Fi automatically reconnects both clients; resume works",
+    "Both existing browser tabs recover automatically after host server restart",
+    "Leave cancels reconnection and frees the player slot",
+    "No browser JavaScript errors during network recovery"
+  ],
+  "errors": []
+}
