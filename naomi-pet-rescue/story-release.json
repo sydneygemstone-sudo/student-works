@@ -1,0 +1,31 @@
+{
+  "version": "2026-09-12-story-indextts25",
+  "engine": "IndexTTS-2.5",
+  "voice_reference": "IndexTTS official voice_03 example",
+  "defaults": {
+    "bear": "",
+    "bunny": "Naomi"
+  },
+  "narration": {
+    "party": {
+      "file": "party-indextts25.wav",
+      "seconds": 5.19,
+      "sha256": "888178a19f5281ade1534fecc5088de1864a042e089e545af3f190d23ac63a99"
+    },
+    "storm": {
+      "file": "storm-indextts25.wav",
+      "seconds": 6.989,
+      "sha256": "278e8eb80964760d3304999d02db574c8ebfd15c55d637890f77f196b04536b4"
+    },
+    "rescue": {
+      "file": "rescue-indextts25.wav",
+      "seconds": 7.419,
+      "sha256": "698429cc619d9e867936ef37c21a2c1759f8bf2096970fa296ec0ccb5d559df8"
+    },
+    "feast": {
+      "file": "feast-indextts25.wav",
+      "seconds": 8.139,
+      "sha256": "0bcb8d467ea8bc19ebc67ce2dda7f7026869716d6b0fada4f0f394e824d04af1"
+    }
+  }
+}

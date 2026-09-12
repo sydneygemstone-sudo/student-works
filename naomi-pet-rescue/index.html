@@ -19,20 +19,21 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.toast{animation:toast-in 2.2s forwards!important}}
 .tile-net{position:absolute;inset:3%;z-index:4;pointer-events:none;background:#f8e6bd40;border:2px dashed #b48045;border-radius:7px}.trap-badge{z-index:5;background:#8a5836;color:#fff9e6}.actions #boostBtn{cursor:default;border:1px solid #c6d5ad;background:#edf2d9;color:#557347;display:block;text-align:center}
 </style>
+<link rel="stylesheet" href="story.css">
 </head>
 <body>
 <section id="start" class="screen on">
   <header class="topbar"><div><div class="eyebrow">NAOMI'S LITTLE GARDEN</div><h1>小动物回家</h1></div><span class="pill" style="font-size:12px;color:#7a8967">两个人 · 一支救援队</span></header>
   <div class="card welcome">
-    <div class="welcome-top"><div class="eyebrow">一场暖暖的花园大冒险</div><h2>小小的你们，<br>也能守护整个花园。</h2><p class="intro">雨云慢慢飘来了，小动物还在外面。<br>小熊、小兔，一起接它们回家吧！</p></div>
+    <div class="welcome-top"><div class="eyebrow">一场暖暖的花园大冒险</div><h2>小小的你们，<br>也能守护整个花园。</h2><p class="intro">花园派对上，大家正玩着捉迷藏。<br>突然，暴风雨来了……小熊、小兔，该你们出发啦！</p></div>
     <div class="hero-art" id="heroArt" aria-label="小熊和小兔站在花园小屋前，等待一起救援小动物"></div>
     <div class="welcome-bottom">
       <div class="rules"><div class="rule"><span class="rule-number">01</span><b>各有小本领</b><span id="roleRule"></span></div><div class="rule"><span class="rule-number">02</span><b>手牵手，送回家</b>点有绿点的格子走路。<br>遇见动物自动抱起，回家就救下。</div><div class="rule"><span class="rule-number">03</span><b>勇气自动变成脚步</b>每攒到 2 勇气，自动多走 2 步。<br>每回合一次，多余勇气留着用。</div></div>
-      <div class="names"><label><span class="name-icon" id="nameBear"></span>小熊是 <input id="n0" value="Naomi" maxlength="10" aria-label="小熊玩家名字"></label><label><span class="name-icon" id="nameBunny"></span>小兔是 <input id="n1" value="爸爸" maxlength="10" aria-label="小兔玩家名字"></label></div>
+      <div class="names"><label><span class="name-icon" id="nameBear"></span>小熊是 <input id="n0" value="" placeholder="填写名字" maxlength="10" aria-label="小熊玩家名字"></label><label><span class="name-icon" id="nameBunny"></span>小兔是 <input id="n1" value="Naomi" maxlength="10" aria-label="小兔玩家名字"></label></div>
       <div class="start-action"><button class="btn" id="startBtn">一起出发 →</button><span class="start-note">慢慢商量，轮流行动<br>一起把 <b id="totalRule">8</b> 只小动物接回家</span></div>
     </div>
   </div>
-  <div class="credit">Naomi 的合作桌游 · 为一起玩耍的时光而做</div>
+  <div class="credit">Naomi 的合作桌游 · 为一起玩耍的时光而做<br><a href="about.html" style="display:inline-block;padding:10px;color:#376e51">作品档案与家长反馈 →</a></div>
 </section>
 <section id="game" class="screen">
   <header class="topbar"><div><div class="eyebrow">NAOMI'S LITTLE GARDEN</div><h1>小动物回家</h1></div><div class="top-right"><span class="pill" id="teamLabel"></span><button class="quiet-btn" id="helpBtn">怎么玩 ?</button></div></header>
@@ -48,14 +49,15 @@
     </aside>
   </div>
 </section>
-<div id="end" class="modal" role="dialog" aria-modal="true" aria-labelledby="endTitle"><div class="card"><div class="end-art" id="endArt"></div><div class="eyebrow" id="endEyebrow"></div><h2 id="endTitle"></h2><p id="endText"></p><button class="btn" id="againBtn">再一起冒险一次</button><button class="quiet-btn" id="backBtn">回到封面，换位小队友</button></div></div>
+<div id="end" class="modal" role="dialog" aria-modal="true" aria-labelledby="endTitle"><div class="card"><div class="end-art" id="endArt"></div><div class="eyebrow" id="endEyebrow"></div><h2 id="endTitle"></h2><p id="endText"></p><button class="btn" id="againBtn">再一起冒险一次</button><button class="quiet-btn story-ending-replay" id="replayStoryBtn" hidden>再看一次团圆宴会</button><button class="quiet-btn" id="backBtn">回到封面，换位小队友</button></div></div>
 <div id="help" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="card help-panel"><div class="eyebrow">给小小救援队的手册</div><h2 id="helpTitle">先商量，再出发</h2><p id="helpRoles"></p><p><b>怎么走：</b>点相邻的绿点格，遇到动物会自动抱起。把动物带回地图中间的小屋，就救援成功啦。走完步数会自动换人，也可以主动结束回合。</p><p><b>花园小路：</b>石头挡路，需要绕开；森林要花 2 步。礼盒可能装着 2 勇气，也可能是恶作剧炸弹——下次暂停一回合，动物不会受伤。</p><p><b>互相帮忙：</b>靠近队友可以递动物；每救回一只动物，大家获得 2 勇气。有 2 勇气就自动换成当前队员的 2 步，每回合一次；多余勇气留到以后，不会溢出丢失。</p><p><b>守护小屋：</b>站在家里花 1 步，得到 1 层庇护，最多 2 层。庇护能挡一次雷雨或森林绳网。绳网开局就在森林里标出来：无庇护时共花 3 步进入并拆网，有庇护时花 2 步并消耗 1 层盾。拆过就不再触发，也可以一直绕开。</p><p><b>怎么赢：</b><span id="helpWin"></span></p><button class="btn" id="closeHelpBtn">知道啦，继续救援</button></div></div>
 <script src="game-core.js?v=20260908-r2"></script>
+<script src="story.js?v=20260912-indextts25"></script>
 <script>
 (function(){
 'use strict';
 const P=PetRescue,$=id=>document.getElementById(id),params=new URLSearchParams(location.search);
-let g=null,lastCurrent=-1,names=['Naomi','爸爸'],effectTimer=null;
+let g=null,lastCurrent=-1,names=['小熊','Naomi'],effectTimer=null,endingPlayed=false;
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const svg=(content,view='0 0 100 110')=>'<svg viewBox="'+view+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">'+content+'</svg>';
 function animal(kind,mood='happy',hero=false){
@@ -87,7 +89,7 @@ const types=['cat','dog','hamster','chick','turtle','bunny','pig','duck','sheep'
 const petArt=(p,mood='worried')=>animal(types[p.id%types.length],mood);
 const miniature=p=>'<span class="mini-pet" title="'+esc(p.name)+'">'+petArt(p,'happy')+'</span>';
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));}
-function start(seed){g=P.newGame({names,seed});lastCurrent=-1;$('end').classList.remove('on');$('actors').innerHTML='';show('game');$('teamLabel').textContent=names.join(' ＋ ');render();}
+function start(seed){endingPlayed=false;g=P.newGame({names,seed});lastCurrent=-1;$('end').classList.remove('on');$('actors').innerHTML='';show('game');$('teamLabel').textContent=names.join(' ＋ ');render();}
 function render(){
  const me=P.cur(g),other=P.mate(g),n=g.n,playing=g.status==='playing',legal=playing?P.legalMoves(g):[];
  $('board').style.setProperty('--n',n);$('actors').style.setProperty('--n',n);
@@ -134,7 +136,7 @@ function render(){
 }
 function toast(title,subtitle){const old=document.querySelector('.toast');if(old)old.remove();const el=document.createElement('div');el.className='toast';el.innerHTML=esc(title)+(subtitle?'<small>'+esc(subtitle)+'</small>':'');$('boardWrap').appendChild(el);clearTimeout(effectTimer);effectTimer=setTimeout(()=>el.remove(),2250);for(let i=0;i<7;i++){const p=document.createElement('span');p.className='particle';p.textContent=i%2?'✦':'·';p.style.setProperty('--dx',(Math.cos(i)*95)+'px');p.style.setProperty('--dy',(Math.sin(i)*80-20)+'px');$('boardWrap').appendChild(p);setTimeout(()=>p.remove(),1100);}}
 function act(fn,kind){
- if(!g||g.status!=='playing')return;
+ if(!g||g.status!=='playing'||NaomiStory.isActive())return;
  const before={home:g.pets.filter(p=>p.home).length,held:g.pets.filter(p=>p.carriedBy!==null).length,gifts:g.gifts.filter(p=>p.opened).length,log:g.log.length};
  if(!fn())return;
  render();
@@ -148,10 +150,11 @@ function act(fn,kind){
  else if(kind==='support')toast('小屋亮起了保护光','庇护可以抵挡雷雨或森林绳网');
  else if(kind==='give')toast('好队友，接好啦！','一起送小动物回家');
 }
-function showEnd(){const win=g.status==='win',home=g.pets.filter(p=>p.home).length;$('endArt').innerHTML='<span>'+animal('bear',win?'happy':'worried',true)+'</span><span class="end-house">'+house()+'</span><span>'+animal('bunny',win?'happy':'worried',true)+'</span>';$('endEyebrow').textContent=win?'每一个小伙伴，都被你们好好守护':'这一次的勇气，也很珍贵';$('endTitle').textContent=win?'整个花园，都回家啦！':'雨来了，先在小屋歇一歇';$('endText').innerHTML=win?esc(names[0])+' 和 '+esc(names[1])+' 一起救回了 <b>'+g.pets.length+' 只</b>小动物。<br>比雨云早了 <b>'+Math.max(0,g.cfg.STORM_STEPS-g.storm)+' 回合</b>，你们真有默契！':'你们已经把 <b>'+home+' / '+g.pets.length+' 只</b>小动物送回了家。<br>下一次试试分头接力、绕开绳网，一起再出发。';$('end').classList.add('on');}
+function showEnd(){if(g.status==='win'&&!endingPlayed){endingPlayed=true;NaomiStory.play('ending',showEnd);return;}if(NaomiStory.isActive())return;const win=g.status==='win',home=g.pets.filter(p=>p.home).length;$('endArt').innerHTML='<span>'+animal('bear',win?'happy':'worried',true)+'</span><span class="end-house">'+house()+'</span><span>'+animal('bunny',win?'happy':'worried',true)+'</span>';$('endEyebrow').textContent=win?'每一个小伙伴，都被你们好好守护':'这一次的勇气，也很珍贵';$('endTitle').textContent=win?'整个花园，都回家啦！':'雨来了，先在小屋歇一歇';$('endText').innerHTML=win?esc(names[0])+' 和 '+esc(names[1])+' 一起救回了 <b>'+g.pets.length+' 只</b>小动物。<br>比雨云早了 <b>'+Math.max(0,g.cfg.STORM_STEPS-g.storm)+' 回合</b>，你们真有默契！':'你们已经把 <b>'+home+' / '+g.pets.length+' 只</b>小动物送回了家。<br>下一次试试分头接力、绕开绳网，一起再出发。';$('end').classList.add('on');$('replayStoryBtn').hidden=!win;$('againBtn').focus();}
 $('board').addEventListener('click',e=>{const c=e.target.closest('.cell.can');if(c)act(()=>P.move(g,+c.dataset.x,+c.dataset.y),'move');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')$('help').classList.remove('on');if(!g||g.status!=='playing'||!$('game').classList.contains('on')||$('help').classList.contains('on'))return;const d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(!d)return;e.preventDefault();const p=P.cur(g);act(()=>P.move(g,p.x+d[0],p.y+d[1]),'move');});
-$('giveBtn').addEventListener('click',()=>act(()=>P.give(g),'give'));$('supportBtn').addEventListener('click',()=>act(()=>P.support&&P.support(g),'support'));$('endBtn').addEventListener('click',()=>act(()=>P.endTurn(g),'end'));$('startBtn').addEventListener('click',()=>{names=[$('n0').value.trim()||'Naomi',$('n1').value.trim()||'爸爸'];start(params.has('seed')?Number(params.get('seed')):undefined);});$('againBtn').addEventListener('click',()=>start());$('backBtn').addEventListener('click',()=>{$('end').classList.remove('on');show('start');});$('helpBtn').addEventListener('click',()=>{$('help').classList.add('on');$('closeHelpBtn').focus();});$('closeHelpBtn').addEventListener('click',()=>{$('help').classList.remove('on');$('helpBtn').focus();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('help').classList.remove('on');if(NaomiStory.isActive()||!g||g.status!=='playing'||!$('game').classList.contains('on')||$('help').classList.contains('on'))return;const d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(!d)return;e.preventDefault();const p=P.cur(g);act(()=>P.move(g,p.x+d[0],p.y+d[1]),'move');});
+$('giveBtn').addEventListener('click',()=>act(()=>P.give(g),'give'));$('supportBtn').addEventListener('click',()=>act(()=>P.support&&P.support(g),'support'));$('endBtn').addEventListener('click',()=>act(()=>P.endTurn(g),'end'));$('startBtn').addEventListener('click',()=>{names=[$('n0').value.trim()||'小熊',$('n1').value.trim()||'Naomi'];NaomiStory.play('intro',()=>start(params.has('seed')?Number(params.get('seed')):undefined));});$('againBtn').addEventListener('click',()=>start());$('backBtn').addEventListener('click',()=>{$('end').classList.remove('on');show('start');});$('helpBtn').addEventListener('click',()=>{$('help').classList.add('on');$('closeHelpBtn').focus();});$('closeHelpBtn').addEventListener('click',()=>{$('help').classList.remove('on');$('helpBtn').focus();});
+$('replayStoryBtn').addEventListener('click',()=>NaomiStory.play('ending'));
 $('nameBear').innerHTML=animal('bear','happy',true);$('nameBunny').innerHTML=animal('bunny','happy',true);$('roleRule').innerHTML='小熊走 '+P.CONFIG.BEAR.moves+' 步，能抱 '+P.CONFIG.BEAR.carry+' 只。<br>小兔走 '+P.CONFIG.BUNNY.moves+' 步，能抱 '+P.CONFIG.BUNNY.carry+' 只。';$('totalRule').textContent=P.CONFIG.PETS;$('helpRoles').innerHTML='<b>分工：</b>小熊一回合走 '+P.CONFIG.BEAR.moves+' 步、最多抱 '+P.CONFIG.BEAR.carry+' 只；小兔一回合走 '+P.CONFIG.BUNNY.moves+' 步、最多抱 '+P.CONFIG.BUNNY.carry+' 只。';$('helpWin').textContent='在 '+P.CONFIG.STORM_STEPS+' 回合用完前，把 '+P.CONFIG.PETS+' 只小动物全部送回家，两个人一起赢！';
 $('heroArt').innerHTML='<div class="sun"></div><div class="hill"></div><div class="hill two"></div><div class="hero-house">'+house()+'</div><div class="hero-bear">'+animal('bear','happy',true)+'</div><div class="hero-bunny">'+animal('bunny','happy',true)+'</div><div class="hero-pet" style="left:9%">'+animal('cat')+'</div><div class="hero-pet" style="right:8%">'+animal('chick')+'</div>';
 $('legend').innerHTML='<span><i class="route"></i> 可走的小路</span><span><i>'+terrain('rock')+'</i> 石头绕开</span><span><i>'+terrain('forest')+'</i> 森林 2 步</span><span><i>'+netArt()+'</i> 绳网 +1 步 · 可绕开</span><span><i>'+terrain('gift')+'</i> 神秘礼盒</span>';
