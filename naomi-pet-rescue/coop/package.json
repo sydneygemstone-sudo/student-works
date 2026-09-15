@@ -19,6 +19,7 @@
   "author": "Naomi & Dean (Engineered by Antigravity Gemini 3.8 Flash)",
   "license": "ISC",
   "dependencies": {
+    "qrcode": "^1.5.4",
     "three": "^0.160.0",
     "ws": "^8.18.0"
   },

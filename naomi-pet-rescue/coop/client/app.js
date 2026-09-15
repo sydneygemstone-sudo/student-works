@@ -15,9 +15,41 @@
   let sessionToken = null;
   let gameState = null;
   let requestCounter = 0;
+  let detectedLanHost = null;
 
   // DOM 元素引用
   const $ = (id) => document.getElementById(id);
+
+  // 获取服务端推断的真实物理局域网地址（排除 Tailscale，保证 iPad 扫码直连）
+  async function initLanInfo() {
+    try {
+      const res = await fetch('/health');
+      const data = await res.json();
+      if (data && data.lanIps && data.lanIps.length > 0) {
+        detectedLanHost = `${data.lanIps[0].address}:${window.location.port || '8787'}`;
+      }
+    } catch (e) {
+      console.warn('Could not fetch LAN info:', e);
+    }
+
+    const shareUrl = getShareableUrl();
+    if ($('lobbyQrImg')) {
+      $('lobbyQrImg').src = `/api/qrcode?text=${encodeURIComponent(shareUrl)}`;
+    }
+    if ($('lobbyLanUrlText')) {
+      $('lobbyLanUrlText').textContent = shareUrl;
+    }
+  }
+
+  function getShareableUrl(queryParam = '') {
+    const protocol = window.location.protocol;
+    const path = window.location.pathname;
+    let host = window.location.host;
+    if ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && detectedLanHost) {
+      host = detectedLanHost;
+    }
+    return `${protocol}//${host}${path}${queryParam}`;
+  }
 
   // 初始化入口
   window.addEventListener('DOMContentLoaded', () => {
@@ -27,6 +59,7 @@
     setupLobbyEvents();
     setupGameControlEvents();
     setupKeyboardShortcuts();
+    initLanInfo();
 
     // 检查 URL 中是否有 ?room=XXXX 传参
     const urlParams = new URLSearchParams(window.location.search);
@@ -165,7 +198,7 @@
 
     // 复制房间链接
     $('btnCopyRoomLink').onclick = () => {
-      const shareUrl = `${window.location.origin}${window.location.pathname}?room=${currentRoomCode}`;
+      const shareUrl = getShareableUrl(`?room=${currentRoomCode}`);
       if (navigator.clipboard) {
         navigator.clipboard.writeText(shareUrl).then(() => {
           alert('已复制房间链接！发送给另一台 iPad 即可直接加入。');
@@ -218,8 +251,12 @@
           $('modalWaitingRoom').classList.add('hidden');
         } else {
           // 显示房间等待与分享弹窗
+          const shareUrl = getShareableUrl(`?room=${currentRoomCode}`);
           $('displayRoomCode').textContent = currentRoomCode;
-          $('shareUrlText').textContent = `${window.location.origin}${window.location.pathname}?room=${currentRoomCode}`;
+          $('shareUrlText').textContent = shareUrl;
+          if ($('qrCodeImg')) {
+            $('qrCodeImg').src = `/api/qrcode?text=${encodeURIComponent(shareUrl)}`;
+          }
           $('modalWaitingRoom').classList.remove('hidden');
         }
 

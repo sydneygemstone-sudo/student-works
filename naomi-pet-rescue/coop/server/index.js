@@ -4,22 +4,29 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { WebSocketServer, WebSocket } = require('ws');
+const QRCode = require('qrcode');
 const CoopEngine = require('../core/coop-engine.js');
 
 const PORT = parseInt(process.env.PORT || '8787', 10);
 const HOST = '0.0.0.0';
 
-// 局域网 IPv4 探测
+// 局域网 IPv4 探测（严格排除 Tailscale / VPN / 虚拟网卡，只走真实物理局域网）
 function getLanIps() {
   const ips = [];
   const ifaces = os.networkInterfaces();
   for (const name of Object.keys(ifaces)) {
+    // 明确排除 Tailscale, utun, tun, tap, wg, awdl 等虚拟网络接口
+    if (/^(utun|tun|tap|tailscale|wg|awdl|llw|bridge|vbox|docker)/i.test(name)) continue;
     for (const net of ifaces[name]) {
       if (net.family === 'IPv4' && !net.internal) {
+        // 明确排除 100.64.0.0/10 及 100.* Tailscale/CGNAT 网段
+        if (net.address.startsWith('100.')) continue;
         ips.push({ name, address: net.address });
       }
     }
   }
+  // 优先排在前面的物理 Wi-Fi 接口 (如 en0)
+  ips.sort((a, b) => (a.name === 'en0' ? -1 : 1));
   return ips;
 }
 
@@ -184,6 +191,26 @@ const server = http.createServer((req, res) => {
       status: r.game.status,
     }));
     res.end(JSON.stringify(roomList));
+    return;
+  }
+
+  // 2.1 动态生成二维码 SVG 接口（iPad / 浏览器可直接当作图片展示）
+  if (pathname === '/api/qrcode') {
+    const text = parsedUrl.query.text || '';
+    if (!text) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.end('Missing text parameter');
+      return;
+    }
+    QRCode.toString(text, { type: 'svg', margin: 1 }, (err, svg) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Error generating QR code');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
+        res.end(svg);
+      }
+    });
     return;
   }
 
@@ -520,23 +547,27 @@ function startServer(port = PORT, host = HOST) {
     server.listen(port, host, () => {
       const realPort = server.address().port;
       const lanIps = getLanIps();
+      const primaryLan = lanIps.length > 0 ? lanIps[0].address : 'localhost';
+      const lanUrl = `http://${primaryLan}:${realPort}/naomi-pet-rescue/coop/`;
 
       console.log(`\n======================================================`);
       console.log(`🚀 Naomi《小动物回家》双 iPad 局域网联机服务已就绪！`);
+      console.log(`🤖 架构与开发：Antigravity (Gemini 3.8 Flash)`);
       console.log(`------------------------------------------------------`);
       console.log(`👉 Mac 本机入口: http://localhost:${realPort}/naomi-pet-rescue/coop/`);
-      if (lanIps.length > 0) {
-        lanIps.forEach((net) => {
-          console.log(`📱 iPad Safari 入口 (${net.name}): http://${net.address}:${realPort}/naomi-pet-rescue/coop/`);
-        });
-      } else {
-        console.log(`⚠️ 未检测到外部局域网 IPv4，请确保 Mac 已连接 Wi-Fi 或以太网`);
-      }
-      console.log(`📡 WebSocket 地址: ws://<Mac局域网IP>:${realPort}/ws`);
-      console.log(`🩺 健康检查:     http://localhost:${realPort}/health`);
-      console.log(`======================================================\n`);
+      console.log(`📱 iPad Safari 局域网直连入口 (物理 Wi-Fi, 不走 Tailscale):`);
+      console.log(`   ${lanUrl}`);
+      console.log(`🩺 健康检查接口: http://localhost:${realPort}/health`);
+      console.log(`------------------------------------------------------`);
+      console.log(`📷 iPad 拿起系统相机扫描下方二维码直接秒开连接：\n`);
 
-      resolve({ server, port: realPort, lanIps });
+      QRCode.toString(lanUrl, { type: 'terminal', small: true }, (err, qr) => {
+        if (!err && qr) {
+          console.log(qr);
+        }
+        console.log(`======================================================\n`);
+        resolve({ server, port: realPort, lanIps });
+      });
     });
   });
 }
