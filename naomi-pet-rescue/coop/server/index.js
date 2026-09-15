@@ -529,6 +529,7 @@ const heartbeatInterval = setInterval(() => {
     ws.ping();
   });
 }, 25000);
+if (heartbeatInterval.unref) heartbeatInterval.unref();
 
 wss.on('close', () => {
   clearInterval(heartbeatInterval);
