@@ -16,7 +16,7 @@
     "threejs",
     "websocket"
   ],
-  "author": "Naomi & Dean",
+  "author": "Naomi & Dean (Engineered by Antigravity Gemini 3.8 Flash)",
   "license": "ISC",
   "dependencies": {
     "three": "^0.160.0",

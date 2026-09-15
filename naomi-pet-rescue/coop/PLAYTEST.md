@@ -2,7 +2,8 @@
 
 **日期**：2026-09-15  
 **分支**：`feature/naomi-lan-coop`  
-**环境**：macOS (Apple Silicon), Node.js v22.22.0, WebKit / Safari Engine (Playwright 1.41.0)  
+**AI 架构与开发**：Antigravity (Gemini 3.8 Flash)  
+**运行环境**：macOS (Apple Silicon), Node.js v22.22.0, WebKit / Safari Engine (Playwright 1.41.0)  
 
 ---
 

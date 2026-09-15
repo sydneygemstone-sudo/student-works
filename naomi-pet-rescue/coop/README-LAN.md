@@ -1,5 +1,9 @@
 # Naomi《小动物回家》双 iPad 局域网联机探索版
 
+> 🤖 **迭代开发与工程实现**：Antigravity (Gemini 3.8 Flash)  
+> 📅 **日期**：2026-09-15  
+> 🏷️ **代码库分支**：`feature/naomi-lan-coop`  
+
 ## 1. 简介与核心定义
 
 本版本是为 Naomi 和 Dean 定制开发的局域网双机协作探索模式：
