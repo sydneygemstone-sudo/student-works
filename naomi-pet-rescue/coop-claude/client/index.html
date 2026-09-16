@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Naomi《小动物回家》双 iPad 局域网联机 3D 探索版 (Claude Opus 版)</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/vendor/three.module.js"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --bg-warm: #fcf8f2;
+      --accent: #ff7a3d;
+      --accent-soft: #ffe8dc;
+      --green: #4f9a4c;
+      --blue: #3b82f6;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, sans-serif;
+      background: #bfe6ff; touch-action: none;
+    }
+    #view3d {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: block; z-index: 1;
+    }
+    /* HUD Overlays */
+    .hud { position: absolute; z-index: 10; pointer-events: none; }
+    .interactive { pointer-events: auto; }
+
+    /* Top Bar */
+    .top-bar {
+      top: 12px; left: 12px; right: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .hud-card {
+      background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px; padding: 8px 14px; box-shadow: var(--shadow);
+      font-size: 14px; font-weight: 600; color: #3b2b1d; display: flex; align-items: center; gap: 8px;
+    }
+    .status-badge {
+      display: inline-block; padding: 3px 8px; border-radius: 12px;
+      font-size: 12px; background: #e2e8f0; color: #475569;
+    }
+    .status-badge.live { background: #dcfce7; color: #15803d; }
+    .status-badge.storm { background: #fee2e2; color: #b91c1c; }
+
+    /* Naomi Stone Arrow Banner (退路提示横幅) */
+    #blocked-banner {
+      top: 72px; left: 50%; transform: translateX(-50%);
+      background: rgba(255, 122, 61, 0.95); color: #fff;
+      padding: 10px 20px; border-radius: 24px; font-size: 15px; font-weight: 700;
+      box-shadow: 0 10px 30px rgba(255, 122, 61, 0.45);
+      display: none; align-items: center; gap: 8px; transition: all 0.25s ease;
+      animation: pulse 1.2s infinite alternate;
+    }
+    @keyframes pulse { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.03); } }
+
+    /* Controls Bottom Area */
+    .bottom-area {
+      bottom: 16px; left: 12px; right: 12px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .dpad-container {
+      display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 56px);
+      gap: 6px;
+    }
+    .btn-ctl {
+      background: var(--card-bg); border: none; border-radius: 14px;
+      box-shadow: var(--shadow); font-size: 22px; font-weight: bold;
+      color: #334155; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform 0.08s, background 0.15s;
+    }
+    .btn-ctl:active { transform: scale(0.92); background: var(--accent-soft); }
+    .btn-label { font-size: 10px; font-weight: 600; margin-top: 2px; color: #64748b; }
+
+    .actions-container {
+      display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+    }
+    .action-row { display: flex; gap: 8px; }
+    .btn-act {
+      background: var(--card-bg); border: 2px solid transparent; border-radius: 14px;
+      padding: 10px 14px; box-shadow: var(--shadow); font-size: 13px; font-weight: 700;
+      color: #1e293b; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    .btn-act:active { transform: scale(0.94); }
+    .btn-act.ready {
+      background: #10b981; color: white; font-size: 15px; padding: 12px 20px;
+    }
+    .btn-act.ready.is-ready {
+      background: #f59e0b;
+    }
+    .btn-solo { background: #6366f1; color: white; }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    .modal-box {
+      background: white; border-radius: 24px; padding: 28px; max-width: 440px; width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25); text-align: center;
+    }
+    .modal-title { font-size: 22px; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
+    .modal-desc { font-size: 14px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+    .role-btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .role-card {
+      border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px 10px; cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .role-card:hover, .role-card:active { border-color: var(--accent); background: var(--accent-soft); }
+    .role-emoji { font-size: 36px; margin-bottom: 6px; }
+    .role-name { font-size: 15px; font-weight: 700; color: #0f172a; }
+    .role-sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+    .solo-entry-btn {
+      width: 100%; padding: 14px; background: #6366f1; color: white; border: none; border-radius: 14px;
+      font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+    }
+    .qr-preview {
+      width: 180px; height: 180px; margin: 12px auto; border-radius: 12px; background: #f8fafc;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qr-preview img { width: 100%; height: 100%; object-fit: contain; }
+  </style>
+</head>
+<body>
+  <canvas id="view3d"></canvas>
+
+  <!-- HUD Top -->
+  <div class="hud top-bar">
+    <div class="hud-card interactive">
+      <span>🏡 Naomi《小动物回家》</span>
+      <span class="status-badge" id="net-badge">连接中...</span>
+      <button id="qr-btn" style="background:none;border:none;cursor:pointer;font-size:16px;">📱</button>
+    </div>
+    <div class="hud-card">
+      <span id="round-indicator">回合: 1/14</span>
+      <span class="status-badge live" id="weather-badge">☀️ 晴朗</span>
+      <span>🛡️ <span id="shelter-val">0</span></span>
+      <span>✨ <span id="courage-val">2</span></span>
+      <span>🐾 救回: <span id="rescued-val">0</span>/8</span>
+    </div>
+  </div>
+
+  <!-- Naomi 创意：退路箭头横幅提示 -->
+  <div class="hud interactive" id="blocked-banner">
+    <span>🪨</span>
+    <span id="blocked-text">前方挡路！可以后退一步或换条路</span>
+  </div>
+
+  <!-- HUD Bottom Controls -->
+  <div class="hud bottom-area">
+    <!-- 左侧 D-Pad 移动控制 -->
+    <div class="dpad-container interactive">
+      <button class="btn-ctl" id="btn-turn-left">↺<span class="btn-label">左转0步</span></button>
+      <button class="btn-ctl" id="btn-forward">⬆️<span class="btn-label">前进</span></button>
+      <button class="btn-ctl" id="btn-turn-right">↻<span class="btn-label">右转0步</span></button>
+      <div></div>
+      <button class="btn-ctl" id="btn-backward">⬇️<span class="btn-label">后退</span></button>
+      <div></div>
+    </div>
+
+    <!-- 右侧动作与回合就绪控制 -->
+    <div class="actions-container interactive">
+      <!-- 单人模式工具栏 -->
+      <div class="action-row" id="solo-bar" style="display:none;">
+        <button class="btn-act btn-solo" id="btn-solo-switch">🔄 换人视角 (Tab)</button>
+        <button class="btn-act btn-solo" id="btn-solo-readyall">⏩ 双方一键就绪</button>
+      </div>
+      <div class="action-row">
+        <button class="btn-act" id="btn-give">🤝 递给队友</button>
+        <button class="btn-act" id="btn-support">🏡 守护家园</button>
+        <button class="btn-act" id="btn-boost">✨ 勇气加步</button>
+      </div>
+      <div class="action-row">
+        <button class="btn-act ready" id="btn-ready">🏁 结束本回合 (Ready)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 角色选择 / 入场模态窗 -->
+  <div class="modal-backdrop" id="join-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-title">Naomi《小动物回家》</div>
+      <div class="modal-desc">双 iPad 局域网联机 3D 协作探索 · Claude Opus 版</div>
+      <div class="role-btn-grid">
+        <div class="role-card" id="choose-bunny">
+          <div class="role-emoji">🐰</div>
+          <div class="role-name">Naomi 小兔</div>
+          <div class="role-sub">行动 3 步 · 抱 1 只</div>
+        </div>
+        <div class="role-card" id="choose-bear">
+          <div class="role-emoji">🐻</div>
+          <div class="role-name">小熊</div>
+          <div class="role-sub">行动 2 步 · 抱 2 只</div>
+        </div>
+      </div>
+      <button class="solo-entry-btn" id="choose-solo">🌟 单人测试模式 (一人分饰两角 / Tab 切换)</button>
+    </div>
+  </div>
+
+  <!-- 局域网二维码弹窗 -->
+  <div class="modal-backdrop" id="qr-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-title">📱 扫码加入局域网联机</div>
+      <div class="modal-desc">两台 iPad 需连接同一物理 Wi-Fi，打开相机扫码直连：</div>
+      <div class="qr-preview">
+        <img id="qr-img" src="/qr.svg" alt="二维码">
+      </div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px;" id="qr-url-text">加载中...</div>
+      <button class="solo-entry-btn" id="close-qr-btn">关闭</button>
+    </div>
+  </div>
+
+  <!-- 结算模态窗 -->
+  <div class="modal-backdrop" id="gameover-modal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-title" id="gameover-title">🎉 胜利！所有动物安全回家！</div>
+      <div class="modal-desc" id="gameover-desc">太棒啦！在你们默契的配合下，小动物们全部获救！</div>
+      <button class="solo-entry-btn" id="btn-restart">🔄 重新开始新一局</button>
+    </div>
+  </div>
+
+  <script type="module" src="/client/app.js"></script>
+</body>
+</html>
