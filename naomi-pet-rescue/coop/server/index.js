@@ -237,7 +237,12 @@ const server = http.createServer((req, res) => {
     if (subPath.startsWith('/core/')) {
       filePath = path.join(__dirname, '..', 'core', subPath.slice(6));
     } else if (subPath.startsWith('/assets/')) {
-      filePath = path.join(__dirname, '..', '..', 'assets', subPath.slice(8));
+      const localAsset = path.join(__dirname, '..', 'client', 'assets', subPath.slice(8));
+      if (fs.existsSync(localAsset)) {
+        filePath = localAsset;
+      } else {
+        filePath = path.join(__dirname, '..', '..', 'assets', subPath.slice(8));
+      }
     } else {
       filePath = path.join(__dirname, '..', 'client', subPath);
     }

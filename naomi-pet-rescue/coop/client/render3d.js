@@ -171,37 +171,74 @@ class Render3D {
   createCottageMesh() {
     const group = new THREE.Group();
 
-    // 墙体
-    const wallGeo = new THREE.BoxGeometry(1.5, 1.3, 1.5);
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0xfff8e1, roughness: 0.8 });
+    // 墙体 (暖米白木屋)
+    const wallGeo = new THREE.BoxGeometry(1.6, 1.4, 1.6);
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xfff9e6, roughness: 0.85 });
     const walls = new THREE.Mesh(wallGeo, wallMat);
-    walls.position.y = 0.65;
+    walls.position.y = 0.7;
     walls.castShadow = true;
     walls.receiveShadow = true;
     group.add(walls);
 
-    // 屋顶（斜顶）
-    const roofGeo = new THREE.ConeGeometry(1.4, 0.9, 4);
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0xd84315, roughness: 0.6 });
+    // 木屋原木边框支柱
+    const beamMat = new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 0.7 });
+    for (const [bx, bz] of [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]]) {
+      const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 1.45, 6), beamMat);
+      beam.position.set(bx, 0.72, bz);
+      group.add(beam);
+    }
+
+    // 屋顶（温馨红瓦斜顶）
+    const roofGeo = new THREE.ConeGeometry(1.5, 0.95, 4);
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0xd84315, roughness: 0.55 });
     const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 1.75;
+    roof.position.y = 1.85;
     roof.rotation.y = Math.PI / 4;
     roof.castShadow = true;
     group.add(roof);
 
-    // 烟囱
-    const chimGeo = new THREE.BoxGeometry(0.26, 0.55, 0.26);
-    const chimMat = new THREE.MeshStandardMaterial({ color: 0x8d6e63 });
+    // 石砌烟囱
+    const chimGeo = new THREE.BoxGeometry(0.3, 0.65, 0.3);
+    const chimMat = new THREE.MeshStandardMaterial({ color: 0x78909c, roughness: 0.9 });
     const chimney = new THREE.Mesh(chimGeo, chimMat);
-    chimney.position.set(0.35, 1.8, 0.35);
+    chimney.position.set(0.35, 1.95, 0.35);
     group.add(chimney);
 
-    // 门
-    const doorGeo = new THREE.BoxGeometry(0.45, 0.75, 0.08);
-    const doorMat = new THREE.MeshStandardMaterial({ color: 0x5d4037 });
+    // 木门
+    const doorGeo = new THREE.BoxGeometry(0.48, 0.8, 0.08);
+    const doorMat = new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 0.6 });
     const door = new THREE.Mesh(doorGeo, doorMat);
-    door.position.set(0, 0.38, 0.76);
+    door.position.set(0, 0.4, 0.81);
     group.add(door);
+
+    // 门旁暖光小灯笼
+    const lanternGeo = new THREE.DodecahedronGeometry(0.12, 0);
+    const lanternMat = new THREE.MeshStandardMaterial({
+      color: 0xffecb3,
+      emissive: 0xffb74d,
+      emissiveIntensity: 0.9,
+      roughness: 0.2,
+    });
+    const lantern = new THREE.Mesh(lanternGeo, lanternMat);
+    lantern.position.set(0.36, 0.8, 0.84);
+    group.add(lantern);
+
+    // 门前花坛 (盛开的小郁金香与雏菊)
+    const flowerbedGeo = new THREE.BoxGeometry(1.4, 0.16, 0.32);
+    const flowerbedMat = new THREE.MeshStandardMaterial({ color: 0x5d4037 });
+    const flowerbed = new THREE.Mesh(flowerbedGeo, flowerbedMat);
+    flowerbed.position.set(0, 0.08, 1.05);
+    group.add(flowerbed);
+
+    const flowerColors = [0xff4081, 0xffeb3b, 0x00e676, 0xff9100, 0xe040fb];
+    for (let f = -0.55; f <= 0.55; f += 0.28) {
+      const flower = new THREE.Mesh(
+        new THREE.SphereGeometry(0.07, 6, 6),
+        new THREE.MeshStandardMaterial({ color: flowerColors[Math.floor(Math.random() * flowerColors.length)] })
+      );
+      flower.position.set(f, 0.24, 1.05);
+      group.add(flower);
+    }
 
     return group;
   }
@@ -209,38 +246,82 @@ class Render3D {
   createBearMesh() {
     const group = new THREE.Group();
 
-    // 身体
-    const bodyGeo = new THREE.SphereGeometry(0.55, 16, 16);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 0.8 }); // 暖棕色
+    // 身体 (憨态可掬的圆滚滚身体)
+    const bodyGeo = new THREE.SphereGeometry(0.56, 16, 16);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 0.75 });
     const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.position.y = 0.55;
+    body.position.y = 0.56;
     body.castShadow = true;
     group.add(body);
 
+    // 肚子上的浅色暖绒肚皮贴片
+    const bellyGeo = new THREE.SphereGeometry(0.38, 14, 14);
+    const bellyMat = new THREE.MeshStandardMaterial({ color: 0xd7ccc8, roughness: 0.9 });
+    const belly = new THREE.Mesh(bellyGeo, bellyMat);
+    belly.position.set(0, 0.54, 0.22);
+    belly.scale.set(0.85, 0.9, 0.4);
+    group.add(belly);
+
     // 头部
-    const headGeo = new THREE.SphereGeometry(0.42, 16, 16);
+    const headGeo = new THREE.SphereGeometry(0.44, 16, 16);
     const head = new THREE.Mesh(headGeo, bodyMat);
-    head.position.set(0, 1.15, 0.08);
+    head.position.set(0, 1.18, 0.08);
     head.castShadow = true;
     group.add(head);
 
-    // 熊耳朵 (两只圆耳朵)
-    const earGeo = new THREE.SphereGeometry(0.15, 12, 12);
-    const earMat = new THREE.MeshStandardMaterial({ color: 0x6d4c41 });
-    const earL = new THREE.Mesh(earGeo, earMat);
-    earL.position.set(-0.3, 1.45, 0.05);
-    const earR = new THREE.Mesh(earGeo, earMat);
-    earR.position.set(0.3, 1.45, 0.05);
-    group.add(earL);
-    group.add(earR);
+    // 吻部
+    const snoutGeo = new THREE.SphereGeometry(0.18, 12, 12);
+    const snoutMat = new THREE.MeshStandardMaterial({ color: 0xf5ebe0 });
+    const snout = new THREE.Mesh(snoutGeo, snoutMat);
+    snout.position.set(0, 1.1, 0.44);
+    snout.scale.set(1.1, 0.8, 0.9);
+    group.add(snout);
 
-    // 小红围巾
-    const scarfGeo = new THREE.TorusGeometry(0.35, 0.09, 8, 16);
-    const scarfMat = new THREE.MeshStandardMaterial({ color: 0xe53935 });
+    // 鼻扣
+    const noseGeo = new THREE.SphereGeometry(0.06, 8, 8);
+    const noseMat = new THREE.MeshStandardMaterial({ color: 0x212121, roughness: 0.2 });
+    const nose = new THREE.Mesh(noseGeo, noseMat);
+    nose.position.set(0, 1.15, 0.58);
+    group.add(nose);
+
+    // 眼睛
+    const eyeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+    const eyeMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.1 });
+    const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+    eyeL.position.set(-0.16, 1.25, 0.42);
+    const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
+    eyeR.position.set(0.16, 1.25, 0.42);
+    group.add(eyeL, eyeR);
+
+    // 熊圆耳朵
+    const earGeo = new THREE.SphereGeometry(0.16, 12, 12);
+    const earInnerGeo = new THREE.SphereGeometry(0.1, 10, 10);
+    const earInnerMat = new THREE.MeshStandardMaterial({ color: 0xd7ccc8 });
+
+    const earL = new THREE.Mesh(earGeo, bodyMat);
+    earL.position.set(-0.32, 1.52, 0.05);
+    const earLIn = new THREE.Mesh(earInnerGeo, earInnerMat);
+    earLIn.position.set(-0.32, 1.52, 0.1);
+    group.add(earL, earLIn);
+
+    const earR = new THREE.Mesh(earGeo, bodyMat);
+    earR.position.set(0.32, 1.52, 0.05);
+    const earRIn = new THREE.Mesh(earInnerGeo, earInnerMat);
+    earRIn.position.set(0.32, 1.52, 0.1);
+    group.add(earR, earRIn);
+
+    // 红围巾与流苏
+    const scarfGeo = new THREE.TorusGeometry(0.36, 0.1, 8, 16);
+    const scarfMat = new THREE.MeshStandardMaterial({ color: 0xe53935, roughness: 0.6 });
     const scarf = new THREE.Mesh(scarfGeo, scarfMat);
     scarf.rotation.x = Math.PI / 2;
-    scarf.position.set(0, 0.95, 0.05);
+    scarf.position.set(0, 0.96, 0.06);
     group.add(scarf);
+
+    const scarfTail = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.32, 0.06), scarfMat);
+    scarfTail.position.set(0.18, 0.78, 0.38);
+    scarfTail.rotation.z = -0.2;
+    group.add(scarfTail);
 
     return group;
   }
@@ -250,36 +331,391 @@ class Render3D {
 
     // 身体 (奶油白)
     const bodyGeo = new THREE.SphereGeometry(0.48, 16, 16);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 });
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.65 });
     const body = new THREE.Mesh(bodyGeo, bodyMat);
     body.position.y = 0.48;
     body.castShadow = true;
     group.add(body);
 
+    // Naomi 的粉色可爱围裙
+    const apronMat = new THREE.MeshStandardMaterial({ color: 0xf48fb1, roughness: 0.7 });
+    const apron = new THREE.Mesh(new THREE.SphereGeometry(0.36, 12, 12), apronMat);
+    apron.position.set(0, 0.46, 0.18);
+    apron.scale.set(0.88, 0.92, 0.4);
+    group.add(apron);
+
+    // 围裙胸前小爱心
+    const heart = new THREE.Mesh(new THREE.SphereGeometry(0.06, 6, 6), new THREE.MeshStandardMaterial({ color: 0xff1744 }));
+    heart.position.set(0, 0.54, 0.36);
+    group.add(heart);
+
     // 头部
-    const headGeo = new THREE.SphereGeometry(0.38, 16, 16);
+    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
     const head = new THREE.Mesh(headGeo, bodyMat);
-    head.position.set(0, 1.05, 0.06);
+    head.position.set(0, 1.08, 0.06);
     head.castShadow = true;
     group.add(head);
 
-    // 兔长耳朵
-    const earGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.65, 12);
-    const earL = new THREE.Mesh(earGeo, bodyMat);
-    earL.position.set(-0.16, 1.6, 0);
-    earL.rotation.z = 0.15;
-    const earR = new THREE.Mesh(earGeo, bodyMat);
-    earR.position.set(0.16, 1.6, 0);
-    earR.rotation.z = -0.15;
-    group.add(earL);
-    group.add(earR);
+    // 眼睛与鼻子
+    const eyeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+    const eyeMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.1 });
+    const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+    eyeL.position.set(-0.14, 1.15, 0.4);
+    const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
+    eyeR.position.set(0.14, 1.15, 0.4);
+    group.add(eyeL, eyeR);
 
-    // 粉色蝴蝶结
-    const bowGeo = new THREE.BoxGeometry(0.24, 0.12, 0.1);
-    const bowMat = new THREE.MeshStandardMaterial({ color: 0xf48fb1 });
-    const bow = new THREE.Mesh(bowGeo, bowMat);
-    bow.position.set(0, 1.35, 0.22);
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), new THREE.MeshStandardMaterial({ color: 0xff80ab }));
+    nose.position.set(0, 1.06, 0.45);
+    group.add(nose);
+
+    // 兔耳（内粉外白）
+    const earGeo = new THREE.CylinderGeometry(0.07, 0.12, 0.68, 12);
+    const earInnerGeo = new THREE.BoxGeometry(0.08, 0.52, 0.02);
+    const earInnerMat = new THREE.MeshStandardMaterial({ color: 0xff80ab });
+
+    const earL = new THREE.Mesh(earGeo, bodyMat);
+    earL.position.set(-0.16, 1.62, 0);
+    earL.rotation.z = 0.15;
+    earL.rotation.x = -0.1;
+    const earLIn = new THREE.Mesh(earInnerGeo, earInnerMat);
+    earLIn.position.set(-0.16, 1.62, 0.06);
+    earLIn.rotation.z = 0.15;
+    earLIn.rotation.x = -0.1;
+    group.add(earL, earLIn);
+
+    const earR = new THREE.Mesh(earGeo, bodyMat);
+    earR.position.set(0.16, 1.62, 0);
+    earR.rotation.z = -0.15;
+    earR.rotation.x = -0.1;
+    const earRIn = new THREE.Mesh(earInnerGeo, earInnerMat);
+    earRIn.position.set(0.16, 1.62, 0.06);
+    earRIn.rotation.z = -0.15;
+    earRIn.rotation.x = -0.1;
+    group.add(earR, earRIn);
+
+    // 蝴蝶结发饰
+    const bow = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.12, 0.08), new THREE.MeshStandardMaterial({ color: 0xf06292 }));
+    bow.position.set(0, 1.38, 0.2);
     group.add(bow);
+
+    // 绒球圆尾巴
+    const tail = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 10), bodyMat);
+    tail.position.set(0, 0.38, -0.46);
+    group.add(tail);
+
+    // 后背救援藤篓
+    const basket = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.2, 0.35, 12), new THREE.MeshStandardMaterial({ color: 0xbcaaa4, roughness: 0.9 }));
+    basket.position.set(0, 0.65, -0.32);
+    basket.rotation.x = 0.2;
+    group.add(basket);
+
+    return group;
+  }
+
+  // -------------------------------------------------------------
+  // 🌟 核心升级：手工打造 8 种具体小动物的独立精致 3D 模型
+  // -------------------------------------------------------------
+  createPetLabelSprite(emoji, name) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 76;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+    ctx.strokeStyle = '#43a047';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(6, 6, 244, 64, 32);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = 'bold 30px "PingFang SC", "Segoe UI Emoji", system-ui, sans-serif';
+    ctx.fillStyle = '#1b5e20';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`${emoji} ${name}`, 128, 38);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    const mat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+    const sprite = new THREE.Sprite(mat);
+    sprite.scale.set(1.4, 0.42, 1);
+    return sprite;
+  }
+
+  // 0. 🐰 小兔宝宝（迷宫深处守护目标）
+  buildBabyBunnyModel() {
+    const g = new THREE.Group();
+    const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 });
+    const pinkMat = new THREE.MeshStandardMaterial({ color: 0xff80ab });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.3, 14, 14), whiteMat);
+    body.position.y = 0.3;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.24, 14, 14), whiteMat);
+    head.position.set(0, 0.6, 0.06);
+
+    const earL = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.07, 0.42, 8), whiteMat);
+    earL.position.set(-0.11, 0.92, 0.04);
+    earL.rotation.z = 0.18;
+    const earR = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.07, 0.42, 8), whiteMat);
+    earR.position.set(0.11, 0.92, 0.04);
+    earR.rotation.z = -0.18;
+
+    const tail = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), whiteMat);
+    tail.position.set(0, 0.22, -0.28);
+
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.035, 6, 6), pinkMat);
+    nose.position.set(0, 0.58, 0.29);
+
+    g.add(body, head, earL, earR, tail, nose);
+    return g;
+  }
+
+  // 1. 🐱 小猫（橘粉猫咪，立耳俏皮尾）
+  buildKittenModel() {
+    const g = new THREE.Group();
+    const catMat = new THREE.MeshStandardMaterial({ color: 0xffb74d, roughness: 0.7 });
+    const pinkMat = new THREE.MeshStandardMaterial({ color: 0xff80ab });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 14), catMat);
+    body.position.y = 0.28;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 14), catMat);
+    head.position.set(0, 0.56, 0.06);
+
+    const earGeo = new THREE.ConeGeometry(0.08, 0.16, 4);
+    const earL = new THREE.Mesh(earGeo, catMat);
+    earL.position.set(-0.14, 0.76, 0.06);
+    earL.rotation.y = Math.PI / 4;
+    const earR = new THREE.Mesh(earGeo, catMat);
+    earR.position.set(0.14, 0.76, 0.06);
+    earR.rotation.y = Math.PI / 4;
+
+    const tail = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.035, 6, 10, Math.PI * 0.75), catMat);
+    tail.position.set(0, 0.35, -0.25);
+    tail.rotation.y = Math.PI / 2;
+
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.03, 6, 6), pinkMat);
+    nose.position.set(0, 0.54, 0.27);
+
+    g.add(body, head, earL, earR, tail, nose);
+    return g;
+  }
+
+  // 2. 🐶 小狗（金毛垂耳、红项圈金铃铛）
+  buildPuppyModel() {
+    const g = new THREE.Group();
+    const dogMat = new THREE.MeshStandardMaterial({ color: 0xd4a373, roughness: 0.8 });
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x8d6e63 });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.3, 14, 14), dogMat);
+    body.position.y = 0.3;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.23, 14, 14), dogMat);
+    head.position.set(0, 0.58, 0.08);
+
+    const earL = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.18, 4, 8), darkMat);
+    earL.position.set(-0.22, 0.62, 0.05);
+    earL.rotation.z = 0.45;
+    const earR = new THREE.Mesh(new THREE.CapsuleGeometry(0.06, 0.18, 4, 8), darkMat);
+    earR.position.set(0.22, 0.62, 0.05);
+    earR.rotation.z = -0.45;
+
+    const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.22, 6), dogMat);
+    tail.position.set(0, 0.38, -0.26);
+    tail.rotation.x = -0.8;
+
+    const collar = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.03, 6, 14), new THREE.MeshStandardMaterial({ color: 0xe53935 }));
+    collar.position.set(0, 0.48, 0.06);
+    collar.rotation.x = Math.PI / 2;
+
+    const snout = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), dogMat);
+    snout.position.set(0, 0.54, 0.28);
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.035, 6, 6), new THREE.MeshStandardMaterial({ color: 0x212121 }));
+    nose.position.set(0, 0.58, 0.36);
+
+    g.add(body, head, earL, earR, tail, collar, snout, nose);
+    return g;
+  }
+
+  // 3. 🐥 小鸡（鲜亮黄羽毛、小橙喙与翅膀）
+  buildChickModel() {
+    const g = new THREE.Group();
+    const chickMat = new THREE.MeshStandardMaterial({ color: 0xffeb3b, roughness: 0.6 });
+    const orangeMat = new THREE.MeshStandardMaterial({ color: 0xff5722 });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.26, 14, 14), chickMat);
+    body.position.y = 0.26;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.19, 14, 14), chickMat);
+    head.position.set(0, 0.52, 0.06);
+
+    const beak = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.14, 6), orangeMat);
+    beak.position.set(0, 0.5, 0.26);
+    beak.rotation.x = Math.PI / 2;
+
+    const wingGeo = new THREE.SphereGeometry(0.12, 8, 8);
+    const wingL = new THREE.Mesh(wingGeo, chickMat);
+    wingL.scale.set(0.3, 0.8, 1.2);
+    wingL.position.set(-0.24, 0.28, 0.02);
+    const wingR = new THREE.Mesh(wingGeo, chickMat);
+    wingR.scale.set(0.3, 0.8, 1.2);
+    wingR.position.set(0.24, 0.28, 0.02);
+
+    const comb = new THREE.Mesh(new THREE.SphereGeometry(0.045, 6, 6), new THREE.MeshStandardMaterial({ color: 0xf44336 }));
+    comb.position.set(0, 0.72, 0.06);
+
+    g.add(body, head, beak, wingL, wingR, comb);
+    return g;
+  }
+
+  // 4. 🐹 小仓鼠（胖嘟嘟圆脸颊、捧着瓜子）
+  buildHamsterModel() {
+    const g = new THREE.Group();
+    const brownMat = new THREE.MeshStandardMaterial({ color: 0xd7ccc8, roughness: 0.8 });
+    const cheekMat = new THREE.MeshStandardMaterial({ color: 0xffccbc });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 14), brownMat);
+    body.position.y = 0.28;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 14), brownMat);
+    head.position.set(0, 0.54, 0.06);
+
+    const cheekL = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), cheekMat);
+    cheekL.position.set(-0.14, 0.48, 0.2);
+    const cheekR = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), cheekMat);
+    cheekR.position.set(0.14, 0.48, 0.2);
+
+    const earGeo = new THREE.SphereGeometry(0.05, 8, 8);
+    const earL = new THREE.Mesh(earGeo, cheekMat);
+    earL.position.set(-0.14, 0.72, 0.04);
+    const earR = new THREE.Mesh(earGeo, cheekMat);
+    earR.position.set(0.14, 0.72, 0.04);
+
+    const seed = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.12, 6), new THREE.MeshStandardMaterial({ color: 0x3e2723 }));
+    seed.position.set(0, 0.36, 0.28);
+    seed.rotation.x = -0.3;
+
+    g.add(body, head, cheekL, cheekR, earL, earR, seed);
+    return g;
+  }
+
+  // 5. 🐢 小乌龟（深翠绿龟甲、探头四鳍足）
+  buildTurtleModel() {
+    const g = new THREE.Group();
+    const shellMat = new THREE.MeshStandardMaterial({ color: 0x2e7d32, roughness: 0.55 });
+    const skinMat = new THREE.MeshStandardMaterial({ color: 0x81c784, roughness: 0.7 });
+    const bellyMat = new THREE.MeshStandardMaterial({ color: 0xffecb3 });
+
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(0.32, 12, 10, 0, Math.PI * 2, 0, Math.PI * 0.55), shellMat);
+    shell.scale.set(1.15, 0.7, 1.25);
+    shell.position.y = 0.14;
+
+    const belly = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.05, 12), bellyMat);
+    belly.position.y = 0.12;
+
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 10), skinMat);
+    head.position.set(0, 0.22, 0.38);
+
+    const flipperGeo = new THREE.BoxGeometry(0.14, 0.05, 0.18);
+    const f1 = new THREE.Mesh(flipperGeo, skinMat);
+    f1.position.set(-0.32, 0.1, 0.2);
+    const f2 = new THREE.Mesh(flipperGeo, skinMat);
+    f2.position.set(0.32, 0.1, 0.2);
+    const f3 = new THREE.Mesh(flipperGeo, skinMat);
+    f3.position.set(-0.28, 0.1, -0.2);
+    const f4 = new THREE.Mesh(flipperGeo, skinMat);
+    f4.position.set(0.28, 0.1, -0.2);
+
+    g.add(shell, belly, head, f1, f2, f3, f4);
+    return g;
+  }
+
+  // 6. 🦆 小鸭（奶油白鸭身、宽扁橘色鸭嘴）
+  buildDuckModel() {
+    const g = new THREE.Group();
+    const duckMat = new THREE.MeshStandardMaterial({ color: 0xfffde7, roughness: 0.65 });
+    const billMat = new THREE.MeshStandardMaterial({ color: 0xff6f00 });
+
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 14), duckMat);
+    body.position.y = 0.28;
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.2, 14, 14), duckMat);
+    head.position.set(0, 0.54, 0.08);
+
+    const bill = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.04, 0.16), billMat);
+    bill.position.set(0, 0.52, 0.28);
+
+    const wingL = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8), duckMat);
+    wingL.scale.set(0.25, 0.7, 1.3);
+    wingL.position.set(-0.26, 0.32, 0.02);
+    const wingR = new THREE.Mesh(new THREE.SphereGeometry(0.12, 8, 8), duckMat);
+    wingR.scale.set(0.25, 0.7, 1.3);
+    wingR.position.set(0.26, 0.32, 0.02);
+
+    g.add(body, head, bill, wingL, wingR);
+    return g;
+  }
+
+  // 7. 🐑 小羊（云朵般的簇状蓬松羊毛球、黑脸蛋）
+  buildLambModel() {
+    const g = new THREE.Group();
+    const woolMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.95 });
+    const faceMat = new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.8 });
+
+    const woolPuffs = [
+      [0, 0.3, 0, 0.26],
+      [-0.12, 0.35, 0.1, 0.18],
+      [0.12, 0.35, 0.1, 0.18],
+      [-0.14, 0.32, -0.12, 0.19],
+      [0.14, 0.32, -0.12, 0.19],
+      [0, 0.44, 0, 0.22],
+    ];
+    woolPuffs.forEach(([wx, wy, wz, wr]) => {
+      const puff = new THREE.Mesh(new THREE.SphereGeometry(wr, 10, 10), woolMat);
+      puff.position.set(wx, wy, wz);
+      g.add(puff);
+    });
+
+    const face = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 12), faceMat);
+    face.position.set(0, 0.46, 0.26);
+
+    const earL = new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), faceMat);
+    earL.position.set(-0.16, 0.48, 0.2);
+    earL.rotation.z = 0.5;
+    const earR = new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.14, 4, 6), faceMat);
+    earR.position.set(0.16, 0.48, 0.2);
+    earR.rotation.z = -0.5;
+
+    g.add(face, earL, earR);
+    return g;
+  }
+
+  createPetMesh(pet) {
+    const group = new THREE.Group();
+    const id = pet.id;
+
+    let animalModel;
+    switch (id) {
+      case 0: animalModel = this.buildBabyBunnyModel(); break;
+      case 1: animalModel = this.buildKittenModel(); break;
+      case 2: animalModel = this.buildPuppyModel(); break;
+      case 3: animalModel = this.buildChickModel(); break;
+      case 4: animalModel = this.buildHamsterModel(); break;
+      case 5: animalModel = this.buildTurtleModel(); break;
+      case 6: animalModel = this.buildDuckModel(); break;
+      case 7: animalModel = this.buildLambModel(); break;
+      default: animalModel = this.buildBabyBunnyModel();
+    }
+    group.add(animalModel);
+
+    // 悬浮爱心名字精灵标记 (孩子远距离一眼看清)
+    const nameSprite = this.createPetLabelSprite(pet.emoji, pet.name);
+    nameSprite.position.y = 1.18;
+    group.add(nameSprite);
+
+    group.userData = {
+      id: pet.id,
+      name: pet.name,
+      emoji: pet.emoji,
+      baseY: 0,
+      animPhase: pet.id * 0.9,
+    };
 
     return group;
   }
@@ -483,27 +919,49 @@ class Render3D {
     this.petMeshes.forEach((m) => this.scene.remove(m));
     this.petMeshes = [];
 
+    const playerCarriedCount = { 0: 0, 1: 0 };
+
     state.pets.forEach((pet) => {
-      if (pet.home) return;
+      const group = this.createPetMesh(pet);
 
-      const w = this.gridToWorld(pet.x, pet.y);
-      const group = new THREE.Group();
-
-      const geo = new THREE.SphereGeometry(0.35, 12, 12);
-      const mat = new THREE.MeshStandardMaterial({ color: 0xffd54f, roughness: 0.5 });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.y = 0.35;
-      mesh.castShadow = true;
-      group.add(mesh);
-
-      if (pet.carriedBy !== null) {
-        const carrierW = this.gridToWorld(
-          state.players[pet.carriedBy].x,
-          state.players[pet.carriedBy].y
+      if (pet.home) {
+        // 救回家的小动物：在温馨小木屋前围成一圈欢聚庆祝！
+        const homeW = this.gridToWorld(4, 4);
+        const circleAngle = (pet.id / 8) * Math.PI * 2;
+        const radius = 1.75;
+        group.position.set(
+          homeW.x + 1.4 + Math.cos(circleAngle) * radius,
+          0,
+          homeW.z - 1.4 + Math.sin(circleAngle) * radius
         );
-        group.position.set(carrierW.x, 1.2, carrierW.z);
+        group.rotation.y = circleAngle + Math.PI;
+        group.userData.carried = false;
+        group.userData.isHome = true;
+      } else if (pet.carriedBy !== null) {
+        const carrierId = pet.carriedBy;
+        const carrier = state.players[carrierId];
+        const carrierW = this.gridToWorld(carrier.x, carrier.y);
+        const slot = playerCarriedCount[carrierId] || 0;
+        playerCarriedCount[carrierId] = slot + 1;
+
+        if (carrier.roleKey === 'BEAR') {
+          // 小熊抱两只：左右两肩各一只
+          const shoulderOffset = slot === 0 ? -0.42 : 0.42;
+          group.position.set(carrierW.x + shoulderOffset, 1.25, carrierW.z);
+          group.scale.set(0.85, 0.85, 0.85);
+        } else {
+          // Naomi 小兔抱 1 只：坐在小兔的可爱背篓里
+          group.position.set(carrierW.x, 1.05, carrierW.z + 0.15);
+          group.scale.set(0.88, 0.88, 0.88);
+        }
+        group.userData.carried = true;
+        group.userData.isHome = false;
       } else {
+        // 地面上等待救援
+        const w = this.gridToWorld(pet.x, pet.y);
         group.position.set(w.x, 0, w.z);
+        group.userData.carried = false;
+        group.userData.isHome = false;
       }
 
       this.scene.add(group);
@@ -520,15 +978,28 @@ class Render3D {
       const w = this.gridToWorld(gift.x, gift.y);
       const group = new THREE.Group();
 
-      const boxGeo = new THREE.BoxGeometry(0.7, 0.7, 0.7);
+      const isBomb = gift.kind === 'bomb';
       const boxMat = new THREE.MeshStandardMaterial({
-        color: gift.kind === 'bomb' ? 0xba68c8 : 0xffca28,
-        roughness: 0.4,
+        color: isBomb ? 0x9c27b0 : 0xffb300,
+        roughness: 0.35,
       });
-      const box = new THREE.Mesh(boxGeo, boxMat);
-      box.position.y = 0.35;
+      const box = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.72, 0.72), boxMat);
+      box.position.y = 0.36;
       box.castShadow = true;
       group.add(box);
+
+      // 丝带十字蝴蝶结
+      const ribbonMat = new THREE.MeshStandardMaterial({
+        color: isBomb ? 0xe1bee7 : 0xffffff,
+        roughness: 0.2,
+      });
+      const ribH = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.74, 0.16), ribbonMat);
+      ribH.position.y = 0.36;
+      const ribV = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.74, 0.74), ribbonMat);
+      ribV.position.y = 0.36;
+      const bow = new THREE.Mesh(new THREE.DodecahedronGeometry(0.14, 0), ribbonMat);
+      bow.position.y = 0.78;
+      group.add(ribH, ribV, bow);
 
       group.position.set(w.x, 0, w.z);
       this.scene.add(group);
@@ -658,9 +1129,18 @@ class Render3D {
       }
     }
 
-    // 5. 礼盒与待救动物轻微待机动画
+    // 5. 礼盒与小动物生动待机动画
+    const nowSec = Date.now() * 0.003;
     this.giftMeshes.forEach((g) => {
       g.rotation.y += 0.015;
+    });
+
+    this.petMeshes.forEach((petMesh) => {
+      if (!petMesh.userData.carried) {
+        const animPhase = petMesh.userData.animPhase || 0;
+        const hop = Math.abs(Math.sin(nowSec * 2.5 + animPhase)) * 0.12;
+        petMesh.position.y = hop;
+      }
     });
 
     this.renderer.render(this.scene, this.camera);

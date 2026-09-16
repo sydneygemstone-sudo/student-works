@@ -611,7 +611,8 @@
 
     // 2. 本人状态卡片
     const myP = state.players[myPlayerId];
-    $('myAvatar').textContent = myP.emoji;
+    const myImg = myP.roleKey === 'BEAR' ? 'assets/bear_avatar.jpg' : 'assets/bunny_avatar.jpg';
+    $('myAvatar').innerHTML = `<img src="${myImg}" class="avatar-img" alt="${myP.name}" onerror="this.outerHTML='${myP.emoji}'" />`;
     $('myName').textContent = myP.name;
     $('myRoleBadge').textContent = myP.roleKey === 'BEAR' ? '小熊 (2步/抱2只)' : '小兔 (3步/抱1只)';
     $('myCarriedBadge').textContent = `抱有: ${myP.carriedCount} / ${myP.carry}`;
@@ -642,7 +643,8 @@
     // 3. 队友状态卡片
     const mateId = 1 - myPlayerId;
     const mateP = state.players[mateId];
-    $('mateAvatar').textContent = mateP.emoji;
+    const mateImg = mateP.roleKey === 'BEAR' ? 'assets/bear_avatar.jpg' : 'assets/bunny_avatar.jpg';
+    $('mateAvatar').innerHTML = `<img src="${mateImg}" class="avatar-img" alt="${mateP.name}" onerror="this.outerHTML='${mateP.emoji}'" />`;
     $('mateName').textContent = mateP.name;
     $('mateRoleBadge').textContent = mateP.roleKey === 'BEAR' ? '小熊 (2步/抱2只)' : '小兔 (3步/抱1只)';
     $('mateCarriedBadge').textContent = `抱有: ${mateP.carriedCount} / ${mateP.carry}`;
