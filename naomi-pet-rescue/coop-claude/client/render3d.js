@@ -179,7 +179,7 @@ export class GardenRenderer {
 
     // 树篱迷宫墙体
     const walls = new Set(snapshot.walls);
-    const hedgeMaterial = new THREE.MeshLambertMaterial({ color: 0x2f7d४4 & 0xffffff });
+    const hedgeMaterial = new THREE.MeshLambertMaterial({ color: 0x2f7d44 });
     hedgeMaterial.color.setHex(0x2f7d44);
     for (const segment of hedgeSegments(walls)) {
       const geometry = segment.horizontal
