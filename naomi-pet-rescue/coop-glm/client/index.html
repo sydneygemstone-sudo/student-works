@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- 作者: Codex (GLM 5.3 Max) -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>小动物回家 · 双人联机 3D 探索</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="lobby">
+  <h1>🐾 小动物回家 <small>双人联机 3D 探索</small></h1>
+  <div class="cards">
+    <button id="btn-bear" class="role-card">🐻 我是小熊<small>2 步/轮 · 抱 2 只</small></button>
+    <button id="btn-bunny" class="role-card">🐰 我是小兔 Naomi<small>3 步/轮 · 抱 1 只</small></button>
+    <button id="btn-solo" class="role-card solo">🎮 单人测试<small>一人两角 · Tab 切换</small></button>
+  </div>
+  <div id="qr-box">
+    <div id="qr"></div>
+    <div id="lan-url"></div>
+    <p>iPad 用 Safari 扫码加入同一 Wi-Fi 局域网</p>
+  </div>
+</div>
+
+<div id="hud" hidden>
+  <div id="topbar">
+    <span id="turn-info"></span>
+    <span id="weather"></span>
+    <span id="courage"></span>
+    <span id="shield"></span>
+    <span id="saved"></span>
+    <span id="my-role"></span>
+  </div>
+  <div id="banner" hidden></div>
+  <div id="controls">
+    <div class="dpad">
+      <button data-act="forward">⬆️ 前进</button>
+      <div class="row">
+        <button data-act="left">↰ 左转</button>
+        <button data-act="backward">⬇️ 后退</button>
+        <button data-act="right">↱ 右转</button>
+      </div>
+    </div>
+    <div class="actions">
+      <button data-act="give">🤝 递给队友</button>
+      <button data-act="support">🏡 守护家园</button>
+      <button data-act="boost">✨ 勇气加步</button>
+      <button data-act="ready" id="btn-ready">✅ 结束本回合</button>
+      <button id="btn-swap" hidden>🔁 Tab 切换角色</button>
+      <button id="btn-both-ready" hidden>⚡ 一键双方就绪</button>
+    </div>
+  </div>
+  <div id="banner-arrow" hidden>⬅️ 后退或转向 ➡️</div>
+</div>
+<canvas id="c3d"></canvas>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
