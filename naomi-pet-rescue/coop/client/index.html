@@ -104,6 +104,19 @@
         </button>
       </div>
     </footer>
+
+    <!-- 单人模式切换与调试栏（仅在单人测试模式显示） -->
+    <div id="soloControlBar" class="hidden" style="position: absolute; top: 84px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.94); padding: 6px 14px; border-radius: 30px; box-shadow: 0 4px 18px rgba(0,0,0,0.18); border: 2px solid #ff9800; z-index: 100; backdrop-filter: blur(8px);">
+      <span style="font-size: 13px; font-weight: 800; color: #e65100; display: flex; align-items: center; gap: 4px;">
+        🎯 <span>单人测试</span>
+      </span>
+      <button id="btnSwitchSoloPlayer" type="button" class="btn-action" style="background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 20px; box-shadow: 0 2px 6px rgba(245,124,0,0.4);">
+        🔄 切换控制: <span id="soloActiveCharBadge">🐻 小熊</span> (Tab)
+      </button>
+      <button id="btnSoloAdvanceRound" type="button" class="btn-action" style="background: #e8f5e9; color: #2e7d32; border: 1.5px solid #81c784; padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+        ⏩ 一键双方就绪·推进回合
+      </button>
+    </div>
   </div>
 
   <!-- 大厅建房/加入弹窗 -->
@@ -113,12 +126,15 @@
       <p class="modal-subtitle">第三人称越肩探索 · 两人各自控制 · 共同回合救援</p>
 
       <!-- 选项卡按钮 -->
-      <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-        <button id="tabBtnCreate" type="button" class="btn-action" style="flex: 1; justify-content: center; background: #e8f5e9; color: #2e7d32;">
-          ➕ 创建新房间
+      <div style="display: flex; gap: 8px; margin-bottom: 18px;">
+        <button id="tabBtnCreate" type="button" class="btn-action" style="flex: 1; justify-content: center; background: #e8f5e9; color: #2e7d32; font-size: 13px; padding: 10px 4px;">
+          ➕ 双人创房
         </button>
-        <button id="tabBtnJoin" type="button" class="btn-action" style="flex: 1; justify-content: center;">
-          🔑 加入已有房间
+        <button id="tabBtnJoin" type="button" class="btn-action" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px 4px;">
+          🔑 加入房间
+        </button>
+        <button id="tabBtnSolo" type="button" class="btn-action" style="flex: 1.2; justify-content: center; background: #fff3e0; color: #e65100; border-color: #ffb74d; font-size: 13px; font-weight: 700; padding: 10px 4px;">
+          🎯 单人测试
         </button>
       </div>
 
@@ -162,6 +178,28 @@
 
         <button id="btnJoinRoomSubmit" type="button" class="btn-primary">
           加入该房间 🎮
+        </button>
+      </div>
+
+      <!-- 单人测试模式面板 -->
+      <div id="panelSolo" class="hidden">
+        <div style="background: #fff8e1; border-radius: 12px; padding: 14px; margin-bottom: 16px; border: 1.5px solid #ffe082; text-align: left;">
+          <div style="font-size: 15px; font-weight: 800; color: #e65100; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <span>🕹️</span> 一人分饰两角 · 快速完整测试
+          </div>
+          <p style="margin: 0 0 8px 0; font-size: 13px; color: #5d4037; line-height: 1.5;">
+            无需两台 iPad，直接在当前设备上独立测试和体验全部 3D 合作机制：
+          </p>
+          <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #6d4c41; line-height: 1.6;">
+            <li>按 <strong>Tab 键</strong>（或点击屏幕切换按钮 / 角色头像）随时在 <strong>🐻 小熊</strong> 与 <strong>🐰 小兔</strong> 之间切换视角。</li>
+            <li>各自走步探索、进出 4×4 树篱迷宫、测试石头撞墙提示、抱动物。</li>
+            <li>面对面测试互交（🤝 递给队友）、家园守护护盾（🏡）、勇气加步（✨）。</li>
+            <li>支持一键双方就绪推进回合，快速测试雷雨风暴与通关胜利！</li>
+          </ul>
+        </div>
+
+        <button id="btnStartSoloSubmit" type="button" class="btn-primary" style="background: linear-gradient(135deg, #ff9800, #f57c00);">
+          开始单人测试冒险 🚀
         </button>
       </div>
 

@@ -17,8 +17,158 @@
   let requestCounter = 0;
   let detectedLanHost = null;
 
+  // 单人测试模式状态
+  let isSoloMode = false;
+  let localGame = null;
+
   // DOM 元素引用
   const $ = (id) => document.getElementById(id);
+
+  // 单人模式：构建本地即时同步状态
+  function getLocalSoloState() {
+    if (!localGame) return null;
+    const g = localGame;
+    return {
+      code: 'SOLO',
+      teamRound: g.teamRound,
+      maxTeamRounds: g.cfg.MAX_TEAM_ROUNDS,
+      thunderEvery: g.cfg.THUNDER_EVERY_TEAM_ROUNDS,
+      energy: g.energy,
+      shield: g.shield,
+      status: g.status,
+      home: g.home,
+      maze: g.maze,
+      pets: g.pets,
+      gifts: g.gifts,
+      terrain: g.terrain,
+      log: g.log.slice(-20),
+      version: g.version,
+      players: [
+        {
+          id: 0,
+          roleKey: 'BEAR',
+          name: g.players[0].name || '小熊',
+          emoji: g.players[0].emoji,
+          x: g.players[0].x,
+          y: g.players[0].y,
+          heading: g.players[0].heading,
+          ap: g.players[0].ap,
+          moves: g.players[0].moves,
+          carry: g.players[0].carry,
+          carriedCount: g.pets.filter((p) => p.carriedBy === 0).length,
+          ready: g.players[0].ready,
+          boosted: g.players[0].boosted,
+          supported: g.players[0].supported,
+          skipTurns: g.players[0].skipTurns,
+          resting: g.players[0].resting,
+          connected: true,
+        },
+        {
+          id: 1,
+          roleKey: 'BUNNY',
+          name: g.players[1].name || 'Naomi小兔',
+          emoji: g.players[1].emoji,
+          x: g.players[1].x,
+          y: g.players[1].y,
+          heading: g.players[1].heading,
+          ap: g.players[1].ap,
+          moves: g.players[1].moves,
+          carry: g.players[1].carry,
+          carriedCount: g.pets.filter((p) => p.carriedBy === 1).length,
+          ready: g.players[1].ready,
+          boosted: g.players[1].boosted,
+          supported: g.players[1].supported,
+          skipTurns: g.players[1].skipTurns,
+          resting: g.players[1].resting,
+          connected: true,
+        },
+      ],
+    };
+  }
+
+  // 启动单人测试模式
+  function startSoloMode() {
+    isSoloMode = true;
+    currentRoomCode = 'SOLO';
+    myPlayerId = 0; // 默认从小熊视角出发
+    myRoleKey = 'BEAR';
+
+    document.body.classList.add('solo-mode-active');
+
+    if (window.CoopEngine) {
+      localGame = window.CoopEngine.createGame({
+        bearName: '小熊',
+        bunnyName: 'Naomi小兔',
+      });
+    }
+
+    $('modalLobby').classList.add('hidden');
+    $('soloControlBar').classList.remove('hidden');
+    updateSoloActiveBadge();
+
+    const initialState = getLocalSoloState();
+    updateGameState(initialState);
+    storyTheatre.play('intro');
+    showBannerNotification('已进入单人测试模式！按 Tab 键或点击上方按钮随时切换控制角色');
+  }
+
+  // 单人分饰两角：视角与控制即时平滑切换
+  function switchSoloPlayer() {
+    if (!isSoloMode || !localGame) return;
+    myPlayerId = myPlayerId === 0 ? 1 : 0;
+    myRoleKey = myPlayerId === 0 ? 'BEAR' : 'BUNNY';
+    updateSoloActiveBadge();
+    updateGameState(getLocalSoloState());
+    showBannerNotification(`已切换至控制【${myPlayerId === 0 ? '🐻 小熊' : '🐰 Naomi小兔'}】视角`);
+  }
+
+  function updateSoloActiveBadge() {
+    const badge = $('soloActiveCharBadge');
+    if (badge) {
+      badge.textContent = myPlayerId === 0 ? '🐻 小熊' : '🐰 Naomi小兔';
+    }
+  }
+
+  // 一键双方就绪推进回合（测试加速神器）
+  function advanceSoloRoundDirectly() {
+    if (!isSoloMode || !localGame || localGame.status !== 'playing') return;
+    window.CoopEngine.applyAction(localGame, 0, 'READY');
+    window.CoopEngine.applyAction(localGame, 1, 'READY');
+    updateGameState(getLocalSoloState());
+    showBannerNotification(`双方均已就绪！第 ${localGame.teamRound} 共同回合开始`);
+  }
+
+  // 单人本地动作分发与反馈
+  function handleSoloAction(action) {
+    if (!localGame || localGame.status !== 'playing') return;
+
+    if (action === 'READY') {
+      const res = window.CoopEngine.applyAction(localGame, myPlayerId, 'READY');
+      updateGameState(getLocalSoloState());
+      if (res && res.roundResolved) {
+        showBannerNotification(`双方均已就绪！推进至第 ${localGame.teamRound} 共同回合`);
+      } else {
+        showBannerNotification(`${myPlayerId === 0 ? '🐻 小熊' : '🐰 Naomi小兔'} 已就绪！请按 Tab 切换角色继续行动`);
+      }
+      return;
+    }
+
+    if (action === 'UNREADY') {
+      window.CoopEngine.applyAction(localGame, myPlayerId, 'UNREADY');
+      updateGameState(getLocalSoloState());
+      return;
+    }
+
+    const res = window.CoopEngine.applyAction(localGame, myPlayerId, action);
+    if (!res.success) {
+      if (res.reason === 'blocked' && res.hint) {
+        showStoneArrowHint(res.hint);
+      } else {
+        showBannerNotification(res.error || '动作无法执行');
+      }
+    }
+    updateGameState(getLocalSoloState());
+  }
 
   // 获取服务端推断的真实物理局域网地址（排除 Tailscale，保证 iPad 扫码直连）
   async function initLanInfo() {
@@ -61,8 +211,15 @@
     setupKeyboardShortcuts();
     initLanInfo();
 
-    // 检查 URL 中是否有 ?room=XXXX 传参
+    // 检查 URL 传参
     const urlParams = new URLSearchParams(window.location.search);
+    const isSoloUrl = urlParams.get('solo') === '1' || urlParams.get('mode') === 'solo';
+    if (isSoloUrl) {
+      startSoloMode();
+      return;
+    }
+
+    // 检查 URL 中是否有 ?room=XXXX 传参
     const roomFromUrl = urlParams.get('room');
     if (roomFromUrl) {
       $('inputJoinRoomCode').value = roomFromUrl.toUpperCase();
@@ -158,9 +315,11 @@
       $('inputCreatorName').value = 'Naomi';
     };
 
-    // 选项卡切换 (创建房间 / 加入房间)
+    // 选项卡切换 (双人创房 / 加入房间 / 单人测试)
     $('tabBtnCreate').onclick = () => selectLobbyTab('create');
     $('tabBtnJoin').onclick = () => selectLobbyTab('join');
+    $('tabBtnSolo').onclick = () => selectLobbyTab('solo');
+    $('btnStartSoloSubmit').onclick = () => startSoloMode();
 
     // 创建房间按钮
     $('btnCreateRoomSubmit').onclick = () => {
@@ -216,16 +375,21 @@
   }
 
   function selectLobbyTab(tab) {
-    if (tab === 'create') {
-      $('tabBtnCreate').classList.add('selected');
-      $('tabBtnJoin').classList.remove('selected');
-      $('panelCreateRoom').classList.remove('hidden');
-      $('panelJoinRoom').classList.add('hidden');
-    } else {
-      $('tabBtnJoin').classList.add('selected');
-      $('tabBtnCreate').classList.remove('selected');
-      $('panelJoinRoom').classList.remove('hidden');
-      $('panelCreateRoom').classList.add('hidden');
+    $('tabBtnCreate').style.background = tab === 'create' ? '#e8f5e9' : '#fff';
+    $('tabBtnCreate').style.color = tab === 'create' ? '#2e7d32' : '#555';
+
+    $('tabBtnJoin').style.background = tab === 'join' ? '#e3f2fd' : '#fff';
+    $('tabBtnJoin').style.color = tab === 'join' ? '#1565c0' : '#555';
+
+    $('tabBtnSolo').style.background = tab === 'solo' ? '#fff3e0' : '#fff';
+    $('tabBtnSolo').style.color = tab === 'solo' ? '#e65100' : '#555';
+
+    $('panelCreateRoom').classList.toggle('hidden', tab !== 'create');
+    $('panelJoinRoom').classList.toggle('hidden', tab !== 'join');
+    $('panelSolo').classList.toggle('hidden', tab !== 'solo');
+
+    if ($('lobbyQrBox')) {
+      $('lobbyQrBox').style.opacity = tab === 'solo' ? '0.5' : '1.0';
     }
   }
 
@@ -327,6 +491,18 @@
         submitAction('READY');
       }
     };
+
+    // 单人模式专属操作
+    $('btnSwitchSoloPlayer').onclick = () => switchSoloPlayer();
+    $('btnSoloAdvanceRound').onclick = () => advanceSoloRoundDirectly();
+
+    // 点击角色头像卡片亦可极速切换视角
+    $('mateAvatar').parentElement.onclick = () => {
+      if (isSoloMode) switchSoloPlayer();
+    };
+    $('myAvatar').parentElement.onclick = () => {
+      if (isSoloMode) switchSoloPlayer();
+    };
   }
 
   // 电脑键盘开发辅助
@@ -334,6 +510,14 @@
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT') return;
       switch (e.key) {
+        case 'Tab':
+          e.preventDefault();
+          if (isSoloMode) switchSoloPlayer();
+          break;
+        case 'c':
+        case 'C':
+          if (isSoloMode) switchSoloPlayer();
+          break;
         case 'w':
         case 'ArrowUp':
           submitAction('FORWARD');
@@ -368,8 +552,13 @@
     });
   }
 
-  // 提交带 requestId 与 roundId 的动作指令
+  // 提交带 requestId 与 roundId 的动作指令（单人模式走本地引擎）
   function submitAction(action) {
+    if (isSoloMode) {
+      handleSoloAction(action);
+      return;
+    }
+
     if (!currentRoomCode || !sessionToken || !gameState) return;
 
     requestCounter++;

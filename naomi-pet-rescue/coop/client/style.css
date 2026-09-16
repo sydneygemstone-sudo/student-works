@@ -640,3 +640,29 @@ html, body {
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.8);
 }
+
+/* 单人测试模式专属样式 */
+#soloControlBar {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.solo-mode-active .player-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.solo-mode-active .player-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 152, 0, 0.4);
+}
