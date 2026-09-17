@@ -39,6 +39,12 @@
         </div>
       </div>
 
+      <!-- Quest & Chapter Progress Banner -->
+      <div id="quest-banner">
+        <span id="chapter-badge">📖 CH. 1</span>
+        <span id="quest-text">Train your starter in the valley & challenge Gatekeeper Giga-Golem 🗿!</span>
+      </div>
+
       <!-- Toast Notification -->
       <div id="toast">Welcome to 3D Monster Quest!</div>
 
@@ -62,7 +68,7 @@
       <!-- EVOLUTION SEQUENCE MODAL -->
       <div id="evolution-modal" class="hidden">
         <div class="evo-rays"></div>
-        <div class="title-badge" style="z-index: 2;">⭐ 3D MEGA EVOLUTION! ⭐</div>
+        <div class="title-badge" style="z-index: 2;" id="evo-badge">⭐ 3D EVOLUTION! ⭐</div>
         <div class="evo-sprite-box" id="evo-sprite-box">
           <!-- Evolved Creature 3D View / SVG -->
         </div>
@@ -122,11 +128,19 @@
           <div class="battle-msg-box" id="battle-msg">
             A wild creature appeared!
           </div>
+          <!-- Primary Actions Menu -->
           <div class="action-buttons-grid" id="battle-actions">
-            <button class="battle-btn btn-attack" id="btn-attack">⚔️ ATTACK</button>
+            <button class="battle-btn btn-attack" id="btn-fight">⚔️ FIGHT</button>
             <button class="battle-btn btn-capture" id="btn-capture">🔴 CAPTURE</button>
             <button class="battle-btn btn-switch" id="btn-switch">🔄 SWITCH</button>
             <button class="battle-btn btn-run" id="btn-run">🏃 RUN</button>
+          </div>
+          <!-- Move Selection Menu -->
+          <div class="action-buttons-grid hidden" id="battle-moves">
+            <button class="battle-btn btn-attack move-btn" id="btn-move-0">Move 1</button>
+            <button class="battle-btn btn-attack move-btn" id="btn-move-1">Move 2</button>
+            <button class="battle-btn btn-attack move-btn" id="btn-move-2">Move 3</button>
+            <button class="battle-btn btn-switch" id="btn-move-back">⬅️ BACK</button>
           </div>
         </div>
       </div>

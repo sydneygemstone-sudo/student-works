@@ -602,6 +602,23 @@ body {
 .btn-switch { background: linear-gradient(135deg, #10b981, #059669); color: white; }
 .btn-run { background: linear-gradient(135deg, #64748b, #475569); color: white; }
 
+.move-btn {
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.2;
+  flex-direction: column;
+}
+
+.move-btn .m-name {
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.move-btn .m-info {
+  font-size: 9px;
+  opacity: 0.85;
+}
+
 /* EVOLUTION MODAL & PARTICLES */
 #evolution-modal {
   position: absolute;
@@ -735,6 +752,43 @@ body {
   align-items: center;
   pointer-events: none;
   z-index: 20;
+}
+
+#quest-banner {
+  position: absolute;
+  top: 46px;
+  left: 8px;
+  right: 8px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid #38bdf8;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 20;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+#chapter-badge {
+  background: #0284c7;
+  color: #fff;
+  font-weight: 800;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+#quest-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
 }
 
 .party-chips {

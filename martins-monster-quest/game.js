@@ -297,242 +297,509 @@ function create3DTrainer(trainerType = 'martin') {
   return group;
 }
 
-// 2. 3D Creatures (Base & Mega Evolutions & Bosses)
+// 2. High-Detail 3D Creatures (14 Species, 3 Stages, Bosses)
 function create3DCreatureMesh(species) {
   const group = new THREE.Group();
 
   if (species === 'Flameling') {
-    // Cute Orange Fire Cub
-    const bodyGeo = new THREE.SphereGeometry(0.32, 14, 14);
+    // Stage 1: Cute Fire Cub
+    const bodyGeo = new THREE.SphereGeometry(0.32, 16, 16);
     const bodyMat = new THREE.MeshLambertMaterial({ color: 0xf97316 });
     const body = new THREE.Mesh(bodyGeo, bodyMat);
     body.position.y = 0.35;
     body.castShadow = true;
     group.add(body);
 
-    const bellyGeo = new THREE.SphereGeometry(0.24, 12, 12);
-    const belly = new THREE.Mesh(bellyGeo, new THREE.MeshLambertMaterial({ color: 0xfef08a }));
+    const belly = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 12), new THREE.MeshLambertMaterial({ color: 0xfef08a }));
     belly.position.set(0, 0.33, 0.14);
     group.add(belly);
 
-    // Head
-    const headGeo = new THREE.SphereGeometry(0.26, 14, 14);
-    const head = new THREE.Mesh(headGeo, bodyMat);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.26, 16, 16), bodyMat);
     head.position.set(0, 0.65, 0.05);
     group.add(head);
 
-    // Horns
-    const hornGeo = new THREE.ConeGeometry(0.07, 0.2, 8);
-    const hornL = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xef4444 }));
-    hornL.position.set(-0.14, 0.86, 0.02);
-    hornL.rotation.z = -0.3;
-    group.add(hornL);
-    const hornR = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xef4444 }));
-    hornR.position.set(0.14, 0.86, 0.02);
-    hornR.rotation.z = 0.3;
-    group.add(hornR);
+    // Cute ears
+    const earGeo = new THREE.ConeGeometry(0.08, 0.22, 8);
+    const earL = new THREE.Mesh(earGeo, new THREE.MeshLambertMaterial({ color: 0xef4444 }));
+    earL.position.set(-0.14, 0.88, 0.02);
+    earL.rotation.z = -0.3;
+    group.add(earL);
+    const earR = new THREE.Mesh(earGeo, new THREE.MeshLambertMaterial({ color: 0xef4444 }));
+    earR.position.set(0.14, 0.88, 0.02);
+    earR.rotation.z = 0.3;
+    group.add(earR);
 
-    // Eyes
-    const eyeGeo = new THREE.SphereGeometry(0.045, 8, 8);
+    // Sparkly eyes & nose
     const eyeMat = new THREE.MeshBasicMaterial({ color: 0x0f172a });
-    const eyeL = new THREE.Mesh(eyeGeo, eyeMat);
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
     eyeL.position.set(-0.1, 0.68, 0.26);
     group.add(eyeL);
-    const eyeR = new THREE.Mesh(eyeGeo, eyeMat);
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
     eyeR.position.set(0.1, 0.68, 0.26);
     group.add(eyeR);
 
-    // Animated Flaming Tail
-    const tailGeo = new THREE.ConeGeometry(0.1, 0.35, 8);
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.025, 6, 6), new THREE.MeshBasicMaterial({ color: 0x1e293b }));
+    nose.position.set(0, 0.63, 0.31);
+    group.add(nose);
+
+    // Animated Flame Tail with light
+    const tailGeo = new THREE.ConeGeometry(0.12, 0.38, 8);
     tailGeo.rotateX(-Math.PI / 3);
     const tail = new THREE.Mesh(tailGeo, new THREE.MeshLambertMaterial({ color: 0xef4444, emissive: 0xf59e0b }));
     tail.position.set(0, 0.35, -0.35);
     group.add(tail);
     group.tail = tail;
 
-    // Tail Light
-    const tailLight = new THREE.PointLight(0xf97316, 0.8, 2.5);
+    const tailLight = new THREE.PointLight(0xf97316, 0.9, 3);
     tailLight.position.set(0, 0.45, -0.4);
     group.add(tailLight);
 
-  } else if (species === 'Pyrostryke') {
-    // Mega Evolution: Winged Fire Dragon!
-    const bodyGeo = new THREE.CylinderGeometry(0.35, 0.25, 0.8, 12);
-    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xdc2626 });
+  } else if (species === 'Pyrowhisker') {
+    // Stage 2: Agile Fire Lynx
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xe11d48 });
+    const bodyGeo = new THREE.CylinderGeometry(0.24, 0.28, 0.65, 12);
+    bodyGeo.rotateX(Math.PI / 2);
     const body = new THREE.Mesh(bodyGeo, bodyMat);
-    body.position.y = 0.7;
+    body.position.set(0, 0.45, 0);
     body.castShadow = true;
     group.add(body);
 
-    // Golden Armor Chest
-    const armorGeo = new THREE.BoxGeometry(0.4, 0.5, 0.4);
-    const armor = new THREE.Mesh(armorGeo, new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x78350f }));
-    armor.position.set(0, 0.72, 0.1);
-    group.add(armor);
-
-    // Dragon Head & Horns
-    const headGeo = new THREE.ConeGeometry(0.32, 0.65, 8);
-    headGeo.rotateX(Math.PI / 2);
-    const head = new THREE.Mesh(headGeo, bodyMat);
-    head.position.set(0, 1.25, 0.25);
+    // Head with lynx tufts
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 14, 14), bodyMat);
+    head.position.set(0, 0.75, 0.3);
     group.add(head);
 
-    const hornGeo = new THREE.ConeGeometry(0.08, 0.4, 8);
+    // Flame whiskers
+    const whiskerGeo = new THREE.ConeGeometry(0.05, 0.25, 6);
+    const wL = new THREE.Mesh(whiskerGeo, new THREE.MeshLambertMaterial({ color: 0xf59e0b, emissive: 0xd97706 }));
+    wL.position.set(-0.28, 0.7, 0.35);
+    wL.rotation.z = Math.PI / 2 + 0.3;
+    group.add(wL);
+    const wR = new THREE.Mesh(whiskerGeo, new THREE.MeshLambertMaterial({ color: 0xf59e0b, emissive: 0xd97706 }));
+    wR.position.set(0.28, 0.7, 0.35);
+    wR.rotation.z = -Math.PI / 2 - 0.3;
+    group.add(wR);
+
+    // Ears with tufts
+    const earGeo = new THREE.ConeGeometry(0.08, 0.3, 8);
+    const earL = new THREE.Mesh(earGeo, new THREE.MeshLambertMaterial({ color: 0x9f1239 }));
+    earL.position.set(-0.16, 1.05, 0.25);
+    earL.rotation.z = -0.25;
+    group.add(earL);
+    const earR = new THREE.Mesh(earGeo, new THREE.MeshLambertMaterial({ color: 0x9f1239 }));
+    earR.position.set(0.16, 1.05, 0.25);
+    earR.rotation.z = 0.25;
+    group.add(earR);
+
+    // Golden eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), eyeMat);
+    eyeL.position.set(-0.11, 0.78, 0.52);
+    group.add(eyeL);
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), eyeMat);
+    eyeR.position.set(0.11, 0.78, 0.52);
+    group.add(eyeR);
+
+    // Dual flame tail
+    const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.12, 0.5, 8), new THREE.MeshLambertMaterial({ color: 0xf97316, emissive: 0xe11d48 }));
+    tail.position.set(0, 0.55, -0.45);
+    tail.rotation.x = -0.8;
+    group.add(tail);
+    group.tail = tail;
+
+    const flameLight = new THREE.PointLight(0xf59e0b, 1.0, 3.5);
+    flameLight.position.set(0, 0.6, -0.5);
+    group.add(flameLight);
+
+  } else if (species === 'Pyrostryke') {
+    // Stage 3: Mega Fire Dragon Lord!
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xdc2626 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.28, 0.9, 14), bodyMat);
+    body.position.y = 0.75;
+    body.castShadow = true;
+    group.add(body);
+
+    // Golden Draconic Chestplate
+    const plate = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.55, 0.38), new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x78350f }));
+    plate.position.set(0, 0.78, 0.12);
+    group.add(plate);
+
+    // Dragon Head & Jaws
+    const head = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.75, 8), bodyMat);
+    head.geometry.rotateX(Math.PI / 2);
+    head.position.set(0, 1.35, 0.28);
+    group.add(head);
+
+    // Swept-back Dragon Horns
+    const hornGeo = new THREE.ConeGeometry(0.09, 0.55, 8);
     const hornL = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xfacc15 }));
-    hornL.position.set(-0.25, 1.45, -0.05);
-    hornL.rotation.z = -0.4;
+    hornL.position.set(-0.26, 1.6, -0.05);
+    hornL.rotation.set(-0.4, 0, -0.45);
     group.add(hornL);
     const hornR = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xfacc15 }));
-    hornR.position.set(0.25, 1.45, -0.05);
-    hornR.rotation.z = 0.4;
+    hornR.position.set(0.26, 1.6, -0.05);
+    hornR.rotation.set(-0.4, 0, 0.45);
     group.add(hornR);
 
-    // Giant Wings
-    const wingGeo = new THREE.BoxGeometry(0.8, 0.5, 0.05);
-    const wingMat = new THREE.MeshLambertMaterial({ color: 0xf97316, emissive: 0x9a3412 });
-    const wingL = new THREE.Mesh(wingGeo, wingMat);
-    wingL.position.set(-0.6, 0.95, -0.15);
-    wingL.rotation.y = 0.3;
+    // Giant Articulated Wings
+    const wingMat = new THREE.MeshLambertMaterial({ color: 0xf97316, emissive: 0x9a3412, side: THREE.DoubleSide });
+    const wingL = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.6, 0.05), wingMat);
+    wingL.position.set(-0.75, 1.05, -0.18);
+    wingL.rotation.y = 0.35;
     group.add(wingL);
-    const wingR = new THREE.Mesh(wingGeo, wingMat);
-    wingR.position.set(0.6, 0.95, -0.15);
-    wingR.rotation.y = -0.3;
+    const wingR = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.6, 0.05), wingMat);
+    wingR.position.set(0.75, 1.05, -0.18);
+    wingR.rotation.y = -0.35;
     group.add(wingR);
     group.wingL = wingL;
     group.wingR = wingR;
 
+    // Spiked Spine & Tail
+    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.8, 8), bodyMat);
+    tail.rotation.x = -1.2;
+    tail.position.set(0, 0.45, -0.6);
+    group.add(tail);
+    group.tail = tail;
+
+    const dragonFlame = new THREE.PointLight(0xf97316, 1.5, 4.5);
+    dragonFlame.position.set(0, 1.0, 0.4);
+    group.add(dragonFlame);
+
   } else if (species === 'Leafbit') {
-    // Nature Bunny Sprout
-    const bodyGeo = new THREE.SphereGeometry(0.32, 14, 14);
+    // Stage 1: Nature Bunny Sprout
     const bodyMat = new THREE.MeshLambertMaterial({ color: 0x4ade80 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 14), bodyMat);
     body.position.y = 0.35;
     group.add(body);
 
     // Tall Leaf Ears
-    const earGeo = new THREE.BoxGeometry(0.1, 0.45, 0.05);
     const earMat = new THREE.MeshLambertMaterial({ color: 0x16a34a });
-    const earL = new THREE.Mesh(earGeo, earMat);
+    const earL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.48, 0.04), earMat);
     earL.position.set(-0.16, 0.85, 0);
-    earL.rotation.z = -0.2;
+    earL.rotation.z = -0.22;
     group.add(earL);
-    const earR = new THREE.Mesh(earGeo, earMat);
+    const earR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.48, 0.04), earMat);
     earR.position.set(0.16, 0.85, 0);
-    earR.rotation.z = 0.2;
+    earR.rotation.z = 0.22;
     group.add(earR);
 
-    // Cheeks & Eyes
-    const eyeGeo = new THREE.SphereGeometry(0.04, 8, 8);
-    const eyeL = new THREE.Mesh(eyeGeo, new THREE.MeshBasicMaterial({ color: 0x064e3b }));
+    // Eyes & Floral Blossom Tail
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0x064e3b });
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), eyeMat);
     eyeL.position.set(-0.1, 0.42, 0.28);
     group.add(eyeL);
-    const eyeR = new THREE.Mesh(eyeGeo, new THREE.MeshBasicMaterial({ color: 0x064e3b }));
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), eyeMat);
     eyeR.position.set(0.1, 0.42, 0.28);
     group.add(eyeR);
 
+    const blossom = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshLambertMaterial({ color: 0xf472b6 }));
+    blossom.position.set(0, 0.35, -0.32);
+    group.add(blossom);
+    group.tail = blossom;
+
+  } else if (species === 'Thornhare') {
+    // Stage 2: Thorn Hare
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0x22c55e });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.32, 0.7, 12), bodyMat);
+    body.position.y = 0.55;
+    group.add(body);
+
+    // Serrated Blade Ears
+    const earMat = new THREE.MeshLambertMaterial({ color: 0x15803d });
+    const earL = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.6, 6), earMat);
+    earL.position.set(-0.18, 1.1, 0);
+    earL.rotation.z = -0.25;
+    group.add(earL);
+    const earR = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.6, 6), earMat);
+    earR.position.set(0.18, 1.1, 0);
+    earR.rotation.z = 0.25;
+    group.add(earR);
+
+    // Thorny Collar
+    const collar = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.06, 8, 16), new THREE.MeshLambertMaterial({ color: 0x854d0e }));
+    collar.rotation.x = Math.PI / 2;
+    collar.position.y = 0.75;
+    group.add(collar);
+
+    // Glowing leaf eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xa3e635 });
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+    eyeL.position.set(-0.11, 0.78, 0.24);
+    group.add(eyeL);
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+    eyeR.position.set(0.11, 0.78, 0.24);
+    group.add(eyeR);
+
   } else if (species === 'Floraknight') {
-    // Evolved Leaf Knight
-    const bodyGeo = new THREE.CylinderGeometry(0.35, 0.3, 0.7, 10);
-    const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color: 0x16a34a }));
-    body.position.y = 0.6;
-    group.add(body);
-
-    const shieldGeo = new THREE.CylinderGeometry(0.25, 0.25, 0.08, 16);
-    shieldGeo.rotateX(Math.PI / 2);
-    const shield = new THREE.Mesh(shieldGeo, new THREE.MeshLambertMaterial({ color: 0xf43f5e }));
-    shield.position.set(-0.4, 0.65, 0.15);
-    group.add(shield);
-
-    const antlersGeo = new THREE.ConeGeometry(0.1, 0.6, 8);
-    const antL = new THREE.Mesh(antlersGeo, new THREE.MeshLambertMaterial({ color: 0x22c55e }));
-    antL.position.set(-0.25, 1.3, 0);
-    antL.rotation.z = -0.3;
-    group.add(antL);
-    const antR = new THREE.Mesh(antlersGeo, new THREE.MeshLambertMaterial({ color: 0x22c55e }));
-    antR.position.set(0.25, 1.3, 0);
-    antR.rotation.z = 0.3;
-    group.add(antR);
-
-  } else if (species === 'Aquapup') {
-    // Water Pup
-    const bodyGeo = new THREE.SphereGeometry(0.32, 14, 14);
-    const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color: 0x38bdf8 }));
-    body.position.y = 0.35;
-    group.add(body);
-
-    const finGeo = new THREE.BoxGeometry(0.25, 0.08, 0.15);
-    const finL = new THREE.Mesh(finGeo, new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
-    finL.position.set(-0.35, 0.35, 0);
-    group.add(finL);
-    const finR = new THREE.Mesh(finGeo, new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
-    finR.position.set(0.35, 0.35, 0);
-    group.add(finR);
-
-  } else if (species === 'Tidallord') {
-    // Evolved Leviathan
-    const bodyGeo = new THREE.CylinderGeometry(0.35, 0.25, 0.9, 12);
-    const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color: 0x0284c7 }));
+    // Stage 3: Mega Nature Knight!
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0x166534 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.3, 0.85, 12), bodyMat);
     body.position.y = 0.7;
     group.add(body);
 
-    const crownGeo = new THREE.ConeGeometry(0.35, 0.35, 6);
-    const crown = new THREE.Mesh(crownGeo, new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x075985 }));
-    crown.position.set(0, 1.4, 0);
+    // Golden Leaf Pauldrons
+    const pauldronGeo = new THREE.BoxGeometry(0.25, 0.25, 0.25);
+    const goldMat = new THREE.MeshLambertMaterial({ color: 0xfacc15 });
+    const pL = new THREE.Mesh(pauldronGeo, goldMat);
+    pL.position.set(-0.45, 1.05, 0);
+    group.add(pL);
+    const pR = new THREE.Mesh(pauldronGeo, goldMat);
+    pR.position.set(0.45, 1.05, 0);
+    group.add(pR);
+
+    // Rose Shield on left arm
+    const shield = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.08, 16), new THREE.MeshLambertMaterial({ color: 0xe11d48 }));
+    shield.geometry.rotateX(Math.PI / 2);
+    shield.position.set(-0.52, 0.75, 0.15);
+    group.add(shield);
+
+    // Solar Thorn Blade on right arm
+    const blade = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.8, 6), new THREE.MeshLambertMaterial({ color: 0x4ade80, emissive: 0x15803d }));
+    blade.position.set(0.52, 0.85, 0.2);
+    blade.rotation.x = Math.PI / 3;
+    group.add(blade);
+
+    // Helm Horns
+    const helmHorn = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.55, 8), goldMat);
+    helmHorn.position.set(0, 1.45, 0.1);
+    group.add(helmHorn);
+
+  } else if (species === 'Aquapup') {
+    // Stage 1: Water Pup
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0x38bdf8 });
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.32, 14, 14), bodyMat);
+    body.position.y = 0.35;
+    group.add(body);
+
+    // Droplet Ears
+    const earMat = new THREE.MeshLambertMaterial({ color: 0x0284c7 });
+    const earL = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.35, 8), earMat);
+    earL.position.set(-0.25, 0.45, 0);
+    earL.rotation.z = -1.1;
+    group.add(earL);
+    const earR = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.35, 8), earMat);
+    earR.position.set(0.25, 0.45, 0);
+    earR.rotation.z = 1.1;
+    group.add(earR);
+
+    // Sapphire eyes
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0x0369a1 });
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+    eyeL.position.set(-0.1, 0.42, 0.28);
+    group.add(eyeL);
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+    eyeR.position.set(0.1, 0.42, 0.28);
+    group.add(eyeR);
+
+    // Bubbly Tail with blue light
+    const tail = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 10), new THREE.MeshLambertMaterial({ color: 0x0ea5e9, transparent: true, opacity: 0.85 }));
+    tail.position.set(0, 0.35, -0.35);
+    group.add(tail);
+    group.tail = tail;
+
+  } else if (species === 'Hydrofang') {
+    // Stage 2: Tide Hound
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0x0284c7 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.32, 0.7, 12), bodyMat);
+    body.geometry.rotateX(Math.PI / 2);
+    body.position.set(0, 0.45, 0);
+    group.add(body);
+
+    // Dorsal Wave Fin
+    const fin = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.45, 6), new THREE.MeshLambertMaterial({ color: 0x38bdf8 }));
+    fin.position.set(0, 0.85, -0.05);
+    fin.rotation.x = -0.4;
+    group.add(fin);
+
+    // Head
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), bodyMat);
+    head.position.set(0, 0.72, 0.35);
+    group.add(head);
+
+    // Bubble collar
+    const collar = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.07, 8, 16), new THREE.MeshLambertMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.85 }));
+    collar.position.set(0, 0.6, 0.2);
+    group.add(collar);
+
+  } else if (species === 'Leviaking' || species === 'Tidallord') {
+    // Stage 3: Mega Ocean Sea Emperor!
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0x0369a1 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.32, 1.0, 14), bodyMat);
+    body.position.y = 0.85;
+    group.add(body);
+
+    // Triple Golden Wave Crown
+    const crownMat = new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x854d0e });
+    const crown = new THREE.Mesh(new THREE.ConeGeometry(0.35, 0.45, 6), crownMat);
+    crown.position.set(0, 1.6, 0.05);
     group.add(crown);
 
-  } else if (species === 'GigaGolem') {
-    // Boss 1: Massive Stone Golem
-    const bodyGeo = new THREE.BoxGeometry(0.8, 0.9, 0.6);
-    const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color: 0x334155 }));
-    body.position.y = 0.8;
-    body.castShadow = true;
+    // Floating Chest Pearl Orb with light
+    const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.18, 14, 14), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+    pearl.position.set(0, 0.95, 0.38);
+    group.add(pearl);
+    const pearlLight = new THREE.PointLight(0x38bdf8, 1.4, 4);
+    pearlLight.position.set(0, 0.95, 0.45);
+    group.add(pearlLight);
+
+    // Large Fin Pauldrons
+    const finL = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.3, 0.05), new THREE.MeshLambertMaterial({ color: 0x38bdf8, side: THREE.DoubleSide }));
+    finL.position.set(-0.55, 1.05, -0.1);
+    finL.rotation.y = 0.4;
+    group.add(finL);
+    const finR = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.3, 0.05), new THREE.MeshLambertMaterial({ color: 0x38bdf8, side: THREE.DoubleSide }));
+    finR.position.set(0.55, 1.05, -0.1);
+    finR.rotation.y = -0.4;
+    group.add(finR);
+
+  } else if (species === 'Voltling') {
+    // Wild Electric Fennec with Zigzag Lightning Tail
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xfacc15 });
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.3, 14, 14), bodyMat);
+    body.position.y = 0.35;
     group.add(body);
 
-    // Glowing Magma Core
-    const coreGeo = new THREE.SphereGeometry(0.18, 12, 12);
-    const core = new THREE.Mesh(coreGeo, new THREE.MeshBasicMaterial({ color: 0xf97316 }));
-    core.position.set(0, 0.85, 0.28);
-    group.add(core);
+    // Black-tipped giant ears
+    const earGeo = new THREE.ConeGeometry(0.1, 0.45, 6);
+    const earL = new THREE.Mesh(earGeo, bodyMat);
+    earL.position.set(-0.16, 0.8, 0);
+    earL.rotation.z = -0.3;
+    group.add(earL);
+    const earR = new THREE.Mesh(earGeo, bodyMat);
+    earR.position.set(0.16, 0.8, 0);
+    earR.rotation.z = 0.3;
+    group.add(earR);
 
-    const shoulderGeo = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-    const shL = new THREE.Mesh(shoulderGeo, new THREE.MeshLambertMaterial({ color: 0x475569 }));
-    shL.position.set(-0.6, 1.1, 0);
-    group.add(shL);
-    const shR = new THREE.Mesh(shoulderGeo, new THREE.MeshLambertMaterial({ color: 0x475569 }));
-    shR.position.set(0.6, 1.1, 0);
-    group.add(shR);
+    // Red Electric Cheek Sacs
+    const cheekMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+    const chL = new THREE.Mesh(new THREE.SphereGeometry(0.06, 6, 6), cheekMat);
+    chL.position.set(-0.2, 0.36, 0.22);
+    group.add(chL);
+    const chR = new THREE.Mesh(new THREE.SphereGeometry(0.06, 6, 6), cheekMat);
+    chR.position.set(0.2, 0.36, 0.22);
+    group.add(chR);
 
-  } else if (species === 'Stormjaw') {
-    // Final Boss: Thunder Titan Dragon!
-    const bodyGeo = new THREE.CylinderGeometry(0.45, 0.35, 1.0, 12);
-    const body = new THREE.Mesh(bodyGeo, new THREE.MeshLambertMaterial({ color: 0x4c1d95, emissive: 0x2e1065 }));
-    body.position.y = 0.9;
-    body.castShadow = true;
+    // Zigzag Lightning Tail
+    const tailGroup = new THREE.Group();
+    tailGroup.position.set(0, 0.35, -0.3);
+    const seg1 = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.2, 0.08), bodyMat);
+    seg1.rotation.x = -0.5;
+    tailGroup.add(seg1);
+    const seg2 = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.3, 0.08), bodyMat);
+    seg2.position.set(0, 0.25, -0.15);
+    seg2.rotation.x = 0.6;
+    tailGroup.add(seg2);
+    group.add(tailGroup);
+    group.tail = tailGroup;
+
+    const sparkLight = new THREE.PointLight(0xfacc15, 0.8, 2.5);
+    sparkLight.position.set(0, 0.5, -0.35);
+    group.add(sparkLight);
+
+  } else if (species === 'Thunderbeast') {
+    // Electric Tiger with Spiked Armor
+    const bodyMat = new THREE.MeshLambertMaterial({ color: 0xeab308 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.36, 0.8, 12), bodyMat);
+    body.geometry.rotateX(Math.PI / 2);
+    body.position.set(0, 0.5, 0);
     group.add(body);
 
-    // Thunder Horns
-    const hornGeo = new THREE.ConeGeometry(0.12, 0.65, 8);
-    const hornL = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x854d0e }));
-    hornL.position.set(-0.35, 1.7, 0);
+    // Lightning Horns
+    const hornMat = new THREE.MeshLambertMaterial({ color: 0x38bdf8, emissive: 0x0284c7 });
+    const hornL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 6), hornMat);
+    hornL.position.set(-0.25, 1.05, 0.35);
     hornL.rotation.z = -0.35;
     group.add(hornL);
-    const hornR = new THREE.Mesh(hornGeo, new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x854d0e }));
-    hornR.position.set(0.35, 1.7, 0);
+    const hornR = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 6), hornMat);
+    hornR.position.set(0.25, 1.05, 0.35);
     hornR.rotation.z = 0.35;
     group.add(hornR);
 
-    // Glowing Eyes
+  } else if (species === 'Stoneclaw') {
+    // Gorge Wild Rock Bear/Armadillo
+    const rockMat = new THREE.MeshLambertMaterial({ color: 0x64748b });
+    const body = new THREE.Mesh(new THREE.DodecahedronGeometry(0.42, 1), rockMat);
+    body.position.y = 0.48;
+    group.add(body);
+
+    // Amber Crystal Back Spikes
+    const crystalMat = new THREE.MeshLambertMaterial({ color: 0xf59e0b, emissive: 0x78350f });
+    const sp1 = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.4, 6), crystalMat);
+    sp1.position.set(-0.15, 0.85, -0.1);
+    group.add(sp1);
+    const sp2 = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.5, 6), crystalMat);
+    sp2.position.set(0.15, 0.9, -0.15);
+    group.add(sp2);
+
+  } else if (species === 'GigaGolem') {
+    // Boss 1: Massive Ancient Stone Golem
+    const stoneMat = new THREE.MeshLambertMaterial({ color: 0x334155 });
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.0, 0.7), stoneMat);
+    body.position.y = 0.85;
+    body.castShadow = true;
+    group.add(body);
+
+    // Glowing Magma Heart Core
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 12), new THREE.MeshBasicMaterial({ color: 0xf97316 }));
+    core.position.set(0, 0.9, 0.34);
+    group.add(core);
+    const coreLight = new THREE.PointLight(0xf97316, 1.5, 3.5);
+    coreLight.position.set(0, 0.9, 0.4);
+    group.add(coreLight);
+
+    // Boulder Shoulders
+    const shGeo = new THREE.BoxGeometry(0.45, 0.45, 0.45);
+    const shL = new THREE.Mesh(shGeo, stoneMat);
+    shL.position.set(-0.7, 1.15, 0);
+    group.add(shL);
+    const shR = new THREE.Mesh(shGeo, stoneMat);
+    shR.position.set(0.7, 1.15, 0);
+    group.add(shR);
+
+  } else if (species === 'Stormjaw') {
+    // Chapter 2 Final Boss: Titan Thunder Dragon!
+    const titanMat = new THREE.MeshLambertMaterial({ color: 0x4c1d95, emissive: 0x2e1065 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.4, 1.2, 14), titanMat);
+    body.position.y = 1.0;
+    body.castShadow = true;
+    group.add(body);
+
+    // Twin Lightning Antlers
+    const hornMat = new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x854d0e });
+    const hornL = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.85, 8), hornMat);
+    hornL.position.set(-0.4, 1.95, 0);
+    hornL.rotation.z = -0.35;
+    group.add(hornL);
+    const hornR = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.85, 8), hornMat);
+    hornR.position.set(0.4, 1.95, 0);
+    hornR.rotation.z = 0.35;
+    group.add(hornR);
+
+    // Giant Thunder Wings
+    const wingMat = new THREE.MeshLambertMaterial({ color: 0x7c3aed, emissive: 0x3b0764, side: THREE.DoubleSide });
+    const wingL = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.06), wingMat);
+    wingL.position.set(-1.0, 1.3, -0.2);
+    wingL.rotation.y = 0.35;
+    group.add(wingL);
+    const wingR = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.8, 0.06), wingMat);
+    wingR.position.set(1.0, 1.3, -0.2);
+    wingR.rotation.y = -0.35;
+    group.add(wingR);
+    group.wingL = wingL;
+    group.wingR = wingR;
+
+    // Cyan Electric Eyes
     const eyeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), eyeMat);
-    eyeL.position.set(-0.16, 1.35, 0.38);
+    const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), eyeMat);
+    eyeL.position.set(-0.18, 1.5, 0.45);
     group.add(eyeL);
-    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), eyeMat);
-    eyeR.position.set(0.16, 1.35, 0.38);
+    const eyeR = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), eyeMat);
+    eyeR.position.set(0.18, 1.5, 0.45);
     group.add(eyeR);
 
-    // Lightning Aura Light
-    const thunderLight = new THREE.PointLight(0xfacc15, 1.2, 5);
-    thunderLight.position.set(0, 1.5, 0);
+    // Thunder Core Aura Light
+    const thunderLight = new THREE.PointLight(0xfacc15, 1.8, 6);
+    thunderLight.position.set(0, 1.6, 0.2);
     group.add(thunderLight);
   }
 
@@ -542,84 +809,167 @@ function create3DCreatureMesh(species) {
 // --- CREATURE DATA CREATORS ---
 function createCreature(species, level = 1) {
   if (species === 'Flameling') {
-    const maxHp = 24 + level * 7;
+    const maxHp = 24 + level * 6;
     return {
       id: 'flameling', name: 'Flameling 🔥', species: 'Flameling', type: 'Fire',
-      level: level, hp: maxHp, maxHp: maxHp, attack: 8 + level * 3,
-      xp: 0, xpNeeded: 22 * level, perks: [], evolvesTo: 'Pyrostryke',
+      stage: 1, level: level, hp: maxHp, maxHp: maxHp, attack: 8 + level * 2,
+      xp: 0, xpNeeded: 25 * level, perks: [], evolvesTo: 'Pyrowhisker',
       moves: [
-        { name: 'Flame Spark', power: 1.0, type: 'Fire' },
-        { name: 'Ember Blast', power: 1.35, type: 'Fire', minLevel: 2 }
+        { name: 'Flame Spark', power: 1.0, type: 'Fire', icon: '🔥', minLevel: 1 },
+        { name: 'Ember Blast', power: 1.35, type: 'Fire', icon: '💥', minLevel: 2 }
+      ]
+    };
+  } else if (species === 'Pyrowhisker') {
+    const maxHp = 44 + level * 7;
+    return {
+      id: 'pyrowhisker', name: 'Pyrowhisker 🔥', species: 'Pyrowhisker', type: 'Fire',
+      stage: 2, level: level, hp: maxHp, maxHp: maxHp, attack: 14 + level * 3,
+      xp: 0, xpNeeded: 35 * level, perks: [], evolvesTo: 'Pyrostryke',
+      moves: [
+        { name: 'Flame Spark', power: 1.0, type: 'Fire', icon: '🔥', minLevel: 1 },
+        { name: 'Ember Blast', power: 1.35, type: 'Fire', icon: '💥', minLevel: 2 },
+        { name: 'Flame Wheel', power: 1.55, type: 'Fire', icon: '🌪️', minLevel: 3 },
+        { name: 'Blaze Charge', power: 1.7, type: 'Fire', icon: '☄️', minLevel: 4 }
       ]
     };
   } else if (species === 'Pyrostryke') {
+    const maxHp = 72 + level * 9;
     return {
-      id: 'pyrostryke', name: 'Pyrostryke 🔥', species: 'Pyrostryke', type: 'Fire/Dragon',
-      level: level, hp: 58 + level * 9, maxHp: 58 + level * 9, attack: 22 + level * 4,
-      xp: 0, xpNeeded: 45 * level, perks: [],
+      id: 'pyrostryke', name: 'Pyrostryke 🐲', species: 'Pyrostryke', type: 'Fire/Dragon',
+      stage: 3, level: level, hp: maxHp, maxHp: maxHp, attack: 24 + level * 4,
+      xp: 0, xpNeeded: 55 * level, perks: [],
       moves: [
-        { name: 'Ember Blast', power: 1.35, type: 'Fire' },
-        { name: 'Dragon Inferno', power: 1.8, type: 'Fire/Dragon' }
+        { name: 'Flame Wheel', power: 1.55, type: 'Fire', icon: '🌪️', minLevel: 3 },
+        { name: 'Blaze Charge', power: 1.7, type: 'Fire', icon: '☄️', minLevel: 4 },
+        { name: 'Dragon Inferno', power: 2.0, type: 'Fire/Dragon', icon: '🐲', minLevel: 5 },
+        { name: 'Cataclysm Nova', power: 2.4, type: 'Ultimate', icon: '🌟', minLevel: 6 }
       ]
     };
   } else if (species === 'Leafbit') {
-    const maxHp = 20 + level * 6;
+    const maxHp = 22 + level * 6;
     return {
       id: 'leafbit', name: 'Leafbit 🌿', species: 'Leafbit', type: 'Nature',
-      level: level, hp: maxHp, maxHp: maxHp, attack: 6 + level * 2,
-      xp: 0, xpNeeded: 20 * level, perks: [], evolvesTo: 'Floraknight',
+      stage: 1, level: level, hp: maxHp, maxHp: maxHp, attack: 7 + level * 2,
+      xp: 0, xpNeeded: 25 * level, perks: [], evolvesTo: 'Thornhare',
       moves: [
-        { name: 'Leaf Slice', power: 1.0, type: 'Nature' },
-        { name: 'Vine Whip', power: 1.3, type: 'Nature', minLevel: 2 }
+        { name: 'Leaf Slice', power: 1.0, type: 'Nature', icon: '🍃', minLevel: 1 },
+        { name: 'Vine Whip', power: 1.3, type: 'Nature', icon: '🌿', minLevel: 2 }
+      ]
+    };
+  } else if (species === 'Thornhare') {
+    const maxHp = 45 + level * 7;
+    return {
+      id: 'thornhare', name: 'Thornhare 🌿', species: 'Thornhare', type: 'Nature',
+      stage: 2, level: level, hp: maxHp, maxHp: maxHp, attack: 13 + level * 3,
+      xp: 0, xpNeeded: 35 * level, perks: [], evolvesTo: 'Floraknight',
+      moves: [
+        { name: 'Leaf Slice', power: 1.0, type: 'Nature', icon: '🍃', minLevel: 1 },
+        { name: 'Vine Whip', power: 1.3, type: 'Nature', icon: '🌿', minLevel: 2 },
+        { name: 'Spore Shield', power: 1.5, type: 'Nature', icon: '🛡️', minLevel: 3 },
+        { name: 'Razor Foliage', power: 1.65, type: 'Nature', icon: '⚔️', minLevel: 4 }
       ]
     };
   } else if (species === 'Floraknight') {
+    const maxHp = 74 + level * 9;
     return {
-      id: 'floraknight', name: 'Floraknight 🌿', species: 'Floraknight', type: 'Nature/Steel',
-      level: level, hp: 60 + level * 9, maxHp: 60 + level * 9, attack: 20 + level * 4,
-      xp: 0, xpNeeded: 45 * level, perks: [],
+      id: 'floraknight', name: 'Floraknight 🛡️', species: 'Floraknight', type: 'Nature/Steel',
+      stage: 3, level: level, hp: maxHp, maxHp: maxHp, attack: 23 + level * 4,
+      xp: 0, xpNeeded: 55 * level, perks: [],
       moves: [
-        { name: 'Vine Whip', power: 1.3, type: 'Nature' },
-        { name: 'Solar Blade', power: 1.75, type: 'Nature' }
+        { name: 'Vine Whip', power: 1.3, type: 'Nature', icon: '🌿', minLevel: 2 },
+        { name: 'Spore Shield', power: 1.5, type: 'Nature', icon: '🛡️', minLevel: 3 },
+        { name: 'Solar Blade', power: 1.95, type: 'Nature/Steel', icon: '🗡️', minLevel: 5 },
+        { name: 'Gaia Wrath', power: 2.35, type: 'Ultimate', icon: '🌲', minLevel: 6 }
       ]
     };
   } else if (species === 'Aquapup') {
-    const maxHp = 22 + level * 6;
+    const maxHp = 23 + level * 6;
     return {
       id: 'aquapup', name: 'Aquapup 💧', species: 'Aquapup', type: 'Water',
-      level: level, hp: maxHp, maxHp: maxHp, attack: 7 + level * 2,
-      xp: 0, xpNeeded: 20 * level, perks: [], evolvesTo: 'Tidallord',
+      stage: 1, level: level, hp: maxHp, maxHp: maxHp, attack: 7 + level * 2,
+      xp: 0, xpNeeded: 25 * level, perks: [], evolvesTo: 'Hydrofang',
       moves: [
-        { name: 'Water Pulse', power: 1.0, type: 'Water' },
-        { name: 'Aqua Surge', power: 1.3, type: 'Water', minLevel: 2 }
+        { name: 'Water Pulse', power: 1.0, type: 'Water', icon: '💧', minLevel: 1 },
+        { name: 'Aqua Surge', power: 1.3, type: 'Water', icon: '🌊', minLevel: 2 }
       ]
     };
-  } else if (species === 'Tidallord') {
+  } else if (species === 'Hydrofang') {
+    const maxHp = 44 + level * 7;
     return {
-      id: 'tidallord', name: 'Tidallord 💧', species: 'Tidallord', type: 'Water/Dragon',
-      level: level, hp: 58 + level * 9, maxHp: 58 + level * 9, attack: 21 + level * 4,
-      xp: 0, xpNeeded: 45 * level, perks: [],
+      id: 'hydrofang', name: 'Hydrofang 💧', species: 'Hydrofang', type: 'Water',
+      stage: 2, level: level, hp: maxHp, maxHp: maxHp, attack: 14 + level * 3,
+      xp: 0, xpNeeded: 35 * level, perks: [], evolvesTo: 'Leviaking',
       moves: [
-        { name: 'Aqua Surge', power: 1.3, type: 'Water' },
-        { name: 'Tsunami Crash', power: 1.75, type: 'Water' }
+        { name: 'Water Pulse', power: 1.0, type: 'Water', icon: '💧', minLevel: 1 },
+        { name: 'Aqua Surge', power: 1.3, type: 'Water', icon: '🌊', minLevel: 2 },
+        { name: 'Bubble Jet', power: 1.5, type: 'Water', icon: '🫧', minLevel: 3 },
+        { name: 'Tide Crusher', power: 1.65, type: 'Water', icon: '🌊', minLevel: 4 }
+      ]
+    };
+  } else if (species === 'Leviaking' || species === 'Tidallord') {
+    const maxHp = 72 + level * 9;
+    return {
+      id: 'leviaking', name: 'Leviaking 🌊', species: 'Leviaking', type: 'Water/Dragon',
+      stage: 3, level: level, hp: maxHp, maxHp: maxHp, attack: 23 + level * 4,
+      xp: 0, xpNeeded: 55 * level, perks: [],
+      moves: [
+        { name: 'Aqua Surge', power: 1.3, type: 'Water', icon: '🌊', minLevel: 2 },
+        { name: 'Bubble Jet', power: 1.5, type: 'Water', icon: '🫧', minLevel: 3 },
+        { name: 'Tsunami Crash', power: 1.95, type: 'Water/Dragon', icon: '🌊', minLevel: 5 },
+        { name: 'Abyssal Deluge', power: 2.35, type: 'Ultimate', icon: '🔱', minLevel: 6 }
+      ]
+    };
+  } else if (species === 'Voltling') {
+    const maxHp = 24 + level * 6;
+    return {
+      id: 'voltling', name: 'Voltling ⚡', species: 'Voltling', type: 'Electric',
+      stage: 1, level: level, hp: maxHp, maxHp: maxHp, attack: 9 + level * 2,
+      xp: 0, xpNeeded: 25 * level, perks: [], evolvesTo: 'Thunderbeast',
+      moves: [
+        { name: 'Spark Nibble', power: 1.0, type: 'Electric', icon: '⚡', minLevel: 1 },
+        { name: 'Thunder Jolt', power: 1.35, type: 'Electric', icon: '🌩️', minLevel: 2 }
+      ]
+    };
+  } else if (species === 'Thunderbeast') {
+    const maxHp = 52 + level * 8;
+    return {
+      id: 'thunderbeast', name: 'Thunderbeast ⚡', species: 'Thunderbeast', type: 'Electric',
+      stage: 2, level: level, hp: maxHp, maxHp: maxHp, attack: 17 + level * 3,
+      xp: 0, xpNeeded: 40 * level, perks: [],
+      moves: [
+        { name: 'Thunder Jolt', power: 1.35, type: 'Electric', icon: '🌩️', minLevel: 2 },
+        { name: 'Volt Charge', power: 1.6, type: 'Electric', icon: '⚡', minLevel: 3 },
+        { name: 'Thunderstorm', power: 1.9, type: 'Electric', icon: '🌪️', minLevel: 4 }
+      ]
+    };
+  } else if (species === 'Stoneclaw') {
+    const maxHp = 50 + level * 8;
+    return {
+      id: 'stoneclaw', name: 'Stoneclaw 🗿', species: 'Stoneclaw', type: 'Rock',
+      stage: 1, level: level, hp: maxHp, maxHp: maxHp, attack: 13 + level * 2,
+      xp: 0, xpNeeded: 30 * level, perks: [],
+      moves: [
+        { name: 'Rock Claw', power: 1.1, type: 'Rock', icon: '🪨', minLevel: 1 },
+        { name: 'Boulder Crush', power: 1.45, type: 'Rock', icon: '🗿', minLevel: 2 }
       ]
     };
   } else if (species === 'GigaGolem') {
     return {
       id: 'gigagolem', name: 'Giga-Golem 🗿', species: 'GigaGolem', type: 'Rock', isBoss: true,
-      level: 3, hp: 55, maxHp: 55, attack: 11, xp: 120, xpNeeded: 999, perks: [],
+      stage: 2, level: 4, hp: 68, maxHp: 68, attack: 13, xp: 180, xpNeeded: 999, perks: ['iron_shield'],
       moves: [
-        { name: 'Rock Throw', power: 1.1, type: 'Rock' },
-        { name: 'Earthquake Slam', power: 1.35, type: 'Rock' }
+        { name: 'Rock Throw', power: 1.15, type: 'Rock', icon: '🪨', minLevel: 1 },
+        { name: 'Earthquake Slam', power: 1.45, type: 'Rock', icon: '💥', minLevel: 1 }
       ]
     };
   } else if (species === 'Stormjaw') {
     return {
-      id: 'stormjaw', name: 'Stormjaw ⚡', species: 'Stormjaw', type: 'Electric', isBoss: true,
-      level: 6, hp: 85, maxHp: 85, attack: 16, xp: 300, xpNeeded: 999, perks: [],
+      id: 'stormjaw', name: 'Stormjaw ⚡', species: 'Stormjaw', type: 'Electric/Dragon', isBoss: true,
+      stage: 3, level: 6, hp: 95, maxHp: 95, attack: 18, xp: 500, xpNeeded: 999, perks: ['speed_boost', 'crit_master'],
       moves: [
-        { name: 'Thunder Strike', power: 1.15, type: 'Electric' },
-        { name: 'Lightning Surge', power: 1.45, type: 'Electric' }
+        { name: 'Thunder Strike', power: 1.25, type: 'Electric', icon: '⚡', minLevel: 1 },
+        { name: 'Lightning Surge', power: 1.55, type: 'Electric', icon: '🌩️', minLevel: 1 },
+        { name: 'Cataclysm Storm', power: 1.95, type: 'Electric/Dragon', icon: '🌪️', minLevel: 1 }
       ]
     };
   }
@@ -629,7 +979,8 @@ const ALL_PERKS = [
   { id: 'crit_master', name: '💥 Meteor Impact', desc: 'Adds +35% Critical Hit damage & higher crit chance.', icon: '💥' },
   { id: 'iron_shield', name: '🛡️ Titan Armor', desc: 'Passive: Reduces all incoming damage by 30%.', icon: '🛡️' },
   { id: 'life_drain', name: '💖 Vampire Drain', desc: 'Attacks restore 40% of damage dealt back to HP.', icon: '💖' },
-  { id: 'speed_boost', name: '⚡ Thunder Speed', desc: 'Speed boost: 20% chance to strike twice in a turn.', icon: '⚡' }
+  { id: 'speed_boost', name: '⚡ Thunder Speed', desc: 'Speed boost: 25% chance to strike twice in a turn.', icon: '⚡' },
+  { id: 'element_fury', name: '🔥 Elemental Fury', desc: 'Passive: Boosts all super-effective attacks by +25%.', icon: '🔥' }
 ];
 
 // --- 3D GAME STATE & SCENE MANAGER ---
@@ -657,8 +1008,11 @@ class Game3D {
     this.activeCreatureIndex = 0;
     this.boss1Defeated = false;
     this.rivalDefeated = false;
+    this.boss2Defeated = false;
+    this.stormjawPhase = 1;
+    this.inEvolutionBattle = false;
 
-    // Grid coordinates: center is (0,0), spans from -10 to +10
+    // Grid coordinates: center is (0,0), spans from -14 to +11
     this.playerPos = new THREE.Vector3(0, 0, 6);
     this.playerTarget = new THREE.Vector3(0, 0, 6);
     this.playerRotation = 0;
@@ -687,7 +1041,7 @@ class Game3D {
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x0f172a);
-    this.scene.fog = new THREE.FogExp2(0x0f172a, 0.035);
+    this.scene.fog = new THREE.FogExp2(0x0f172a, 0.025);
 
     this.camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 100);
     this.camera.position.set(0, 9.5, 14);
@@ -700,20 +1054,20 @@ class Game3D {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.78);
     this.scene.add(ambientLight);
 
-    const sun = new THREE.DirectionalLight(0xffedd5, 0.9);
-    sun.position.set(10, 20, 12);
+    const sun = new THREE.DirectionalLight(0xffedd5, 0.95);
+    sun.position.set(10, 22, 12);
     sun.castShadow = true;
     sun.shadow.mapSize.width = 1024;
     sun.shadow.mapSize.height = 1024;
     sun.shadow.camera.near = 0.5;
-    sun.shadow.camera.far = 40;
-    sun.shadow.camera.left = -12;
-    sun.shadow.camera.right = 12;
-    sun.shadow.camera.top = 12;
-    sun.shadow.camera.bottom = -12;
+    sun.shadow.camera.far = 45;
+    sun.shadow.camera.left = -16;
+    sun.shadow.camera.right = 16;
+    sun.shadow.camera.top = 16;
+    sun.shadow.camera.bottom = -16;
     this.scene.add(sun);
 
     window.addEventListener('resize', () => {
@@ -726,156 +1080,267 @@ class Game3D {
   }
 
   build3DWorld() {
-    // 1. Terrain Ground
-    const groundGeo = new THREE.PlaneGeometry(30, 30, 32, 32);
-    groundGeo.rotateX(-Math.PI / 2);
-    const groundMat = new THREE.MeshLambertMaterial({ color: 0x22c55e });
-    const ground = new THREE.Mesh(groundGeo, groundMat);
-    ground.receiveShadow = true;
-    this.scene.add(ground);
+    // -------------------------------------------------------------
+    // ZONE 1: EMERALD VALLEY (z = 12 to 0, lush meadow, lab, spring)
+    // -------------------------------------------------------------
+    const valleyGeo = new THREE.PlaneGeometry(30, 14, 20, 20);
+    valleyGeo.rotateX(-Math.PI / 2);
+    const valleyMat = new THREE.MeshLambertMaterial({ color: 0x22c55e });
+    const valleyGround = new THREE.Mesh(valleyGeo, valleyMat);
+    valleyGround.position.set(0, 0, 6);
+    valleyGround.receiveShadow = true;
+    this.scene.add(valleyGround);
 
-    // Cobblestone Path
-    const pathGeo = new THREE.PlaneGeometry(2.4, 20);
+    // Cobblestone Path in Valley
+    const pathGeo = new THREE.PlaneGeometry(2.6, 14);
     pathGeo.rotateX(-Math.PI / 2);
     const pathMat = new THREE.MeshLambertMaterial({ color: 0xfde68a });
-    const path = new THREE.Mesh(pathGeo, pathMat);
-    path.position.set(0, 0.02, 0);
-    path.receiveShadow = true;
-    this.scene.add(path);
+    const valleyPath = new THREE.Mesh(pathGeo, pathMat);
+    valleyPath.position.set(0, 0.02, 6);
+    valleyPath.receiveShadow = true;
+    this.scene.add(valleyPath);
 
     // East path to Healing Spring
-    const eastPathGeo = new THREE.PlaneGeometry(7, 2);
+    const eastPathGeo = new THREE.PlaneGeometry(7, 2.2);
     eastPathGeo.rotateX(-Math.PI / 2);
     const eastPath = new THREE.Mesh(eastPathGeo, pathMat);
     eastPath.position.set(3.5, 0.02, 5);
     this.scene.add(eastPath);
 
-    // 2. Trainer Laboratory (Cottage)
+    // Trainer Laboratory Cottage at (-5, 0, 5)
     const houseGroup = new THREE.Group();
     houseGroup.position.set(-5, 0, 5);
     const walls = new THREE.Mesh(
-      new THREE.BoxGeometry(3.5, 2.2, 3.5),
+      new THREE.BoxGeometry(3.6, 2.4, 3.6),
       new THREE.MeshLambertMaterial({ color: 0x92400e })
     );
-    walls.position.y = 1.1;
+    walls.position.y = 1.2;
     walls.castShadow = true;
     houseGroup.add(walls);
 
-    const roofGeo = new THREE.ConeGeometry(2.8, 1.4, 4);
+    const roofGeo = new THREE.ConeGeometry(3.0, 1.5, 4);
     roofGeo.rotateY(Math.PI / 4);
     const roof = new THREE.Mesh(roofGeo, new THREE.MeshLambertMaterial({ color: 0xdc2626 }));
-    roof.position.y = 2.8;
+    roof.position.y = 3.1;
     houseGroup.add(roof);
 
     const door = new THREE.Mesh(
-      new THREE.BoxGeometry(0.8, 1.4, 0.1),
+      new THREE.BoxGeometry(0.85, 1.5, 0.1),
       new THREE.MeshLambertMaterial({ color: 0x451a03 })
     );
-    door.position.set(0, 0.7, 1.8);
+    door.position.set(0, 0.75, 1.85);
     houseGroup.add(door);
     this.scene.add(houseGroup);
 
-    // 3. Healing Spring (Crystal Pool)
+    // Healing Spring (Crystal Pool) at (6, 0, 5)
     const springGroup = new THREE.Group();
     springGroup.position.set(6, 0, 5);
 
-    const rimGeo = new THREE.CylinderGeometry(1.6, 1.8, 0.4, 24);
+    const rimGeo = new THREE.CylinderGeometry(1.7, 1.9, 0.45, 24);
     const rim = new THREE.Mesh(rimGeo, new THREE.MeshLambertMaterial({ color: 0x94a3b8 }));
-    rim.position.y = 0.2;
+    rim.position.y = 0.22;
     springGroup.add(rim);
 
-    const waterGeo = new THREE.CylinderGeometry(1.4, 1.4, 0.42, 24);
+    const waterGeo = new THREE.CylinderGeometry(1.5, 1.5, 0.46, 24);
     const water = new THREE.Mesh(waterGeo, new THREE.MeshLambertMaterial({
       color: 0x38bdf8,
       transparent: true,
       opacity: 0.85,
       emissive: 0x0284c7
     }));
-    water.position.y = 0.22;
+    water.position.y = 0.24;
     springGroup.add(water);
 
-    const springLight = new THREE.PointLight(0x38bdf8, 1.2, 4);
-    springLight.position.set(0, 1.0, 0);
+    const springLight = new THREE.PointLight(0x38bdf8, 1.4, 5);
+    springLight.position.set(0, 1.2, 0);
     springGroup.add(springLight);
     this.scene.add(springGroup);
     this.springMesh = springGroup;
 
-    // 4. Stylized 3D Trees & Foliage
-    const treePositions = [
-      [-6, 1], [-8, 4], [-7, -3], [-3, -2],
-      [5, -2], [7, 2], [8, -4], [3, 8], [-3, 8]
+    // Valley Foliage & Stylized Trees
+    const valleyTrees = [
+      [-6, 1], [-8, 4], [-8, 8], [-4, 9],
+      [5, 1], [8, 3], [8, 8], [3, 9], [-3, 9]
     ];
-    treePositions.forEach(([tx, tz]) => {
+    valleyTrees.forEach(([tx, tz]) => {
       const tree = new THREE.Group();
       tree.position.set(tx, 0, tz);
 
       const trunk = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.2, 0.3, 1.4, 8),
+        new THREE.CylinderGeometry(0.22, 0.32, 1.5, 8),
         new THREE.MeshLambertMaterial({ color: 0x78350f })
       );
-      trunk.position.y = 0.7;
+      trunk.position.y = 0.75;
       trunk.castShadow = true;
       tree.add(trunk);
 
       const foliage = new THREE.Mesh(
-        new THREE.DodecahedronGeometry(1.1, 1),
+        new THREE.DodecahedronGeometry(1.15, 1),
         new THREE.MeshLambertMaterial({ color: 0x16a34a })
       );
-      foliage.position.y = 1.9;
+      foliage.position.y = 2.0;
       foliage.castShadow = true;
       tree.add(foliage);
       this.scene.add(tree);
     });
 
-    // 5. Northern Mountain Cliffs & Gate
-    const cliffGeo = new THREE.BoxGeometry(26, 4, 3);
-    const cliff = new THREE.Mesh(cliffGeo, new THREE.MeshLambertMaterial({ color: 0x1e293b }));
-    cliff.position.set(0, 2, -7.5);
-    cliff.castShadow = true;
-    this.scene.add(cliff);
+    // -------------------------------------------------------------
+    // ZONE 2: WHISPERING GORGE (z = 0 to -7.5, canyon cliffs, stone arch)
+    // -------------------------------------------------------------
+    const gorgeGeo = new THREE.PlaneGeometry(30, 8, 20, 20);
+    gorgeGeo.rotateX(-Math.PI / 2);
+    const gorgeMat = new THREE.MeshLambertMaterial({ color: 0x475569 });
+    const gorgeGround = new THREE.Mesh(gorgeGeo, gorgeMat);
+    gorgeGround.position.set(0, 0, -4);
+    gorgeGround.receiveShadow = true;
+    this.scene.add(gorgeGround);
 
-    // Mountain Gatekeeper Boss (Giga-Golem) at (0, 0, -4.5)
+    // Gorge stone trail
+    const gorgePathGeo = new THREE.PlaneGeometry(2.8, 8);
+    gorgePathGeo.rotateX(-Math.PI / 2);
+    const gorgePath = new THREE.Mesh(gorgePathGeo, new THREE.MeshLambertMaterial({ color: 0x64748b }));
+    gorgePath.position.set(0, 0.02, -4);
+    gorgePath.receiveShadow = true;
+    this.scene.add(gorgePath);
+
+    // Canyon Cliff Walls on Left & Right
+    const canyonMat = new THREE.MeshLambertMaterial({ color: 0x334155 });
+    const wallL = new THREE.Mesh(new THREE.BoxGeometry(8, 4.5, 8), canyonMat);
+    wallL.position.set(-8.5, 2.2, -4);
+    wallL.castShadow = true;
+    this.scene.add(wallL);
+
+    const wallR = new THREE.Mesh(new THREE.BoxGeometry(8, 4.5, 8), canyonMat);
+    wallR.position.set(8.5, 2.2, -4);
+    wallR.castShadow = true;
+    this.scene.add(wallR);
+
+    // Ancient Stone Gate Archway at z = -4.5
+    const archMat = new THREE.MeshLambertMaterial({ color: 0x1e293b });
+    const pillarL = new THREE.Mesh(new THREE.BoxGeometry(0.8, 4.0, 0.8), archMat);
+    pillarL.position.set(-2.0, 2.0, -4.5);
+    pillarL.castShadow = true;
+    this.scene.add(pillarL);
+
+    const pillarR = new THREE.Mesh(new THREE.BoxGeometry(0.8, 4.0, 0.8), archMat);
+    pillarR.position.set(2.0, 2.0, -4.5);
+    pillarR.castShadow = true;
+    this.scene.add(pillarR);
+
+    const archTop = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.8, 1.0), archMat);
+    archTop.position.set(0, 4.2, -4.5);
+    archTop.castShadow = true;
+    this.scene.add(archTop);
+
+    // Gatekeeper Giga-Golem Boss at z = -4.5
     this.golemMesh = create3DCreatureMesh('GigaGolem');
     this.golemMesh.position.set(0, 0, -4.5);
     this.scene.add(this.golemMesh);
 
-    // Mountain Peak Dais for Stormjaw at (0, 0, -8.5)
-    const dais = new THREE.Mesh(
-      new THREE.CylinderGeometry(2.5, 2.8, 1.2, 16),
-      new THREE.MeshLambertMaterial({ color: 0x581c87 })
+    // Rival Evolution Arena Ring at (0, 0, -6.2)
+    const rivalRing = new THREE.Mesh(
+      new THREE.RingGeometry(1.6, 1.9, 24),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide })
     );
-    dais.position.set(0, 4, -8.5);
+    rivalRing.rotateX(-Math.PI / 2);
+    rivalRing.position.set(0, 0.03, -6.2);
+    this.scene.add(rivalRing);
+
+    // Rival Sky standing at (0, 0, -6.2)
+    this.rivalMesh = create3DTrainer('sky');
+    this.rivalMesh.position.set(0, 0, -6.2);
+    this.scene.add(this.rivalMesh);
+
+    // -------------------------------------------------------------
+    // ZONE 3: THUNDER PEAK SUMMIT (z = -7.5 to -15, obsidian crag, storm titan)
+    // -------------------------------------------------------------
+    const peakGeo = new THREE.PlaneGeometry(30, 8, 20, 20);
+    peakGeo.rotateX(-Math.PI / 2);
+    const peakMat = new THREE.MeshLambertMaterial({ color: 0x1e1b4b }); // Dark obsidian purple
+    const peakGround = new THREE.Mesh(peakGeo, peakMat);
+    peakGround.position.set(0, 0, -11.5);
+    peakGround.receiveShadow = true;
+    this.scene.add(peakGround);
+
+    // Thunder Peak Jagged Crystal Spires
+    const crystalMat = new THREE.MeshLambertMaterial({ color: 0xa855f7, emissive: 0x581c87 });
+    const spires = [
+      [-5, -9, 3.2], [5, -9, 3.0],
+      [-6, -12, 4.0], [6, -12, 4.2],
+      [-4, -14, 3.5], [4, -14, 3.8]
+    ];
+    spires.forEach(([cx, cz, ch]) => {
+      const spire = new THREE.Mesh(new THREE.ConeGeometry(0.5, ch, 6), crystalMat);
+      spire.position.set(cx, ch / 2, cz);
+      spire.castShadow = true;
+      this.scene.add(spire);
+
+      const spLight = new THREE.PointLight(0xa855f7, 0.9, 4);
+      spLight.position.set(cx, ch + 0.3, cz);
+      this.scene.add(spLight);
+    });
+
+    // Elevated Titan Battle Dais at (0, 0.9, -12.5)
+    const dais = new THREE.Mesh(
+      new THREE.CylinderGeometry(3.0, 3.5, 1.8, 24),
+      new THREE.MeshLambertMaterial({ color: 0x3b0764, emissive: 0x1e1b4b })
+    );
+    dais.position.set(0, 0.9, -12.5);
+    dais.castShadow = true;
     this.scene.add(dais);
 
+    // Chapter 2 Final Boss: Titan Stormjaw perched atop the Dais
     this.stormjawMesh = create3DCreatureMesh('Stormjaw');
-    this.stormjawMesh.position.set(0, 4.6, -8.5);
+    this.stormjawMesh.position.set(0, 2.0, -12.5);
     this.scene.add(this.stormjawMesh);
 
-    // 6. Roaming Wild Monsters in 3D Meadow
+    // -------------------------------------------------------------
+    // ROAMING WILD MONSTERS ACROSS ALL 3 BIOMES (Detailed 3D models)
+    // -------------------------------------------------------------
     this.wildMeshes = [
-      { mesh: create3DCreatureMesh('Leafbit'), species: 'Leafbit', pos: new THREE.Vector3(-4, 0, -1), level: 1 },
-      { mesh: create3DCreatureMesh('Aquapup'), species: 'Aquapup', pos: new THREE.Vector3(4, 0, 1), level: 2 }
+      // Zone 1: Emerald Valley
+      { mesh: create3DCreatureMesh('Leafbit'), species: 'Leafbit', pos: new THREE.Vector3(-3.5, 0, 2.5), level: 1 },
+      { mesh: create3DCreatureMesh('Aquapup'), species: 'Aquapup', pos: new THREE.Vector3(3.5, 0, 2.5), level: 1 },
+      { mesh: create3DCreatureMesh('Voltling'), species: 'Voltling', pos: new THREE.Vector3(-2.0, 0, 0.5), level: 2 },
+      // Zone 2: Whispering Gorge
+      { mesh: create3DCreatureMesh('Stoneclaw'), species: 'Stoneclaw', pos: new THREE.Vector3(-2.5, 0, -3.2), level: 3 },
+      { mesh: create3DCreatureMesh('Thunderbeast'), species: 'Thunderbeast', pos: new THREE.Vector3(2.5, 0, -5.5), level: 3 }
     ];
     this.wildMeshes.forEach(w => {
       w.mesh.position.copy(w.pos);
       this.scene.add(w.mesh);
     });
 
-    // 7. Rival Trainer NPC at (0, 0, 1.5)
-    this.rivalMesh = create3DTrainer('sky');
-    this.rivalMesh.position.set(0, 0, 1.5);
-    this.scene.add(this.rivalMesh);
-
-    // 8. 3D Trainer Player Model
+    // -------------------------------------------------------------
+    // 3D TRAINER PLAYER MODEL & COMPANION FOLLOWER
+    // -------------------------------------------------------------
     this.trainerMesh = create3DTrainer(this.selectedTrainer);
     this.trainerMesh.position.copy(this.playerPos);
     this.scene.add(this.trainerMesh);
 
-    // 9. 3D Follower Companion Pet
     this.followerMesh = create3DCreatureMesh(this.selectedStarter.charAt(0).toUpperCase() + this.selectedStarter.slice(1));
     this.followerPos = new THREE.Vector3(0, 0, 7.5);
     this.followerMesh.position.copy(this.followerPos);
     this.scene.add(this.followerMesh);
+  }
+
+  updateQuestBanner() {
+    const badge = document.getElementById('chapter-badge');
+    const text = document.getElementById('quest-text');
+    if (!badge || !text) return;
+    if (!this.boss1Defeated) {
+      badge.textContent = '📖 CH. 1';
+      text.textContent = 'Train your starter in Emerald Valley, reach Lv. 2, and defeat Gatekeeper Giga-Golem 🗿 at the gorge!';
+    } else if (!this.rivalDefeated) {
+      badge.textContent = '⚔️ CH. 1.5';
+      text.textContent = 'Enter Whispering Gorge and challenge Rival Sky to trigger 3D Mega Evolution! ⭐';
+    } else if (!this.boss2Defeated) {
+      badge.textContent = '⚡ CH. 2';
+      text.textContent = 'Climb Thunder Peak Summit and conquer the Awakened Titan Stormjaw ⚡!';
+    } else {
+      badge.textContent = '👑 CHAMPION';
+      text.textContent = 'Master of the Monster Realm! All 3D Titans have been conquered!';
+    }
   }
 
   setupDOM() {
@@ -909,9 +1374,9 @@ class Game3D {
     const starterCards = document.querySelectorAll('#starter-cards .select-card');
     const starterDetailBox = document.getElementById('starter-detail-box');
     const details = {
-      flameling: '🔥 <strong>Flameling:</strong> High Attack Fire cub with 3D flaming tail. Signature Move: <em>Flame Spark</em>. Evolves into the 3D winged fire dragon <strong>Pyrostryke</strong>!',
-      leafbit: '🌿 <strong>Leafbit:</strong> High Defense Nature bunny with floppy 3D leaf ears. Signature Move: <em>Leaf Slice</em>. Evolves into the 3D <strong>Floraknight</strong>!',
-      aquapup: '💧 <strong>Aquapup:</strong> Balanced Water seal with 3D fins. Signature Move: <em>Water Pulse</em>. Evolves into the 3D <strong>Tidallord</strong>!'
+      flameling: '🔥 <strong>Flameling:</strong> High Attack Fire cub with 3D flaming tail. Signature Move: <em>Flame Spark</em>. Evolves into <strong>Pyrostryke</strong> (Winged Fire Dragon)!',
+      leafbit: '🌿 <strong>Leafbit:</strong> High Defense Nature bunny with floppy 3D leaf ears. Signature Move: <em>Leaf Slice</em>. Evolves into <strong>Floraknight</strong> (Nature Knight)!',
+      aquapup: '💧 <strong>Aquapup:</strong> Balanced Water seal with 3D droplet ears. Signature Move: <em>Water Pulse</em>. Evolves into <strong>Leviaking</strong> (Ocean Emperor)!'
     };
 
     starterCards.forEach(card => {
@@ -950,7 +1415,7 @@ class Game3D {
       sound.playSelect();
       document.getElementById('evolution-modal').classList.add('hidden');
       this.endBattle();
-      this.showToast(`✨ Look at your 3D evolved companion! Head to the mountain!`);
+      this.showToast(`✨ Look at your 3D Mega Evolved companion! Thunder Peak is open!`);
     };
 
     // Camera Toggle Mode
@@ -967,8 +1432,43 @@ class Game3D {
       this.showToast(`❤️ Martin smiled and pumped his fist!`);
     };
 
-    // Battle Actions
-    document.getElementById('btn-attack').onclick = () => this.handleBattleAttack();
+    // Battle Actions Menu Toggle
+    const fightBtn = document.getElementById('btn-fight');
+    if (fightBtn) {
+      fightBtn.onclick = () => {
+        if (this.isBattleBusy) return;
+        sound.playSelect();
+        document.getElementById('battle-actions').classList.add('hidden');
+        document.getElementById('battle-moves').classList.remove('hidden');
+      };
+    }
+
+    const backBtn = document.getElementById('btn-move-back');
+    if (backBtn) {
+      backBtn.onclick = () => {
+        sound.playSelect();
+        document.getElementById('battle-moves').classList.add('hidden');
+        document.getElementById('battle-actions').classList.remove('hidden');
+      };
+    }
+
+    // Move buttons in Move Menu
+    for (let i = 0; i < 3; i++) {
+      const mBtn = document.getElementById(`btn-move-${i}`);
+      if (mBtn) {
+        mBtn.onclick = () => {
+          if (this.isBattleBusy) return;
+          const player = this.activeCreature;
+          const availableMoves = (player.moves || []).filter(m => (player.level || 1) >= (m.minLevel || 1));
+          const chosenMove = availableMoves[i] || availableMoves[0];
+          document.getElementById('battle-moves').classList.add('hidden');
+          document.getElementById('battle-actions').classList.remove('hidden');
+          this.handleBattleAttack(chosenMove);
+        };
+      }
+    }
+
+    // Capture, Switch, Run
     document.getElementById('btn-capture').onclick = () => this.handleBattleCapture();
     document.getElementById('btn-switch').onclick = () => this.handleBattleSwitch();
     document.getElementById('btn-run').onclick = () => this.handleBattleRun();
@@ -1029,10 +1529,27 @@ class Game3D {
       }
 
       if (this.state === GameState.BATTLE && !this.isBattleBusy) {
-        if (e.key === '1' || e.key === 'z' || e.key === 'Enter' || e.key === ' ') this.handleBattleAttack();
-        else if (e.key === '2' || e.key === 'x') this.handleBattleCapture();
-        else if (e.key === '3' || e.key === 's') this.handleBattleSwitch();
-        else if (e.key === '4' || e.key === 'Escape' || e.key === 'r') this.handleBattleRun();
+        const movesMenu = document.getElementById('battle-moves');
+        const movesOpen = movesMenu && !movesMenu.classList.contains('hidden');
+        if (e.key === '1') {
+          if (!movesOpen) {
+            document.getElementById('btn-fight').click();
+          } else {
+            document.getElementById('btn-move-0').click();
+          }
+        } else if (e.key === '2') {
+          if (movesOpen) document.getElementById('btn-move-1').click();
+          else document.getElementById('btn-capture').click();
+        } else if (e.key === '3') {
+          if (movesOpen) document.getElementById('btn-move-2').click();
+          else document.getElementById('btn-switch').click();
+        } else if (e.key === '4' || e.key === 'Escape' || e.key === 'r') {
+          if (movesOpen) document.getElementById('btn-move-back').click();
+          else document.getElementById('btn-run').click();
+        } else if (e.key === 'z' || e.key === ' ' || e.key === 'Enter') {
+          if (!movesOpen) document.getElementById('btn-fight').click();
+          else document.getElementById('btn-move-0').click();
+        }
       }
     });
 
@@ -1063,8 +1580,15 @@ class Game3D {
 
   handleActionKey(button) {
     if (this.state === GameState.BATTLE && !this.isBattleBusy) {
-      if (button === 'A') this.handleBattleAttack();
-      else if (button === 'B') this.handleBattleRun();
+      const movesMenu = document.getElementById('battle-moves');
+      const movesOpen = movesMenu && !movesMenu.classList.contains('hidden');
+      if (button === 'A') {
+        if (!movesOpen) document.getElementById('btn-fight').click();
+        else document.getElementById('btn-move-0').click();
+      } else if (button === 'B') {
+        if (movesOpen) document.getElementById('btn-move-back').click();
+        else document.getElementById('btn-run').click();
+      }
     } else if (this.state === GameState.OVERWORLD) {
       if (button === 'A') this.interactFacing();
     }
@@ -1089,9 +1613,9 @@ class Game3D {
     const starterSpecies = this.selectedStarter.charAt(0).toUpperCase() + this.selectedStarter.slice(1);
 
     document.getElementById('dialog-story-text').innerHTML = `
-      "Welcome, <strong>${trainerName}</strong>! Look at your 3D companion <strong>${starterSpecies}</strong> — full of life!"<br><br>
-      "Two great trials await: The stone sentinel <strong>Giga-Golem 🗿</strong> guards the mountain pass, and the thunder titan <strong>Stormjaw ⚡</strong> roosts at the peak!"<br><br>
-      "Explore the 3D meadow, customize your perks, and unlock <strong>3D MEGA EVOLUTION</strong>! Your companion will run behind you. Adventure awaits!"
+      "Welcome, <strong>${trainerName}</strong>! Look at your 3D companion <strong>${starterSpecies}</strong> — full of energy!"<br><br>
+      "Ahead lies 3 grand biomes: <strong>Emerald Valley</strong>, <strong>Whispering Gorge</strong>, and <strong>Thunder Peak</strong>!"<br><br>
+      "Defeat the Gatekeeper <strong>Giga-Golem 🗿</strong>, duel your Rival for <strong>3D MEGA EVOLUTION</strong>, and conquer the Awakened Titan <strong>Stormjaw ⚡</strong>!"
     `;
   }
 
@@ -1100,12 +1624,19 @@ class Game3D {
     this.party = [createCreature(starterSpecies, 1)];
     this.activeCreatureIndex = 0;
 
+    this.boss1Defeated = false;
+    this.rivalDefeated = false;
+    this.boss2Defeated = false;
+    this.stormjawPhase = 1;
+    this.inEvolutionBattle = false;
+
     this.playerPos.set(0, 0, 6);
     this.playerTarget.set(0, 0, 6);
     this.followerPos.set(0, 0, 7.5);
 
     this.state = GameState.OVERWORLD;
     this.updatePartyHUD();
+    this.updateQuestBanner();
     this.setFaceMood('idle', 'Ready!');
     this.showToast(`✨ Exploring in 3D with ${starterSpecies}!`);
   }
@@ -1124,7 +1655,7 @@ class Game3D {
     this.party.forEach((c) => {
       const chip = document.createElement('div');
       chip.className = `party-chip ${c.hp <= 0 ? 'fainted' : ''}`;
-      const icon = c.species.includes('Flame') || c.species.includes('Pyro') ? '🔥' : (c.species.includes('Leaf') || c.species.includes('Flora') ? '🌿' : '💧');
+      const icon = c.species.includes('Flame') || c.species.includes('Pyro') ? '🔥' : (c.species.includes('Leaf') || c.species.includes('Flora') || c.species.includes('Thorn') ? '🌿' : (c.species.includes('Aqua') || c.species.includes('Hydro') || c.species.includes('Levia') ? '💧' : '⚡'));
       chip.innerHTML = `
         <span>${icon} <strong>${c.species}</strong> Lv.${c.level}</span>
         <span style="color: ${c.hp <= c.maxHp * 0.25 ? '#ef4444' : '#22c55e'}">${c.hp}/${c.maxHp}</span>
@@ -1133,21 +1664,31 @@ class Game3D {
     });
   }
 
-  // --- 3D PLAYER MOVEMENT ---
+  // --- 3D PLAYER MOVEMENT & TRIGGER CHECKS ---
   stepPlayer(dx, dz) {
     if (this.moveCooldown > 0) return;
 
     const stepSize = 1.0;
-    const nextX = Math.max(-10, Math.min(10, this.playerPos.x + dx * stepSize));
-    const nextZ = Math.max(-10, Math.min(10, this.playerPos.z + dz * stepSize));
+    const nextX = Math.max(-7.5, Math.min(7.5, this.playerPos.x + dx * stepSize));
+    const nextZ = Math.max(-13.5, Math.min(11, this.playerPos.z + dz * stepSize));
 
-    // Collision check: Mountain wall
-    if (!this.boss1Defeated && nextZ <= -4.5) {
+    // Chapter 1 Gatekeeper Check: Giga-Golem at z = -4.5
+    if (!this.boss1Defeated && nextZ <= -4.2) {
       this.triggerEncounter(createCreature('GigaGolem'));
       this.moveCooldown = 0.3;
       return;
     }
-    if (this.boss1Defeated && nextZ <= -8.0) {
+
+    // Chapter 1.5 Evolution Duel Check: Rival Sky at z = -6.0
+    if (this.boss1Defeated && !this.rivalDefeated && nextZ <= -6.0) {
+      this.triggerRivalEvolutionDuel();
+      this.moveCooldown = 0.3;
+      return;
+    }
+
+    // Chapter 2 Final Boss Check: Awakened Titan Stormjaw at z = -11.5
+    if (this.rivalDefeated && !this.boss2Defeated && nextZ <= -11.5) {
+      this.stormjawPhase = 1;
       this.triggerEncounter(createCreature('Stormjaw'));
       this.moveCooldown = 0.3;
       return;
@@ -1172,18 +1713,6 @@ class Game3D {
       return;
     }
 
-    // Check Rival Encounter
-    if (!this.rivalDefeated && this.playerPos.distanceTo(new THREE.Vector3(0, 0, 1.5)) < 1.5) {
-      this.rivalDefeated = true;
-      this.showToast("⚔️ Rival Trainer challenges you in 3D!");
-      setTimeout(() => {
-        const rivalPet = createCreature('Aquapup', 2);
-        rivalPet.name = "Rival's Aquapup 💧";
-        this.triggerEncounter(rivalPet);
-      }, 400);
-      return;
-    }
-
     // Check Roaming Wild Monster bump
     this.wildMeshes.forEach(w => {
       if (this.playerPos.distanceTo(w.pos) < 1.4) {
@@ -1191,13 +1720,39 @@ class Game3D {
       }
     });
 
-    // Random Tall Grass encounter in Meadow
-    if (Math.abs(this.playerPos.x) > 2 && this.playerPos.z < 3 && this.playerPos.z > -4) {
-      if (Math.random() < 0.18) {
-        const type = Math.random() < 0.5 ? 'Leafbit' : 'Aquapup';
-        this.triggerEncounter(createCreature(type, 1));
+    // Random encounter in tall grass / gorge dust
+    if (Math.abs(this.playerPos.x) > 2.2 && (this.playerPos.z < 4 && this.playerPos.z > -10)) {
+      if (Math.random() < 0.14) {
+        let species = 'Leafbit';
+        let lvl = 1;
+        if (this.playerPos.z > 0) {
+          species = Math.random() < 0.5 ? 'Leafbit' : (Math.random() < 0.5 ? 'Aquapup' : 'Voltling');
+          lvl = Math.random() < 0.3 ? 2 : 1;
+        } else {
+          species = Math.random() < 0.5 ? 'Stoneclaw' : 'Thunderbeast';
+          lvl = 3;
+        }
+        this.triggerEncounter(createCreature(species, lvl));
       }
     }
+  }
+
+  triggerRivalEvolutionDuel() {
+    sound.playAlert();
+    this.setFaceMood('attack', 'Rival Challenge!');
+    this.showToast("⚔️ Rival Sky challenges you to a 3D Evolution Duel!");
+
+    setTimeout(() => {
+      let rivalSpecies = 'Hydrofang';
+      if (this.activeCreature.type.includes('Nature')) rivalSpecies = 'Pyrowhisker';
+      else if (this.activeCreature.type.includes('Water')) rivalSpecies = 'Thornhare';
+
+      const rivalPet = createCreature(rivalSpecies, 4);
+      rivalPet.name = `Rival's ${rivalSpecies}`;
+      this.inEvolutionBattle = true;
+      this.startBattle(rivalPet);
+      this.setBattleMsg(`Rival Sky: "Show me the bond with your starter! Let's trigger MEGA EVOLUTION!"`);
+    }, 600);
   }
 
   interactFacing() {
@@ -1232,7 +1787,7 @@ class Game3D {
     this.showToast("Revived at the 3D Healing Spring! Train more before challenging the Titans!");
   }
 
-  // --- 3D BATTLE SYSTEM ---
+  // --- 3D BATTLE SYSTEM WITH 3/4 OVER-THE-SHOULDER PERSPECTIVE ---
   triggerEncounter(enemyCreature) {
     sound.playAlert();
     this.setFaceMood('attack', 'Battle Ready!');
@@ -1256,7 +1811,7 @@ class Game3D {
 
     // 1. Create clean Battle Stage Arena Disc
     if (this.battleArenaDisk) this.scene.remove(this.battleArenaDisk);
-    const arenaGeo = new THREE.CylinderGeometry(4.6, 4.8, 0.08, 32);
+    const arenaGeo = new THREE.CylinderGeometry(5.2, 5.5, 0.08, 36);
     this.battleArenaDisk = new THREE.Mesh(
       arenaGeo,
       new THREE.MeshLambertMaterial({ color: 0x1e293b })
@@ -1264,16 +1819,23 @@ class Game3D {
     this.battleArenaDisk.position.set(0.1, 0.04, 0.5);
     this.scene.add(this.battleArenaDisk);
 
-    // 2. Create Glowing Battle Pedestals
+    // Arena concentric ring line
+    const ringGeo = new THREE.RingGeometry(3.5, 3.65, 32);
+    ringGeo.rotateX(-Math.PI / 2);
+    const ringDecal = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: 0x475569, side: THREE.DoubleSide }));
+    ringDecal.position.set(0.1, 0.085, 0.5);
+    this.battleArenaDisk.add(ringDecal);
+
+    // 2. Create Glowing Battle Pedestals (Player Cyan, Enemy Red)
     if (this.playerPlatform) this.scene.remove(this.playerPlatform);
     if (this.enemyPlatform) this.scene.remove(this.enemyPlatform);
 
-    const platGeo = new THREE.CylinderGeometry(1.2, 1.3, 0.1, 24);
+    const platGeo = new THREE.CylinderGeometry(1.25, 1.35, 0.1, 24);
     this.playerPlatform = new THREE.Mesh(
       platGeo,
       new THREE.MeshLambertMaterial({ color: 0x0284c7, emissive: 0x0369a1 })
     );
-    this.playerPlatform.position.set(-1.1, 0.09, 1.4);
+    this.playerPlatform.position.set(-1.0, 0.09, 1.4);
     this.scene.add(this.playerPlatform);
 
     this.enemyPlatform = new THREE.Mesh(
@@ -1284,16 +1846,16 @@ class Game3D {
     this.scene.add(this.enemyPlatform);
 
     // 3. Move Trainer to 3D Battle Command Position (Lower-Left foreground)
-    this.trainerMesh.position.set(-2.2, 0.0, 2.3);
-    this.trainerMesh.rotation.y = Math.PI * 0.35; // Face towards battlefield & enemy!
+    this.trainerMesh.position.set(-2.3, 0.0, 2.6);
+    this.trainerMesh.rotation.y = Math.PI * 0.32; // Face towards battlefield & enemy!
     if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = 0;
     if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
 
     // 4. Spawn 3D Player Creature on Pedestal (In front of Martin)
     if (this.battlePlayerPet) this.scene.remove(this.battlePlayerPet);
     this.battlePlayerPet = create3DCreatureMesh(this.activeCreature.species);
-    this.battlePlayerPet.position.set(-1.1, 0.14, 1.4);
-    this.battlePlayerPet.rotation.y = Math.PI * 0.35;
+    this.battlePlayerPet.position.set(-1.0, 0.14, 1.4);
+    this.battlePlayerPet.rotation.y = Math.PI * 0.32;
     this.battlePlayerPet.scale.setScalar(1.25);
     this.scene.add(this.battlePlayerPet);
 
@@ -1301,25 +1863,31 @@ class Game3D {
     if (this.battleEnemyPet) this.scene.remove(this.battleEnemyPet);
     this.battleEnemyPet = create3DCreatureMesh(enemyCreature.species);
     this.battleEnemyPet.position.set(1.4, 0.14, -0.4);
-    this.battleEnemyPet.rotation.y = -Math.PI * 0.65; // Face towards player!
+    this.battleEnemyPet.rotation.y = -Math.PI * 0.68; // Face towards player!
     const enemyScale = enemyCreature.species === 'Stormjaw' ? 1.6 : (enemyCreature.species === 'GigaGolem' ? 1.4 : 1.25);
     this.battleEnemyPet.scale.setScalar(enemyScale);
     this.scene.add(this.battleEnemyPet);
 
-    // 6. SNAP CAMERA INSTANTLY TO FIXED BATTLE PERSPECTIVE (NO DRIFT, NO SWAY)
-    this.camera.position.set(0.0, 2.8, 5.8);
-    this.camera.lookAt(0.1, 0.9, 0.5);
+    // 6. CINEMATIC 3/4 OVER-THE-SHOULDER PERSPECTIVE (100% FIXED, ZERO SHAKE)
+    this.camera.position.set(-2.6, 2.4, 4.4);
+    this.camera.lookAt(0.7, 1.0, 0.2);
 
+    // Reset battle menus
     document.getElementById('battle-screen').classList.remove('hidden');
+    document.getElementById('battle-actions').classList.remove('hidden');
+    document.getElementById('battle-moves').classList.add('hidden');
 
     this.updateBattleUI();
 
     if (enemyCreature.species === 'GigaGolem') {
       sound.playBossRoar();
-      this.setBattleMsg(`🗿 Giga-Golem awakens with a stone roar!`);
+      this.setBattleMsg(`🗿 Giga-Golem awakens with a stone roar! Defeat it to open the Gorge!`);
     } else if (enemyCreature.species === 'Stormjaw') {
       sound.playBossRoar();
       this.setBattleMsg(`⚡ STORMJAW THE TITAN CALLS DOWN LIGHTNING!`);
+    } else if (this.inEvolutionBattle) {
+      sound.playSelect();
+      this.setBattleMsg(`⚔️ Rival Sky: "Show me your bond! Win this to unleash 3D Mega Evolution!"`);
     } else {
       sound.playSelect();
       this.setBattleMsg(`A wild 3D ${enemyCreature.name} appeared!`);
@@ -1335,7 +1903,7 @@ class Game3D {
     const enemy = battle.enemy;
     const player = this.activeCreature;
 
-    // Enemy
+    // Enemy HUD
     document.getElementById('enemy-name').textContent = enemy.name;
     document.getElementById('enemy-level').textContent = `Lv. ${enemy.level}`;
     const enemyHpPercent = Math.max(0, (enemy.hp / enemy.maxHp) * 100);
@@ -1344,7 +1912,7 @@ class Game3D {
     enemyHpFill.style.backgroundColor = enemyHpPercent > 50 ? '#22c55e' : (enemyHpPercent > 25 ? '#f59e0b' : '#ef4444');
     document.getElementById('enemy-hp-text').textContent = `${Math.max(0, enemy.hp)} / ${enemy.maxHp} HP`;
 
-    // Player
+    // Player HUD
     document.getElementById('player-name').textContent = player.name;
     document.getElementById('player-level').textContent = `Lv. ${player.level}`;
     const playerHpPercent = Math.max(0, (player.hp / player.maxHp) * 100);
@@ -1356,11 +1924,22 @@ class Game3D {
     const xpPercent = Math.min(100, (player.xp / player.xpNeeded) * 100);
     document.getElementById('player-xp-fill').style.width = `${xpPercent}%`;
 
-    const activeMove = player.moves[player.moves.length - 1] || player.moves[0];
-    document.getElementById('btn-attack').innerHTML = `⚔️ ${activeMove.name}`;
+    // Populate Move Selection Menu
+    const availableMoves = (player.moves || []).filter(m => (player.level || 1) >= (m.minLevel || 1));
+    for (let i = 0; i < 3; i++) {
+      const mBtn = document.getElementById(`btn-move-${i}`);
+      if (!mBtn) continue;
+      if (availableMoves[i]) {
+        const m = availableMoves[i];
+        mBtn.style.display = 'flex';
+        mBtn.innerHTML = `<span class="m-name">${m.icon || '⚔️'} ${m.name}</span><span class="m-info">${m.type} • Pwr ${Math.round((m.power || 1.0) * 100)}%</span>`;
+      } else {
+        mBtn.style.display = 'none';
+      }
+    }
 
     const switchBtn = document.getElementById('btn-switch');
-    switchBtn.disabled = this.party.length <= 1;
+    if (switchBtn) switchBtn.disabled = this.party.length <= 1;
   }
 
   setBattleMsg(msg) {
@@ -1369,11 +1948,13 @@ class Game3D {
 
   setActionsDisabled(disabled) {
     this.isBattleBusy = disabled;
-    const buttons = document.querySelectorAll('#battle-actions button');
-    buttons.forEach(b => {
+    const actionButtons = document.querySelectorAll('#battle-actions button');
+    actionButtons.forEach(b => {
       if (b.id === 'btn-switch' && this.party.length <= 1) b.disabled = true;
       else b.disabled = disabled;
     });
+    const moveButtons = document.querySelectorAll('#battle-moves button');
+    moveButtons.forEach(b => b.disabled = disabled);
   }
 
   shakeTarget(targetType) {
@@ -1385,10 +1966,14 @@ class Game3D {
     }
   }
 
-  spawnDamageText(text, targetType, isCrit = false, isHeal = false) {
+  spawnDamageText(text, targetType, isCrit = false, isHeal = false, isSuper = false) {
     const layer = document.getElementById('damage-layer');
     const el = document.createElement('div');
     el.className = `float-damage ${isCrit ? 'crit' : ''} ${isHeal ? 'heal' : ''}`;
+    if (isSuper) {
+      el.style.color = '#f59e0b';
+      el.style.fontSize = '22px';
+    }
     el.textContent = text;
 
     if (targetType === 'enemy') {
@@ -1400,17 +1985,38 @@ class Game3D {
     }
 
     layer.appendChild(el);
-    setTimeout(() => el.remove(), 900);
+    setTimeout(() => el.remove(), 950);
   }
 
-  handleBattleAttack() {
+  getElementalMultiplier(moveType, targetType) {
+    if (!moveType || !targetType) return 1.0;
+    const m = moveType.toLowerCase();
+    const t = targetType.toLowerCase();
+    // Super Effective
+    if (m.includes('fire') && t.includes('nature')) return 1.5;
+    if (m.includes('nature') && (t.includes('water') || t.includes('rock'))) return 1.5;
+    if (m.includes('water') && (t.includes('fire') || t.includes('rock'))) return 1.5;
+    if (m.includes('electric') && (t.includes('water') || t.includes('dragon'))) return 1.5;
+    if (m.includes('rock') && (t.includes('fire') || t.includes('electric'))) return 1.5;
+    if (m.includes('dragon') && t.includes('dragon')) return 1.5;
+    if (m.includes('ultimate')) return 1.4;
+
+    // Resistances
+    if (m.includes('fire') && (t.includes('water') || t.includes('rock'))) return 0.7;
+    if (m.includes('water') && t.includes('nature')) return 0.7;
+    if (m.includes('nature') && t.includes('fire')) return 0.7;
+    return 1.0;
+  }
+
+  handleBattleAttack(chosenMove = null) {
     if (this.isBattleBusy) return;
     this.setActionsDisabled(true);
     this.setFaceMood('attack', 'Unleashing Attack!');
 
     const player = this.activeCreature;
     const enemy = this.currentBattle.enemy;
-    const move = player.moves[player.moves.length - 1] || player.moves[0];
+    const availableMoves = (player.moves || []).filter(m => (player.level || 1) >= (m.minLevel || 1));
+    const move = chosenMove || availableMoves[0] || { name: 'Tackle', power: 1.0, type: 'Normal', icon: '💥' };
 
     this.setBattleMsg(`${player.species} used ${move.name}!`);
 
@@ -1425,12 +2031,16 @@ class Game3D {
       // Return positions
       if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
       if (this.battlePlayerPet) {
-        this.battlePlayerPet.position.set(-1.1, 0.14, 1.4);
+        this.battlePlayerPet.position.set(-1.0, 0.14, 1.4);
       }
 
+      // Elemental type matching
+      let mult = this.getElementalMultiplier(move.type, enemy.type);
+      if (mult > 1.0 && player.perks.includes('element_fury')) mult += 0.25;
+
       const hasCrit = player.perks.includes('crit_master');
-      const isCrit = Math.random() < (hasCrit ? 0.4 : 0.18);
-      let dmg = Math.round(player.attack * move.power + (Math.random() * 3 - 1));
+      const isCrit = Math.random() < (hasCrit ? 0.38 : 0.18);
+      let dmg = Math.round(player.attack * move.power * mult + (Math.random() * 3 - 1));
       if (isCrit) dmg = Math.round(dmg * (hasCrit ? 1.8 : 1.5));
       dmg = Math.max(2, dmg);
 
@@ -1438,6 +2048,9 @@ class Game3D {
       if (isCrit) {
         sound.playCrit();
         this.spawnDamageText(`CRIT! -${dmg}`, 'enemy', true);
+      } else if (mult > 1.2) {
+        sound.playCrit();
+        this.spawnDamageText(`SUPER! -${dmg}`, 'enemy', false, false, true);
       } else {
         sound.playHit();
         this.spawnDamageText(`-${dmg}`, 'enemy');
@@ -1445,6 +2058,7 @@ class Game3D {
 
       this.shakeTarget('enemy');
 
+      // Life drain perk
       if (player.perks.includes('life_drain')) {
         const healAmt = Math.round(dmg * 0.4);
         player.hp = Math.min(player.maxHp, player.hp + healAmt);
@@ -1529,6 +2143,14 @@ class Game3D {
     this.activeCreatureIndex = (this.activeCreatureIndex + 1) % this.party.length;
     const newCreature = this.activeCreature;
 
+    // Swap 3D battle pet model live!
+    if (this.battlePlayerPet) this.scene.remove(this.battlePlayerPet);
+    this.battlePlayerPet = create3DCreatureMesh(newCreature.species);
+    this.battlePlayerPet.position.set(-1.0, 0.14, 1.4);
+    this.battlePlayerPet.rotation.y = Math.PI * 0.32;
+    this.battlePlayerPet.scale.setScalar(1.25);
+    this.scene.add(this.battlePlayerPet);
+
     this.setBattleMsg(`Sent out ${newCreature.name}!`);
     this.updateBattleUI();
 
@@ -1539,9 +2161,9 @@ class Game3D {
   handleBattleRun() {
     if (this.isBattleBusy) return;
     const enemy = this.currentBattle.enemy;
-    if (enemy.isBoss) {
+    if (enemy.isBoss || this.inEvolutionBattle) {
       sound.playTone(150, 'sawtooth', 0.2);
-      this.setBattleMsg(`You cannot run from this Boss battle!`);
+      this.setBattleMsg(`You cannot run from this Boss / Rival duel!`);
       return;
     }
     sound.playSelect();
@@ -1606,6 +2228,15 @@ class Game3D {
       setTimeout(() => {
         this.activeCreatureIndex = nextAlive;
         const next = this.activeCreature;
+
+        // Swap 3D battle pet model live!
+        if (this.battlePlayerPet) this.scene.remove(this.battlePlayerPet);
+        this.battlePlayerPet = create3DCreatureMesh(next.species);
+        this.battlePlayerPet.position.set(-1.0, 0.14, 1.4);
+        this.battlePlayerPet.rotation.y = Math.PI * 0.32;
+        this.battlePlayerPet.scale.setScalar(1.25);
+        this.scene.add(this.battlePlayerPet);
+
         this.setBattleMsg(`Go! ${next.name}!`);
         this.updateBattleUI();
         this.setActionsDisabled(false);
@@ -1627,27 +2258,62 @@ class Game3D {
       this.boss1Defeated = true;
       this.scene.remove(this.golemMesh); // Golem crumbles in 3D!
       sound.playVictory();
-      this.setBattleMsg(`🗿 Giga-Golem crumbled! Mountain gate is now open!`);
+      this.updateQuestBanner();
+      this.setBattleMsg(`🗿 Giga-Golem crumbled! The Mountain Gate through Whispering Gorge is open!`);
       setTimeout(() => {
         this.checkEvolutionOrPerk(this.activeCreature);
       }, 1400);
       return;
     }
 
-    // Boss 2: Stormjaw
-    if (enemy.species === 'Stormjaw') {
+    // Chapter 1.5: Rival Evolution Duel Defeated
+    if (this.inEvolutionBattle) {
+      this.inEvolutionBattle = false;
+      this.rivalDefeated = true;
       sound.playVictory();
-      this.setFaceMood('cheer', 'Champion!');
-      this.setBattleMsg(`⚡ STORMJAW THE TITAN HAS BEEN CONQUERED!`);
+      this.updateQuestBanner();
+      this.setBattleMsg(`⚔️ Rival defeated! The Ancient Keystone is glowing with blinding 3D light!`);
       setTimeout(() => {
-        document.getElementById('battle-screen').classList.add('hidden');
-        document.getElementById('win-screen').classList.remove('hidden');
-        this.state = GameState.WIN;
-      }, 1500);
+        this.triggerMegaEvolution(this.activeCreature);
+      }, 1400);
       return;
     }
 
-    // Wild or Rival
+    // Chapter 2 Final Boss: Stormjaw (Dual-Phase)
+    if (enemy.species === 'Stormjaw') {
+      if (this.stormjawPhase === 1) {
+        // Trigger Phase 2: Titan Awakening!
+        this.stormjawPhase = 2;
+        sound.playBossRoar();
+        this.setFaceMood('hurt', 'Titan Awakens!');
+        enemy.hp = 110;
+        enemy.maxHp = 110;
+        enemy.attack = 22;
+        enemy.name = 'AWAKENED STORMJAW ⚡⚡';
+        this.setBattleMsg(`⚡ TITAN AWAKENING! Stormjaw calls down purple cataclysm lightning and regenerates to 100% HP!`);
+        this.updateBattleUI();
+        setTimeout(() => {
+          this.setBattleMsg(`What will ${this.activeCreature.species} do against Awakened Stormjaw?`);
+          this.setActionsDisabled(false);
+        }, 1800);
+        return;
+      } else {
+        // Phase 2 Defeated: Victory!
+        this.boss2Defeated = true;
+        sound.playVictory();
+        this.updateQuestBanner();
+        this.setFaceMood('cheer', 'Champion!');
+        this.setBattleMsg(`⚡ AWAKENED TITAN STORMJAW CONQUERED! MARTIN IS THE ULTIMATE CHAMPION!`);
+        setTimeout(() => {
+          document.getElementById('battle-screen').classList.add('hidden');
+          document.getElementById('win-screen').classList.remove('hidden');
+          this.state = GameState.WIN;
+        }, 1800);
+        return;
+      }
+    }
+
+    // Standard Wild Monster Defeat
     sound.playTone(587, 'triangle', 0.25);
     const xp = 28 * enemy.level;
     this.setBattleMsg(`${enemy.name} was defeated! Gained ${xp} XP!`);
@@ -1670,14 +2336,15 @@ class Game3D {
   }
 
   checkEvolutionOrPerk(player) {
-    if (player.level >= 3 && player.evolvesTo) {
-      this.triggerEvolution(player);
+    if (player.level >= 2 && player.evolvesTo && !this.rivalDefeated) {
+      // Natural Stage 2 evolution if ready
+      this.triggerStage2Evolution(player);
     } else {
       this.openPerkChoiceModal(player);
     }
   }
 
-  triggerEvolution(creature) {
+  triggerStage2Evolution(creature) {
     this.state = GameState.EVOLUTION;
     sound.playEvolutionFanfare();
 
@@ -1687,21 +2354,61 @@ class Game3D {
 
     document.getElementById('evo-title').textContent = `WHAT? ${creature.species} IS EVOLVING!`;
     document.getElementById('evo-desc').innerHTML = `
-      🎉 <strong>Congratulations!</strong> ${creature.species} evolved into <strong>${targetSpecies.toUpperCase()}</strong> in full 3D!<br>
-      Gained Draconic Wings, +24 Max HP, +10 Attack, and learned an Ultimate Finisher!
+      🎉 <strong>Stage 2 Evolution!</strong> ${creature.species} evolved into <strong>${targetSpecies.toUpperCase()}</strong> in full 3D!<br>
+      Gained +22 Max HP, +8 Attack, and unlocked a new specialized combat move!
     `;
 
-    // Apply Evolved Stats & Model
     const evolvedObj = createCreature(targetSpecies, creature.level);
     creature.species = evolvedObj.species;
     creature.name = evolvedObj.name;
-    creature.maxHp += 24;
+    creature.maxHp += 22;
     creature.hp = creature.maxHp;
-    creature.attack += 10;
+    creature.attack += 8;
+    creature.moves = evolvedObj.moves;
+    creature.evolvesTo = evolvedObj.evolvesTo;
+
+    // Upgrade 3D follower model in the world
+    this.scene.remove(this.followerMesh);
+    this.followerMesh = create3DCreatureMesh(targetSpecies);
+    this.followerMesh.position.copy(this.followerPos);
+    this.scene.add(this.followerMesh);
+
+    this.updatePartyHUD();
+  }
+
+  triggerMegaEvolution(creature) {
+    this.state = GameState.EVOLUTION;
+    sound.playEvolutionFanfare();
+
+    // Determine Stage 3 Mega Form
+    let targetSpecies = 'Pyrostryke';
+    if (creature.type.includes('Nature') || creature.species.includes('Leaf') || creature.species.includes('Thorn')) {
+      targetSpecies = 'Floraknight';
+    } else if (creature.type.includes('Water') || creature.species.includes('Aqua') || creature.species.includes('Hydro')) {
+      targetSpecies = 'Leviaking';
+    }
+
+    const modal = document.getElementById('evolution-modal');
+    modal.classList.remove('hidden');
+
+    document.getElementById('evo-title').textContent = `⭐ 3D MEGA EVOLUTION: ${targetSpecies.toUpperCase()}! ⭐`;
+    document.getElementById('evo-desc').innerHTML = `
+      🌟 <strong>THE ANCIENT KEYSTONE RESONATED!</strong><br>
+      ${creature.species} transformed into the colossal 3D Mega Titan <strong>${targetSpecies.toUpperCase()}</strong>!<br>
+      Gained Draconic Wings/Armor, +40 Max HP, +14 Attack, and learned the ultimate finisher!
+    `;
+
+    const evolvedObj = createCreature(targetSpecies, Math.max(5, creature.level + 2));
+    creature.species = evolvedObj.species;
+    creature.name = evolvedObj.name;
+    creature.level = evolvedObj.level;
+    creature.maxHp += 40;
+    creature.hp = creature.maxHp;
+    creature.attack += 14;
     creature.moves = evolvedObj.moves;
     delete creature.evolvesTo;
 
-    // Upgrade 3D follower model in the world!
+    // Upgrade 3D follower model in overworld
     this.scene.remove(this.followerMesh);
     this.followerMesh = create3DCreatureMesh(targetSpecies);
     this.followerMesh.position.copy(this.followerPos);
@@ -1833,7 +2540,7 @@ class Game3D {
 
     // 3. Boss Floating & Thunder Light Pulsing
     if (this.stormjawMesh) {
-      this.stormjawMesh.position.y = 4.6 + Math.sin(time * 3) * 0.2;
+      this.stormjawMesh.position.y = 2.0 + Math.sin(time * 3) * 0.2;
     }
     if (this.golemMesh) {
       this.golemMesh.rotation.y = Math.sin(time * 1.2) * 0.15;
@@ -1848,14 +2555,14 @@ class Game3D {
       w.mesh.rotation.y = Math.sin(time * 2 + i) * 0.3;
     });
 
-    // 5. ROCK-SOLID 3D CAMERA TRACKING (ZERO wobbling, ZERO pitch/yaw tilt!)
+    // 5. ROCK-SOLID 3D CAMERA TRACKING
     if (this.state === GameState.OVERWORLD || this.state === GameState.STORY) {
       const charPos = this.trainerMesh.position;
       const isCloser = this.cameraMode === 'closeup';
       const camOffsetY = isCloser ? 6.5 : 9.5;
       const camOffsetZ = isCloser ? 5.5 : 8.0;
 
-      // Lockstep camera tracking - vector (0, camOffsetY - 0.8, camOffsetZ) is 100% constant!
+      // Lockstep camera tracking - vector is 100% constant, zero rotational jitter
       this.camera.position.set(
         charPos.x,
         charPos.y + camOffsetY,
@@ -1867,9 +2574,9 @@ class Game3D {
         charPos.z
       );
     } else if (this.state === GameState.BATTLE) {
-      // 100% Fixed & Stable Battle Camera! No sway, no shake, perfectly framed!
-      this.camera.position.set(0.0, 2.8, 5.8);
-      this.camera.lookAt(0.1, 0.9, 0.5);
+      // 100% Fixed & Stable Cinematic 3/4 Battle Camera! Zero sway, zero shake!
+      this.camera.position.set(-2.6, 2.4, 4.4);
+      this.camera.lookAt(0.7, 1.0, 0.2);
     }
 
     this.renderer.render(this.scene, this.camera);
