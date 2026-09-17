@@ -137,10 +137,12 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 - **需求背景**：课堂下课前 15 分钟立项，限制 2 AUD 算力预算，要求必须真实可玩并支持 iPad 触屏操作。
 - **演进历程**：
   1. **Spike 快速原型**：完成三属性初始神兽、大地图遇敌、回合制对战、捕捉与 Boss 战。
-  2. **视觉升级要求**：“我们要的 3D 人物呢，我们要更细致的画面，不要只做一个战斗界面就完了”。升级为 Three.js 纯前端 3D 渲染，带 3D 细致面部表情、萌宠同形跟随、大世界花丛泉水。
-  3. **现场试玩与 Bug 修复**：排查修复战斗遮罩层级、DOM 空指针造成的战斗卡死、iPad 动态视口高度（`100dvh`）适配。
+  2. **视觉升维要求**：“我们要的 3D 人物呢，我们要更细致的画面，不要只做一个战斗界面就完了”。升级为 Three.js 纯前端 3D 渲染，带 3D 细致面部表情、萌宠实体跟随、大世界花丛与生命之泉。
+  3. **现场试玩与排障**：排查修复战斗遮罩层级冲突、DOM 监听空指针、iPad 动态视口（`100dvh`）裁切。
+  4. **终极大版本重构 (v1.0)**：解决镜头晃动与深度不足反馈，打造经典 3/4 越肩对战运镜（零抖动、零遮挡）、扩建三大连贯生态大世界（翡翠山谷 / 低语峡谷 / 雷鸣之巅）、扩充至 14 种原创 3D 怪物、三段式超级进化树与多技能战术池、新增 Chapter 1.5 劲敌决斗与双阶段 Awakened Stormjaw 泰坦决战。
 - **在线体验**：[打开 Martin's Monster Quest 3D](https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/)
-- **详尽玩法与源码**：详见 [`martins-monster-quest/`](martins-monster-quest/) 与 [`martins-monster-quest/README.md`](martins-monster-quest/README.md)。
+- **详尽玩法指南**：详见 [`martins-monster-quest/README.md`](martins-monster-quest/README.md)。
+- **完整研发档案与对话实录**：详见 [`martins-monster-quest/DEVLOG.md`](martins-monster-quest/DEVLOG.md)。
 
 
 ## Beast Kings - Nathan & Leo (2026-09-12)
