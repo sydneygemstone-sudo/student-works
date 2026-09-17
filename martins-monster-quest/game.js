@@ -690,8 +690,8 @@ class Game3D {
     this.scene.fog = new THREE.FogExp2(0x0f172a, 0.035);
 
     this.camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 100);
-    this.camera.position.set(0, 10, 14);
-    this.camera.lookAt(0, 0, 4);
+    this.camera.position.set(0, 9.5, 14);
+    this.camera.lookAt(0, 0.8, 6);
 
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true });
     this.renderer.setSize(width, height);
@@ -1137,8 +1137,9 @@ class Game3D {
   stepPlayer(dx, dz) {
     if (this.moveCooldown > 0) return;
 
-    const nextX = Math.max(-10, Math.min(10, this.playerPos.x + dx * 1.5));
-    const nextZ = Math.max(-10, Math.min(10, this.playerPos.z + dz * 1.5));
+    const stepSize = 1.0;
+    const nextX = Math.max(-10, Math.min(10, this.playerPos.x + dx * stepSize));
+    const nextZ = Math.max(-10, Math.min(10, this.playerPos.z + dz * stepSize));
 
     // Collision check: Mountain wall
     if (!this.boss1Defeated && nextZ <= -4.5) {
@@ -1157,7 +1158,7 @@ class Game3D {
 
     this.playerPos.set(nextX, 0, nextZ);
     this.isMoving = true;
-    this.moveCooldown = 0.18;
+    this.moveCooldown = 0.16;
 
     // Turn character towards walking direction
     if (dx !== 0 || dz !== 0) {
@@ -1250,44 +1251,64 @@ class Game3D {
     this.state = GameState.BATTLE;
     this.currentBattle = { enemy: enemyCreature, turn: 'player' };
 
-    // 1. Move Trainer to 3D Battle Stage (Left Platform)
-    this.trainerMesh.position.set(-2.0, 0, 0.4);
-    this.trainerMesh.rotation.y = Math.PI / 2; // Face towards enemy!
-    if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = 0;
-    if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
+    // Hide overworld follower to prevent duplicate pet clutter
+    if (this.followerMesh) this.followerMesh.visible = false;
 
-    // 2. Spawn 3D Player Creature on Left Platform
-    if (this.battlePlayerPet) this.scene.remove(this.battlePlayerPet);
-    this.battlePlayerPet = create3DCreatureMesh(this.activeCreature.species);
-    this.battlePlayerPet.position.set(-0.9, 0, 0.8);
-    this.battlePlayerPet.rotation.y = Math.PI / 2;
-    this.scene.add(this.battlePlayerPet);
+    // 1. Create clean Battle Stage Arena Disc
+    if (this.battleArenaDisk) this.scene.remove(this.battleArenaDisk);
+    const arenaGeo = new THREE.CylinderGeometry(4.6, 4.8, 0.08, 32);
+    this.battleArenaDisk = new THREE.Mesh(
+      arenaGeo,
+      new THREE.MeshLambertMaterial({ color: 0x1e293b })
+    );
+    this.battleArenaDisk.position.set(0.1, 0.04, 0.5);
+    this.scene.add(this.battleArenaDisk);
 
-    // 3. Spawn 3D Enemy Creature on Right Platform
-    if (this.battleEnemyPet) this.scene.remove(this.battleEnemyPet);
-    this.battleEnemyPet = create3DCreatureMesh(enemyCreature.species);
-    this.battleEnemyPet.position.set(2.0, 0, -0.4);
-    this.battleEnemyPet.rotation.y = -Math.PI / 2; // Face towards player!
-    this.scene.add(this.battleEnemyPet);
-
-    // 4. Create 3D Glowing Battle Pedestals
+    // 2. Create Glowing Battle Pedestals
     if (this.playerPlatform) this.scene.remove(this.playerPlatform);
     if (this.enemyPlatform) this.scene.remove(this.enemyPlatform);
 
-    const platGeo = new THREE.CylinderGeometry(1.6, 1.8, 0.12, 24);
+    const platGeo = new THREE.CylinderGeometry(1.2, 1.3, 0.1, 24);
     this.playerPlatform = new THREE.Mesh(
       platGeo,
-      new THREE.MeshLambertMaterial({ color: 0x0284c7, emissive: 0x075985 })
+      new THREE.MeshLambertMaterial({ color: 0x0284c7, emissive: 0x0369a1 })
     );
-    this.playerPlatform.position.set(-1.5, 0.06, 0.6);
+    this.playerPlatform.position.set(-1.1, 0.09, 1.4);
     this.scene.add(this.playerPlatform);
 
     this.enemyPlatform = new THREE.Mesh(
       platGeo,
-      new THREE.MeshLambertMaterial({ color: 0xb91c1c, emissive: 0x7f1d1d })
+      new THREE.MeshLambertMaterial({ color: 0xb91c1c, emissive: 0x991b1b })
     );
-    this.enemyPlatform.position.set(2.0, 0.06, -0.4);
+    this.enemyPlatform.position.set(1.4, 0.09, -0.4);
     this.scene.add(this.enemyPlatform);
+
+    // 3. Move Trainer to 3D Battle Command Position (Lower-Left foreground)
+    this.trainerMesh.position.set(-2.2, 0.0, 2.3);
+    this.trainerMesh.rotation.y = Math.PI * 0.35; // Face towards battlefield & enemy!
+    if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = 0;
+    if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
+
+    // 4. Spawn 3D Player Creature on Pedestal (In front of Martin)
+    if (this.battlePlayerPet) this.scene.remove(this.battlePlayerPet);
+    this.battlePlayerPet = create3DCreatureMesh(this.activeCreature.species);
+    this.battlePlayerPet.position.set(-1.1, 0.14, 1.4);
+    this.battlePlayerPet.rotation.y = Math.PI * 0.35;
+    this.battlePlayerPet.scale.setScalar(1.25);
+    this.scene.add(this.battlePlayerPet);
+
+    // 5. Spawn 3D Enemy Creature on Pedestal (Upper-Right background)
+    if (this.battleEnemyPet) this.scene.remove(this.battleEnemyPet);
+    this.battleEnemyPet = create3DCreatureMesh(enemyCreature.species);
+    this.battleEnemyPet.position.set(1.4, 0.14, -0.4);
+    this.battleEnemyPet.rotation.y = -Math.PI * 0.65; // Face towards player!
+    const enemyScale = enemyCreature.species === 'Stormjaw' ? 1.6 : (enemyCreature.species === 'GigaGolem' ? 1.4 : 1.25);
+    this.battleEnemyPet.scale.setScalar(enemyScale);
+    this.scene.add(this.battleEnemyPet);
+
+    // 6. SNAP CAMERA INSTANTLY TO FIXED BATTLE PERSPECTIVE (NO DRIFT, NO SWAY)
+    this.camera.position.set(0.0, 2.8, 5.8);
+    this.camera.lookAt(0.1, 0.9, 0.5);
 
     document.getElementById('battle-screen').classList.remove('hidden');
 
@@ -1356,13 +1377,11 @@ class Game3D {
   }
 
   shakeTarget(targetType) {
-    this.battleShakeTimer = 0.35; // 3D camera shake!
-    if (targetType === 'enemy' && this.battleEnemyPet) {
-      this.battleEnemyPet.position.y += 0.35;
-      setTimeout(() => { if (this.battleEnemyPet) this.battleEnemyPet.position.y = 0; }, 150);
-    } else if (this.battlePlayerPet) {
-      this.battlePlayerPet.position.y += 0.35;
-      setTimeout(() => { if (this.battlePlayerPet) this.battlePlayerPet.position.y = 0; }, 150);
+    const targetMesh = (targetType === 'enemy') ? this.battleEnemyPet : this.battlePlayerPet;
+    if (targetMesh) {
+      const baseY = targetMesh.position.y;
+      targetMesh.position.y = baseY + 0.22;
+      setTimeout(() => { if (targetMesh) targetMesh.position.y = baseY; }, 120);
     }
   }
 
@@ -1373,11 +1392,11 @@ class Game3D {
     el.textContent = text;
 
     if (targetType === 'enemy') {
-      el.style.top = '70px';
-      el.style.right = '50px';
+      el.style.top = '75px';
+      el.style.right = '80px';
     } else {
-      el.style.bottom = '90px';
-      el.style.left = '60px';
+      el.style.bottom = '95px';
+      el.style.left = '80px';
     }
 
     layer.appendChild(el);
@@ -1395,14 +1414,19 @@ class Game3D {
 
     this.setBattleMsg(`${player.species} used ${move.name}!`);
 
-    // 3D Attack Animation: Martin points arm & creature lunges!
-    if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = -1.6;
-    if (this.battlePlayerPet) this.battlePlayerPet.position.x += 1.2;
+    // 3D Attack Animation: Martin commands & player creature lunges forward!
+    if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = -1.4;
+    if (this.battlePlayerPet) {
+      this.battlePlayerPet.position.x += 0.4;
+      this.battlePlayerPet.position.z -= 0.3;
+    }
 
     setTimeout(() => {
       // Return positions
       if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
-      if (this.battlePlayerPet) this.battlePlayerPet.position.x = -0.9;
+      if (this.battlePlayerPet) {
+        this.battlePlayerPet.position.set(-1.1, 0.14, 1.4);
+      }
 
       const hasCrit = player.perks.includes('crit_master');
       const isCrit = Math.random() < (hasCrit ? 0.4 : 0.18);
@@ -1534,12 +1558,24 @@ class Game3D {
     this.setBattleMsg(`${enemy.name} used ${move.name}!`);
 
     setTimeout(() => {
+      // Enemy creature lunges forward towards player
+      if (this.battleEnemyPet) {
+        this.battleEnemyPet.position.x -= 0.4;
+        this.battleEnemyPet.position.z += 0.3;
+        setTimeout(() => {
+          if (this.battleEnemyPet) {
+            this.battleEnemyPet.position.set(1.4, 0.14, -0.4);
+          }
+        }, 180);
+      }
+
       let dmg = Math.round(enemy.attack * move.power + (Math.random() * 2 - 1));
       if (player.perks.includes('iron_shield')) dmg = Math.round(dmg * 0.7);
       dmg = Math.max(2, dmg);
 
       player.hp -= dmg;
       sound.playHit();
+      this.shakeTarget('player');
       this.setFaceMood('hurt', 'Taking Hit!');
       this.spawnDamageText(`-${dmg}`, 'player');
       this.updateBattleUI();
@@ -1719,12 +1755,31 @@ class Game3D {
     if (this.battleEnemyPet) { this.scene.remove(this.battleEnemyPet); this.battleEnemyPet = null; }
     if (this.playerPlatform) { this.scene.remove(this.playerPlatform); this.playerPlatform = null; }
     if (this.enemyPlatform) { this.scene.remove(this.enemyPlatform); this.enemyPlatform = null; }
+    if (this.battleArenaDisk) { this.scene.remove(this.battleArenaDisk); this.battleArenaDisk = null; }
+
+    // Restore overworld follower
+    if (this.followerMesh) this.followerMesh.visible = true;
 
     // Return trainer to overworld coordinates
     this.trainerMesh.position.copy(this.playerPos);
     this.trainerMesh.rotation.y = this.playerRotation;
     if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = 0;
     if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
+
+    // Restore camera to stable overworld overhead view
+    const isCloser = this.cameraMode === 'closeup';
+    const camOffsetY = isCloser ? 6.5 : 9.5;
+    const camOffsetZ = isCloser ? 5.5 : 8.0;
+    this.camera.position.set(
+      this.playerPos.x,
+      this.playerPos.y + camOffsetY,
+      this.playerPos.z + camOffsetZ
+    );
+    this.camera.lookAt(
+      this.playerPos.x,
+      this.playerPos.y + 0.8,
+      this.playerPos.z
+    );
 
     this.currentBattle = null;
     this.state = GameState.OVERWORLD;
@@ -1738,40 +1793,41 @@ class Game3D {
 
     if (this.moveCooldown > 0) this.moveCooldown -= delta;
 
-    // 1. Overworld Trainer Animation (Only update overworld pos when NOT in battle!)
+    // 1. Overworld Trainer Animation (Smooth responsive walking without jitter)
     if (this.trainerMesh && (this.state === GameState.OVERWORLD || this.state === GameState.STORY)) {
-      this.trainerMesh.position.lerp(this.playerPos, 0.15);
+      this.trainerMesh.position.lerp(this.playerPos, 0.25);
 
       if (this.isMoving) {
-        const swing = Math.sin(time * 12) * 0.6;
+        const swing = Math.sin(time * 12) * 0.4;
         if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = swing;
         if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = -swing;
         if (this.trainerMesh.leftLeg) this.trainerMesh.leftLeg.rotation.x = -swing;
         if (this.trainerMesh.rightLeg) this.trainerMesh.rightLeg.rotation.x = swing;
 
-        if (this.playerPos.distanceTo(this.trainerMesh.position) < 0.1) {
+        if (this.playerPos.distanceTo(this.trainerMesh.position) < 0.05) {
+          this.trainerMesh.position.copy(this.playerPos);
           this.isMoving = false;
         }
       } else {
-        // Idle breath
-        if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = Math.sin(time * 2) * 0.05;
-        if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = -Math.sin(time * 2) * 0.05;
-        if (this.trainerMesh.headGroup) this.trainerMesh.headGroup.rotation.y = Math.sin(time * 1.5) * 0.1;
+        if (this.trainerMesh.leftArm) this.trainerMesh.leftArm.rotation.x = 0;
+        if (this.trainerMesh.rightArm) this.trainerMesh.rightArm.rotation.x = 0;
+        if (this.trainerMesh.leftLeg) this.trainerMesh.leftLeg.rotation.x = 0;
+        if (this.trainerMesh.rightLeg) this.trainerMesh.rightLeg.rotation.x = 0;
+        if (this.trainerMesh.headGroup) this.trainerMesh.headGroup.rotation.y = 0;
       }
     }
 
-    // 2. Follower Pet Animation (Hop behind player in overworld)
+    // 2. Follower Pet Animation (Smooth follow behind trainer at ground level)
     if (this.followerMesh && (this.state === GameState.OVERWORLD || this.state === GameState.STORY)) {
-      this.followerMesh.position.lerp(this.followerPos, 0.1);
-      const hop = Math.abs(Math.sin(time * 6)) * 0.15;
-      this.followerMesh.position.y = hop;
+      this.followerMesh.position.lerp(this.followerPos, 0.2);
+      this.followerMesh.position.y = 0;
 
       if (this.followerMesh.tail) {
-        this.followerMesh.tail.rotation.z = Math.sin(time * 8) * 0.25;
+        this.followerMesh.tail.rotation.z = Math.sin(time * 8) * 0.2;
       }
       if (this.followerMesh.wingL && this.followerMesh.wingR) {
-        this.followerMesh.wingL.rotation.z = Math.sin(time * 8) * 0.3;
-        this.followerMesh.wingR.rotation.z = -Math.sin(time * 8) * 0.3;
+        this.followerMesh.wingL.rotation.z = Math.sin(time * 8) * 0.25;
+        this.followerMesh.wingR.rotation.z = -Math.sin(time * 8) * 0.25;
       }
     }
 
@@ -1792,41 +1848,28 @@ class Game3D {
       w.mesh.rotation.y = Math.sin(time * 2 + i) * 0.3;
     });
 
-    // 5. 3D Camera Follow Logic
+    // 5. ROCK-SOLID 3D CAMERA TRACKING (ZERO wobbling, ZERO pitch/yaw tilt!)
     if (this.state === GameState.OVERWORLD || this.state === GameState.STORY) {
-      if (this.cameraMode === 'closeup') {
-        const targetCam = new THREE.Vector3(
-          this.playerPos.x + Math.sin(this.playerRotation) * 2.5,
-          this.playerPos.y + 2.2,
-          this.playerPos.z + Math.cos(this.playerRotation) * 2.5
-        );
-        this.camera.position.lerp(targetCam, 0.08);
-        this.camera.lookAt(this.playerPos.x, this.playerPos.y + 1.2, this.playerPos.z);
-      } else {
-        const targetCam = new THREE.Vector3(
-          this.playerPos.x,
-          this.playerPos.y + 9.5,
-          this.playerPos.z + 9.5
-        );
-        this.camera.position.lerp(targetCam, 0.08);
-        this.camera.lookAt(this.playerPos.x, this.playerPos.y + 0.8, this.playerPos.z);
-      }
-    } else if (this.state === GameState.BATTLE) {
-      // 3D Battle Stage Camera framing both Martin and Enemy squarely in view!
-      const battleCam = new THREE.Vector3(
-        Math.sin(time * 0.3) * 0.5,
-        3.0 + Math.sin(time * 0.2) * 0.15,
-        5.6
-      );
-      this.camera.position.lerp(battleCam, 0.08);
-      this.camera.lookAt(0, 1.0, 0);
+      const charPos = this.trainerMesh.position;
+      const isCloser = this.cameraMode === 'closeup';
+      const camOffsetY = isCloser ? 6.5 : 9.5;
+      const camOffsetZ = isCloser ? 5.5 : 8.0;
 
-      // 3D Screen Shake on hits!
-      if (this.battleShakeTimer > 0) {
-        this.battleShakeTimer -= delta;
-        this.camera.position.x += (Math.random() - 0.5) * 0.3;
-        this.camera.position.y += (Math.random() - 0.5) * 0.3;
-      }
+      // Lockstep camera tracking - vector (0, camOffsetY - 0.8, camOffsetZ) is 100% constant!
+      this.camera.position.set(
+        charPos.x,
+        charPos.y + camOffsetY,
+        charPos.z + camOffsetZ
+      );
+      this.camera.lookAt(
+        charPos.x,
+        charPos.y + 0.8,
+        charPos.z
+      );
+    } else if (this.state === GameState.BATTLE) {
+      // 100% Fixed & Stable Battle Camera! No sway, no shake, perfectly framed!
+      this.camera.position.set(0.0, 2.8, 5.8);
+      this.camera.lookAt(0.1, 0.9, 0.5);
     }
 
     this.renderer.render(this.scene, this.camera);

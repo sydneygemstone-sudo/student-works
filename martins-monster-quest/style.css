@@ -396,14 +396,15 @@ body {
 }
 
 .enemy-unit {
-  justify-content: flex-end;
-  transform: translateZ(-30px);
+  justify-content: flex-start;
+  padding-left: 14px;
+  padding-top: 6px;
 }
 
 .player-unit {
-  justify-content: flex-start;
-  flex-direction: row-reverse;
-  transform: translateZ(20px);
+  justify-content: flex-end;
+  padding-right: 14px;
+  padding-bottom: 6px;
 }
 
 .unit-info-card {
