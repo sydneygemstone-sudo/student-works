@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Martin's Monster Quest 3D</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="three.min.js"></script>
+</head>
+<body>
+
+  <div id="game-container">
+    <!-- Viewport with 3D WebGL Canvas -->
+    <div id="viewport">
+      <!-- 3D WebGL Canvas -->
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Pre-battle Flash FX -->
+      <div id="encounter-flash"></div>
+
+      <!-- In-Game HUD Bar -->
+      <div id="hud-bar">
+        <!-- Trainer 3D Face Avatar Widget -->
+        <div id="trainer-face-widget" title="Martin's 3D Face (Live Emotion)">
+          <div id="hud-face-avatar">🧢</div>
+          <div class="hud-face-meta">
+            <span id="hud-trainer-name" style="font-weight: 800; color: #f59e0b;">Martin</span>
+            <span id="hud-trainer-mood" style="font-size: 9px; color: #94a3b8;">Confident</span>
+          </div>
+        </div>
+
+        <div class="party-chips" id="party-hud">
+          <!-- Populated by JS -->
+        </div>
+
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <button id="camera-toggle" class="btn-sound" title="Toggle 3D Camera Mode">🎥</button>
+          <button id="sound-toggle" class="btn-sound" title="Toggle Sound">🔊</button>
+        </div>
+      </div>
+
+      <!-- Toast Notification -->
+      <div id="toast">Welcome to 3D Monster Quest!</div>
+
+      <!-- Level Up Banner -->
+      <div id="levelup-banner">
+        <div style="font-size: 28px; margin-bottom: 4px;">⭐ LEVEL UP! ⭐</div>
+        <div id="levelup-text" style="font-size: 15px; font-weight: bold; line-height: 1.4;">Flameling reached Level 2!</div>
+        <div id="levelup-stats" style="font-size: 11px; margin-top: 6px; opacity: 0.9;">Max HP +8 | Attack +3</div>
+      </div>
+
+      <!-- PERK / SKILL SELECTION MODAL -->
+      <div id="perk-modal" class="hidden">
+        <div class="title-badge">CHOOSE A POWERFUL PERK</div>
+        <h2 style="font-size: 20px; color: #fff; margin-bottom: 6px;" id="perk-modal-title">CUSTOMIZE SKILLS</h2>
+        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Select 1 perk to empower your creature!</p>
+        <div class="perk-cards-grid" id="perk-cards-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- EVOLUTION SEQUENCE MODAL -->
+      <div id="evolution-modal" class="hidden">
+        <div class="evo-rays"></div>
+        <div class="title-badge" style="z-index: 2;">⭐ 3D MEGA EVOLUTION! ⭐</div>
+        <div class="evo-sprite-box" id="evo-sprite-box">
+          <!-- Evolved Creature 3D View / SVG -->
+        </div>
+        <h2 id="evo-title" style="font-size: 24px; color: #fbbf24; text-shadow: 0 0 15px #f59e0b; margin-bottom: 8px; z-index: 2;">
+          WHAT? FLAMELING IS EVOLVING!
+        </h2>
+        <p id="evo-desc" style="font-size: 13px; color: #cbd5e1; max-width: 360px; margin-bottom: 20px; z-index: 2; line-height: 1.5;">
+          Flameling evolved into PYROSTRYKE! Gained immense draconic power, +24 Max HP, and unlocked Dragon Inferno!
+        </p>
+        <button class="btn-primary" id="btn-evo-continue" style="z-index: 2;">AWESOME! CONTINUE ADVENTURE 🚀</button>
+      </div>
+
+      <!-- 3D BATTLE OVERLAY HUD (FLOATS OVER 3D ARENA) -->
+      <div id="battle-screen" class="hidden">
+        <!-- Battle HUD Cards -->
+        <div class="battle-arena-3d" id="battle-arena">
+          <!-- Floating Damage Layer -->
+          <div id="damage-layer" style="position: absolute; inset: 0; pointer-events: none; z-index: 70;"></div>
+
+          <!-- ENEMY 3D HUD CARD -->
+          <div class="battle-unit enemy-unit">
+            <div class="unit-info-card">
+              <div class="unit-name-row">
+                <span class="unit-name" id="enemy-name">Wild Leafbit</span>
+                <span class="unit-level" id="enemy-level">Lv. 1</span>
+              </div>
+              <div class="hp-bar-bg">
+                <div class="hp-bar-fill" id="enemy-hp-fill" style="width: 100%;"></div>
+              </div>
+              <div class="hp-text" id="enemy-hp-text">18 / 18 HP</div>
+            </div>
+          </div>
+
+          <!-- PLAYER 3D HUD CARD -->
+          <div class="battle-unit player-unit">
+            <div class="unit-info-card">
+              <div class="unit-name-row">
+                <span class="unit-name" id="player-name">Flameling 🔥</span>
+                <span class="unit-level" id="player-level">Lv. 1</span>
+              </div>
+              <div class="hp-bar-bg">
+                <div class="hp-bar-fill" id="player-hp-fill" style="width: 100%;"></div>
+              </div>
+              <div class="hp-text" id="player-hp-text">24 / 24 HP</div>
+              <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px;">
+                <span style="font-size: 9px; color: #94a3b8;">XP</span>
+                <div style="flex: 1; height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden;">
+                  <div id="player-xp-fill" style="width: 0%; height: 100%; background: #38bdf8; transition: width 0.3s;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Battle Controls & Dialog -->
+        <div class="battle-controls">
+          <div class="battle-msg-box" id="battle-msg">
+            A wild creature appeared!
+          </div>
+          <div class="action-buttons-grid" id="battle-actions">
+            <button class="battle-btn btn-attack" id="btn-attack">⚔️ ATTACK</button>
+            <button class="battle-btn btn-capture" id="btn-capture">🔴 CAPTURE</button>
+            <button class="battle-btn btn-switch" id="btn-switch">🔄 SWITCH</button>
+            <button class="battle-btn btn-run" id="btn-run">🏃 RUN</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TITLE SCREEN -->
+      <div id="title-screen" class="overlay-screen">
+        <div class="title-badge">REAL 3D WEBGL EDITION</div>
+        <h1 class="main-title">MARTIN'S MONSTER QUEST 3D</h1>
+        <p class="title-sub">
+          Explore a vibrant 3D world with detailed 3D characters, Mega Evolutions, and real-time 3D battles!
+        </p>
+
+        <div class="creature-preview">
+          <div class="preview-card">
+            <div class="icon">🔥</div>
+            <div class="name">Flameling</div>
+            <div class="type">3D Fire Dragon</div>
+          </div>
+          <div class="preview-card">
+            <div class="icon">🌿</div>
+            <div class="name">Leafbit</div>
+            <div class="type">3D Leaf Knight</div>
+          </div>
+          <div class="preview-card">
+            <div class="icon">💧</div>
+            <div class="name">Aquapup</div>
+            <div class="type">3D Tidal Lord</div>
+          </div>
+          <div class="preview-card">
+            <div class="icon">🗿</div>
+            <div class="name">Giga-Golem</div>
+            <div class="type">3D Gatekeeper</div>
+          </div>
+          <div class="preview-card">
+            <div class="icon">⚡</div>
+            <div class="name">Stormjaw</div>
+            <div class="type">3D Titan Boss</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-go-to-select">ENTER 3D WORLD 🎮</button>
+        <div style="margin-top: 12px; font-size: 11px; color: #64748b;">
+          Keyboard (WASD) • iPad Touch D-Pad • Tap 3D Ground to Walk • Swipe 3D Camera
+        </div>
+      </div>
+
+      <!-- CHARACTER & STARTER SELECTION SCREEN -->
+      <div id="select-screen" class="overlay-screen hidden">
+        <div class="title-badge">3D HERO & PARTNER LAB</div>
+        <h2 style="font-size: 19px; margin-bottom: 10px; color: #fff;">CHOOSE YOUR 3D TRAINER & STARTER</h2>
+
+        <div class="selection-container">
+          <!-- 1. TRAINER SELECTION -->
+          <div class="selection-section-title">1. Choose 3D Trainer Avatar</div>
+          <div class="cards-row" id="trainer-cards">
+            <div class="select-card selected" data-trainer="martin">
+              <div class="card-avatar">🧢</div>
+              <div class="card-title">Martin</div>
+              <div class="card-subtitle">Red Cap & Blue Jacket</div>
+            </div>
+            <div class="select-card" data-trainer="sky">
+              <div class="card-avatar">🌿</div>
+              <div class="card-title">Sky</div>
+              <div class="card-subtitle">Green Bandana Scout</div>
+            </div>
+            <div class="select-card" data-trainer="leo">
+              <div class="card-avatar">⚡</div>
+              <div class="card-title">Leo</div>
+              <div class="card-subtitle">Gold Goggles Tech</div>
+            </div>
+          </div>
+
+          <!-- 2. STARTER CREATURE SELECTION -->
+          <div class="selection-section-title">2. Choose Starter Companion</div>
+          <div class="cards-row" id="starter-cards">
+            <div class="select-card selected" data-starter="flameling">
+              <div class="card-avatar">🔥</div>
+              <div class="card-title">Flameling</div>
+              <div class="card-subtitle">Fire Cub ➔ Pyrostryke</div>
+            </div>
+            <div class="select-card" data-starter="leafbit">
+              <div class="card-avatar">🌿</div>
+              <div class="card-title">Leafbit</div>
+              <div class="card-subtitle">Nature Bunny ➔ Floraknight</div>
+            </div>
+            <div class="select-card" data-starter="aquapup">
+              <div class="card-avatar">💧</div>
+              <div class="card-title">Aquapup</div>
+              <div class="card-subtitle">Water Pup ➔ Tidallord</div>
+            </div>
+          </div>
+
+          <!-- DETAIL BOX -->
+          <div class="starter-detail-box" id="starter-detail-box">
+            🔥 <strong>Flameling:</strong> High Attack Fire cub with 3D flaming tail. Signature Move: <em>Flame Spark</em>. Evolves into the 3D winged fire dragon <strong>Pyrostryke</strong>!
+          </div>
+
+          <div style="text-align: center; margin-top: 6px;">
+            <button class="btn-primary" id="btn-confirm-selection">CONFIRM SELECTION</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STORY PROLOGUE MODAL -->
+      <div id="story-screen" class="overlay-screen hidden">
+        <div class="dialog-box">
+          <div class="dialog-header">
+            <div class="dialog-avatar">🔬</div>
+            <div>
+              <div class="dialog-speaker">Professor Elm</div>
+              <div class="dialog-speaker-role">Monster Realm Researcher</div>
+            </div>
+          </div>
+          <div class="dialog-content" id="dialog-story-text">
+            <!-- Populated dynamically -->
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button class="btn-primary" id="btn-start-overworld" style="padding: 10px 24px; font-size: 14px;">
+              LET'S EXPLORE IN 3D! 🚀
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME OVER SCREEN -->
+      <div id="gameover-screen" class="overlay-screen hidden">
+        <div style="font-size: 48px; margin-bottom: 8px;">💔</div>
+        <h2 style="font-size: 24px; color: #ef4444; margin-bottom: 6px;">ALL CREATURES FAINTED!</h2>
+        <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 20px; max-width: 320px;">
+          The 3D mountain titans are fierce! Level up in the meadow, evolve your monster, and heal at the spring before challenging again.
+        </p>
+        <button class="btn-primary" id="btn-revive" style="background: linear-gradient(135deg, #38bdf8, #0284c7);">
+          REVIVE AT HEALING SPRING
+        </button>
+      </div>
+
+      <!-- WIN SCREEN -->
+      <div id="win-screen" class="overlay-screen hidden">
+        <div style="font-size: 60px; margin-bottom: 6px;">🏆</div>
+        <h1 style="font-size: 32px; color: #fbbf24; text-shadow: 0 4px 15px rgba(251,191,36,0.6); margin-bottom: 8px;">
+          MARTIN WINS!
+        </h1>
+        <p style="font-size: 16px; color: #f8fafc; font-weight: bold; margin-bottom: 6px;">
+          You conquered Giga-Golem and the Thunder Titan Stormjaw!
+        </p>
+        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 24px;">
+          You and your evolved team became the Legendary Grand Champions of the 3D Monster Realm!
+        </p>
+        <button class="btn-primary" id="btn-play-again">PLAY AGAIN</button>
+      </div>
+
+    </div>
+
+    <!-- TOUCH CONTROLS (iPad & Mobile) -->
+    <div id="touch-controls">
+      <div class="d-pad">
+        <button class="d-btn up" id="dpad-up">▲</button>
+        <button class="d-btn down" id="dpad-down">▼</button>
+        <button class="d-btn left" id="dpad-left">◀</button>
+        <button class="d-btn right" id="dpad-right">▶</button>
+      </div>
+
+      <div style="text-align: center; color: #64748b; font-size: 11px; font-weight: bold;">
+        MARTIN'S 3D PAD<br>
+        <span style="font-size: 9px; opacity: 0.8;">[A] Action / [B] Run</span>
+      </div>
+
+      <div class="action-pad">
+        <button class="pad-btn pad-btn-b" id="pad-btn-b" title="Cancel/Run">B</button>
+        <button class="pad-btn pad-btn-a" id="pad-btn-a" title="Action/Attack">A</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
