@@ -1,0 +1,170 @@
+{
+  "width": 1600,
+  "height": 1200,
+  "spawn": {
+    "x": 650,
+    "y": 950
+  },
+  "zones": [
+    {
+      "id": "plaza",
+      "name_en": "Entrance Plaza",
+      "name_zh": "入口广场",
+      "bounds": { "x": 500, "y": 750, "w": 600, "h": 400 },
+      "color": "#fef3c7"
+    },
+    {
+      "id": "waterpark",
+      "name_en": "Rainbow Water Park",
+      "name_zh": "彩虹水上乐园",
+      "bounds": { "x": 80, "y": 80, "w": 700, "h": 600 },
+      "color": "#e0f2fe"
+    },
+    {
+      "id": "zoo",
+      "name_en": "Wildlife Zoo",
+      "name_zh": "野生动物园",
+      "bounds": { "x": 820, "y": 80, "w": 700, "h": 600 },
+      "color": "#ecfccb"
+    },
+    {
+      "id": "puppy_park",
+      "name_en": "Puppy Meadow",
+      "name_zh": "小狗草地乐园",
+      "bounds": { "x": 80, "y": 720, "w": 420, "h": 420 },
+      "color": "#fef08a"
+    }
+  ],
+  "landmarks": {
+    "gate": { "x": 650, "y": 1080, "label_en": "Main Gate", "label_zh": "乐园大门" },
+    "map_board": { "x": 550, "y": 920, "label_en": "Park Map", "label_zh": "游园地图" },
+    "starglow_console": { "x": 650, "y": 840, "radius": 48, "label_en": "Starglow Console", "label_zh": "星星灯控制台" },
+    "night_gate": { "x": 750, "y": 920, "radius": 48, "label_en": "Night Tour Portal", "label_zh": "夜游传送门" },
+    "human_snack_stall": { "x": 420, "y": 520, "radius": 48, "label_en": "Free Treat Stand", "label_zh": "免费甜品摊" },
+    "puppy_treat_stall": { "x": 160, "y": 800, "radius": 48, "label_en": "Free Dog Treat Stand", "label_zh": "免费狗粮饼干站" },
+    "sky_tower": { "x": 180, "y": 180, "radius": 48, "label_en": "Sky Observation Deck", "label_zh": "高空观察台" },
+    "puppy_sniff_spot": { "x": 320, "y": 840, "radius": 48, "label_en": "Sniff Start Spot", "label_zh": "嗅探起点" },
+    "trail_end_spot": { "x": 140, "y": 640, "radius": 48, "label_en": "Secret Trail End", "label_zh": "神秘脚印终点" }
+  },
+  "slide": {
+    "start": { "x": 260, "y": 200 },
+    "path": [
+      { "x": 260, "y": 200 },
+      { "x": 300, "y": 260 },
+      { "x": 360, "y": 320 },
+      { "x": 440, "y": 380 },
+      { "x": 500, "y": 420 }
+    ],
+    "splash": { "x": 500, "y": 420 },
+    "exit": { "x": 540, "y": 440 }
+  },
+  "animals": [
+    {
+      "id": "lion",
+      "x": 980,
+      "y": 220,
+      "look_x": 980,
+      "look_y": 290,
+      "enclosure": { "x": 910, "y": 140, "w": 180, "h": 130 }
+    },
+    {
+      "id": "crocodile",
+      "x": 1200,
+      "y": 200,
+      "look_x": 1200,
+      "look_y": 270,
+      "enclosure": { "x": 1130, "y": 130, "w": 180, "h": 120 }
+    },
+    {
+      "id": "giraffe",
+      "x": 1420,
+      "y": 230,
+      "look_x": 1360,
+      "look_y": 290,
+      "enclosure": { "x": 1340, "y": 140, "w": 180, "h": 150 }
+    },
+    {
+      "id": "elephant",
+      "x": 1420,
+      "y": 480,
+      "look_x": 1340,
+      "look_y": 480,
+      "enclosure": { "x": 1340, "y": 400, "w": 180, "h": 160 }
+    },
+    {
+      "id": "penguin",
+      "x": 1160,
+      "y": 520,
+      "look_x": 1160,
+      "look_y": 450,
+      "enclosure": { "x": 1080, "y": 460, "w": 180, "h": 120 }
+    },
+    {
+      "id": "owl",
+      "x": 920,
+      "y": 480,
+      "look_x": 920,
+      "look_y": 480,
+      "enclosure": null
+    }
+  ],
+  "obstacles": [
+    { "id": "border_top", "type": "high", "x": 40, "y": 40, "w": 1520, "h": 20 },
+    { "id": "border_bottom", "type": "high", "x": 40, "y": 1140, "w": 1520, "h": 20 },
+    { "id": "border_left", "type": "high", "x": 40, "y": 40, "w": 20, "h": 1120 },
+    { "id": "border_right", "type": "high", "x": 1540, "y": 40, "w": 20, "h": 1120 },
+    
+    { "id": "sky_barrier", "type": "low", "x": 110, "y": 230, "w": 140, "h": 20 },
+    
+    { "id": "slide_tower_wall", "type": "high", "x": 210, "y": 140, "w": 50, "h": 50 },
+    
+    { "id": "lion_pen", "type": "high", "x": 910, "y": 140, "w": 180, "h": 120 },
+    { "id": "croc_pen", "type": "high", "x": 1130, "y": 130, "w": 180, "h": 110 },
+    { "id": "giraffe_pen", "type": "high", "x": 1340, "y": 140, "w": 180, "h": 130 },
+    { "id": "elephant_pen", "type": "high", "x": 1340, "y": 400, "w": 180, "h": 140 },
+    { "id": "penguin_pen", "type": "high", "x": 1080, "y": 480, "w": 180, "h": 100 },
+    
+    { "id": "puppy_fence_top", "type": "high", "x": 80, "y": 720, "w": 200, "h": 16 },
+    { "id": "puppy_fence_right", "type": "high", "x": 490, "y": 720, "w": 16, "h": 380 }
+  ],
+  "puppy_trail": [
+    { "x": 320, "y": 840 },
+    { "x": 260, "y": 770 },
+    { "x": 190, "y": 700 },
+    { "x": 140, "y": 640 }
+  ],
+  "lamps": [
+    { "x": 580, "y": 800 },
+    { "x": 720, "y": 800 },
+    { "x": 580, "y": 980 },
+    { "x": 720, "y": 980 },
+    { "x": 460, "y": 650 },
+    { "x": 650, "y": 650 },
+    { "x": 820, "y": 650 },
+    { "x": 300, "y": 500 },
+    { "x": 480, "y": 300 },
+    { "x": 220, "y": 280 },
+    { "x": 920, "y": 360 },
+    { "x": 1060, "y": 360 },
+    { "x": 1240, "y": 360 },
+    { "x": 1400, "y": 360 },
+    { "x": 980, "y": 540 },
+    { "x": 1260, "y": 540 },
+    { "x": 260, "y": 920 },
+    { "x": 380, "y": 920 }
+  ],
+  "visitors": [
+    { "x": 600, "y": 880, "color": "#f87171", "route": [[600, 880], [700, 880], [700, 940], [600, 940]] },
+    { "x": 680, "y": 760, "color": "#fb923c", "route": [[680, 760], [680, 680], [620, 680], [620, 760]] },
+    { "x": 400, "y": 560, "color": "#facc15", "route": [[400, 560], [480, 560], [480, 600], [400, 600]] },
+    { "x": 320, "y": 420, "color": "#4ade80", "route": [[320, 420], [360, 460], [320, 480], [280, 440]] },
+    { "x": 580, "y": 460, "color": "#2dd4bf", "route": [[580, 460], [640, 460], [640, 520], [580, 520]] },
+    { "x": 880, "y": 320, "color": "#38bdf8", "route": [[880, 320], [960, 320], [960, 350], [880, 350]] },
+    { "x": 1100, "y": 340, "color": "#818cf8", "route": [[1100, 340], [1180, 340], [1180, 380], [1100, 380]] },
+    { "x": 1300, "y": 350, "color": "#c084fc", "route": [[1300, 350], [1360, 350], [1360, 320], [1300, 320]] },
+    { "x": 1020, "y": 440, "color": "#f472b6", "route": [[1020, 440], [1060, 460], [1020, 480], [980, 460]] },
+    { "x": 1260, "y": 500, "color": "#fb7185", "route": [[1260, 500], [1320, 500], [1320, 540], [1260, 540]] },
+    { "x": 380, "y": 800, "color": "#34d399", "route": [[380, 800], [440, 800], [440, 860], [380, 860]] },
+    { "x": 220, "y": 880, "color": "#a78bfa", "route": [[220, 880], [260, 940], [200, 940], [180, 880]] }
+  ]
+}

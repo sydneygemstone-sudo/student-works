@@ -1,0 +1,51 @@
+[
+  {
+    "test_id": "A01",
+    "status": "PASS",
+    "environment": "Chrome Headless 1280x800",
+    "evidence": "",
+    "notes": "Title screen properly blocks movement and quest inputs"
+  },
+  {
+    "test_id": "A02",
+    "status": "PASS",
+    "environment": "Chrome Headless 1280x800",
+    "evidence": "06_final_victory.png",
+    "notes": "Full end-to-end playthrough: Title -> Avatar -> 3 Stamps -> Night -> 3 Clues -> Victory -> Roam"
+  },
+  {
+    "test_id": "A11",
+    "status": "PASS",
+    "environment": "Chrome Headless 1280x800",
+    "evidence": "",
+    "notes": "Pause overlay opens and resumes cleanly; freezes movement"
+  },
+  {
+    "test_id": "A14",
+    "status": "PASS",
+    "environment": "Chrome Headless 1280x800",
+    "evidence": "",
+    "notes": "Language switch preserves all stamps and clues"
+  },
+  {
+    "test_id": "A15",
+    "status": "PASS",
+    "environment": "Chrome Headless 1280x800",
+    "evidence": "",
+    "notes": "Zero console errors and zero failed resource requests. Errors: 0, Failed: 0"
+  },
+  {
+    "test_id": "A16",
+    "status": "PASS",
+    "environment": "iPad Emulation (1024x768 & 1180x820)",
+    "evidence": "viewport_1180x820_ipad.png",
+    "notes": "HUD action buttons >= 52px and fully visible in iPad viewports without clipping"
+  },
+  {
+    "test_id": "A17",
+    "status": "FAIL",
+    "environment": "Physical iPad Hardware",
+    "evidence": "",
+    "notes": "NOT_TESTED_ON_PHYSICAL_IPAD (Emulated touch and iPad Safari viewports tested; physical iPad manual testing required)"
+  }
+]

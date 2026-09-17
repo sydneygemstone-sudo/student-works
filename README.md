@@ -2,7 +2,7 @@
 
 这里是课堂与家庭里「一句话下单 → AI 交付」的学生作品集：学生用一句话（或回答三个问题）提出需求，AI 负责设计、实现、测试并交付一个能直接玩的作品。仓库公开，所有作品都可以在浏览器里直接玩，也可以下载后离线打开。
 
-隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
+隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin、Leesha、Quentin、Joey、Mia、Chloe），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
 
 - 总入口（在线玩）：<https://sydneygemstone-sudo.github.io/student-works/>
 - 仓库：<https://github.com/sydneygemstone-sudo/student-works>
@@ -11,6 +11,7 @@
 
 | 作品 | 学员 | 日期 | 在线玩 | 源码目录 | 说明 |
 |---|---|---|---|---|---|
+| 🎡🐕‍🦺 彩虹探险乐园 · Adventure World | Joey、Mia、Chloe | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/adventure-world/> | [`adventure-world/`](adventure-world/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/adventure-world) | 绘本风合作探索与解谜：白天打卡彩虹水滑梯、动物园观察小动物、小狗草地喂食互动，解锁星光夜间探险；使用飞行、隐身、萌宠嗅探能力寻找三颗星光线索，修复控制台点亮全园！支持 iPad 点触/虚拟摇杆与电脑键盘，离线可玩。详见 [adventure-world/README.md](adventure-world/README.md) |
 | ⛵ 珊瑚船员 · Coral Crew | Leesha、Quentin | 2026-09-17 升级 | <https://sydneygemstone-sudo.github.io/coral-crew/> | [`coral-crew/`](coral-crew/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/coral-crew) | 局域网 3D 双人合作探险：海盗守船切瓜开炮、潜水员深海探宝避鲨，带北海巨妖 Kraken 首领战、水下采珠、黄金工坊升级与 Game Master 教师控场出题协议。双 iPad 局域网自动联机扫码即玩。详见 [coral-crew/README.md](coral-crew/README.md) |
 | 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
 | 🐻🐰 小动物回家 | Naomi | 2026-08-25 | <https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/> | [`naomi-pet-rescue/`](naomi-pet-rescue/) | 两人同机轮流的合作桌游：小熊和小兔在暴风雨到达前把 8 只走丢的小动物送回家，一局约 10 分钟。详见 [naomi-pet-rescue/README.md](naomi-pet-rescue/README.md) |
@@ -126,10 +127,29 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 
 克隆或下载本仓库后，双击各作品目录里的 `index.html` 即可，离线可玩，无需联网：
 
+- `adventure-world/index.html`
+- `coral-crew/index.html`
 - `martins-monster-quest/index.html`
 - `naomi-pet-rescue/index.html`
 - `victory-vs-alex-boxing/index.html`
 - `leo-vs-nathan/index.html`
+
+## 🎡🐕‍🦺 彩虹探险乐园 · Adventure World（Joey, Mia & Chloe，2026-09-17）
+
+- **立项背景**：课堂三位探险家 Joey、Mia、Chloe 合作共创，由 Dean 老师组织立项，要求纯前端 Canvas 2D + Web Audio API 打造绘本风乐园探索与无暴力解谜游戏。
+- **玩法体系**：
+  1. **白天探索（集齐 3 枚印章）**：
+     - 彩虹水滑梯：登梯顺滑冲水入池安全出水，获得水上乐园印章；
+     - 野生动物园：走道漫步，近距离观赏 3 种不同野生动物（狮子、鳄鱼、长颈鹿、大象、企鹅、害羞猫头鹰），无重复计数获得动物园印章；
+     - 小狗草地：领取骨头零食、抚摸小狗、喂食小狗，获得萌宠印章。
+  2. **星光夜间探险（3 项能力 × 3 颗星光线索）**：集齐印章自愿开启夜间探险。手电筒持续照射 1.0 秒聚光发现线索：
+     - **飞行能力 (F)**：飞跃低矮护栏登上高台观景台，探查天空星光线索；
+     - **隐身能力 (I)**：无声潜行接近警觉的害羞猫头鹰，探查静谧星光线索；
+     - **萌宠嗅探能力**：小狗嗅探指路留下 3 处荧光爪印，跟随探查踪迹星光线索。
+  3. **修复星光控制台**：带齐 3 颗线索至中心广场星光控制台交互，激活点亮全园星空灯光与烟花庆典！通关后可继续自由漫游。
+- **操作支持**：全面适配 iPad 触摸点击走位（Click-to-Move 点哪走哪）、动作交互大按键（≥52px）、虚拟摇杆，以及电脑 WASD / 方向键键盘操作；单文件 bundle 支持离线双击运行。
+- **在线体验**：[打开彩虹探险乐园](https://sydneygemstone-sudo.github.io/student-works/adventure-world/) · [独立仓库](https://github.com/sydneygemstone-sudo/adventure-world)
+- **验收报告与自动化测试**：通过全部 10 项单元测试与 16 项 Chromium 真实整局端到端测试，详见 [`adventure-world/_qa/ACCEPTANCE_REVIEW.md`](adventure-world/_qa/ACCEPTANCE_REVIEW.md)。
 
 
 ## 🎮 Martin's Monster Quest 3D（Martin，2026-09-17）
