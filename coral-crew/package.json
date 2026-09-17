@@ -1,0 +1,23 @@
+{
+  "name": "coral-crew",
+  "version": "1.0.0",
+  "description": "Two-player 3D classroom pirate and diver game",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "three": "0.186.0",
+    "ws": "8.21.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  },
+  "private": true,
+  "type": "module"
+}

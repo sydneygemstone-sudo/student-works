@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#096678">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>珊瑚船员 · Coral Crew (局域网3D多人合作游戏)</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main id="world" aria-label="3D 珊瑚海合作游戏"></main>
+<div id="vignette"></div>
+
+<!-- Top HUD -->
+<header id="hud" hidden>
+  <div class="brand">
+    <span class="brand-icon">⛵</span>
+    <div>
+      <b>珊瑚船员</b>
+      <small id="room-label">CORAL CREW</small>
+    </div>
+  </div>
+  
+  <div class="team-goal" aria-label="团队宝藏">
+    <span>💎 <b id="gems">0</b><i>/ 5</i></span>
+    <span>⭐ <b id="stars">0</b><i>/ 2</i></span>
+    <span>🪙 <b id="coins">0</b><i> 币</i></span>
+    <small>把宝藏交回船边，一起获胜！</small>
+  </div>
+  
+  <div class="hud-right">
+    <button id="connection" class="connection" title="查看房间">● 连接中</button>
+  </div>
+</header>
+
+<!-- Boss Alert HUD -->
+<div id="boss-hud" hidden>
+  <div class="boss-label">🦑 警告：北海巨妖 KRAKEN 袭击小船！</div>
+  <div class="boss-meter"><i id="boss-meter-fill"></i></div>
+</div>
+
+<!-- Classroom Question Banner -->
+<div id="classroom-banner" hidden>
+  <span class="classroom-tag">🎓 探险提问</span>
+  <span id="classroom-question">准备出海！大家想在海底寻找什么奇妙宝藏？</span>
+  <button id="banner-idea-btn">💡 我有想法</button>
+</div>
+
+<!-- Left Player Stats -->
+<aside id="stats" hidden>
+  <div class="stat">
+    <span>⛵</span>
+    <div><small>船体耐久</small><div class="meter"><i id="ship-meter"></i></div></div>
+    <b id="ship-value">100</b>
+  </div>
+  <div class="stat">
+    <span>🍉</span>
+    <div><small id="hunger-label">饥饿度</small><div class="meter food"><i id="hunger-meter"></i></div></div>
+    <b id="hunger-value">100</b>
+  </div>
+  <div class="stat" id="hp-stat">
+    <span>❤️</span>
+    <div><small>潜水生命</small><div class="meter hp"><i id="hp-meter"></i></div></div>
+    <b id="hp-value">100</b>
+  </div>
+  <div class="stat" id="oxygen-stat">
+    <span>🤿</span>
+    <div><small>氧气罐</small><div class="meter oxygen"><i id="oxygen-meter"></i></div></div>
+    <b id="oxygen-value">100</b>
+  </div>
+  <div class="supply">
+    <span>🍉 船备食物: <b id="food-value">0</b></span>
+    <span id="bag">🎒 💎 0 · ⭐ 0</span>
+    <span id="buff-status"></span>
+  </div>
+</aside>
+
+<div id="mission" hidden>找到伙伴，就出发！</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- Touch Controls -->
+<div id="controls" hidden>
+  <div id="joystick" role="application" aria-label="按住圆盘拖动角色">
+    <div class="joy-arrows">✦</div>
+    <div id="stick"></div>
+    <span>移动</span>
+  </div>
+  <div id="actions" class="actions"></div>
+</div>
+
+<!-- Lobby Overlay -->
+<section id="lobby" class="overlay">
+  <div class="lobby-card">
+    <div class="build-label">局域网联网 3D 合作版 · 支持双 iPad 互动</div>
+    <div class="eyebrow">LISHA + QUENTIN + CLASSROOM · CO-OP ADVENTURE</div>
+    <div class="lobby-mark">⛵<span>✦</span></div>
+    <h1>珊瑚船员</h1>
+    <p class="subtitle">一个掌舵切瓜守船，一个深海寻宝探险。<br>把宝藏与星星带回船上，击退巨妖！</p>
+    
+    <!-- LAN Quick Connect Box -->
+    <div class="lan-banner" id="lan-quick-banner">
+      <span class="lan-icon">📡</span>
+      <div class="lan-info-text">
+        <strong>局域网联机网址 (在 iPad 打开):</strong>
+        <code id="lobby-lan-url">http://192.168.1.108:18888</code>
+      </div>
+      <button id="show-qr-lobby-btn" class="mini-btn">📱 扫码加入</button>
+    </div>
+
+    <div id="menu-tools"></div>
+    
+    <details class="teacher-room">
+      <summary>老师设置房间 & 局域网</summary>
+      <label class="room-field">
+        房间号 
+        <input id="room-input" value="CORAL" maxlength="16" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="房间名称">
+      </label>
+      <button id="new-voyage" class="text-button">⛵ 开启新航程（随机新房间）</button>
+      <a href="./teacher.html" target="_blank" class="teacher-link">🎓 打开教师主控台 (Game Master)</a>
+    </details>
+
+    <div class="role-buttons">
+      <button class="role pirate" data-role="pirate">
+        <span>🏴‍☠️</span>
+        <b>我是海盗</b>
+        <small>🍉 切瓜备粮 · 💥 开炮打怪 · 🪝 救援潜水员</small>
+      </button>
+      <button class="role diver" data-role="diver">
+        <span>🤿</span>
+        <b>我是潜水员</b>
+        <small>💎 水下探宝 · 🦪 采珍珠 · 🫧 气泡枪击退鲨鱼</small>
+      </button>
+    </div>
+
+    <p id="join-error" role="alert"></p>
+    <small class="lobby-hint">两台 iPad 连接同一 Wi-Fi · 输入同一房间号 · 各选一个角色</small>
+    <button id="resume" class="text-button" hidden>▶ 继续当前航程</button>
+  </div>
+</section>
+
+<!-- End Screen -->
+<section id="end-screen" class="overlay" hidden>
+  <div class="end-card">
+    <div id="end-icon">🏆</div>
+    <h2 id="end-title">一起找到宝藏！</h2>
+    <p id="end-copy">海盗和潜水员，最佳拍档。</p>
+    <button id="restart">再玩一次 ↻</button>
+  </div>
+</section>
+
+<!-- Bottom Toolbar -->
+<div id="game-tools"></div>
+<nav id="tools">
+  <button id="home">⌂ 主界面</button>
+  <button id="open-shop-btn">🛠️ 升级工坊</button>
+  <button id="open-idea-btn">💡 创意想法</button>
+  <button id="open-qr-btn">📱 局域网扫码</button>
+  <a href="./teacher.html" target="_blank">🎓 教师主控</a>
+  <button id="quality">🌿 流畅</button>
+  <button id="help">🔊 玩法说明</button>
+</nav>
+
+<!-- Learning / Safe Practice Banner -->
+<div id="learning" hidden>
+  <strong id="learning-copy">🛡 安全练习阶段</strong>
+  <button id="ready">👍 准备好了</button>
+</div>
+
+<!-- Idea Modal -->
+<div id="idea-modal" class="overlay" hidden>
+  <div class="modal-card">
+    <h3>💡 告诉老师你的奇思妙想</h3>
+    <p class="modal-desc">提出你想在游戏里增加的生物、武器、道具或新事件，老师采纳后全队获得 20 金币！</p>
+    <input id="student-name-input" placeholder="你的名字（例如：Leesha / Quentin）" maxlength="15">
+    <textarea id="idea-text-input" placeholder="例如：我想让潜水员骑上海豚，或者在海底放一条会发光的彩虹金鱼！" maxlength="100"></textarea>
+    <div class="modal-actions">
+      <button id="send-idea-btn" class="modal-btn primary">🚀 发送创意 (+5金币)</button>
+      <button id="close-idea-btn" class="modal-btn">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Workshop Shop Modal -->
+<div id="shop-modal" class="overlay" hidden>
+  <div class="modal-card shop-card">
+    <div class="shop-header">
+      <h3>🛠️ 黄金工坊 · 装备升级</h3>
+      <span class="shop-coins">🪙 团队金币: <b id="shop-coins-val">0</b></span>
+    </div>
+    <p class="modal-desc">用收集到的金币升级全队装备，更轻松战胜巨妖！</p>
+    <div class="shop-items">
+      <div class="shop-item">
+        <span class="shop-icon">💥</span>
+        <div class="shop-info">
+          <b>超级双联大炮 (Lv.<span id="lvl-cannon">1</span>)</b>
+          <small>开炮威力从 45 提升至 80，一炮击碎巨妖触手！</small>
+        </div>
+        <button class="buy-btn" data-upgrade="cannon">20 🪙</button>
+      </div>
+      <div class="shop-item">
+        <span class="shop-icon">⚡</span>
+        <div class="shop-info">
+          <b>旋风加速脚蹼 (Lv.<span id="lvl-flippers">1</span>)</b>
+          <small>潜水员游速 +25%，氧气上限 +25！</small>
+        </div>
+        <button class="buy-btn" data-upgrade="flippers">15 🪙</button>
+      </div>
+      <div class="shop-item">
+        <span class="shop-icon">🛡️</span>
+        <div class="shop-info">
+          <b>铁木镀金装甲 (Lv.<span id="lvl-armor">1</span>)</b>
+          <small>船体生命上限提升 +20 点！</small>
+        </div>
+        <button class="buy-btn" data-upgrade="armor">20 🪙</button>
+      </div>
+      <div class="shop-item">
+        <span class="shop-icon">🔪</span>
+        <div class="shop-info">
+          <b>黄金切瓜神刀 (Lv.<span id="lvl-knife">1</span>)</b>
+          <small>切瓜速度提升，单次产粮从 3 份增至 4 份！</small>
+        </div>
+        <button class="buy-btn" data-upgrade="knife">15 🪙</button>
+      </div>
+    </div>
+    <button id="close-shop-btn" class="modal-btn">返回航程</button>
+  </div>
+</div>
+
+<!-- QR Code LAN Modal -->
+<div id="qr-modal" class="overlay" hidden>
+  <div class="modal-card qr-card">
+    <h3>📱 局域网 iPad / 手机扫码直连</h3>
+    <p class="modal-desc">确保在同一个 Wi-Fi 网络，用 iPad 相机扫描下方二维码：</p>
+    <div class="lan-url-box">
+      <code id="lan-url-display">http://192.168.1.108:18888</code>
+      <button id="copy-lan-btn">复制</button>
+    </div>
+    <div class="qr-img-container">
+      <img id="qr-image" src="/api/qr" alt="Scan to join on LAN">
+    </div>
+    <small class="lan-note">两台设备打开后，输入相同房间号（如 CORAL），分别选择海盗和潜水员即可！</small>
+    <button id="close-qr-btn" class="modal-btn">关闭</button>
+  </div>
+</div>
+
+<div id="fatal" class="fatal" hidden></div>
+<script type="module" src="./client.js"></script>
+</body>
+</html>

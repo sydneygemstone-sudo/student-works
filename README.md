@@ -11,10 +11,24 @@
 
 | 作品 | 学员 | 日期 | 在线玩 | 源码目录 | 说明 |
 |---|---|---|---|---|---|
+| ⛵ 珊瑚船员 · Coral Crew | Leesha、Quentin | 2026-09-17 升级 | <https://sydneygemstone-sudo.github.io/student-works/coral-crew/> | [`coral-crew/`](coral-crew/) | 局域网 3D 双人合作探险：海盗守船切瓜开炮、潜水员深海探宝避鲨，带北海巨妖 Kraken 首领战、水下采珠、黄金工坊升级与 Game Master 教师控场出题协议。双 iPad 局域网自动联机扫码即玩。详见 [coral-crew/README.md](coral-crew/README.md) |
 | 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
 | 🐻🐰 小动物回家 | Naomi | 2026-08-25 | <https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/> | [`naomi-pet-rescue/`](naomi-pet-rescue/) | 两人同机轮流的合作桌游：小熊和小兔在暴风雨到达前把 8 只走丢的小动物送回家，一局约 10 分钟。详见 [naomi-pet-rescue/README.md](naomi-pet-rescue/README.md) |
 | 🥊 Victory vs Alex · 拳击 | Victory、Alex | 2026-08-17 | <https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/> | [`victory-vs-alex-boxing/`](victory-vs-alex-boxing/) | 一句话下单的 2D 双人拳击格斗：连击、闪避、体力、KO 演出，需要实体键盘。详见 [victory-vs-alex-boxing/README.md](victory-vs-alex-boxing/README.md) |
 | 🥋 Leo vs Nathan · 格斗 | Leo、Nathan | 2026-08-15 | <https://sydneygemstone-sudo.github.io/student-works/leo-vs-nathan/> | [`leo-vs-nathan/`](leo-vs-nathan/) | 一句话下单（原文：make a fihgting game，2 characters， Leo and nathan）由 Claude Fable 5 一次成型的双人格斗，需要实体键盘。详见 [leo-vs-nathan/README.md](leo-vs-nathan/README.md) |
+
+## ⛵ 珊瑚船员 · Coral Crew（Leesha & Quentin，2026-09-11 课堂立项，2026-09-17 深度升级）
+
+双 iPad 局域网联网 3D 实时合作游戏，由 Leesha（海盗）与 Quentin（潜水员）在 Dean 老师的主持下共同创作。
+
+### 核心分工与双人合作机制
+- 🏴‍☠️ **Leesha（海盗）**：在船上切西瓜备粮、调配特制西瓜冰沙供队友极速冲刺、开重炮轰退水怪与巨妖触手、投掷西瓜诱饵引开鲨鱼、拉紧绞盘救援潜水员。
+- 🤿 **Quentin（潜水员）**：深海潜水探宝、管理氧气罐、用声纳扫描全图宝藏、水泡枪赶走鲨鱼、开合贝壳采出黑珍珠、解开沉船宝箱、运送 5 颗宝石与 2 颗星星回船通关！
+- 🦑 **北海巨妖 Kraken 首领战**：巨怪袭击小船，海盗轰触手，潜水员打吸盘弱点，全员协同防御！
+- 🪙 **黄金升级工坊**：团队共享金币，可升级双联大炮、旋风脚蹼、铁木装甲与金切瓜刀。
+- 🎓 **Game Master 教师控场中枢 (`teacher.html`)**：支持老师出题广播、TTS 自动语音朗读、学生想法分检采纳、实时向游戏注入事件与金币雨。
+
+[直接在浏览器在线试玩](https://sydneygemstone-sudo.github.io/student-works/coral-crew/) · [教师主控台](https://sydneygemstone-sudo.github.io/student-works/coral-crew/teacher.html) · [完整玩法与源码文档](coral-crew/README.md)
 
 ## 🐻🐰 小动物回家（Naomi，2026-08-25）
 
