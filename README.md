@@ -2,7 +2,7 @@
 
 这里是课堂与家庭里「一句话下单 → AI 交付」的学生作品集：学生用一句话（或回答三个问题）提出需求，AI 负责设计、实现、测试并交付一个能直接玩的作品。仓库公开，所有作品都可以在浏览器里直接玩，也可以下载后离线打开。
 
-隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
+隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
 
 - 总入口（在线玩）：<https://sydneygemstone-sudo.github.io/student-works/>
 - 仓库：<https://github.com/sydneygemstone-sudo/student-works>
@@ -11,6 +11,7 @@
 
 | 作品 | 学员 | 日期 | 在线玩 | 源码目录 | 说明 |
 |---|---|---|---|---|---|
+| 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
 | 🐻🐰 小动物回家 | Naomi | 2026-08-25 | <https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/> | [`naomi-pet-rescue/`](naomi-pet-rescue/) | 两人同机轮流的合作桌游：小熊和小兔在暴风雨到达前把 8 只走丢的小动物送回家，一局约 10 分钟。详见 [naomi-pet-rescue/README.md](naomi-pet-rescue/README.md) |
 | 🥊 Victory vs Alex · 拳击 | Victory、Alex | 2026-08-17 | <https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/> | [`victory-vs-alex-boxing/`](victory-vs-alex-boxing/) | 一句话下单的 2D 双人拳击格斗：连击、闪避、体力、KO 演出，需要实体键盘。详见 [victory-vs-alex-boxing/README.md](victory-vs-alex-boxing/README.md) |
 | 🥋 Leo vs Nathan · 格斗 | Leo、Nathan | 2026-08-15 | <https://sydneygemstone-sudo.github.io/student-works/leo-vs-nathan/> | [`leo-vs-nathan/`](leo-vs-nathan/) | 一句话下单（原文：make a fihgting game，2 characters， Leo and nathan）由 Claude Fable 5 一次成型的双人格斗，需要实体键盘。详见 [leo-vs-nathan/README.md](leo-vs-nathan/README.md) |
@@ -111,8 +112,21 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 
 克隆或下载本仓库后，双击各作品目录里的 `index.html` 即可，离线可玩，无需联网：
 
+- `martins-monster-quest/index.html`
 - `naomi-pet-rescue/index.html`
 - `victory-vs-alex-boxing/index.html`
+- `leo-vs-nathan/index.html`
+
+
+## 🎮 Martin's Monster Quest 3D（Martin，2026-09-17）
+
+- **需求背景**：课堂下课前 15 分钟立项，限制 2 AUD 算力预算，要求必须真实可玩并支持 iPad 触屏操作。
+- **演进历程**：
+  1. **Spike 快速原型**：完成三属性初始神兽、大地图遇敌、回合制对战、捕捉与 Boss 战。
+  2. **视觉升级要求**：“我们要的 3D 人物呢，我们要更细致的画面，不要只做一个战斗界面就完了”。升级为 Three.js 纯前端 3D 渲染，带 3D 细致面部表情、萌宠同形跟随、大世界花丛泉水。
+  3. **现场试玩与 Bug 修复**：排查修复战斗遮罩层级、DOM 空指针造成的战斗卡死、iPad 动态视口高度（`100dvh`）适配。
+- **在线体验**：[打开 Martin's Monster Quest 3D](https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/)
+- **详尽玩法与源码**：详见 [`martins-monster-quest/`](martins-monster-quest/) 与 [`martins-monster-quest/README.md`](martins-monster-quest/README.md)。
 
 
 ## Beast Kings - Nathan & Leo (2026-09-12)
