@@ -7,20 +7,24 @@
 - 总入口（在线玩）：<https://sydneygemstone-sudo.github.io/student-works/>
 - 仓库：<https://github.com/sydneygemstone-sudo/student-works>
 
+## 仓库与版本管理
+
+GitHub 是课堂作品的唯一长期真源。本机 Desktop / dev 只允许作为临时工作区；下课前必须完成测试与 QA、更新开发日志/交接、commit + push，并在需要时打课堂快照 tag。大型作品使用独立 canonical repository，本仓库只保留索引与跳转，不维护第二套可编辑源码。详见 [docs/CLASSROOM_REPOSITORY_POLICY.md](docs/CLASSROOM_REPOSITORY_POLICY.md)、[docs/PROJECT_MANIFEST.md](docs/PROJECT_MANIFEST.md) 与 [docs/CHATGPT_ORCHESTRATION.md](docs/CHATGPT_ORCHESTRATION.md)。
+
 ## 作品清单
 
 | 作品 | 学员 | 日期 | 在线玩 | 源码目录 | 说明 |
 |---|---|---|---|---|---|
 | 🎡🐕‍🦺 彩虹探险乐园 · Adventure World | Joey、Mia、Chloe | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/adventure-world/> | [`adventure-world/`](adventure-world/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/adventure-world) | 绘本风合作探索与解谜：白天打卡彩虹水滑梯、动物园观察小动物、小狗草地喂食互动，解锁星光夜间探险；使用飞行、隐身、萌宠嗅探能力寻找三颗星光线索，修复控制台点亮全园！支持 iPad 点触/虚拟摇杆与电脑键盘，离线可玩。详见 [adventure-world/README.md](adventure-world/README.md) |
 | ⛵ 珊瑚船员 · Coral Crew | Leesha、Quentin | 2026-09-17 升级 | <https://sydneygemstone-sudo.github.io/coral-crew/> | [`coral-crew/`](coral-crew/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/coral-crew) | 局域网 3D 双人合作探险：海盗守船切瓜开炮、潜水员深海探宝避鲨，带北海巨妖 Kraken 首领战、水下采珠、黄金工坊升级与 Game Master 教师控场出题协议。双 iPad 局域网自动联机扫码即玩。详见 [coral-crew/README.md](coral-crew/README.md) |
-| 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
+| 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/martins-monster-quest) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
 | 🐻🐰 小动物回家 | Naomi | 2026-08-25 | <https://sydneygemstone-sudo.github.io/student-works/naomi-pet-rescue/> | [`naomi-pet-rescue/`](naomi-pet-rescue/) | 两人同机轮流的合作桌游：小熊和小兔在暴风雨到达前把 8 只走丢的小动物送回家，一局约 10 分钟。详见 [naomi-pet-rescue/README.md](naomi-pet-rescue/README.md) |
 | 🥊 Victory vs Alex · 拳击 | Victory、Alex | 2026-08-17 | <https://sydneygemstone-sudo.github.io/student-works/victory-vs-alex-boxing/> | [`victory-vs-alex-boxing/`](victory-vs-alex-boxing/) | 一句话下单的 2D 双人拳击格斗：连击、闪避、体力、KO 演出，需要实体键盘。详见 [victory-vs-alex-boxing/README.md](victory-vs-alex-boxing/README.md) |
 | 🥋 Leo vs Nathan · 格斗 | Leo、Nathan | 2026-08-15 | <https://sydneygemstone-sudo.github.io/student-works/leo-vs-nathan/> | [`leo-vs-nathan/`](leo-vs-nathan/) | 一句话下单（原文：make a fihgting game，2 characters， Leo and nathan）由 Claude Fable 5 一次成型的双人格斗，需要实体键盘。详见 [leo-vs-nathan/README.md](leo-vs-nathan/README.md) |
 
 ## ⛵ 珊瑚船员 · Coral Crew（Leesha & Quentin，2026-09-11 课堂立项，2026-09-17 深度升级）
 
-双 iPad 局域网联网 3D 实时合作游戏，由 Leesha（海盗）与 Quentin（潜水员）在 Dean 老师的主持下共同创作。已建立[独立 GitHub 仓库 (coral-crew)](https://github.com/sydneygemstone-sudo/coral-crew) 与学生作品总库双向同步。
+双 iPad 局域网联网 3D 实时合作游戏，由 Leesha（海盗）与 Quentin（潜水员）在 Dean 老师的主持下共同创作。已建立[独立 GitHub 仓库 (coral-crew)](https://github.com/sydneygemstone-sudo/coral-crew) 作为唯一可编辑真源；学生作品总库只保留索引与跳转。
 
 ### 核心分工与双人合作机制
 - 🏴‍☠️ **Leesha（海盗）**：在船上切西瓜备粮、调配特制西瓜冰沙供队友极速冲刺、开重炮轰退水怪与巨妖触手、投掷西瓜诱饵引开鲨鱼、拉紧绞盘救援潜水员。
