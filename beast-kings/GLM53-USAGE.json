@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "model": "glm-5.3",
+  "run_date": "2026-09-19",
+  "route": "protected Codex GLM / Z.ai Responses route",
+  "usage": {
+    "input_tokens": 19164679,
+    "cached_input_tokens": 18491264,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 26336,
+    "reasoning_output_tokens": 8027
+  },
+  "derived": {
+    "uncached_input_tokens": 673415,
+    "public_api_list_rate_reference_usd": 5.866388
+  },
+  "rate_reference": {
+    "uncached_input_usd_per_million": 1.4,
+    "cached_input_usd_per_million": 0.26,
+    "output_usd_per_million": 4.4,
+    "source": "https://venturebeat.com/technology/glm-5-3-hits-the-api-at-1-4-4-4-per-million-tokens",
+    "source_date": "2026-08-18",
+    "note": "Public GLM-5.3 API list-rate reference only. The protected coding route may be covered by a plan/credits and this is not an invoice."
+  },
+  "actual_billed_usd": null,
+  "actual_billed_status": "Unavailable from this run log.",
+  "notes": [
+    "input_tokens includes cached_input_tokens; cached tokens are not charged twice in the reference arithmetic.",
+    "reasoning_output_tokens is a subset of output_tokens and is not added again.",
+    "No credentials, request IDs, or private account data are stored in this report."
+  ]
+}

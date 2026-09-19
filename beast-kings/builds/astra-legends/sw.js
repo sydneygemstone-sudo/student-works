@@ -1,4 +1,4 @@
-const CACHE='beast-kings-legends-20260919-v4';
+const CACHE='beast-kings-legends-20260919-glm53';
 const BASE=new URL('./',self.location.href).pathname;
 const SHELL=['','index.html','style.css','moves.js','combat.js','shared.js','legend-art.js','assets/fluffy-atlas.png','assets/water-rat-atlas.png','client.js','manifest.webmanifest','icon.svg','review.html','review.css','review.js'].map(file=>BASE+file);
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));});

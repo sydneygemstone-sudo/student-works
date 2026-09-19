@@ -12,7 +12,7 @@ function tick(g,raw,dt,h){
 const groundOf=h.groundOf||(z=>408+clamp(z,0,DEPTH)*.6);
 const boostOn=(p,id)=>!!(p.boosts&&p.boosts.some(b=>b.id===id&&b.until>g.time));
  function strike(p,m,x=p.x,y=p.y,extra={}){hits.push({owner:p.id,x,y,z:extra.z??p.z,face:p.face,range:m.range,depth:m.depth??88,vertical:m.ground?48:112,damage:power(p,m),fx:m.fx,all:false,...m,...extra,damage:extra.damage??power(p,m)});}
- function zone(p,m,x=p.x,y=GROUND,extra={}){if(extra.gy!=null)y=extra.gy;if(g.zones.length>=18)return;g.zones.push({id:++g.serial,owner:p.id,character:p.character,x,y,z:extra.z??p.z,range:m.range,wait:m.delay||0,life:m.duration||.12,pulse:0,interval:m.interval||1,damage:power(p,m),fx:m.fx,slow:m.slow,freeze:m.freeze,root:m.root,drain:m.drain,heal:m.heal||0,...extra});}
+ function zone(p,m,x=p.x,y=GROUND,extra={}){if(extra.gy!=null)y=extra.gy;if(g.zones.length>=18)return;g.zones.push({id:++g.serial,owner:p.id,character:p.character,x,y,z:extra.z??p.z,range:m.range,wait:m.delay||0,waitMax:m.delay||0,life:m.duration||.12,pulse:0,interval:m.interval||1,damage:power(p,m),fx:m.fx,slow:m.slow,freeze:m.freeze,root:m.root,drain:m.drain,heal:m.heal||0,...extra});}
  function queue(p,delay,kind,data){if(g.pending.length<32)g.pending.push({owner:p.id,delay,kind,...data});}
  function bossStep(g,p,dt,h,fx2){
         const gy=fx2.groundOf(p.z);
@@ -22,7 +22,7 @@ const boostOn=(p,id)=>!!(p.boosts&&p.boosts.some(b=>b.id===id&&b.until>g.time));
         const t=humans.reduce((best,o)=>Math.hypot(o.x-p.x,(o.z-p.z)*.6)<Math.hypot(best.x-p.x,(best.z-p.z)*.6)?o:best,humans[0]);
         const dx=t.x-p.x,dz=t.z-p.z,dist=Math.abs(dx);
         const ratio=p.hp/p.maxHp;
-        if((p.phase===1&&ratio<=.65)||(p.phase===2&&ratio<=.32)){p.phase++;p.pattern='roar';p.tell=0;p.chargeVX=0;p.invulnerable=Math.max(p.invulnerable,.6);fx2.fx(p,'knockout',p.x,p.y-140,{life:.9,maxLife:.9,range:420});for(const o of humans){if(Math.abs(o.x-p.x)<430){o.vx=(Math.sign(o.x-p.x)||1)*380;o.vy=-210;}}}
+        if((p.phase===1&&ratio<=.65)||(p.phase===2&&ratio<=.32)){p.phase++;p.pattern='roar';p.tell=0;p.chargeVX=0;p.swept=false;p.invulnerable=Math.max(p.invulnerable,.6);fx2.fx(p,'knockout',p.x,p.y-140,{life:.9,maxLife:.9,range:420});for(const o of humans){if(Math.abs(o.x-p.x)<430){o.vx=(Math.sign(o.x-p.x)||1)*380;o.vy=-210;}}}
         switch(p.pattern){
             case 'stalk':{const sp=p.phase>=3?235:p.phase===2?205:178;
                 p.x=clamp(p.x+Math.sign(dx)*Math.max(0,Math.min(Math.abs(dx)-64,sp))*dt,80,WIDTH-80);
@@ -32,7 +32,9 @@ const boostOn=(p,id)=>!!(p.boosts&&p.boosts.some(b=>b.id===id&&b.until>g.time));
                 break;}
             case 'slam':{if(p.tell<=dt){fx2.zone(p,{range:200,damage:26,fx:'boss-slam',delay:.75,duration:.2,interval:1,push:340},p.x,gy,{z:p.z});fx2.fx(p,'cast',p.x,p.y-150,{style:'boss-tell',range:200,life:.75,maxLife:.75});}
                 if(p.tell>=1.0){p.pattern='stagger';p.tell=0;p.weak=2.2;fx2.fx(p,'charge',p.x,p.y-150,{life:.8,maxLife:.8});}break;}
-            case 'sweep':{if(p.tell<=dt){p.x=clamp(p.x+Math.sign(dx)*46,80,WIDTH-80);fx2.strike(p,{damage:20,range:260,fx:'boss-sweep',push:360},p.x,p.y,{all:true,z:p.z,depth:120,vertical:150});fx2.fx(p,'cast',p.x+Math.sign(dx)*80,p.y-90,{style:'boss-sweep',range:260,life:.5,maxLife:.5});}
+            case 'sweep':{
+                if(p.tell<=dt){p.sweepDir=Math.sign(dx)||p.face;p.swept=false;fx2.fx(p,'cast',p.x+p.sweepDir*120,p.y-90,{style:'boss-sweep',range:260,life:.45,maxLife:.45});}
+                if(p.tell>=.45&&!p.swept){p.swept=true;p.x=clamp(p.x+p.sweepDir*46,80,WIDTH-80);fx2.strike(p,{damage:20,range:260,fx:'boss-sweep',push:360},p.x,p.y,{all:true,z:p.z,depth:120,vertical:150});fx2.fx(p,'cast',p.x+p.sweepDir*80,p.y-90,{style:'boss-sweep',range:260,life:.5,maxLife:.5});}
                 if(p.tell>=.85){p.pattern='stalk';p.tell=0;p.patternTimer=p.phase>=3?.9:1.4;}break;}
             case 'charge':{if(p.tell<=dt){fx2.fx(p,'cast',p.x,p.y-140,{style:'boss-tell',range:280,life:.55,maxLife:.55});p.chargeDir=Math.sign(dx)||p.face;}
                 if(p.tell>=.55&&!p.chargeVX){p.chargeVX=p.chargeDir*(p.phase>=3?720:600);p.chargeHit=0;}
@@ -116,5 +118,16 @@ const boostOn=(p,id)=>!!(p.boosts&&p.boosts.some(b=>b.id===id&&b.until>g.time));
  if(g.mode==='boss'){const bossP=g.players.find(p=>p.boss),humans=g.players.filter(p=>!p.boss);if(bossP&&!bossP.alive)h.finish(g,'team','The Crown Golem falls! Team victory!');else if(humans.length&&!humans.some(p=>p.alive||p.revivesLeft>0))h.finish(g,'boss','The team is down. Regroup and try again!');}else if(g.mode==='crown'||g.mode==='practice'){const winners=g.players.filter(p=>p.charges>=5);if(winners.length)h.finish(g,winners.length>1?'draw':winners[0].id,g.mode==='practice'?'Practice complete! Five targets defeated.':winners.length>1?'Two Beast Kings!':winners[0].name+' is the Beast King!');}
  else {const live=g.players.filter(p=>p.alive);if(g.players.length>1&&live.length<=1)h.finish(g,live.length?live[0].id:'draw',live.length?live[0].name+' wins!':'A mighty double knockout!');}return g;
 }
-return {tick};
+// GLM 5.3 upgrade: shared boss readout so the HUD and canvas agree on phase/pattern/telegraph state.
+const BOSS_TELLS={slam:1,sweep:.45,charge:.55,rain:.95,roar:.9,stagger:2.2,stalk:0};
+const BOSS_ACTIONS={
+ slam:{label:'SLAM',hint:'Red circle! Move out, then punish the golem.'},
+ sweep:{label:'ARM SWEEP',hint:'Step back or up/down — the arm covers a wide line.'},
+ charge:{label:'CHARGE',hint:'Sidestep up or down, then hit it from the side.'},
+ rain:{label:'CRYSTAL RAIN',hint:'Leave every glowing floor spot.'},
+ roar:{label:'PHASE ROAR',hint:'New phase! Regroup and spread out.'},
+ stagger:{label:'STAGGERED',hint:'WEAK POINT OPEN — everyone attack now!'},
+ stalk:{label:'STALKING',hint:'Spread out. Watch for the next red warning.'}};
+function bossReadout(p){if(!p||!p.boss)return null;const t=BOSS_TELLS[p.pattern]??0,a=BOSS_ACTIONS[p.pattern]||BOSS_ACTIONS.stalk;return {phase:p.phase||1,pattern:p.pattern,label:a.label,hint:a.hint,weak:p.weak>0,windup:t>0&&(p.tell||0)<t,progress:t>0?Math.min(1,(p.tell||0)/t):0,staggered:p.pattern==='stagger'||p.pattern==='staggered'};}
+return {tick,BOSS_TELLS,BOSS_ACTIONS,bossReadout};
 });

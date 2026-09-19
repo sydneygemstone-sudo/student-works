@@ -94,7 +94,14 @@ function drawProjectile(c,b,time){oval(c,b.x,groundYOf(b.z)+4,9,3,'#09223844');c
  else if(b.fx==='water-jet'){const g=c.createLinearGradient(-75,0,25,0);g.addColorStop(0,'#9bdcff00');g.addColorStop(1,'#e4ffff');c.fillStyle=g;c.beginPath();c.ellipse(-22,0,59,12,0,0,Math.PI*2);c.fill();line(c,[[-60,-2],[20,-2]],'#f3ffff',3);}
  else if(b.fx==='bubble-prison'){oval(c,0,0,35,35,'#b8eaff2b');ring(c,0,0,35,'#dbfbff',2);oval(c,-12,-16,8,12,'#f6ffff88',.7);ring(c,6,6,23,'#bdd6f755',2);}
  c.restore();}
-function drawZone(c,z,time){const color=(M.styles[z.character]||{color:'#cbb7ff'}).color;c.save();const waiting=z.wait>0;c.globalAlpha=waiting?.42:.8;c.strokeStyle=color;c.lineWidth=waiting?2:3;c.beginPath();c.ellipse(z.x,z.y+2,z.range,z.range*.30,0,0,Math.PI*2);c.stroke();ring(c,z.x,z.y+2,z.range*.55,color,waiting?1.5:2,true);if(waiting){for(let i=0;i<4;i++)line(c,[[z.x-z.range+i*z.range*.6,z.y-8],[z.x-z.range+i*z.range*.6+14,z.y+6]],color,2);c.restore();return;}
+function drawZone(c,z,time){const color=(M.styles[z.character]||{color:'#cbb7ff'}).color;const boss=/^boss-/.test(z.fx||'');const warn=boss?'#ff7a5c':color;c.save();const waiting=z.wait>0;
+ if(waiting){ // GLM 5.3: telegraph fill ramps amber->red plus a countdown ring so impact timing is readable.
+  const total=Math.max(.001,z.waitMax||z.wait||.1),left=Math.max(0,z.wait),progress=1-left/total;
+  c.globalAlpha=.20+progress*.30;oval(c,z.x,z.y+2,z.range,z.range*.30,progress<.55?'#ffb84d':'#ff5f45');
+  c.globalAlpha=.85;c.strokeStyle=progress<.55?'#ffb84d':'#ff5f45';c.lineWidth=3;c.beginPath();c.ellipse(z.x,z.y+2,z.range,z.range*.30,0,0,Math.PI*2);c.stroke();
+  ring(c,z.x,z.y+2,z.range*(1-progress*.72),progress<.55?'#ffe1a8':'#ffb3a3',2,true);
+  for(let i=0;i<4;i++)line(c,[[z.x-z.range+i*z.range*.6,z.y-8],[z.x-z.range+i*z.range*.6+14,z.y+6]],progress<.55?'#ffd28a':'#ff8f77',2);c.restore();return;}
+ c.globalAlpha=.8;c.strokeStyle=color;c.lineWidth=3;c.beginPath();c.ellipse(z.x,z.y+2,z.range,z.range*.30,0,0,Math.PI*2);c.stroke();ring(c,z.x,z.y+2,z.range*.55,color,2,true);
  if(z.fx==='crystal-cage'||z.fx==='ice-trail'){for(let i=0;i<5;i++){const x=z.x+(i-2)*z.range*.35,h=z.fx==='ice-trail'?24:55+(i%3)*20;poly(c,[[x-12,z.y],[x-15,z.y-h*.6],[x,z.y-h],[x+14,z.y-h*.6],[x+10,z.y]],'#b5eaffaa','#e4fbff');line(c,[[x,z.y-h],[x+1,z.y-6]],'#fff',1);}}
  else if(z.fx==='eruption'){for(let i=0;i<5;i++)flame(c,z.x+(i-2)*30,z.y-28,30+(i%2)*15,'#edb477dd');}
  else if(['living-grove','briar-ring'].includes(z.fx)){for(let i=0;i<7;i++){const x=z.x+(i-3)*z.range*.26;line(c,[[x,z.y],[x+12,z.y-24],[x-3,z.y-48]],'#8dc590',3);oval(c,x+8,z.y-31,8,15,'#c1daa2',.8);if(z.fx==='living-grove')oval(c,x-3,z.y-47,6,6,'#fff0b5');}}
@@ -124,9 +131,12 @@ function drawEffect(c,e,time){const t=1-e.life/(e.maxLife||.55),color=e.color||'
  else if(e.type==='knockout'){ring(c,e.x,e.y,20+t*80,'#eaddb4',2);}
  c.restore();}
 function groundYOf(z){return 408+Math.max(0,Math.min(240,z||0))*.6;}
-function drawWorld(c,world,time,{positions,reduced=true,myId,camera}={}){const camX=Math.max(0,Math.min((world.width||1920)-1200,camera?.x||0));c.save();c.translate(-camX,0);
+function drawWorld(c,world,time,{positions,reduced=true,myId,camera,danger}={}){const camX=Math.max(0,Math.min((world.width||1920)-1200,camera?.x||0));c.save();c.translate(-camX,0);
  c.drawImage(background(world.arena||'moon'),0,0,world.width||1920,600);
- c.save();c.globalAlpha=.16;c.strokeStyle='#dff3ff';c.lineWidth=1.5;for(const zz of [0,60,120,180,240]){const gy=groundYOf(zz);c.beginPath();c.ellipse(960,gy,(world.width||1920)*.62,26+zz*.10,0,0,Math.PI*2);c.stroke();}c.restore();
+ // GLM 5.3: floor depth bands + BACK/FRONT labels make the 2.5D axis readable on a landscape iPad.
+ c.save();const bandGrad=c.createLinearGradient(0,groundYOf(0)-14,0,groundYOf(240)+16);bandGrad.addColorStop(0,'#63d7ff12');bandGrad.addColorStop(1,'#ffb36b26');c.fillStyle=bandGrad;c.fillRect(0,groundYOf(0)-14,world.width||1920,groundYOf(240)-groundYOf(0)+30);
+ c.globalAlpha=.14;c.strokeStyle='#dff3ff';c.lineWidth=1.5;for(const zz of [0,60,120,180,240]){const gy=groundYOf(zz);c.beginPath();c.ellipse(960,gy,(world.width||1920)*.62,26+zz*.10,0,0,Math.PI*2);c.stroke();}
+ c.globalAlpha=.5;c.font='bold 11px Arial';c.textAlign='left';c.fillStyle='#a9e6ff';c.fillText('BACK · FAR',camX+14,groundYOf(0)-16);c.fillStyle='#ffd3a1';c.fillText('FRONT · NEAR',camX+14,groundYOf(240)+22);c.restore();
  for(const z of world.zones||[])drawZone(c,z,time);
  const entities=[];
  for(const target of world.targets||[]){if(target.hp>0)entities.push({kind:'target',z:target.z??120,target});}
@@ -134,15 +144,21 @@ function drawWorld(c,world,time,{positions,reduced=true,myId,camera}={}){const c
  entities.sort((a,b)=>a.z-b.z);
  for(const e of entities){
   if(e.kind==='target'){const t=e.target,x=t.x,y=t.y,sc=.86+.28*(t.z??120)/240;c.save();c.translate(x,y);c.scale(sc,sc);c.translate(-x,-y);oval(c,x,y+6,25,6,'#0a223e55');shade(c,x,y-36,20,33,'#b8d0c4','#617f7d','#284b54');poly(c,[[x-25,y-60],[x-19,y-79],[x+17,y-83],[x+25,y-58]],'#889c87','#cad5b5');gem(c,x,y-48,11,t.flash?'#fff':'#d3ecc4');c.fillStyle='#263e48';c.fillRect(x-25,y-99,50,5);c.fillStyle='#d1dfa8';c.fillRect(x-25,y-99,50*t.hp/t.maxHp,5);c.restore();continue;}
-  const p=e.p,pos=e.pos,z=pos.z??120,gy=groundYOf(z),sc=(.86+.28*z/240)*(p.boss?2.15:1);
-  oval(c,pos.x,gy+6,37*sc,7*sc,'#09223866');
+   const p=e.p,pos=e.pos,z=pos.z??120,gy=groundYOf(z),sc=(.86+.28*z/240)*(p.boss?2.15:1);
+   oval(c,pos.x,gy+6,37*sc,7*sc,'#09223866');
+   if(p.id===myId&&!p.boss){ // GLM 5.3: locator ring for your own beast; pulses red while inside a danger zone.
+     const hot=!!danger,pulse=hot?.5+.5*Math.sin(time*10):0;
+     ring(c,pos.x,gy+7,46,hot?'#ff5f45':'#ffd98a',hot?3+pulse*2:2,true);ring(c,pos.x,gy+7,26,hot?'#ffb3a3':'#ffe8bf',1.5,true);
+     poly(c,[[pos.x-8,gy-24],[pos.x+8,gy-24],[pos.x,gy-12]],hot?'#ff5f45':'#ffd98a');}
   drawBeast(c,{...p,x:pos.x,y:pos.y,gy,face:pos.face||p.face},time,{scale:.68*sc});
   if(p.boss){c.save();c.translate(pos.x,pos.y-330*sc/1.15);c.scale(sc/2.15,sc/2.15);poly(c,[[-58,10],[-34,-34],[0,-14],[34,-34],[58,10]],'#cbb7ff','#f4e9ff');gem(c,0,-8,15,'#ffd98a');c.restore();}
   c.fillStyle=p.boss?'#e8dcff':'#f0eee1';c.font='bold '+(p.boss?15:11)+'px Arial';c.textAlign='center';
   c.fillText((p.boss?'☠ ':'')+(p.boss?'CROWN GOLEM':p.name+(p.id===myId?' · YOU':'')),pos.x,Math.max(22,pos.y-210*(p.boss?1.55:1)));
   if(p.charges){c.fillStyle='#f7d799';c.fillText('◆ '+p.charges+'/5',pos.x,Math.max(36,pos.y-195));}
   if(p.respawn>0)c.fillText('BACK IN '+Math.ceil(p.respawn),pos.x,pos.y-225);
-  if(p.boss&&p.weak>0){c.fillStyle='#ffd98a';c.font='bold 13px Arial';c.fillText('WEAK POINT — ATTACK!',pos.x,pos.y-360);}
+   if(p.boss&&p.weak>0){c.fillStyle='#ffd98a';c.font='bold 13px Arial';c.fillText('WEAK POINT — ATTACK!',pos.x,pos.y-360);}
+   if(p.boss&&p.pattern==='charge'&&(p.tell||0)<.55){ // GLM 5.3: charge lane telegraph on the floor.
+     const dir=p.chargeDir||p.face;c.save();c.globalAlpha=.5;c.strokeStyle='#ff7a5c';c.lineWidth=30;c.lineCap='round';c.beginPath();c.moveTo(pos.x,gy+4);c.lineTo(pos.x+dir*430,gy+4);c.stroke();c.globalAlpha=.9;poly(c,[[pos.x+dir*430,gy-16],[pos.x+dir*462,gy+4],[pos.x+dir*430,gy+24]],'#ff5f45');c.restore();}
  }
  for(const b of world.projectiles||[])drawProjectile(c,b,time);
  const effects=world.effects||[];for(const e of effects.slice(reduced?-18:-38))drawEffect(c,e,time);
