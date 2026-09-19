@@ -13,6 +13,11 @@ import { inBounds, blocksSight } from './world.js';
 
 const EPS = 1e-9;
 
+/** 相机撞得到的实体：石头、真家的小屋、假房子的小屋。 */
+export function cameraBlocks(terrain) {
+  return terrain === TERRAIN.ROCK || terrain === TERRAIN.HOME || terrain === TERRAIN.DECOY;
+}
+
 /**
  * 在连续网格坐标系中投射一条线段，找出第一次被阻挡的位置。
  * 坐标约定：格 (x,y) 的中心是 (x+0.5, y+0.5)。
@@ -151,7 +156,10 @@ export function resolveCameraPosition(world, anchor, desired, opts = {}) {
   if (full < EPS) return { x: anchor.x, y: anchor.y, distance: 0, clamped: false };
 
   const ray = castRay(world, anchor, desired, {
-    cellBlocks: (terrain) => terrain === TERRAIN.ROCK,
+    // 石头、家、假房子都是立在格子上的实体，相机一概不许穿进去。
+    // castRay 不检查起点所在的那一格，所以角色**站在**小屋里时相机照常后退，
+    // 只有小屋夹在角色和机位之间时才会收缩 —— 正是想要的行为。
+    cellBlocks: cameraBlocks,
     ignoreTargetCell: false,
   });
   if (!ray.hit) return { x: desired.x, y: desired.y, distance: full, clamped: false };

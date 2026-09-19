@@ -87,7 +87,9 @@ export const ROLE_CONFIG = Object.freeze({
     baseAp: 2,
     carryLimit: 2,
     canScareWolf: true, // 只有小熊能把狼吓退
-    start: Object.freeze({ x: 6, y: 7, facing: 'W' }),
+    // 开局面朝家：第一眼就看清真家长什么样（插旗、亮窗、金环），
+    // 后面才分得出那三座假房子。顺带让相机背后是空地，不会一上来就贴脸。
+    start: Object.freeze({ x: 6, y: 7, facing: 'E' }),
   }),
   [ROLES.BUNNY]: Object.freeze({
     id: ROLES.BUNNY,
@@ -97,7 +99,7 @@ export const ROLE_CONFIG = Object.freeze({
     baseAp: 3,
     carryLimit: 1,
     canScareWolf: false,
-    start: Object.freeze({ x: 8, y: 7, facing: 'N' }),
+    start: Object.freeze({ x: 8, y: 7, facing: 'W' }),
   }),
 });
 

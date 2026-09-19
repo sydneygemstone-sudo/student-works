@@ -99,13 +99,17 @@ test('原地左转 / 右转消耗 0 步', () => {
   const engine = new GameEngine();
   const bear = engine.players[ROLES.BEAR];
   const apBefore = bear.ap;
-  assert.equal(bear.facing, 'W');
+  const CW = ['N', 'E', 'S', 'W'];
+  const start = bear.facing;
+  assert.equal(start, ROLE_CONFIG[ROLES.BEAR].start.facing);
+  const turned = (from, delta) => CW[(CW.indexOf(from) + delta + 4) % 4];
+
   assert.equal(engine.act(ROLES.BEAR, { type: ACTION.TURN_RIGHT }).apCost, 0);
-  assert.equal(bear.facing, 'N');
+  assert.equal(bear.facing, turned(start, 1));
   assert.equal(engine.act(ROLES.BEAR, { type: ACTION.TURN_LEFT }).apCost, 0);
-  assert.equal(bear.facing, 'W');
+  assert.equal(bear.facing, start, '左转再右转回到原点');
   engine.act(ROLES.BEAR, { type: ACTION.TURN_LEFT });
-  assert.equal(bear.facing, 'S');
+  assert.equal(bear.facing, turned(start, -1));
   assert.equal(bear.ap, apBefore, '转向绝不消耗行动点');
 });
 

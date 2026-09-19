@@ -14,7 +14,11 @@ import {
 import { GameRoom, RECLAIM_GRACE_MS } from '../server/room.js';
 import { createServer, DEFAULT_PORT, resolveStaticPath } from '../server/index.js';
 import { validateClientMessage, C2S, S2C, ERROR_CODE, encode, decode } from '../core/protocol.js';
-import { ACTION, ROLES, ROLE_CONFIG, STATUS } from '../core/constants.js';
+import { ACTION, DIR_VECTOR, DIRECTIONS, ROLES, ROLE_CONFIG, STATUS } from '../core/constants.js';
+
+/** 转一格 —— 测试里用它算「转完之后应该朝哪」，不写死方向。 */
+const rightOf = (dir) => DIRECTIONS[(DIRECTIONS.indexOf(dir) + 1) % 4];
+const leftOf = (dir) => DIRECTIONS[(DIRECTIONS.indexOf(dir) + 3) % 4];
 
 // ———————————————————— 局域网地址探测 ————————————————————
 
@@ -148,7 +152,7 @@ test('断线重连：凭令牌找回原角色与完整对局状态', () => {
   assert.equal(resumed.ok, true);
   assert.equal(resumed.session.roles[0], ROLES.BUNNY);
   assert.equal(room.engine.players[ROLES.BUNNY].ready, true, '状态没有丢失');
-  assert.equal(room.engine.players[ROLES.BUNNY].facing, 'E', '右转后的朝向也一并恢复');
+  assert.equal(room.engine.players[ROLES.BUNNY].facing, rightOf(ROLE_CONFIG[ROLES.BUNNY].start.facing), '右转后的朝向也一并恢复');
 });
 
 test('无效令牌被拒绝', () => {
@@ -336,10 +340,11 @@ test('两台设备加入同一局，动作与状态实时同步', async () => {
   const stateB = await ipadB.waitFor(S2C.STATE);
   assert.deepEqual(stateA.snapshot.players.bunny, stateB.snapshot.players.bunny, '两端状态一致');
   const bunnyStart = ROLE_CONFIG[ROLES.BUNNY].start;
+  const step = DIR_VECTOR[bunnyStart.facing];
   assert.deepEqual(
     { x: stateA.snapshot.players.bunny.x, y: stateA.snapshot.players.bunny.y },
-    { x: bunnyStart.x, y: bunnyStart.y - 1 },
-    '小兔起步朝北，前进一格',
+    { x: bunnyStart.x + step.dx, y: bunnyStart.y + step.dy },
+    '小兔朝着起始朝向前进了一格',
   );
   assert.equal(stateA.snapshot.players.bunny.ap, 2);
 
@@ -383,7 +388,7 @@ test('iPad 掉线后用会话令牌重连，角色与进度完好恢复', async 
     const resumed = await back.waitFor(S2C.WELCOME);
     assert.equal(resumed.resumed, true);
     assert.equal(resumed.role, ROLES.BEAR);
-    assert.equal(resumed.snapshot.players.bear.facing, 'S', '掉线前转过的朝向还在');
+    assert.equal(resumed.snapshot.players.bear.facing, leftOf(ROLE_CONFIG[ROLES.BEAR].start.facing), '掉线前转过的朝向还在');
     assert.equal(resumed.token, welcome.token);
 
     // 令牌无效时给出明确错误
