@@ -3,14 +3,14 @@ const http=require('http'),fs=require('fs'),path=require('path'),os=require('os'
 const {WebSocketServer,WebSocket}=require('ws');const Engine=require('./shared.js');
 function createServer(options={}){
 const playUrl=String(options.playUrl??process.env.PLAY_URL??'').slice(0,500);
-const port=Number(options.port??process.env.PORT??8765),slots=[null,null,null],spectators=new Set();let game=Engine.createGame({players:[]}),mode='duel',arena='moon',lastBroadcast=0,simTimer=null,urls=[],lastNs=process.hrtime.bigint(),accumulator=0;
+const port=Number(options.port??process.env.PORT??8765),slots=[null,null,null],spectators=new Set(),spendEvents=[];let game=Engine.createGame({players:[]}),mode='duel',arena='moon',lastBroadcast=0,simTimer=null,urls=[],lastNs=process.hrtime.bigint(),accumulator=0;
 const tapKeys=['jump','punch','kick','spin','dash','super','special'];
 const connected=()=>slots.filter(s=>s&&s.ws&&s.ws.readyState===WebSocket.OPEN);
 const send=(ws,msg)=>{if(ws&&ws.readyState===WebSocket.OPEN&&ws.bufferedAmount<65536)ws.send(JSON.stringify(msg));};
 const error=(ws,message)=>send(ws,{type:'error',message});
 const profiles=()=>slots.filter(Boolean).map(s=>({id:s.id,name:s.profile.name,character:s.profile.character,profile:s.profile}));
 function newRound(){game=Engine.createGame({mode,arena,players:profiles(),roundId:crypto.randomUUID()});for(const s of slots)if(s){s.input={};s.taps={};}broadcast();}
-function state(){const st=Engine.snapshot(game);st.serverTime=Date.now();st.ackSeq={};st.connectedIds=connected().map(s=>s.id);st.slots=slots.map((s,i)=>s?{slot:i,id:s.id,name:s.profile.name,character:s.profile.character,connected:!!s.ws&&s.ws.readyState===WebSocket.OPEN}:null);for(const s of slots)if(s)st.ackSeq[s.id]=s.ackSeq;return st;}
+function state(){const st=Engine.snapshot(game);st.serverTime=Date.now();st.ackSeq={};st.connectedIds=connected().map(s=>s.id);st.slots=slots.map((s,i)=>s?{slot:i,id:s.id,name:s.profile.name,character:s.profile.character,connected:!!s.ws&&s.ws.readyState===WebSocket.OPEN}:null);for(const s of slots)if(s)st.ackSeq[s.id]=s.ackSeq;st.spendEvents=spendEvents.slice(-12);return st;}
 function broadcast(){const msg={type:'state',state:state()};for(const s of connected())send(s.ws,msg);for(const ws of spectators)send(ws,msg);}
 function pause(reason){if(game.status==='playing'){game.status='paused';game.reason=reason;}for(const s of slots)if(s){s.input={};s.taps={};}}
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.woff2':'font/woff2'};
@@ -30,11 +30,25 @@ wss.on('connection',(ws)=>{ws._socket.setNoDelay(true);ws.isAlive=true;ws.sessio
   }
   if(ws.spectator){if(msg.type!=='input')error(ws,'Spectators cannot change the round.');return;}const s=ws.session;if(!s){error(ws,'Join with hello first');return;}
   if(msg.type==='input'){if(!Number.isSafeInteger(msg.seq)||msg.seq<0||msg.seq>2147483647){error(ws,'Input sequence must be a bounded integer');return;}if(msg.seq<=s.ackSeq)return;s.ackSeq=msg.seq;const next=Engine.inputOf(msg.input);if(game.status==='playing'){s.taps=s.taps||{};for(const k of tapKeys)if(next[k]&&!s.input[k])s.taps[k]=true;}s.input=next;s.lastInput=now;return;}
-  if(msg.type==='configure'){if(game.status!=='lobby'){error(ws,'Reset to the lobby before changing equipment, arena, or mode.');return;}if(msg.mode!=null&&!['duel','crown'].includes(msg.mode)){error(ws,'Online modes are duel and crown.');return;}if(msg.arena!=null&&!Object.prototype.hasOwnProperty.call(Engine.ARENAS,msg.arena)){error(ws,'Unknown arena');return;}if(msg.profile){s.profile=Engine.normalizeProfile({...msg.profile,id:s.id});}if(msg.mode)mode=msg.mode;if(msg.arena)arena=msg.arena;newRound();return;}
-  if(msg.type==='control'){const action=msg.action;
+  if(msg.type==='configure'){if(game.status!=='lobby'){error(ws,'Reset to the lobby before changing equipment, arena, or mode.');return;}if(msg.mode!=null&&!['duel','crown','boss'].includes(msg.mode)){error(ws,'Online modes are duel and crown.');return;}if(msg.arena!=null&&!Object.prototype.hasOwnProperty.call(Engine.ARENAS,msg.arena)){error(ws,'Unknown arena');return;}if(msg.profile){s.profile=Engine.normalizeProfile({...msg.profile,id:s.id});}if(msg.boost!==undefined){if(msg.boost===null)s.preBoost=null;else if(!Object.prototype.hasOwnProperty.call(Engine.BOOSTS,msg.boost))return error(ws,'Unknown boost');else s.preBoost=msg.boost;}
+                if(msg.mode)mode=msg.mode;if(msg.arena)arena=msg.arena;newRound();return;}
+  if(msg.type==='boost'){
+                if(game.status!=='playing')return error(ws,'Boosts work during a live round');
+                const boost=Object.prototype.hasOwnProperty.call(Engine.BOOSTS,msg.id)?Engine.BOOSTS[msg.id]:null;
+                if(!boost)return error(ws,'Unknown boost');
+                if(s.profile.energy<boost.cost)return error(ws,'Not enough stored energy');
+                const result=Engine.applyBoost(game,s.id,msg.id);
+                if(!result.ok)return error(ws,result.error||'Boost failed');
+                s.profile=Engine.normalizeProfile({...s.profile,energy:s.profile.energy-boost.cost});
+                spendEvents.push({playerId:s.id,boostId:msg.id,cost:boost.cost,at:Date.now()});
+                if(spendEvents.length>48)spendEvents.splice(0,spendEvents.length-48);
+                broadcast();
+                return;
+            }
+            if(msg.type==='control'){const action=msg.action;
    if(action==='pause'){pause('Teacher pause. Take your time.');}
-   else if(action==='reset'){if(msg.mode!=null&&!['duel','crown'].includes(msg.mode)){error(ws,'Unknown online mode');return;}if(msg.mode)mode=msg.mode;for(let i=0;i<slots.length;i++)if(slots[i]&&!slots[i].ws&&now-slots[i].disconnectedAt>15000)slots[i]=null;newRound();}
-   else if(action==='start'||action==='resume'){if(!['lobby','paused'].includes(game.status)){error(ws,'Reset before starting another round');return;}const live=connected();if(live.length<2){error(ws,'Connect at least two beasts to start.');return;}if(game.status==='paused'&&(game.players.length!==live.length||game.players.some(p=>!live.some(s=>s.id===p.id)))){error(ws,'The player lineup changed. Rejoin the missing beast or reset for a new round.');return;}if(game.status==='lobby'){game=Engine.createGame({mode,arena,players:live.map(s=>({id:s.id,name:s.profile.name,character:s.profile.character,profile:s.profile})),roundId:crypto.randomUUID()});}game.status='playing';game.reason='';for(const p of game.players)p.jumpWas=false;for(const item of slots)if(item){item.input={};item.taps={};}}
+   else if(action==='reset'){if(msg.mode!=null&&!['duel','crown','boss'].includes(msg.mode)){error(ws,'Unknown online mode');return;}if(msg.mode)mode=msg.mode;for(let i=0;i<slots.length;i++)if(slots[i]&&!slots[i].ws&&now-slots[i].disconnectedAt>15000)slots[i]=null;newRound();}
+   else if(action==='start'||action==='resume'){if(!['lobby','paused'].includes(game.status)){error(ws,'Reset before starting another round');return;}const live=connected();if(live.length<2){error(ws,'Connect at least two beasts to start.');return;}if(game.status==='paused'&&(game.players.length!==live.length||game.players.some(p=>!live.some(s=>s.id===p.id)))){error(ws,'The player lineup changed. Rejoin the missing beast or reset for a new round.');return;}if(game.status==='lobby'){game=Engine.createGame({mode,arena,players:live.map(s=>({id:s.id,name:s.profile.name,character:s.profile.character,profile:s.profile})),roundId:crypto.randomUUID()});}game.status='playing';game.reason='';for(const p of game.players)p.jumpWas=false;for(const item of slots)if(item&&item.preBoost){const boost=Engine.BOOSTS[item.preBoost];if(item.profile.energy>=boost.cost){item.profile=Engine.normalizeProfile({...item.profile,energy:item.profile.energy-boost.cost});if(Engine.applyBoost(game,item.id,item.preBoost).ok)spendEvents.push({playerId:item.id,boostId:item.preBoost,cost:boost.cost,at:Date.now()});}}for(const item of slots)if(item){item.input={};item.taps={};}}
    else {error(ws,'Unknown control action');return;}broadcast();return;
   }error(ws,'Unknown message type');
  });

@@ -7,7 +7,7 @@ const styles={
  volt:{title:'THE STORM LYNX',role:'Speed · 闪电突袭',speed:326,color:'#d2b5ff',accent:'#fff3bd',description:'Fast claws, chain lightning and three afterimage strikes. Stay on the move.'},
  twins:{title:'PIP + PEBBLE',role:'Combo · 双兽连招',speed:300,color:'#ffdb95',accent:'#a2e8ff',description:'Every paw has a partner. Echo strikes, returning comets and a pincer combo.'},
  fluffy:{title:"LEO'S FIRE FAMILIAR",role:'Air · 龙息俯冲',speed:272,color:'#ffb092',accent:'#ffe7ba',description:'Fluffy keeps his antlers and heart soulstone. Breathe fire, scatter petals and dive from a cloud.'},
- 'water-rat':{title:"NATHAN'S WATER FAMILIAR",role:'Tricks · 泡泡水流',speed:306,color:'#a8d8f1',accent:'#e2f7ff',description:'Round ears, tiny paws and a blue heart. Slip away, shield with bubbles and launch a water jet.'}
+ 'crown-golem':{title:'THE CROWN GOLEM',role:'Boss · 巨像守护',speed:186,color:'#cbb7ff',accent:'#f4e9ff',description:'An ancient stone giant crowned in crystal. Dodge its slams, sweeps, charges and crystal rain, then strike the staggered crown.'},'water-rat':{title:"NATHAN'S WATER FAMILIAR",role:'Tricks · 泡泡水流',speed:306,color:'#a8d8f1',accent:'#e2f7ff',description:'Round ears, tiny paws and a blue heart. Slip away, shield with bubbles and launch a water jet.'}
 };
 const m=(label,detail,type,damage,range,cooldown,extra={})=>({label,detail,type,damage,range,cooldown,...extra});
 const sets={
@@ -19,6 +19,7 @@ const sets={
  fluffy:{punch:m('Warm paw','A small fiery paw swipe.','melee',8,96,.38,{fx:'warm-paw'}),kick:m('Dragon tail','A broad tail swipe also catches rivals behind you.','melee',13,145,.85,{fx:'dragon-tail',all:true,push:185}),spin:m('Fire petals','Six fire petals fly outward in different directions.','petals',7,320,3.8,{fx:'fire-petals',cost:13}),dash:m('Cloud ride','Ride a cloud forward and upward.','dash',0,175,3.0,{fx:'cloud-ride',rise:150}),super:m('Dragon breath','Four close cone-shaped breaths; watch your direction.','breath',7,255,5.1,{fx:'dragon-breath',cost:22}),special:m('Sky dive','Leap, then crash onto the marked spot in a fiery ring.','dive',29,140,7.4,{fx:'sky-dive',cost:28})},
  'water-rat':{punch:m('Splash paw','A water slap briefly slows a rival.','melee',7,104,.35,{fx:'splash-paw',slow:.25}),kick:m('Foam flip','A splash kicks a rival upward.','melee',11,138,.78,{fx:'foam-flip',launch:230}),spin:m('Bubble guard','A 24-point bubble shield and a close splash.','guard',9,115,4.3,{fx:'bubble-guard',shield:24,cost:11}),dash:m('Ripple slip','Slip through danger beneath a rolling ripple.','dash',0,195,3.3,{fx:'ripple-slip',invul:.32}),super:m('Water jet','A fast, piercing water jet pushes everyone in its path.','projectile',16,630,4.6,{fx:'water-jet',speed:930,radius:24,pierce:8,push:310,cost:18}),special:m('Bubble prison','A slow bubble lifts one rival, then pops with a splash.','projectile',7,440,7.5,{fx:'bubble-prison',speed:285,radius:37,bubble:.8,cost:25})}
 };
+const crownGolem={};for(const key of ['punch','kick','spin','dash','super','special'])crownGolem[key]=m('Crown power','The golem acts through its own scripted patterns.',key==='special'?'zone':'melee',0,120,3);sets['crown-golem']=crownGolem;
 function get(character,key){return (sets[character]||sets.frost)[key];}
 return {styles,sets,get};
 });
