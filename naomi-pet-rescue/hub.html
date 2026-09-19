@@ -180,6 +180,27 @@
     .guide-box li {
       margin-bottom: 6px;
     }
+    /* 静态托管（GitHub Pages）下不可用的入口 */
+    .btn.disabled {
+      background: #eceff0;
+      color: #9aa5a0;
+      cursor: not-allowed;
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .offline-note {
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: #fff8e1;
+      border: 1px solid #ffe0a3;
+      color: #8a6100;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .dot.off {
+      background: #c6cdc8;
+    }
   </style>
 </head>
 <body>
@@ -201,8 +222,8 @@
           Naomi 经典两人轮流合作棋盘游戏。抱起 8 只走丢的小动物平安护送回中心家园，躲避森林雷雨，合力守护庇护罩，附带完整的开场有声绘本与通关宴会。
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="/naomi-pet-rescue/" target="_blank">🎮 开始游玩</a>
-          <a class="btn btn-secondary" href="/naomi-pet-rescue/story-review.html" target="_blank">🎙️ 故事配音</a>
+          <a class="btn btn-primary" href="./index.html" data-local="/naomi-pet-rescue/" target="_blank">🎮 开始游玩</a>
+          <a class="btn btn-secondary" href="./story-review.html" data-local="/naomi-pet-rescue/story-review.html" target="_blank">🎙️ 故事配音</a>
         </div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8780</span>
@@ -220,9 +241,10 @@
           采用 Three.js 越肩视角与真实视线遮挡。包含 Naomi 专属的石头阻挡退路箭头提示，东北角 4×4 树篱迷宫救小兔，支持单人测试与 iPad 扫码双人实时联机。
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="http://localhost:8787/naomi-pet-rescue/coop/" target="_blank">👥 联机大厅</a>
-          <a class="btn btn-secondary" href="http://localhost:8787/naomi-pet-rescue/coop/?solo=1" target="_blank">🎯 单人测试模式</a>
+          <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/" data-needs-server="1" target="_blank">👥 联机大厅</a>
+          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
         </div>
+        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8787 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用下面的 🌟 Claude Opus 版。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8787</span>
           <span>WebSocket + HTTP</span>
@@ -239,9 +261,10 @@
           由 Codex GLM 5.3 Max 独立实现的 3D 联机对比版本。拥有平滑的视角阻尼与独立的迷宫逻辑，完整适配共同回合推进与动物交接。
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="http://localhost:8789/" target="_blank">👥 联机大厅</a>
-          <a class="btn btn-secondary" href="http://localhost:8789/?solo=1" target="_blank">🎯 单人测试模式</a>
+          <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8789/" data-needs-server="1" target="_blank">👥 联机大厅</a>
+          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8789/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
         </div>
+        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8789 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用下面的 🌟 Claude Opus 版。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8789</span>
           <span>WebSocket + HTTP</span>
@@ -253,13 +276,13 @@
         <span class="badge claude">Claude Opus 架构</span>
         <div class="card-icon">🌟</div>
         <h2>Claude Opus 3D 对比版</h2>
-        <div class="card-meta">Claude Code 独立实现 · 75项测试全通</div>
+        <div class="card-meta">Claude Code 独立实现 · 104 项测试全通 · 免服务器可玩</div>
         <div class="card-desc">
-          由 Claude Code (Claude Opus) 独立实现。原生 ESM 架构，严谨的防穿墙相机平滑阻尼算法，严格的物理 Wi-Fi 自动检测与断线令牌重连机制。
+          由 Claude Code (Claude Opus) 独立实现。原生 ESM 架构，严谨的防穿墙相机平滑阻尼算法，严格的物理 Wi-Fi 自动检测与断线令牌重连机制。<strong>内置离线引擎，不用开任何服务，打开网页就能一台设备两人轮流玩。</strong>
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="http://localhost:8791/" target="_blank">👥 联机大厅</a>
-          <a class="btn btn-secondary" href="http://localhost:8791/?solo=1" target="_blank">🎯 单人测试模式</a>
+          <a class="btn btn-primary" href="./coop-claude/client/index.html" data-local="http://localhost:8791/" data-static-text="🎮 打开就能玩（免服务器）" data-local-text="👥 联机大厅" target="_blank">🎮 打开就能玩（免服务器）</a>
+          <a class="btn btn-secondary" href="./coop-claude/client/index.html?solo=1" data-local="http://localhost:8791/?solo=1" target="_blank">🎯 单人探索模式</a>
         </div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8791</span>
@@ -277,5 +300,59 @@
       </ul>
     </div>
   </div>
+
+  <script>
+    // 这个页面同时用于两种场景：
+    //   1. Mac 本机开着多个版本的服务（8780/8787/8789/8791）
+    //   2. 静态托管（GitHub Pages），没有任何后台服务
+    // HTML 里写死的 href 一律是「静态也安全」的相对路径，只有确认在本机运行时
+    // 才换成 localhost 链接。这样即使这段脚本没跑起来，线上也不会出现指向
+    // localhost 的死链接。
+    (function () {
+      var h = location.hostname;
+      var isLocal =
+        location.protocol === 'file:' ||
+        h === 'localhost' ||
+        h === '127.0.0.1' ||
+        h === '::1' ||
+        /^192\.168\./.test(h) ||
+        /^10\./.test(h) ||
+        /^172\.(1[6-9]|2\d|3[01])\./.test(h);
+
+      if (isLocal) {
+        // 本机：恢复各版本的服务入口
+        document.querySelectorAll('a[data-local]').forEach(function (a) {
+          a.setAttribute('href', a.getAttribute('data-local'));
+          a.classList.remove('disabled');
+          var t = a.getAttribute('data-local-text');
+          if (t) a.textContent = t;
+        });
+        document.querySelectorAll('[data-offline-note]').forEach(function (n) {
+          n.style.display = 'none';
+        });
+        return;
+      }
+
+      // 静态托管：需要后台服务的入口保持禁用，并把状态条改成实话
+      document.querySelectorAll('a[data-needs-server]').forEach(function (a) {
+        a.classList.add('disabled');
+        a.setAttribute('aria-disabled', 'true');
+      });
+      document.querySelectorAll('.card').forEach(function (card) {
+        var blocked = card.querySelector('a[data-needs-server]');
+        var bar = card.querySelector('.status-bar');
+        if (!bar) return;
+        var dot = bar.querySelector('.dot');
+        var port = bar.querySelector('.port-indicator');
+        if (blocked) {
+          if (dot) dot.classList.add('off');
+          if (port) port.textContent = '需在 Mac 上启动服务';
+        } else if (port) {
+          if (dot) dot.classList.add('off');
+          port.textContent = '网页直接运行';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

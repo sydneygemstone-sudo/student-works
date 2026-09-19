@@ -8,12 +8,16 @@ import { NetClient } from './net.js';
 import { GardenRenderer } from './render3d.js';
 import { Minimap } from './minimap.js';
 import { GardenAudio } from './audio.js';
+import { StoryTheatre } from './story-theatre.js';
 import { ACTION, ROLES, STATUS, BLOCKER_BANNER } from '../core/constants.js';
 
 const canvas = document.getElementById('view3d');
 const renderer = new GardenRenderer(canvas);
 const minimap = new Minimap(document.getElementById('minimap'));
 const audio = new GardenAudio();
+const story = new StoryTheatre();
+// 通关宴会只演一次，避免每帧快照都重新弹出
+let endingPlayed = false;
 renderer.start();
 minimap.resize();
 
@@ -230,6 +234,9 @@ net.addEventListener('welcome', (e) => {
     lastSeenSeq = Math.max(...(msg.snapshot.log ?? []).map((l) => l.seq ?? 0), 0);
     applySnapshot(msg.snapshot);
   }
+  // 开场绘本：三幕 IndexTTS 旁白，讲清楚「为什么要去救小动物」
+  endingPlayed = false;
+  story.play('intro');
 });
 
 net.addEventListener('state', (e) => {
@@ -296,7 +303,14 @@ function applySnapshot(snapshot) {
   if (snapshot.status === STATUS.WON) {
     document.getElementById('gameover-title').textContent = '🎉 胜利！小动物们全部回家啦！';
     document.getElementById('gameover-desc').textContent = `全队在第 ${snapshot.round} 回合成功营救了所有小动物！太棒了！`;
-    gameoverModal.style.display = 'flex';
+    // 先演团圆宴会那一幕，再弹结算框
+    if (!endingPlayed) {
+      endingPlayed = true;
+      gameoverModal.style.display = 'none';
+      story.play('ending', () => { gameoverModal.style.display = 'flex'; });
+    } else if (!story.active) {
+      gameoverModal.style.display = 'flex';
+    }
   } else if (snapshot.status === STATUS.LOST) {
     const saved = snapshot.team.rescuedCount ?? snapshot.team.rescued.length;
     document.getElementById('gameover-title').textContent = '🌙 天黑啦，今天就到这儿';
