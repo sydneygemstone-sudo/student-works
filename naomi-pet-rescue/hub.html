@@ -201,6 +201,92 @@
     .dot.off {
       background: #c6cdc8;
     }
+    .journal-hero {
+      position: relative;
+      overflow: hidden;
+      margin: 0 0 28px;
+      padding: 30px 32px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(255,255,255,.34), transparent 28%),
+        linear-gradient(135deg, #ff5f6d 0%, #ff9f43 48%, #ffd93d 100%);
+      color: #402510;
+      box-shadow: 0 18px 42px rgba(230, 126, 34, .28);
+      border: 2px solid rgba(255,255,255,.58);
+    }
+    .journal-hero::after {
+      content: "📖";
+      position: absolute;
+      right: 24px;
+      bottom: -34px;
+      font-size: 132px;
+      opacity: .16;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+    .journal-kicker {
+      display: inline-flex;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .journal-hero h2 {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.2;
+      margin-bottom: 10px;
+      color: #3a210f;
+    }
+    .journal-hero p {
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .journal-tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .journal-tags span {
+      padding: 5px 9px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.68);
+      font-size: 12px;
+      font-weight: 750;
+    }
+    .journal-button {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #402510;
+      color: #fff8e7;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(64, 37, 16, .22);
+    }
+    .journal-button:hover {
+      transform: translateY(-1px);
+      background: #2f190a;
+    }
+    @media (max-width: 620px) {
+      .journal-hero { padding: 24px 20px; }
+      .journal-hero::after { font-size: 96px; right: 4px; }
+    }
   </style>
 </head>
 <body>
@@ -211,13 +297,29 @@
       <p class="subtitle">动物营救冒险游戏 · 本地多版本并行服务与独立试玩入口</p>
     </header>
 
+    <section class="journal-hero" aria-labelledby="journal-title">
+      <div class="journal-kicker">🔥 2026-09-19 · 今日开发日志</div>
+      <h2 id="journal-title">从课堂试玩一路修到可发布：今天这版是怎么长出来的</h2>
+      <p>今天把三个 3D 实现都整理成可直接比较的作品入口：Claude、Antigravity 和 GLM 都保留网页单机试玩，同时服务器实时联机版继续独立存在。随后修掉单机启动、角色与相机方向、小动物移动朝向和故事第三幕构图问题，并完成真实浏览器验收。</p>
+      <div class="journal-tags">
+        <span>🌟 Claude 主版本</span>
+        <span>🧪 AGY 网页单机</span>
+        <span>🤖 GLM 网页单机</span>
+        <span>📡 双 iPad 服务器版保留</span>
+        <span>🧭 方向 / 相机统一</span>
+        <span>📖 故事构图修复</span>
+        <span>✅ Claude 106 / 106</span>
+      </div>
+      <a class="journal-button" href="./journal.html">📖 打开完整开发日志 →</a>
+    </section>
+
     <div class="grid">
       <!-- 1. Claude Opus 3D 主版本 -->
       <div class="card featured-claude">
         <span class="badge claude">Claude Opus 架构</span>
         <div class="card-icon">🌟</div>
         <h2>Claude Opus 3D 对比版</h2>
-        <div class="card-meta">104 项测试全通 · 单机可切换 · 双 iPad 实时服务器版保留</div>
+        <div class="card-meta">106 项测试全通 · 单机可切换 · 双 iPad 实时服务器版保留</div>
         <div class="card-desc">
           当前课堂主版本。左侧是<strong>纯浏览器单机可切换模式</strong>，一人可随时在 🐰 Naomi 小兔与 🐻 小熊之间切换，不需要服务器；右侧完整保留<strong>WebSocket 双人实时服务器版</strong>，下载源码并启动 8791 服务后，两台 iPad 可在同一局里实时协作。
         </div>
@@ -256,15 +358,15 @@
         <span class="badge">Gemini 3.8 Flash 架构</span>
         <div class="card-icon">🐻🐰</div>
         <h2>Antigravity 3D 联机版</h2>
-        <div class="card-meta">双 iPad 局域网联机 · 越肩 3D · 树篱迷宫</div>
+        <div class="card-meta">网页单机可试玩 · 双 iPad 局域网联机 · 越肩 3D · 树篱迷宫</div>
         <div class="card-desc">
-          采用 Three.js 越肩视角与真实视线遮挡。包含 Naomi 专属的石头阻挡退路箭头提示，东北角 4×4 树篱迷宫救小兔，支持单人测试与 iPad 扫码双人实时联机。
+          采用 Three.js 越肩视角与真实视线遮挡。单机模式直接在浏览器内运行本地规则引擎，可一人切换小熊与 Naomi 小兔；服务器版继续保留房间号、二维码和双 iPad 实时联机。
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/" data-needs-server="1" target="_blank">👥 联机大厅</a>
-          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
+          <a class="btn btn-primary" href="./coop/client/index.html?solo=1" target="_blank">🎮 网页单机试玩</a>
+          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/" data-local-text="👥 双人实时服务器版" data-needs-server="1" target="_blank">📡 服务器双人版</a>
         </div>
-        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8787 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用页面顶部的 🌟 Claude Opus 单机可切换版。</div>
+        <div class="offline-note" data-offline-note>左侧单机版可直接在网页运行；右侧实时双人版需要在 Mac 上启动 8787 服务。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8787</span>
           <span>WebSocket + HTTP</span>
@@ -276,15 +378,15 @@
         <span class="badge glm">Codex GLM 5.3 Max</span>
         <div class="card-icon">🤖</div>
         <h2>GLM 3D 对比版</h2>
-        <div class="card-meta">Codex 独立实现 · 双端协同探索</div>
+        <div class="card-meta">Codex 独立实现 · 网页单机可试玩 · 服务器双端协同</div>
         <div class="card-desc">
-          由 Codex GLM 5.3 Max 独立实现的 3D 联机对比版本。拥有平滑的视角阻尼与独立的迷宫逻辑，完整适配共同回合推进与动物交接。
+          由 Codex GLM 5.3 Max 独立实现的 3D 对比版本。现在单机模式会直接在浏览器里运行本地规则引擎，不需要 WebSocket；原来的服务器双人模式仍保留用于两台设备协同探索。
         </div>
         <div class="btn-group">
-          <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8789/" data-needs-server="1" target="_blank">👥 联机大厅</a>
-          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8789/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
+          <a class="btn btn-primary" href="./coop-glm/client/index.html?solo=1&local=1" target="_blank">🎮 网页单机试玩</a>
+          <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8789/" data-local-text="👥 双人实时服务器版" data-needs-server="1" target="_blank">📡 服务器双人版</a>
         </div>
-        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8789 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用页面顶部的 🌟 Claude Opus 单机可切换版。</div>
+        <div class="offline-note" data-offline-note>左侧单机版可直接在网页运行；右侧实时双人版需要在 Mac 上启动 8789 服务。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8789</span>
           <span>WebSocket + HTTP</span>

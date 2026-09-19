@@ -6,6 +6,7 @@ const $ = (s) => document.querySelector(s);
 const GRID = 9, CELL = 2, HOME = { x: 4, y: 4 };
 
 let ws = null, token = null, myRole = 'bear', solo = false, state = null;
+let localGame = null;
 let scene, camera, renderer, meshes = {}, clock;
 const TERRAIN_COLORS = { grass: 0x4c8a3f, forest: 0x245c2a, net: 0x6b7a2e, stone: 0x777d84, hedge: 0x1c4a22 };
 
@@ -195,6 +196,38 @@ function tick() {
   renderer.render(scene, camera);
 }
 
+// ---------- 本地单机 ----------
+function startLocalSolo() {
+  if (!window.GLMGame) {
+    banner('本地单机引擎加载失败');
+    return;
+  }
+  solo = true;
+  myRole = 'bear';
+  localGame = window.GLMGame.createGame();
+  state = window.GLMGame.publicState(localGame);
+  $('#lobby').style.display = 'none';
+  $('#hud').hidden = false;
+  $('#btn-swap').hidden = false;
+  $('#btn-both-ready').hidden = false;
+  build3DOnce();
+  renderState();
+}
+
+function applyLocalAction(action, role = myRole) {
+  const result = window.GLMGame.applyAction(localGame, action, role);
+  state = window.GLMGame.publicState(localGame);
+  renderState();
+  if (!result.ok) {
+    banner(result.message);
+    showBlockArrow(!!result.blocked);
+    if (result.blocked) setTimeout(() => showBlockArrow(false), 1600);
+  } else {
+    hideBanner();
+  }
+  return result;
+}
+
 // ---------- 网络 ----------
 function connect(role, soloMode) {
   const proto = location.protocol === 'https:' ? 'wss' : 'ws';
@@ -227,6 +260,10 @@ function connect(role, soloMode) {
 }
 
 function sendAction(action) {
+  if (localGame) {
+    applyLocalAction(action, myRole);
+    return;
+  }
   if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'action', action, role: myRole }));
 }
 
@@ -260,7 +297,13 @@ function hideBanner() { $('#banner').hidden = true; }
 
 $('#btn-bear').onclick = () => connect('bear', false);
 $('#btn-bunny').onclick = () => connect('bunny', false);
-$('#btn-solo').onclick = () => { const u = new URL(location); u.searchParams.set('solo','1'); history.replaceState(null,'',u); connect('bear', true); };
+$('#btn-solo').onclick = () => {
+  const u = new URL(location);
+  u.searchParams.set('solo', '1');
+  u.searchParams.set('local', '1');
+  history.replaceState(null, '', u);
+  startLocalSolo();
+};
 document.querySelectorAll('[data-act]').forEach(btn => {
   btn.addEventListener('click', () => {
     const act = btn.dataset.act;
@@ -275,7 +318,17 @@ document.querySelectorAll('[data-act]').forEach(btn => {
   });
 });
 $('#btn-swap').onclick = swapRole;
-$('#btn-both-ready').onclick = () => { sendAction({ type:'ready', value:true }); ws.send(JSON.stringify({ type:'action', action:{type:'ready',value:true}, role:'bunny' })); };
+$('#btn-both-ready').onclick = () => {
+  if (localGame) {
+    applyLocalAction({ type: 'ready', value: true }, 'bear');
+    applyLocalAction({ type: 'ready', value: true }, 'bunny');
+    return;
+  }
+  sendAction({ type:'ready', value:true });
+  if (ws && ws.readyState === 1) {
+    ws.send(JSON.stringify({ type:'action', action:{type:'ready',value:true}, role:'bunny' }));
+  }
+};
 
 function swapRole() { if (solo) { myRole = myRole === 'bear' ? 'bunny' : 'bear'; renderState(); } }
 addEventListener('keydown', (e) => {
@@ -291,5 +344,5 @@ fetch('/api/info').then(r => r.json()).then(info => {
   $('#qr').innerHTML = info.qr;
   $('#lan-url').textContent = info.url;
 }).catch(() => {});
-if (new URLSearchParams(location.search).get('solo') === '1') connect('bear', true);
+if (new URLSearchParams(location.search).get('solo') === '1') startLocalSolo();
 })();
