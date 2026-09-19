@@ -9,7 +9,7 @@
  */
 
 import * as THREE from 'three';
-import { DIR_VECTOR } from '/core/constants.js';
+import { DIR_VECTOR } from '../core/constants.js';
 
 /** 格中心 → 3D 坐标。 */
 export function toWorld(gx, gy, height = 0) {

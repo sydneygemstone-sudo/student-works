@@ -7,7 +7,7 @@
   <script type="importmap">
   {
     "imports": {
-      "three": "/vendor/three.module.js"
+      "three": "./vendor/three.module.js"
     }
   }
   </script>
@@ -191,6 +191,7 @@
   <!-- HUD Top -->
   <div class="hud top-bar">
     <div class="hud-card interactive">
+      <a href="../../index.html" class="icon-btn" title="返回主选择页" style="text-decoration:none;">🏠</a>
       <span>🏡 小动物回家</span>
       <span class="status-badge" id="net-badge">连接中...</span>
       <button class="icon-btn" id="qr-btn" title="局域网二维码">📱</button>
@@ -263,6 +264,10 @@
         🦁 狮子专抓还没救走的小动物 —— <b>一个人站在它旁边牵制，另一个赶紧去救</b>。<br>
         🏁 两个人都按「结束本回合」，世界才走下一步。
       </div>
+      <button class="solo-entry-btn" id="choose-dual" style="background:#10b981;margin-bottom:8px;">👫 单机双人合作模式（一台设备轮流行动 · 免服务器）</button>
+      <button class="solo-entry-btn" id="choose-solo" style="background:#6366f1;margin-bottom:12px;">🌟 单人探索模式（一人分饰两角 · Tab 键切换）</button>
+      
+      <div style="font-size:12.5px;font-weight:700;color:#64748b;margin:10px 0 8px;">📡 局域网双 iPad 联机请选各自角色：</div>
       <div class="role-btn-grid">
         <div class="role-card" id="choose-bunny">
           <div class="role-emoji">🐰</div>
@@ -275,7 +280,7 @@
           <div class="role-sub">每回合 2 步 · 抱 2 只 · 能吼退狼</div>
         </div>
       </div>
-      <button class="solo-entry-btn" id="choose-solo">🌟 单人测试模式（一人分饰两角）</button>
+      <div style="margin-top:12px;"><a href="../../index.html" style="color:#64748b;font-size:13px;text-decoration:none;">← 返回版本选择中心</a></div>
     </div>
   </div>
 
@@ -301,6 +306,6 @@
     </div>
   </div>
 
-  <script type="module" src="/client/app.js"></script>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>

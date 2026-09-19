@@ -20,9 +20,9 @@ import { toWorld, dirToYaw, rightOf, lerpAngle } from './coords.js';
 import {
   TERRAIN, ROLES, ROLE_LIST, DIR_VECTOR, GRID_SIZE,
   CAMERA_DISTANCE, CAMERA_HEIGHT, CAMERA_SHOULDER_OFFSET, CAMERA_MIN_DISTANCE, LOS_MAX_DISTANCE,
-} from '/core/constants.js';
-import { hedgeSegments, mazeOpenings } from '/core/maze.js';
-import { resolveCameraPosition, smoothDamp } from '/core/vision.js';
+} from '../core/constants.js';
+import { hedgeSegments, mazeOpenings } from '../core/maze.js';
+import { resolveCameraPosition, smoothDamp } from '../core/vision.js';
 import {
   makeCritter, makeWolf, makeLion, makePlayer, makeTeammatePin,
   makeEnergyStar, makeCabin, mat,

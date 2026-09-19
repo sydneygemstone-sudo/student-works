@@ -11,7 +11,7 @@
  * Author: Claude Code (Claude Opus)
  */
 
-import { TERRAIN, DIR_VECTOR } from '/core/constants.js';
+import { TERRAIN, DIR_VECTOR } from '../core/constants.js';
 
 const FOG = '#2a3340';
 const COLORS = {

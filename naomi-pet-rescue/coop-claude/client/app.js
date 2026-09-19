@@ -8,7 +8,7 @@ import { NetClient } from './net.js';
 import { GardenRenderer } from './render3d.js';
 import { Minimap } from './minimap.js';
 import { GardenAudio } from './audio.js';
-import { ACTION, ROLES, STATUS, BLOCKER_BANNER } from '/core/constants.js';
+import { ACTION, ROLES, STATUS, BLOCKER_BANNER } from '../core/constants.js';
 
 const canvas = document.getElementById('view3d');
 const renderer = new GardenRenderer(canvas);
@@ -29,6 +29,7 @@ window.addEventListener('orientationchange', () => {
 const net = new NetClient();
 let myRole = ROLES.BUNNY;
 let isSolo = false;
+let isDual = false;
 let currentSnapshot = null;
 let activeControlRole = ROLES.BUNNY;
 let lastSeenSeq = 0;
@@ -115,7 +116,9 @@ function handleEvents(events) {
 // ———————————————————— 入场 ————————————————————
 
 const urlParams = new URLSearchParams(window.location.search);
-const soloParam = urlParams.get('solo');
+const dualParam = urlParams.get('dual') || urlParams.get('mode') === 'dual';
+const soloParam = urlParams.get('solo') || urlParams.get('mode') === 'solo';
+const localParam = urlParams.get('local') || urlParams.get('mode') === 'local';
 const roleParam = urlParams.get('role');
 
 function enter(pref) {
@@ -124,21 +127,33 @@ function enter(pref) {
   net.start(pref);
 }
 
-if (soloParam === '1' || soloParam === 'true') {
+if (dualParam === '1' || dualParam === true || dualParam === 'true') {
+  isDual = true;
   isSolo = true;
-  net.start({ solo: true, role: 'auto' });
+  enter({ dual: true, local: true, role: ROLES.BUNNY });
+} else if (soloParam === '1' || soloParam === 'true') {
+  isSolo = true;
+  enter({ solo: true, local: Boolean(localParam), role: 'auto' });
 } else if (roleParam) {
   net.start({ solo: false, role: roleParam });
 } else {
   joinModal.style.display = 'flex';
 }
 
-document.getElementById('choose-bunny').addEventListener('click', () => enter({ solo: false, role: ROLES.BUNNY }));
-document.getElementById('choose-bear').addEventListener('click', () => enter({ solo: false, role: ROLES.BEAR }));
-document.getElementById('choose-solo').addEventListener('click', () => {
+document.getElementById('choose-dual')?.addEventListener('click', () => {
+  isDual = true;
   isSolo = true;
-  enter({ solo: true, role: 'auto' });
+  enter({ dual: true, local: true, role: ROLES.BUNNY });
 });
+
+document.getElementById('choose-solo')?.addEventListener('click', () => {
+  isSolo = true;
+  isDual = false;
+  enter({ solo: true, local: true, role: 'auto' });
+});
+
+document.getElementById('choose-bunny')?.addEventListener('click', () => enter({ solo: false, role: ROLES.BUNNY }));
+document.getElementById('choose-bear')?.addEventListener('click', () => enter({ solo: false, role: ROLES.BEAR }));
 
 // 二维码弹窗
 document.getElementById('qr-btn').addEventListener('click', async () => {
@@ -180,9 +195,13 @@ document.getElementById('btn-restart').addEventListener('click', () => {
 // ———————————————————— 网络事件 ————————————————————
 
 net.addEventListener('status', (e) => {
-  const { status } = e.detail;
+  const { status, isLocal, mode } = e.detail;
   if (status === 'open') {
-    netBadge.textContent = '● 已联机';
+    if (isLocal) {
+      netBadge.textContent = (mode === 'dual' || isDual) ? '● 单机双人合作' : '● 单机单人模式';
+    } else {
+      netBadge.textContent = '● 已联机';
+    }
     netBadge.className = 'status-badge live';
   } else if (status === 'connecting') {
     netBadge.textContent = '连接中...';
@@ -200,8 +219,13 @@ net.addEventListener('welcome', (e) => {
   const msg = e.detail;
   myRole = msg.role || ROLES.BUNNY;
   isSolo = Boolean(msg.solo);
+  if (msg.dual) isDual = true;
   activeControlRole = myRole;
   if (isSolo) soloBar.style.display = 'flex';
+  if (isDual) {
+    const swBtn = document.getElementById('btn-solo-switch');
+    if (swBtn) swBtn.textContent = '🔄 换人行动 (小兔 / 小熊)';
+  }
   if (msg.snapshot) {
     lastSeenSeq = Math.max(...(msg.snapshot.log ?? []).map((l) => l.seq ?? 0), 0);
     applySnapshot(msg.snapshot);
@@ -234,7 +258,13 @@ function applySnapshot(snapshot) {
   renderer.update(snapshot);
   minimap.update(snapshot, activeControlRole);
 
-  roundInd.textContent = `回合 ${snapshot.round}/${snapshot.maxRounds}`;
+  const roleTitle = activeControlRole === ROLES.BUNNY ? '🐰 Naomi 小兔' : '🐻 小熊';
+  if (isDual) {
+    roundInd.textContent = `第 ${snapshot.round}/${snapshot.maxRounds} 回合 · 轮到 ${roleTitle}`;
+  } else {
+    roundInd.textContent = `回合 ${snapshot.round}/${snapshot.maxRounds}`;
+  }
+
   if (snapshot.weather === 'storm') {
     weatherBadge.textContent = '⛈️ 雷雨';
     weatherBadge.className = 'status-badge storm';
@@ -255,10 +285,10 @@ function applySnapshot(snapshot) {
     btnScare.hidden = !(me.canScareWolf && me.wolfAdjacent);
 
     if (me.ready) {
-      btnReady.textContent = '⏳ 已就绪 · 点一下继续行动';
+      btnReady.textContent = isDual ? `⏳ ${roleTitle} 已就绪 (等待对方)` : '⏳ 已就绪 · 点一下继续行动';
       btnReady.className = 'btn-act ready is-ready';
     } else {
-      btnReady.textContent = `🏁 结束本回合（还有 ${me.ap} 步）`;
+      btnReady.textContent = isDual ? `🏁 ${roleTitle} 结束回合（还剩 ${me.ap} 步）` : `🏁 结束本回合（还有 ${me.ap} 步）`;
       btnReady.className = 'btn-act ready';
     }
   }
@@ -301,7 +331,19 @@ btnReady.addEventListener('click', () => {
   audio.unlock();
   const pl = currentSnapshot.players[activeControlRole];
   const role = isSolo ? activeControlRole : null;
-  net.ready(!pl.ready, role);
+  const nextReady = !pl.ready;
+  net.ready(nextReady, role);
+
+  if (isDual && nextReady) {
+    const otherRole = activeControlRole === ROLES.BUNNY ? ROLES.BEAR : ROLES.BUNNY;
+    const otherPl = currentSnapshot.players[otherRole];
+    if (otherPl && !otherPl.ready) {
+      setTimeout(() => {
+        doSwitchRole();
+        toast(activeControlRole === ROLES.BUNNY ? '🐰 轮到 Naomi 小兔行动啦！' : '🐻 轮到 小熊行动啦！', 'good');
+      }, 350);
+    }
+  }
 });
 
 // 单人模式专属
