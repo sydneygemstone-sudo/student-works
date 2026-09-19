@@ -14,7 +14,7 @@ import {
 import { GameRoom, RECLAIM_GRACE_MS } from '../server/room.js';
 import { createServer, DEFAULT_PORT, resolveStaticPath } from '../server/index.js';
 import { validateClientMessage, C2S, S2C, ERROR_CODE, encode, decode } from '../core/protocol.js';
-import { ACTION, ROLES, STATUS } from '../core/constants.js';
+import { ACTION, ROLES, ROLE_CONFIG, STATUS } from '../core/constants.js';
 
 // ———————————————————— 局域网地址探测 ————————————————————
 
@@ -192,12 +192,13 @@ test('未加入房间的会话不能操控角色', () => {
 test('撞墙提示会随状态一起广播给双方（两台 iPad 都能看到退路箭头）', () => {
   const room = new GameRoom();
   const bunny = room.join({ role: ROLES.BUNNY }).session;
-  room.engine.players[ROLES.BUNNY].facing = 'W'; // 迷宫外 (5,4) 的西边是草地，先挪进迷宫
-  room.engine.players[ROLES.BUNNY].x = 5;
+  // 站在玫瑰迷宫西侧周界树篱外，朝东撞墙
+  room.engine.players[ROLES.BUNNY].x = 8;
   room.engine.players[ROLES.BUNNY].y = 3;
+  room.engine.players[ROLES.BUNNY].facing = 'E';
   const out = room.handle(bunny, { type: C2S.ACTION, action: { type: ACTION.FORWARD } });
   assert.equal(out.self[0].type, S2C.REJECTED);
-  assert.equal(out.self[0].hint.retreatDir, 'E');
+  assert.equal(out.self[0].hint.retreatDir, 'W');
   assert.equal(out.broadcast[0].type, S2C.STATE);
   assert.equal(out.broadcast[0].events.at(-1).type, 'blocked');
 });
@@ -334,7 +335,12 @@ test('两台设备加入同一局，动作与状态实时同步', async () => {
   const stateA = await ipadA.waitFor(S2C.STATE);
   const stateB = await ipadB.waitFor(S2C.STATE);
   assert.deepEqual(stateA.snapshot.players.bunny, stateB.snapshot.players.bunny, '两端状态一致');
-  assert.deepEqual({ x: stateA.snapshot.players.bunny.x, y: stateA.snapshot.players.bunny.y }, { x: 5, y: 3 });
+  const bunnyStart = ROLE_CONFIG[ROLES.BUNNY].start;
+  assert.deepEqual(
+    { x: stateA.snapshot.players.bunny.x, y: stateA.snapshot.players.bunny.y },
+    { x: bunnyStart.x, y: bunnyStart.y - 1 },
+    '小兔起步朝北，前进一格',
+  );
   assert.equal(stateA.snapshot.players.bunny.ap, 2);
 
   // 第三台设备进不来

@@ -1,84 +1,182 @@
 /**
- * core/maze.js — Naomi 创意 2：东北角 4×4 树篱迷宫 (x: 5~8, y: 0~3)
+ * core/maze.js — Naomi 创意 2：树篱迷宫（R2 起为两处，北 6×6 + 南 5×5）
  *
  * 设计要点：
- *  - 树篱被建模为「格子之间的边墙」而不是整格障碍。4×4 只有 16 格，
- *    用边墙才能同时容纳入口花廊、核心花亭、出口拱门与 2 个浅死胡同，
- *    并且边墙天然对应 3D 中立在格缝上的薄高墙体，便于相机碰撞与视线遮挡。
- *  - 迷宫四周包一圈树篱，只有 2 个开口：南侧「入口花廊」与西侧「出口拱门」。
- *  - 核心花亭 (7,1) 守护着待救的第 1 只动物「小兔宝宝」。
- *  - 保证存在一条从入口花廊到花亭、再到出口拱门的无阻挡正确通路。
+ *  - 树篱仍然被建模为「格子之间的边墙」而不是整格障碍：边墙天然对应
+ *    3D 中立在格缝上的薄高墙体，便于相机碰撞与视线遮挡。
+ *  - 布局由**固定种子**的 DFS 生成，所以每次开局都是同一座迷宫（孩子能记路），
+ *    同时比手写通道表丰富得多。
+ *  - 生成完美迷宫后主动打通若干内墙形成回环，把死胡同压到目标数量：
+ *    死胡同太多对 6–9 岁太劝退，太少又不像迷宫。
+ *  - 每区四周包一圈树篱，只有 2 个开口（入口花廊 + 出口拱门）。
+ *  - 核心花亭坐标固定（关卡预算可控、孩子第二次玩能记住地方），守护着一只待救小动物。
  *
  * Author: Claude Code (Claude Opus)
  */
 
-import { MAZE_REGION, DIR_VECTOR, DIR_OPPOSITE, DIRECTIONS, GRID_SIZE } from './constants.js';
-
-/** 迷宫核心花亭（守护小兔宝宝）。 */
-export const MAZE_GAZEBO = Object.freeze({ x: 7, y: 1 });
-
-/** 入口花廊：(5,3) 的南侧开口，从花园中部 (5,4) 进入。 */
-export const MAZE_ENTRANCE = Object.freeze({ x: 5, y: 3, dir: 'S', outside: Object.freeze({ x: 5, y: 4 }) });
-
-/** 出口拱门：(5,0) 的西侧开口，通往花园西北 (4,0)。 */
-export const MAZE_EXIT = Object.freeze({ x: 5, y: 0, dir: 'W', outside: Object.freeze({ x: 4, y: 0 }) });
-
-/** 2 个浅死胡同（深度 2）。 */
-export const MAZE_DEAD_ENDS = Object.freeze([
-  Object.freeze({ x: 8, y: 3, label: '东南浅死胡同', depth: 2 }),
-  Object.freeze({ x: 5, y: 2, label: '入口旁浅死胡同', depth: 1 }),
-]);
+import { MAZE_REGIONS, DIR_VECTOR, DIR_OPPOSITE, DIRECTIONS, GRID_SIZE } from './constants.js';
+import { createRng } from './rng.js';
 
 /**
- * 迷宫内部「可通行的格间通道」白名单。
- * 未列出的内部边即为树篱墙。
+ * 每区的开口、花亭与「有多绕」的预算。开口坐标必须落在区域边缘且朝区域外。
+ *
+ * loopRatio 是关键的儿童友好旋钮：DFS 出来的完美迷宫在 6×6 上最短路能到 30 多步，
+ * 对 6–9 岁完全走不完。打通一部分内墙形成回环后，最短路压到 10 步以内，
+ * 但岔路、死胡同和有限视野都还在 —— 仍然要探索、要记路，只是不再劝退。
  */
-export const MAZE_PASSAGES = Object.freeze([
-  // —— 主通路：入口花廊 → 花亭 ——
-  [[5, 3], [6, 3]],
-  [[6, 3], [6, 2]],
-  [[6, 2], [7, 2]],
-  [[7, 2], [7, 1]], // 抵达核心花亭
-  // —— 主通路：花亭 → 出口拱门 ——
-  [[7, 1], [7, 0]],
-  [[7, 0], [6, 0]],
-  [[6, 0], [5, 0]],
-  // —— 东南岔路（通往浅死胡同 (8,3)）——
-  [[6, 3], [7, 3]],
-  [[7, 3], [8, 3]],
-  // —— 东侧回环 ——
-  [[7, 2], [8, 2]],
-  [[8, 2], [8, 1]],
-  [[8, 1], [8, 0]],
-  [[8, 0], [7, 0]],
-  // —— 入口旁的浅死胡同 (5,2)：刚进门直走一步就没路了，是练习「退路箭头」的最佳位置 ——
-  [[5, 2], [5, 3]],
-  // —— 西侧回环 ——
-  [[5, 0], [5, 1]],
-  [[5, 1], [6, 1]],
-  // —— 中部回环 ——
-  [[6, 0], [6, 1]],
-  [[6, 1], [6, 2]],
-]);
+export const MAZE_OPENINGS = Object.freeze({
+  north: Object.freeze({
+    entrance: Object.freeze({ x: 9, y: 5, dir: 'S', outside: Object.freeze({ x: 9, y: 6 }), label: '玫瑰花廊' }),
+    exit: Object.freeze({ x: 9, y: 2, dir: 'W', outside: Object.freeze({ x: 8, y: 2 }), label: '玫瑰拱门' }),
+    gazebo: Object.freeze({ x: 12, y: 2 }),
+    deadEndTarget: 4,
+    loopRatio: 0.20,
+  }),
+  south: Object.freeze({
+    // 薄荷迷宫窝在西南角，只有北 / 东两边能开口（西、南都是世界围墙）。
+    // 入口开在离家最近的 (4,10)，否则从家跑过去就要 7 步，还没进门预算先花掉一半。
+    entrance: Object.freeze({ x: 4, y: 10, dir: 'N', outside: Object.freeze({ x: 4, y: 9 }), label: '薄荷花廊' }),
+    exit: Object.freeze({ x: 4, y: 13, dir: 'E', outside: Object.freeze({ x: 5, y: 13 }), label: '薄荷拱门' }),
+    gazebo: Object.freeze({ x: 1, y: 12 }),
+    deadEndTarget: 3,
+    loopRatio: 0.20,
+  }),
+});
 
 export function wallKey(x, y, dir) {
   return `${x},${y},${dir}`;
 }
 
-export function inMaze(x, y) {
-  return x >= MAZE_REGION.x0 && x <= MAZE_REGION.x1 && y >= MAZE_REGION.y0 && y <= MAZE_REGION.y1;
+function regionOf(x, y) {
+  return MAZE_REGIONS.find((r) => x >= r.x0 && x <= r.x1 && y >= r.y0 && y <= r.y1) ?? null;
 }
 
-function dirBetween(ax, ay, bx, by) {
-  for (const dir of DIRECTIONS) {
-    const v = DIR_VECTOR[dir];
-    if (ax + v.dx === bx && ay + v.dy === by) return dir;
+/** (x,y) 是否落在任意一处迷宫里。 */
+export function inMaze(x, y) {
+  return regionOf(x, y) !== null;
+}
+
+/** 两格是否同属一处迷宫。 */
+function sameRegion(ax, ay, bx, by) {
+  const a = regionOf(ax, ay);
+  return a !== null && a === regionOf(bx, by);
+}
+
+/** 区域内的全部格子，按 y 再按 x 排序（保证确定性）。 */
+export function regionCells(region) {
+  const cells = [];
+  for (let y = region.y0; y <= region.y1; y += 1) {
+    for (let x = region.x0; x <= region.x1; x += 1) cells.push({ x, y });
   }
-  throw new Error(`(${ax},${ay}) 与 (${bx},${by}) 不相邻，无法定义通道`);
+  return cells;
+}
+
+/** 所有迷宫区域的格子。 */
+export function mazeCells() {
+  return MAZE_REGIONS.flatMap((region) => regionCells(region));
+}
+
+/** 通道集合的双向写入 / 查询。 */
+function addPassage(passages, x, y, dir) {
+  const v = DIR_VECTOR[dir];
+  passages.add(wallKey(x, y, dir));
+  passages.add(wallKey(x + v.dx, y + v.dy, DIR_OPPOSITE[dir]));
+}
+
+function hasPassage(passages, x, y, dir) {
+  return passages.has(wallKey(x, y, dir));
 }
 
 /**
- * 构建树篱边墙集合。返回 Set<"x,y,DIR">，每一道墙在两侧各存一份，
+ * 用固定种子的 DFS 生成一处迷宫的内部通道，再打通回环把死胡同压到预算内。
+ * @returns {Set<string>} 通道集合（双向）
+ */
+export function generateRegionPassages(region) {
+  const opening = MAZE_OPENINGS[region.id];
+  const rng = createRng(region.seed);
+  const passages = new Set();
+  const inRegion = (x, y) => x >= region.x0 && x <= region.x1 && y >= region.y0 && y <= region.y1;
+
+  // —— 1) DFS 生成完美迷宫（从入口格出发）——
+  const start = { x: opening.entrance.x, y: opening.entrance.y };
+  const visited = new Set([`${start.x},${start.y}`]);
+  const stack = [start];
+  while (stack.length) {
+    const cur = stack[stack.length - 1];
+    const candidates = [];
+    for (const dir of DIRECTIONS) {
+      const v = DIR_VECTOR[dir];
+      const nx = cur.x + v.dx;
+      const ny = cur.y + v.dy;
+      if (!inRegion(nx, ny)) continue;
+      if (visited.has(`${nx},${ny}`)) continue;
+      candidates.push({ dir, x: nx, y: ny });
+    }
+    if (candidates.length === 0) {
+      stack.pop();
+      continue;
+    }
+    const pick = candidates[Math.floor(rng() * candidates.length)];
+    addPassage(passages, cur.x, cur.y, pick.dir);
+    visited.add(`${pick.x},${pick.y}`);
+    stack.push({ x: pick.x, y: pick.y });
+  }
+
+  // —— 2) 打通回环：把「完美迷宫」变成有环的花园迷宫，最短路从 30 多步压到 10 步内 ——
+  const innerWalls = [];
+  for (const cell of regionCells(region)) {
+    for (const dir of ['E', 'S']) { // 只枚举东 / 南，避免同一道墙数两次
+      const v = DIR_VECTOR[dir];
+      const nx = cell.x + v.dx;
+      const ny = cell.y + v.dy;
+      if (!inRegion(nx, ny)) continue;
+      if (hasPassage(passages, cell.x, cell.y, dir)) continue;
+      innerWalls.push({ x: cell.x, y: cell.y, dir });
+    }
+  }
+  const loopCount = Math.floor(innerWalls.length * (opening.loopRatio ?? 0));
+  const shuffledWalls = innerWalls.slice();
+  for (let i = shuffledWalls.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rng() * (i + 1));
+    [shuffledWalls[i], shuffledWalls[j]] = [shuffledWalls[j], shuffledWalls[i]];
+  }
+  for (const wall of shuffledWalls.slice(0, loopCount)) {
+    addPassage(passages, wall.x, wall.y, wall.dir);
+  }
+
+  // —— 3) 把死胡同压到预算 ——
+  const protectedCells = new Set([
+    `${opening.entrance.x},${opening.entrance.y}`,
+    `${opening.exit.x},${opening.exit.y}`,
+  ]);
+  const openingsOf = (cell) => DIRECTIONS.filter((dir) => hasPassage(passages, cell.x, cell.y, dir));
+  const deadEndsNow = () => regionCells(region)
+    .filter((cell) => !protectedCells.has(`${cell.x},${cell.y}`))
+    .filter((cell) => openingsOf(cell).length === 1);
+
+  let guard = 0;
+  while (deadEndsNow().length > opening.deadEndTarget && guard++ < 200) {
+    // 每次挑「距离入口最近」的死胡同打通一道墙：保留远处那些真正需要探索的死路
+    const candidates = deadEndsNow().sort((a, b) => (
+      (Math.abs(a.x - start.x) + Math.abs(a.y - start.y)) - (Math.abs(b.x - start.x) + Math.abs(b.y - start.y))
+      || a.y - b.y || a.x - b.x
+    ));
+    const cell = candidates[0];
+    const closed = DIRECTIONS.filter((dir) => {
+      const v = DIR_VECTOR[dir];
+      const nx = cell.x + v.dx;
+      const ny = cell.y + v.dy;
+      return inRegion(nx, ny) && !hasPassage(passages, cell.x, cell.y, dir);
+    });
+    if (closed.length === 0) break;
+    addPassage(passages, cell.x, cell.y, closed[Math.floor(rng() * closed.length)]);
+  }
+
+  return passages;
+}
+
+/**
+ * 构建全部树篱边墙。返回 Set<"x,y,DIR">，每一道墙在两侧各存一份，
  * 因此 hasHedge() 从任意一侧查询都成立。
  */
 export function buildHedgeWalls() {
@@ -86,35 +184,28 @@ export function buildHedgeWalls() {
   const addWall = (x, y, dir) => {
     walls.add(wallKey(x, y, dir));
     const v = DIR_VECTOR[dir];
-    const nx = x + v.dx;
-    const ny = y + v.dy;
-    walls.add(wallKey(nx, ny, DIR_OPPOSITE[dir]));
+    walls.add(wallKey(x + v.dx, y + v.dy, DIR_OPPOSITE[dir]));
   };
 
-  const passages = new Set();
-  for (const [[ax, ay], [bx, by]] of MAZE_PASSAGES) {
-    const dir = dirBetween(ax, ay, bx, by);
-    passages.add(wallKey(ax, ay, dir));
-    passages.add(wallKey(bx, by, DIR_OPPOSITE[dir]));
-  }
+  for (const region of MAZE_REGIONS) {
+    const opening = MAZE_OPENINGS[region.id];
+    const passages = generateRegionPassages(region);
 
-  for (let y = MAZE_REGION.y0; y <= MAZE_REGION.y1; y += 1) {
-    for (let x = MAZE_REGION.x0; x <= MAZE_REGION.x1; x += 1) {
+    for (const cell of regionCells(region)) {
       for (const dir of DIRECTIONS) {
         const v = DIR_VECTOR[dir];
-        const nx = x + v.dx;
-        const ny = y + v.dy;
-        const neighbourInWorld = nx >= 0 && nx < GRID_SIZE && ny >= 0 && ny < GRID_SIZE;
-        if (!neighbourInWorld) continue; // 世界外墙由边界检查负责，不重复建树篱
+        const nx = cell.x + v.dx;
+        const ny = cell.y + v.dy;
+        if (nx < 0 || nx >= GRID_SIZE || ny < 0 || ny >= GRID_SIZE) continue; // 世界外墙由边界检查负责
 
-        if (inMaze(nx, ny)) {
-          // 内部边：不在通道白名单里的一律是树篱
-          if (!passages.has(wallKey(x, y, dir))) addWall(x, y, dir);
+        if (sameRegion(cell.x, cell.y, nx, ny)) {
+          // 内部边：不在通道集合里的一律是树篱
+          if (!hasPassage(passages, cell.x, cell.y, dir)) addWall(cell.x, cell.y, dir);
         } else {
           // 周界边：只有入口花廊与出口拱门是开口
-          const isEntrance = x === MAZE_ENTRANCE.x && y === MAZE_ENTRANCE.y && dir === MAZE_ENTRANCE.dir;
-          const isExit = x === MAZE_EXIT.x && y === MAZE_EXIT.y && dir === MAZE_EXIT.dir;
-          if (!isEntrance && !isExit) addWall(x, y, dir);
+          const isEntrance = cell.x === opening.entrance.x && cell.y === opening.entrance.y && dir === opening.entrance.dir;
+          const isExit = cell.x === opening.exit.x && cell.y === opening.exit.y && dir === opening.exit.dir;
+          if (!isEntrance && !isExit) addWall(cell.x, cell.y, dir);
         }
       }
     }
@@ -127,18 +218,9 @@ export function hasHedge(walls, x, y, dir) {
   return walls.has(wallKey(x, y, dir));
 }
 
-/** 返回迷宫区域内所有格子的坐标列表。 */
-export function mazeCells() {
-  const cells = [];
-  for (let y = MAZE_REGION.y0; y <= MAZE_REGION.y1; y += 1) {
-    for (let x = MAZE_REGION.x0; x <= MAZE_REGION.x1; x += 1) cells.push({ x, y });
-  }
-  return cells;
-}
-
 /**
- * 在迷宫内做 BFS 寻路（只考虑树篱，不考虑地形），返回坐标数组或 null。
- * 起点/终点允许是迷宫外紧贴开口的格子。
+ * 在网格上做 BFS 寻路（只考虑树篱，不考虑地形），返回坐标数组或 null。
+ * 起点 / 终点允许是迷宫外紧贴开口的格子。
  */
 export function solveMaze(walls, from, to) {
   const key = (p) => `${p.x},${p.y}`;
@@ -187,6 +269,24 @@ export function findDeadEnds(walls) {
   return result;
 }
 
+/**
+ * 每处迷宫的核心花亭（藏一只待救小动物）。坐标是固定的，
+ * 这样关卡预算可控、孩子第二次玩能记住地方；depth 是从入口走到它的实际步数。
+ */
+export function findGazebos(walls) {
+  const gazebos = {};
+  for (const region of MAZE_REGIONS) {
+    const opening = MAZE_OPENINGS[region.id];
+    const gazebo = opening.gazebo;
+    const path = solveMaze(walls, { x: opening.entrance.x, y: opening.entrance.y }, gazebo);
+    if (!path) throw new Error(`${region.label}的花亭 (${gazebo.x},${gazebo.y}) 走不到，迷宫生成有问题`);
+    gazebos[region.id] = {
+      x: gazebo.x, y: gazebo.y, depth: path.length - 1, region: region.id, label: region.label,
+    };
+  }
+  return gazebos;
+}
+
 /** 供 3D 渲染使用：把边墙集合转成去重后的墙体线段列表。 */
 export function hedgeSegments(walls) {
   const seen = new Set();
@@ -216,4 +316,15 @@ export function hedgeSegments(walls) {
     });
   }
   return segments;
+}
+
+/** 所有开口（入口 + 出口）的扁平列表，3D 拱门与小地图都用它。 */
+export function mazeOpenings() {
+  return MAZE_REGIONS.flatMap((region) => {
+    const o = MAZE_OPENINGS[region.id];
+    return [
+      { ...o.entrance, region: region.id, kind: 'entrance' },
+      { ...o.exit, region: region.id, kind: 'exit' },
+    ];
+  });
 }
