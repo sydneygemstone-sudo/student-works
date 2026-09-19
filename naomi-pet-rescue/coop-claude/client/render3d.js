@@ -374,10 +374,11 @@ export class GardenRenderer {
         mesh.position.set(animal.x + 0.5, 0, animal.y + 0.5);
       }
       mesh.userData.state = animal.state;
+      let nextTarget;
       if (animal.state === 'carried' && animal.carriedBy) {
         const carrier = snapshot.players[animal.carriedBy];
         const slot = carrier.carrying.indexOf(animal.id);
-        mesh.userData.target = {
+        nextTarget = {
           x: carrier.x + 0.5 + (carrier.carrying.length > 1 ? (slot === 1 ? 0.24 : -0.24) : 0),
           z: carrier.y + 0.5,
           y: carrier.role === ROLES.BEAR ? 1.02 : 0.94,
@@ -386,15 +387,31 @@ export class GardenRenderer {
       } else if (animal.state === 'home') {
         const index = snapshot.team.rescued.indexOf(animal.id);
         const angle = (index / Math.max(1, snapshot.team.rescued.length)) * Math.PI * 2;
-        mesh.userData.target = {
+        nextTarget = {
           x: snapshot.home.x + 0.5 + Math.cos(angle) * 0.9,
           z: snapshot.home.y + 0.5 + Math.sin(angle) * 0.9,
           y: 0,
           scale: 1,
         };
       } else {
-        mesh.userData.target = { x: animal.x + 0.5, z: animal.y + 0.5, y: 0, scale: 1 };
+        nextTarget = { x: animal.x + 0.5, z: animal.y + 0.5, y: 0, scale: 1 };
       }
+
+      // 小动物的脸统一朝 -Z。目标格发生变化时，用位移向量更新主朝向，
+      // 这样被狮子叼走、回家或跟随携带者移动时都会朝着实际移动方向转身。
+      const previousTarget = mesh.userData.target ?? {
+        x: mesh.position.x,
+        z: mesh.position.z,
+      };
+      const dx = nextTarget.x - previousTarget.x;
+      const dz = nextTarget.z - previousTarget.z;
+      if (Math.hypot(dx, dz) > 0.001) {
+        mesh.userData.facingYaw = Math.atan2(dx, -dz);
+      } else if (mesh.userData.facingYaw == null) {
+        mesh.userData.facingYaw = mesh.rotation.y;
+      }
+      nextTarget.yaw = mesh.userData.facingYaw;
+      mesh.userData.target = nextTarget;
     }
 
     // —— 🌟 能量星 ——
@@ -610,8 +627,18 @@ export class GardenRenderer {
       const baseY = target.y ?? 0;
       const bob = Math.sin(time * 2.6 + mesh.userData.bobSeed) * 0.035;
       mesh.position.y = smoothDamp(mesh.position.y, baseY, 8, dt) + bob;
-      // 左右轻轻摇，而不是整只打转：打转会看不清脸
-      mesh.rotation.y = Math.sin(time * 1.3 + mesh.userData.bobSeed) * 0.35;
+      const remaining = Math.hypot(target.x - mesh.position.x, target.z - mesh.position.z);
+      const desiredYaw = target.yaw ?? mesh.userData.facingYaw ?? 0;
+      mesh.userData.facingYaw = lerpAngle(
+        mesh.userData.facingYaw ?? mesh.rotation.y,
+        desiredYaw,
+        Math.min(1, dt * 12),
+      );
+      // 移动时正脸稳定朝向移动方向；停下来后只保留很小的活泼摇摆。
+      const idleSway = remaining < 0.025
+        ? Math.sin(time * 1.3 + mesh.userData.bobSeed) * 0.10
+        : 0;
+      mesh.rotation.y = mesh.userData.facingYaw + idleSway;
       mesh.rotation.z = Math.sin(time * 2.6 + mesh.userData.bobSeed) * 0.05;
       const scale = target.scale ?? 1;
       mesh.scale.setScalar(smoothDamp(mesh.scale.x, scale, 8, dt));

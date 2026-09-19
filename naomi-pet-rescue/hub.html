@@ -212,7 +212,27 @@
     </header>
 
     <div class="grid">
-      <!-- 1. 原版 2D 网页互动版 -->
+      <!-- 1. Claude Opus 3D 主版本 -->
+      <div class="card featured-claude">
+        <span class="badge claude">Claude Opus 架构</span>
+        <div class="card-icon">🌟</div>
+        <h2>Claude Opus 3D 对比版</h2>
+        <div class="card-meta">104 项测试全通 · 单机可切换 · 双 iPad 实时服务器版保留</div>
+        <div class="card-desc">
+          当前课堂主版本。左侧是<strong>纯浏览器单机可切换模式</strong>，一人可随时在 🐰 Naomi 小兔与 🐻 小熊之间切换，不需要服务器；右侧完整保留<strong>WebSocket 双人实时服务器版</strong>，下载源码并启动 8791 服务后，两台 iPad 可在同一局里实时协作。
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="./coop-claude/client/index.html?solo=1&local=1" target="_blank">🎮 单机可切换版</a>
+          <a class="btn btn-secondary" href="https://github.com/sydneygemstone-sudo/student-works/tree/main/naomi-pet-rescue/coop-claude" data-local="http://localhost:8791/" data-local-text="👥 双人实时服务器版" target="_blank">📦 服务器双人版（下载部署）</a>
+        </div>
+        <div class="offline-note" data-offline-note data-server-download-note>GitHub Pages 只负责单机版。需要双人实时联机时，下载 <code>coop-claude</code> 后运行 <code>start-claude.command</code>，再用两台 iPad 进入 8791 服务。</div>
+        <div class="status-bar">
+          <span class="port-indicator"><span class="dot"></span>单机网页直接运行</span>
+          <span>服务器版: 8791 · WebSocket + HTTP</span>
+        </div>
+      </div>
+
+      <!-- 2. 原版 2D 网页互动版 -->
       <div class="card">
         <span class="badge classic">经典 2D 互动版</span>
         <div class="card-icon">📖</div>
@@ -231,7 +251,7 @@
         </div>
       </div>
 
-      <!-- 2. Antigravity 3D 双 iPad 联机探索版 -->
+      <!-- 3. Antigravity 3D 双 iPad 联机探索版 -->
       <div class="card">
         <span class="badge">Gemini 3.8 Flash 架构</span>
         <div class="card-icon">🐻🐰</div>
@@ -244,14 +264,14 @@
           <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/" data-needs-server="1" target="_blank">👥 联机大厅</a>
           <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8787/naomi-pet-rescue/coop/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
         </div>
-        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8787 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用下面的 🌟 Claude Opus 版。</div>
+        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8787 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用页面顶部的 🌟 Claude Opus 单机可切换版。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8787</span>
           <span>WebSocket + HTTP</span>
         </div>
       </div>
 
-      <!-- 3. GLM 5.3 Max 3D 对比版 -->
+      <!-- 4. GLM 5.3 Max 3D 对比版 -->
       <div class="card">
         <span class="badge glm">Codex GLM 5.3 Max</span>
         <div class="card-icon">🤖</div>
@@ -264,37 +284,19 @@
           <a class="btn btn-primary disabled" href="#" data-local="http://localhost:8789/" data-needs-server="1" target="_blank">👥 联机大厅</a>
           <a class="btn btn-secondary disabled" href="#" data-local="http://localhost:8789/?solo=1" data-needs-server="1" target="_blank">🎯 单人测试模式</a>
         </div>
-        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8789 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用下面的 🌟 Claude Opus 版。</div>
+        <div class="offline-note" data-offline-note>需要在 Mac 上启动 8789 服务才能游玩（此版本依赖 WebSocket 实时联机）。想直接在网页上玩，请用页面顶部的 🌟 Claude Opus 单机可切换版。</div>
         <div class="status-bar">
           <span class="port-indicator"><span class="dot"></span>服务端口: 8789</span>
           <span>WebSocket + HTTP</span>
         </div>
       </div>
 
-      <!-- 4. Claude Opus 3D 对比版 -->
-      <div class="card">
-        <span class="badge claude">Claude Opus 架构</span>
-        <div class="card-icon">🌟</div>
-        <h2>Claude Opus 3D 对比版</h2>
-        <div class="card-meta">Claude Code 独立实现 · 104 项测试全通 · 免服务器可玩</div>
-        <div class="card-desc">
-          由 Claude Code (Claude Opus) 独立实现。原生 ESM 架构，严谨的防穿墙相机平滑阻尼算法，严格的物理 Wi-Fi 自动检测与断线令牌重连机制。<strong>内置离线引擎，不用开任何服务，打开网页就能一台设备两人轮流玩。</strong>
-        </div>
-        <div class="btn-group">
-          <a class="btn btn-primary" href="./coop-claude/client/index.html" data-local="http://localhost:8791/" data-static-text="🎮 打开就能玩（免服务器）" data-local-text="👥 联机大厅" target="_blank">🎮 打开就能玩（免服务器）</a>
-          <a class="btn btn-secondary" href="./coop-claude/client/index.html?solo=1" data-local="http://localhost:8791/?solo=1" target="_blank">🎯 单人探索模式</a>
-        </div>
-        <div class="status-bar">
-          <span class="port-indicator"><span class="dot"></span>服务端口: 8791</span>
-          <span>WebSocket + HTTP</span>
-        </div>
-      </div>
     </div>
 
     <div class="guide-box">
       <h3>📱 局域网与 iPad 游玩指南</h3>
       <ul>
-        <li><strong>本机单人试玩：</strong>点击任意版本的「🎯 单人测试模式」，进入后随时按 <code>Tab</code> 键可在 🐻 小熊 与 🐰 小兔 视角之间无缝切换，点击屏幕顶部可一键推进共同回合。</li>
+        <li><strong>Claude 单机可切换版：</strong>点击页面第一张卡左侧「🎮 单机可切换版」，无需服务器；进入后可在 🐻 小熊 与 🐰 小兔之间切换并独立推进共同回合。</li>
         <li><strong>双 iPad 局域网联机：</strong>确保两台 iPad 与当前 Mac 连接在同一个物理 Wi-Fi 下。在 Mac 打开启动器或访问对应端口网页，用 iPad 系统相机扫描屏幕上的二维码即可秒开加入！</li>
         <li><strong>桌面快捷方式：</strong>在 Mac 桌面上已放置对应的 <code>.command</code> 双击启动脚本，随时双击即可单独或批量运行。</li>
       </ul>
