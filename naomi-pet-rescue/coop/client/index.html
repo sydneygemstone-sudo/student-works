@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Naomi · 小动物回家 (双 iPad 联机探索版)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 3D 画布容器 -->
+  <div id="canvasContainer"></div>
+
+  <!-- Naomi 的石头阻挡退路提示条 -->
+  <div id="hintBanner" class="hint-banner hidden">
+    ⚠️ 前方有障碍挡路！可以后退一步或换条路。
+  </div>
+
+  <!-- 顶层游戏 HUD -->
+  <div id="hudLayer">
+    <!-- 顶部状态栏 -->
+    <header class="top-bar">
+      <!-- 本人卡片 -->
+      <div class="hud-panel player-card is-bear">
+        <div id="myAvatar" class="avatar">🐻</div>
+        <div class="player-info">
+          <div class="player-name">
+            <span id="myName">小熊</span>
+            <span id="myRoleBadge" class="badge-role">小熊</span>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <div id="myApPills" class="ap-pills"></div>
+            <span id="myCarriedBadge" class="pet-carry-badge">抱有: 0/2</span>
+          </div>
+          <div>
+            <span id="myStatusBadge" class="status-badge acting">行动中</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中间公共信息 -->
+      <div class="hud-panel center-hud">
+        <div id="roundDisplay" class="round-banner">第 1 / 14 共同回合</div>
+        <div class="team-resources">
+          <span id="thunderDisplay" class="res-pill thunder">⚡ 雷雨倒计时: 2 回合</span>
+          <span id="courageDisplay" class="res-pill courage">✨ 勇气: 0</span>
+          <span id="shieldDisplay" class="res-pill shield">🛡️ 庇护: 0 层</span>
+        </div>
+      </div>
+
+      <!-- 队友卡片 -->
+      <div class="hud-panel player-card is-bunny teammate">
+        <div class="player-info" style="text-align: right; align-items: flex-end;">
+          <div class="player-name">
+            <span id="mateRoleBadge" class="badge-role">小兔</span>
+            <span id="mateName">Naomi</span>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span id="mateCarriedBadge" class="pet-carry-badge">抱有: 0/1</span>
+            <div id="mateApPills" class="ap-pills"></div>
+          </div>
+          <div>
+            <span id="mateStatusBadge" class="status-badge acting">正在行动</span>
+          </div>
+        </div>
+        <div id="mateAvatar" class="avatar">🐰</div>
+      </div>
+    </header>
+
+    <!-- 底部操作区 -->
+    <footer class="bottom-controls">
+      <!-- 左侧：触控方向盘 -->
+      <div class="dpad-cluster">
+        <button id="btnTurnLeft" type="button" class="btn-touch btn-left">
+          <span class="icon">↺</span>
+          <span>左转</span>
+        </button>
+        <button id="btnForward" type="button" class="btn-touch btn-forward">
+          <span class="icon">⬆️</span>
+          <span>前进</span>
+        </button>
+        <button id="btnTurnRight" type="button" class="btn-touch btn-right">
+          <span class="icon">↻</span>
+          <span>右转</span>
+        </button>
+        <button id="btnBackward" type="button" class="btn-touch btn-backward">
+          <span class="icon">⬇️</span>
+          <span>后退</span>
+        </button>
+      </div>
+
+      <!-- 右侧：合作动作集群与回合确认 -->
+      <div class="action-cluster">
+        <button id="btnGive" type="button" class="btn-action give" disabled>
+          <span>🤝</span> 递给队友
+        </button>
+        <button id="btnSupport" type="button" class="btn-action support" disabled>
+          <span>🏡</span> 守护家园
+        </button>
+        <button id="btnBoost" type="button" class="btn-action boost" disabled>
+          <span>✨</span> 勇气加步
+        </button>
+        <button id="btnToggleReady" type="button" class="btn-round-ready state-ready">
+          <span>✅</span> 结束本回合
+        </button>
+      </div>
+    </footer>
+
+    <!-- 单人模式切换与调试栏（仅在单人测试模式显示） -->
+    <div id="soloControlBar" class="hidden" style="position: absolute; top: 84px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; background: rgba(255, 255, 255, 0.94); padding: 6px 14px; border-radius: 30px; box-shadow: 0 4px 18px rgba(0,0,0,0.18); border: 2px solid #ff9800; z-index: 100; backdrop-filter: blur(8px);">
+      <span style="font-size: 13px; font-weight: 800; color: #e65100; display: flex; align-items: center; gap: 4px;">
+        🎯 <span>单人测试</span>
+      </span>
+      <button id="btnSwitchSoloPlayer" type="button" class="btn-action" style="background: linear-gradient(135deg, #ff9800, #f57c00); color: #fff; padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 20px; box-shadow: 0 2px 6px rgba(245,124,0,0.4);">
+        🔄 切换控制: <span id="soloActiveCharBadge">🐻 小熊</span> (Tab)
+      </button>
+      <button id="btnSoloAdvanceRound" type="button" class="btn-action" style="background: #e8f5e9; color: #2e7d32; border: 1.5px solid #81c784; padding: 6px 12px; font-size: 12px; border-radius: 20px;">
+        ⏩ 一键双方就绪·推进回合
+      </button>
+    </div>
+  </div>
+
+  <!-- 大厅建房/加入弹窗 -->
+  <div id="modalLobby" class="modal-overlay">
+    <div class="modal-card">
+      <img src="assets/banner.jpg" class="lobby-banner-img" alt="Naomi Pet Rescue Banner" />
+      <h1 class="modal-title">小动物回家 · 双 iPad 联机</h1>
+      <p class="modal-subtitle">第三人称越肩探索 · 两人各自控制 · 共同回合救援</p>
+
+      <!-- 选项卡按钮 -->
+      <div style="display: flex; gap: 8px; margin-bottom: 18px;">
+        <button id="tabBtnCreate" type="button" class="btn-action" style="flex: 1; justify-content: center; background: #e8f5e9; color: #2e7d32; font-size: 13px; padding: 10px 4px;">
+          ➕ 双人创房
+        </button>
+        <button id="tabBtnJoin" type="button" class="btn-action" style="flex: 1; justify-content: center; font-size: 13px; padding: 10px 4px;">
+          🔑 加入房间
+        </button>
+        <button id="tabBtnSolo" type="button" class="btn-action" style="flex: 1.2; justify-content: center; background: #fff3e0; color: #e65100; border-color: #ffb74d; font-size: 13px; font-weight: 700; padding: 10px 4px;">
+          🎯 单人测试
+        </button>
+      </div>
+
+      <!-- 创建房间面板 -->
+      <div id="panelCreateRoom">
+        <label class="input-label">选择你想扮演的角色：</label>
+        <div class="role-picker">
+          <div id="roleBear" class="role-option selected">
+            <img src="assets/bear_avatar.jpg" class="role-avatar-preview" alt="小熊" />
+            <span class="role-title">小熊</span>
+            <span class="role-desc">每轮 2 步 · 可抱 2 只小动物</span>
+          </div>
+          <div id="roleBunny" class="role-option">
+            <img src="assets/bunny_avatar.jpg" class="role-avatar-preview" alt="Naomi 小兔" />
+            <span class="role-title">小兔</span>
+            <span class="role-desc">每轮 3 步 · 可抱 1 只小动物</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="inputCreatorName" class="input-label">你的名字：</label>
+          <input id="inputCreatorName" type="text" class="input-text" value="小熊" maxlength="10">
+        </div>
+
+        <button id="btnCreateRoomSubmit" type="button" class="btn-primary">
+          立即创建房间 🚀
+        </button>
+      </div>
+
+      <!-- 加入房间面板 -->
+      <div id="panelJoinRoom" class="hidden">
+        <div class="input-group">
+          <label for="inputJoinRoomCode" class="input-label">4位房间号：</label>
+          <input id="inputJoinRoomCode" type="text" class="input-text" placeholder="例如：P4ZA" maxlength="4" style="text-transform: uppercase; font-size: 22px; text-align: center; letter-spacing: 4px;">
+        </div>
+
+        <div class="input-group">
+          <label for="inputJoinName" class="input-label">你的名字：</label>
+          <input id="inputJoinName" type="text" class="input-text" value="Naomi" maxlength="10">
+        </div>
+
+        <button id="btnJoinRoomSubmit" type="button" class="btn-primary">
+          加入该房间 🎮
+        </button>
+      </div>
+
+      <!-- 单人测试模式面板 -->
+      <div id="panelSolo" class="hidden">
+        <div style="background: #fff8e1; border-radius: 12px; padding: 14px; margin-bottom: 16px; border: 1.5px solid #ffe082; text-align: left;">
+          <div style="font-size: 15px; font-weight: 800; color: #e65100; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <span>🕹️</span> 一人分饰两角 · 快速完整测试
+          </div>
+          <p style="margin: 0 0 8px 0; font-size: 13px; color: #5d4037; line-height: 1.5;">
+            无需两台 iPad，直接在当前设备上独立测试和体验全部 3D 合作机制：
+          </p>
+          <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #6d4c41; line-height: 1.6;">
+            <li>按 <strong>Tab 键</strong>（或点击屏幕切换按钮 / 角色头像）随时在 <strong>🐻 小熊</strong> 与 <strong>🐰 小兔</strong> 之间切换视角。</li>
+            <li>各自走步探索、进出 4×4 树篱迷宫、测试石头撞墙提示、抱动物。</li>
+            <li>面对面测试互交（🤝 递给队友）、家园守护护盾（🏡）、勇气加步（✨）。</li>
+            <li>支持一键双方就绪推进回合，快速测试雷雨风暴与通关胜利！</li>
+          </ul>
+        </div>
+
+        <button id="btnStartSoloSubmit" type="button" class="btn-primary" style="background: linear-gradient(135deg, #ff9800, #f57c00);">
+          开始单人测试冒险 🚀
+        </button>
+      </div>
+
+      <!-- iPad 局域网扫码连入盒子 -->
+      <div id="lobbyQrBox" style="margin-top: 16px; padding: 12px; background: #f1f8e9; border-radius: 12px; border: 1.5px dashed #81c784; text-align: center;">
+        <div style="font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 6px;">📱 iPad 扫码直连（Wi-Fi 局域网 · 免输入）</div>
+        <img id="lobbyQrImg" style="width: 140px; height: 140px; border-radius: 8px; margin: 4px auto; display: block; background: #fff; border: 1px solid #c8e6c9;" alt="iPad 扫码直连" />
+        <div id="lobbyLanUrlText" style="font-size: 11px; color: #33691e; margin-top: 4px; word-break: break-all; font-family: monospace;"></div>
+      </div>
+
+      <div style="margin-top: 16px; font-size: 12px; color: #78909c; font-weight: 600;">
+        ✨ 联机探索模式由 <strong>Antigravity (Gemini 3.8 Flash)</strong> 架构与迭代开发
+      </div>
+    </div>
+  </div>
+
+  <!-- 房间等待与分享弹窗 -->
+  <div id="modalWaitingRoom" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h2 class="modal-title">房间已创建！</h2>
+      <p class="modal-subtitle">等待第二位小伙伴加入同一局游戏……</p>
+
+      <div>
+        <span class="input-label">房间号</span>
+        <div id="displayRoomCode" class="room-code-display">----</div>
+      </div>
+
+      <!-- iPad 扫描二维码直连 -->
+      <div style="margin: 8px auto;">
+        <img id="qrCodeImg" style="width: 170px; height: 170px; border-radius: 12px; margin: 8px auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 2px solid #e0e0e0; background: #fff;" alt="房间直连二维码" />
+        <p style="font-size: 13px; color: #2e7d32; font-weight: 700; margin-bottom: 6px;">
+          📷 拿起第二台 iPad 相机扫描屏幕二维码秒开连入！
+        </p>
+      </div>
+
+      <p class="share-hint">
+        或在第二台 iPad 上直接打开 Safari 访问：<br>
+        <code id="shareUrlText" style="color: #0d47a1; font-weight: 700;"></code>
+      </p>
+
+      <button id="btnCopyRoomLink" type="button" class="btn-secondary">
+        📋 复制加入链接
+      </button>
+
+      <button id="btnStartMission" type="button" class="btn-primary" style="margin-top: 14px;">
+        准备就绪，看故事出发 🌲
+      </button>
+    </div>
+  </div>
+
+  <!-- 胜利结算弹窗 -->
+  <div id="modalWin" class="modal-overlay hidden">
+    <div class="modal-card">
+      <img src="assets/victory.jpg" class="win-banner-img" alt="胜利大聚会" />
+      <h1 class="modal-title win-title">🎉 救援大胜利！</h1>
+      <p class="win-desc">
+        八位小动物都平安送回温暖的家了！<br>
+        小熊和小兔配合默契，暴风雨再也不可怕啦！
+      </p>
+      <button type="button" class="btn-primary" onclick="location.reload();">
+        再玩一局 🎈
+      </button>
+    </div>
+  </div>
+
+  <!-- 失败结算弹窗 -->
+  <div id="modalLose" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div style="font-size: 56px; margin-bottom: 8px;">🌧️⚡</div>
+      <h1 class="modal-title" style="color: #c62828;">暴风雨来了……</h1>
+      <p class="win-desc">
+        共同回合已用尽，还有小动物留在花园中。<br>
+        商量一下策略，互相掩护，再试一次吧！
+      </p>
+      <button type="button" class="btn-primary" onclick="location.reload();">
+        重新挑战 🔄
+      </button>
+    </div>
+  </div>
+
+  <!-- 依赖脚本：Three.js 本地加载，无需外部网络 -->
+  <script src="vendor/three.min.js"></script>
+  <script src="core/coop-engine.js"></script>
+  <script src="render3d.js"></script>
+  <script src="story-theatre.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

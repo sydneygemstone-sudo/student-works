@@ -1,167 +1,305 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#edf1dd">
-<title>小动物回家 · Naomi 的合作花园</title>
-<style>
-:root{--ink:#344a3b;--muted:#77836d;--paper:#fffdf5;--green:#376e51;--lime:#dce8af;--peach:#ebad87;--line:#d8dfc7;--shadow:0 8px 24px #354b3210;--round:22px}
-*{box-sizing:border-box}body{margin:0;padding:18px 24px 16px;background:#edf1dd;color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;min-height:100svh;background-image:radial-gradient(#aab88635 .8px,transparent .8px);background-size:12px 12px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #d18b46;outline-offset:3px}button:disabled{cursor:default}svg{display:block;width:100%;height:100%}.screen{display:none;max-width:1100px;margin:auto}.screen.on{display:block}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:#7b8970}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 13px}h1{font-size:27px;letter-spacing:1px;margin:3px 0 0;line-height:1.2}.top-right{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}.pill{border:1px solid #c6d1b7;background:#f7fae9;border-radius:30px;padding:7px 11px;white-space:nowrap}.quiet-btn{border:0;background:transparent;color:var(--green);font-size:12px;padding:8px}.btn{width:100%;border:0;border-radius:13px;padding:12px 10px;background:var(--green);color:#fffdf3;font-weight:800;font-size:15px;box-shadow:0 3px 0 #214c36;transition:transform .15s,background .15s;min-height:44px}.btn:hover:not(:disabled){background:#44825f;transform:translateY(-1px)}.btn:active:not(:disabled){transform:translateY(2px);box-shadow:none}.btn:disabled{box-shadow:none;background:#e7eadf;color:#a0a697}.btn.light{background:#f5e9ce;color:#7b5a35;box-shadow:0 2px 0 #dcc89f}.btn.light:hover:not(:disabled){background:#f8ddb1}.btn.light:disabled{background:#f0efe7;color:#a0a697;box-shadow:none}.btn small{display:block;font-weight:500;font-size:10px;margin-top:3px;opacity:.8}.card{background:var(--paper);border:1px solid #e0e4d3;border-radius:var(--round);box-shadow:var(--shadow)}
-/* Naomi 的绘本封面 */
-#start{max-width:960px}.welcome{overflow:hidden;position:relative;background:#fdfcf0}.welcome-top{text-align:center;padding:25px 28px 0}.welcome h2{font-size:34px;line-height:1.3;margin:8px 0 10px;letter-spacing:2px}.welcome .intro{font-size:14px;color:#7a826b;line-height:1.8;margin:0}.hero-art{height:195px;position:relative;max-width:630px;margin:0 auto;overflow:hidden}.hero-art .hill{position:absolute;background:#e4ecc9;width:94%;height:90px;border-radius:50% 50% 0 0;bottom:-9px;left:3%}.hero-art .hill.two{background:#cfdcaa;width:65%;height:64px;left:28%}.hero-art .sun{position:absolute;right:115px;top:20px;width:43px;height:43px;background:#f1d792;border-radius:50%;box-shadow:0 0 0 9px #f1d79233}.hero-house{position:absolute;left:calc(50% - 59px);bottom:9px;width:118px;height:125px}.hero-bear{position:absolute;left:calc(50% - 160px);bottom:0;width:103px;height:142px;transform:rotate(-7deg)}.hero-bunny{position:absolute;left:calc(50% + 57px);bottom:0;width:100px;height:151px;transform:rotate(6deg)}.hero-pet{position:absolute;bottom:6px;width:59px;height:69px}.hero-flower{position:absolute;width:42px;height:42px;bottom:0}.welcome-bottom{padding:0 30px 25px}.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 20px}.rule{background:#f0f3e1;border-radius:15px;padding:13px 14px;font-size:12px;line-height:1.7;color:#737d66}.rule b{display:block;color:#41573d;font-size:14px;margin-bottom:2px}.rule-number{float:right;color:#b1bd96;font-size:23px;font-weight:800}.names{display:flex;justify-content:center;gap:18px;margin:0 0 17px}.names label{font-size:12px;display:flex;align-items:center;gap:8px}.names input{width:122px;min-width:0;border:1px solid #d3dbc2;border-radius:9px;background:#fffef7;padding:9px 10px;color:#344a3b}.name-icon{width:31px;height:38px}.start-action{display:flex;align-items:center;justify-content:center;gap:20px}.start-action .btn{width:215px;font-size:17px}.start-note{font-size:11px;color:#879174;line-height:1.7}.credit{font-size:11px;text-align:center;margin-top:14px;color:#879174;letter-spacing:1px}
-/* 绘本花园与紧凑的指挥卡 */
-.game-grid{display:grid;grid-template-columns:minmax(0,1fr) 254px;gap:16px;align-items:start}.garden-shell{background:#dce8bb;border:1px solid #c9d5af;border-radius:25px;padding:12px 13px 11px;box-shadow:var(--shadow);position:relative;overflow:hidden}.garden-shell:before{content:"";position:absolute;top:-100px;left:-80px;width:400px;height:160px;border-radius:50%;background:#eaf0d2;pointer-events:none}.garden-title{position:relative;display:flex;align-items:center;justify-content:space-between;margin:0 3px 10px;font-size:12px;color:#6a8256}.garden-title strong{font-size:13px;color:#4b6c43}.garden-title .tiny-cloud{width:37px;height:24px}.board-wrap{position:relative;max-width:calc(100svh - 198px);margin:0 auto;border:5px solid #b8ce96;border-radius:17px;box-shadow:0 4px 0 #acbf8c;isolation:isolate;background:#acc88e}.board{position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:3px;aspect-ratio:1;overflow:hidden;border-radius:11px}.cell{border:0;position:relative;border-radius:6px;background:#dae7b9;min-width:0;padding:0;color:var(--ink);aspect-ratio:1;isolation:isolate;transition:background .16s;cursor:default}.cell.alt{background:#d0e1ae}.cell:before{content:"";position:absolute;width:11%;height:4%;background:#a4c27e60;left:13%;bottom:22%;border-radius:20px;box-shadow:13px 5px 0 #a4c27e50}.cell.flower:after{content:"✿";color:#f5f0c9;position:absolute;bottom:3%;right:11%;font-size:15px;text-shadow:1px 1px #c9c98d}.cell.can{cursor:pointer;background:#e9ecbc;box-shadow:inset 0 0 0 2px #91a65e}.cell.can:after{content:"";width:16%;height:16%;position:absolute;left:42%;top:42%;border-radius:50%;background:#83a056;box-shadow:0 0 0 5px #99b36122;animation:pathpulse 2s infinite;z-index:0}.cell.can:hover{background:#f3edb1;box-shadow:inset 0 0 0 3px #cfab5b}.cell.home{background:#eddeb0}.cell.home:before{display:none}.tile-art{position:absolute;inset:4%;z-index:1;pointer-events:none}.tile-art.house{inset:0}.tile-art.tree{inset:3% 7%;opacity:.9}.tile-art.rock{inset:8%}.cost-badge{position:absolute;bottom:3px;right:3px;background:#faf7e4;color:#72814c;border-radius:4px;font-size:9px;font-weight:800;padding:1px 4px;z-index:2}.home-sign{position:absolute;top:2px;left:50%;transform:translateX(-50%);z-index:4;border-radius:4px;background:#fff7d9;font-size:8px;white-space:nowrap;color:#947742;padding:1px 5px}.pet-token{position:absolute;inset:4% 9% 5%;z-index:3;pointer-events:none;animation:pet-breathe 3.3s ease-in-out infinite;transform-origin:50% 90%}.pet-token.multi{width:58%;left:0}.pet-token.multi.second{left:40%}.actors{position:absolute;inset:0;pointer-events:none;z-index:6}.actor{position:absolute;width:calc(100% / var(--n));height:calc(100% / var(--n));transition:left .28s cubic-bezier(.2,.8,.3,1),top .28s cubic-bezier(.2,.8,.3,1);z-index:6}.actor .body-art{position:absolute;inset:-12% 3% 0%;filter:drop-shadow(0 3px 1px #43563022);transform-origin:50% 85%;transition:transform .15s}.actor.active{z-index:8}.actor.active:before{content:"";position:absolute;inset:66% 14% 4%;border:2px solid #e9aa5c;background:#f8e59b9c;border-radius:50%}.actor.active .body-art{animation:hero-breathe 2s ease-in-out infinite}.actor.together .body-art{inset:0 21% 0 -8%;transform:translateX(-5%)}.actor.together.player-1 .body-art{inset:0 -6% 0 22%;transform:translateX(5%)}.actor .player-mark{position:absolute;top:0;right:0;background:#fff5dc;color:#87683f;border:1px solid #dfc293;font-weight:800;font-size:9px;border-radius:5px;padding:0 3px}.carry-stack{position:absolute;bottom:-4%;right:-5%;display:flex;z-index:9}.carry-pet{width:26px;height:31px;filter:drop-shadow(0 2px 0 #fff8d3)}.net{position:absolute;inset:4% -2% -4%;z-index:10;opacity:.85}.shield-glow{position:absolute;inset:-5%;z-index:4;border:3px solid #82c6c1aa;border-radius:50%;box-shadow:0 0 15px #b6f8ef;pointer-events:none}.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:7px 13px;font-size:10px;color:#6c8158;margin:11px 0 0}.legend span{display:flex;align-items:center;gap:4px}.legend i{display:inline-block;width:18px;height:18px;font-style:normal}.legend .route{width:9px;height:9px;background:#83a056;border-radius:50%}.board-note{text-align:center;font-size:11px;color:#728069;margin:10px 0 0}.panel{display:flex;flex-direction:column;gap:9px}.turn-card{padding:13px 14px 11px;border-radius:19px;background:#fffdf4;border:1px solid #dddcc5;box-shadow:var(--shadow)}.turn-head{display:flex;align-items:center;gap:9px}.portrait{width:45px;height:54px;flex-shrink:0;background:#f0e4cd;border-radius:13px}.portrait.p1{background:#f0e3df}.turn-label{font-size:10px;letter-spacing:1px;color:#889077;margin-bottom:3px}.turn-name{font-size:18px;font-weight:800;line-height:1.3;word-break:break-word}.turn-role{font-size:11px;color:#969b86;font-weight:500}.ap-row{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:9px;border-top:1px dashed #dfdfcc}.ap-row span{font-size:11px;color:#85906f}.ap-row strong{font-size:22px;line-height:1;color:#647f43}.ap-row strong small{font-size:12px;font-weight:500}.steps{display:flex;gap:4px}.step{width:14px;height:14px;background:#96b16c;border-radius:50%;box-shadow:inset 0 -2px #789351}.hold-row{display:flex;align-items:center;min-height:32px;font-size:11px;color:#808975;gap:3px}.hold-row b{font-weight:500;margin-right:auto}.mini-pet{width:25px;height:29px;display:inline-block;vertical-align:middle}.hold-empty{color:#a3aa93}.mate-row{font-size:10px;display:flex;align-items:center;border-top:1px dashed #e4e3d4;padding-top:6px;color:#859074;line-height:1.5}.mate-row .mini-pet{width:19px;height:23px}.mate-row .mate-name{margin-right:auto}.storm{background:#e3e9ed;border:1px solid #ced9df;border-radius:16px;padding:11px 13px;color:#657b87}.storm-head{display:flex;align-items:center;justify-content:space-between;font-size:11px}.storm-head strong{color:#516c7c;font-size:23px;line-height:1}.storm-head strong small{font-size:11px;font-weight:500}.bar{height:7px;background:#f9faf5;border-radius:20px;margin-top:9px;overflow:hidden}.fill{height:100%;background:#8da9b6;width:0;border-radius:20px;transition:width .3s}.storm.urgent{background:#f4ded4;border-color:#e8c4b3;color:#95684f}.storm.urgent .fill{background:#c78366}.storm-caption{font-size:9px;margin-top:6px;opacity:.85}.rescue-card{padding:10px 13px;border-radius:16px}.rescue-head{display:flex;justify-content:space-between;font-size:11px;align-items:center}.rescue-head b{font-size:15px;color:#6d8c4a}.pets-line{display:flex;gap:2px;margin-top:5px;justify-content:space-between}.pet-status{width:25px;height:30px;position:relative;opacity:.38;filter:saturate(.6)}.pet-status.done{opacity:1;filter:none}.pet-status.done:after{content:"✓";position:absolute;right:-1px;bottom:-1px;color:white;font-size:8px;font-weight:900;line-height:11px;width:11px;text-align:center;background:#729055;border-radius:50%}.pet-status.held{opacity:.8;filter:none}.resources{display:flex;align-items:center;justify-content:space-between;font-size:10px;padding-top:8px;margin-top:7px;border-top:1px dashed #e1e3d0}.energy{display:flex;align-items:center;gap:3px}.energy-dot{width:7px;height:10px;border-radius:3px;background:#e7e9d8}.energy-dot.on{background:#d8b75f}.shield-count{color:#6b9391}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.actions .btn{font-size:12px;min-height:48px;padding:8px 5px;border-radius:11px}.actions .end-turn{grid-column:1/-1;font-size:15px;min-height:43px;display:flex;justify-content:center;align-items:center;gap:9px}.actions .end-turn small{font-size:10px;margin:0;color:#c6dac8}.event{background:#f5edce;border:1px solid #e8dbb0;border-radius:12px;padding:9px 11px;font-size:11px;line-height:1.55;min-height:36px;color:#91774a}.event strong{color:#5a7450}.log-wrap{font-size:10px;color:#859173;padding:0 3px}.log-wrap summary{cursor:pointer;padding:3px 0}.log{max-height:85px;overflow:auto;line-height:1.7;padding:4px 0}.banner.flash{animation:pop .35s}.toast{position:absolute;z-index:20;left:50%;top:40%;transform:translate(-50%,-50%);border:1px solid #dcc895;background:#fffbe7ee;box-shadow:0 5px 20px #42553122;padding:12px 18px;border-radius:20px;text-align:center;color:#6d7d45;font-size:16px;font-weight:800;pointer-events:none;animation:toast-in 2.2s forwards;min-width:160px}.toast small{display:block;font-size:11px;font-weight:500;margin-top:4px}.particle{position:absolute;z-index:19;left:50%;top:50%;font-size:20px;color:#e2b657;pointer-events:none;animation:sparkle 1s forwards}.help-panel{max-width:670px;text-align:left!important}.help-panel p{font-size:13px!important;margin:9px 0;line-height:1.65!important}.help-panel b{color:#447254}.modal{position:fixed;inset:0;z-index:50;background:#304c3980;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}.modal.on{display:flex}.modal .card{text-align:center;max-width:490px;width:100%;padding:25px 30px}.modal h2{font-size:25px;margin:4px 0 9px}.modal p{font-size:14px;color:#879174;line-height:1.8}.end-art{display:flex;align-items:end;justify-content:center;height:145px;margin:0 0 12px}.end-art span{width:95px;height:120px}.end-art .end-house{width:140px;height:140px}.modal .btn{max-width:240px;margin-top:8px}.modal .quiet-btn{display:block;margin:9px auto 0}.status-chip{font-size:9px;border-radius:4px;padding:1px 4px;margin-left:4px;background:#efdec4;color:#96794c}.mobile-hint{display:none}
-@keyframes pet-breathe{50%{transform:translateY(-2px) rotate(2deg)}}@keyframes hero-breathe{50%{translate:0 -2px}}@keyframes pathpulse{50%{box-shadow:0 0 0 7px #99b36110}}@keyframes pop{50%{transform:scale(1.035)}}@keyframes toast-in{0%{opacity:0;translate:0 14px}12%,75%{opacity:1;translate:0 0}100%{opacity:0;translate:0 -20px}}@keyframes sparkle{to{transform:translate(var(--dx),var(--dy)) rotate(90deg);opacity:0}}
-@media(min-width:1000px){.game-grid{grid-template-columns:minmax(0,1fr) 274px;gap:20px}.panel{gap:10px}.turn-card{padding:14px 16px}.garden-shell{padding:13px 18px 12px}.garden-title{margin-bottom:12px}.actions .btn{font-size:13px}.event{font-size:12px}}
-@media(max-width:760px){body{padding:14px}.game-grid{grid-template-columns:minmax(0,1fr) 232px;gap:10px}.garden-shell{padding:10px 8px}.garden-title{font-size:10px}.garden-title strong{font-size:11px}.panel{gap:7px}.turn-card{padding:10px}.turn-name{font-size:16px}.legend{gap:5px 8px;font-size:9px}.legend i{width:15px;height:15px}.board-note{font-size:10px}.top-right .pill{display:none}.welcome-top{padding-top:20px}.welcome h2{font-size:30px}.carry-pet{width:21px;height:25px}}
-@media(max-width:620px){body{padding:10px}h1{font-size:23px}.eyebrow{font-size:9px}.topbar{margin-bottom:10px}.game-grid{grid-template-columns:1fr}.garden-shell{padding:9px 10px}.board-wrap{max-width:430px}.garden-title{margin-bottom:7px}.legend{margin-top:8px}.board-note{display:none}.panel{display:grid;grid-template-columns:1fr 1fr;gap:8px}.turn-card{grid-row:span 2}.portrait{width:35px;height:44px}.turn-name{font-size:15px}.turn-role{font-size:10px}.turn-card .ap-row{margin-top:7px;padding-top:7px}.storm{padding:8px 10px}.rescue-card{padding:8px 10px}.pets-line{gap:0}.pet-status{height:24px;width:21px}.resources{font-size:9px}.actions{grid-column:1/-1;grid-template-columns:1fr 1fr 1fr;gap:7px}.actions .end-turn{grid-column:1/-1}.event{grid-column:1/-1}.log-wrap{grid-column:1/-1}.welcome-top{padding:19px 15px 0}.welcome h2{font-size:29px}.hero-art{height:176px}.welcome-bottom{padding:0 15px 21px}.rules{gap:6px;margin-bottom:15px}.rule{padding:10px 9px;font-size:10px}.rule b{font-size:11px}.rule-number{display:none}.names{gap:11px;flex-wrap:wrap}.names label{font-size:11px}.names input{width:96px}.start-action{gap:10px}.start-action .btn{width:170px;font-size:15px}.start-note{font-size:10px}.hero-bear{left:calc(50% - 138px);width:89px}.hero-bunny{left:calc(50% + 49px);width:88px}.hero-pet{width:45px}.hero-house{width:106px;left:calc(50% - 53px)}.credit{font-size:9px}.turn-label{font-size:9px}.step{width:11px;height:11px}.hold-row{font-size:10px}.mate-row{font-size:9px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.toast{animation:toast-in 2.2s forwards!important}}
-.tile-net{position:absolute;inset:3%;z-index:4;pointer-events:none;background:#f8e6bd40;border:2px dashed #b48045;border-radius:7px}.trap-badge{z-index:5;background:#8a5836;color:#fff9e6}.actions #boostBtn{cursor:default;border:1px solid #c6d5ad;background:#edf2d9;color:#557347;display:block;text-align:center}
-</style>
-<link rel="stylesheet" href="story.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Naomi《小动物回家》· 游戏体验中心</title>
+  <style>
+    :root {
+      --bg: #fcf8f2;
+      --card-bg: #ffffff;
+      --ink: #3b2b1d;
+      --muted: #7c6d5e;
+      --primary: #4f9a4c;
+      --primary-dark: #3e7b3c;
+      --accent: #ff7a3d;
+      --accent-soft: #ffe8dc;
+      --border: #eedec8;
+      --shadow: 0 10px 28px rgba(60, 40, 20, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 24px 16px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .badge-top {
+      display: inline-block;
+      background: #eef7ed;
+      color: #2e7d32;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .logo-hero {
+      font-size: 50px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #2d2116;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 22px;
+      padding: 26px 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(60, 40, 20, 0.12);
+    }
+    .card.highlight {
+      border: 2px solid #5cb85c;
+      background: linear-gradient(180deg, #ffffff 0%, #fafffa 100%);
+    }
+    .tag-corner {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .tag-corner.classic {
+      background: #fff8e1;
+      color: #f57f17;
+    }
+    .card-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    .card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #2d2116;
+      margin-bottom: 6px;
+    }
+    .card-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .feature-list {
+      font-size: 14.5px;
+      color: #554433;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+    .feature-list li {
+      margin-bottom: 8px;
+      list-style-type: none;
+      position: relative;
+      padding-left: 22px;
+    }
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(79, 154, 76, 0.28);
+    }
+    .btn-primary:hover, .btn-primary:active {
+      background: var(--primary-dark);
+      transform: scale(0.98);
+    }
+    .btn-secondary {
+      background: #f7ede2;
+      color: #5d4037;
+    }
+    .btn-secondary:hover, .btn-secondary:active {
+      background: #edd8c4;
+      transform: scale(0.98);
+    }
+    .guide-section {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+    .guide-section h3 {
+      font-size: 18px;
+      color: #2d2116;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      font-size: 14px;
+      color: #5d4037;
+    }
+    .guide-item {
+      background: #faf6f0;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .guide-item strong {
+      display: block;
+      color: #2d2116;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      border-top: 1px dashed var(--border);
+      padding-top: 20px;
+    }
+    footer a {
+      color: #6d4c41;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-<section id="start" class="screen on">
-  <header class="topbar"><div><div class="eyebrow">NAOMI'S LITTLE GARDEN</div><h1>小动物回家</h1></div><span class="pill" style="font-size:12px;color:#7a8967">两个人 · 一支救援队</span></header>
-  <div class="card welcome">
-    <div class="welcome-top"><div class="eyebrow">一场暖暖的花园大冒险</div><h2>小小的你们，<br>也能守护整个花园。</h2><p class="intro">花园派对上，大家正玩着捉迷藏。<br>突然，暴风雨来了……小熊、小兔，该你们出发啦！</p></div>
-    <div class="hero-art" id="heroArt" aria-label="小熊和小兔站在花园小屋前，等待一起救援小动物"></div>
-    <div class="welcome-bottom">
-      <div class="rules"><div class="rule"><span class="rule-number">01</span><b>各有小本领</b><span id="roleRule"></span></div><div class="rule"><span class="rule-number">02</span><b>手牵手，送回家</b>点有绿点的格子走路。<br>遇见动物自动抱起，回家就救下。</div><div class="rule"><span class="rule-number">03</span><b>勇气自动变成脚步</b>每攒到 2 勇气，自动多走 2 步。<br>每回合一次，多余勇气留着用。</div></div>
-      <div class="names"><label><span class="name-icon" id="nameBear"></span>小熊是 <input id="n0" value="" placeholder="填写名字" maxlength="10" aria-label="小熊玩家名字"></label><label><span class="name-icon" id="nameBunny"></span>小兔是 <input id="n1" value="Naomi" maxlength="10" aria-label="小兔玩家名字"></label></div>
-      <div class="start-action"><button class="btn" id="startBtn">一起出发 →</button><span class="start-note">慢慢商量，轮流行动<br>一起把 <b id="totalRule">8</b> 只小动物接回家</span></div>
+  <div class="container">
+    <header>
+      <div class="badge-top">学员作品 · Naomi 的合作冒险</div>
+      <div class="logo-hero">🐻🌸🐰</div>
+      <h1>Naomi《小动物回家》</h1>
+      <p class="subtitle">让爱迷路的小动物们平安回家！支持单机双人轮流游玩、单人探索与双 iPad 局域网联机。</p>
+    </header>
+
+    <div class="grid">
+      <!-- 1. 全新 3D 越肩探索版 (Claude Opus 升级版) -->
+      <div class="card highlight">
+        <span class="tag-corner">🌟 最新 3D 升级版</span>
+        <div class="card-icon">🌲🐺🏰</div>
+        <h2>3D 越肩探索版</h2>
+        <div class="card-meta">15×15 巨大花园 · 双树篱迷宫 · 灰狼与狮子 · 迷雾小地图</div>
+        <ul class="feature-list">
+          <li><strong>免开服务器游玩</strong>：一台 iPad 或电脑即可两个人轮流走步、递送动物、共同推进回合！</li>
+          <li><strong>Naomi 专属创意</strong>：撞石头或迷宫死路绝不穿墙扣步，自动弹出石头退路箭头提示。</li>
+          <li><strong>双迷宫与野兽机制</strong>：东北玫瑰迷宫 + 西南薄荷迷宫；小熊吼退狼，狮子需要贴身牵制！</li>
+          <li><strong>纯前端 Web Audio 音频</strong>：现场合成动听花园背景音乐与全套音效，离线秒加载。</li>
+        </ul>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="coop-claude/client/index.html?mode=dual">👫 单机双人合作模式 (一台设备轮流玩)</a>
+          <a class="btn btn-secondary" href="coop-claude/client/index.html?mode=solo">🌟 单人探索模式 (一人分饰两角)</a>
+          <a class="btn btn-secondary" href="coop-claude/client/index.html">📡 局域网联机大厅 (双 iPad 联机)</a>
+        </div>
+      </div>
+
+      <!-- 2. 经典 2D 绘本桌游版 -->
+      <div class="card">
+        <span class="tag-corner classic">📖 经典 2D 原版</span>
+        <div class="card-icon">🐻🐰🏡</div>
+        <h2>经典 2D 绘本桌游版</h2>
+        <div class="card-meta">Naomi 原版同机桌游 · IndexTTS 2.5 故事配音</div>
+        <ul class="feature-list">
+          <li><strong>温暖桌游棋盘</strong>：经典 9×9 花园，小熊走 2 步抱 2 只、小兔走 3 步抱 1 只，合力救回 8 只动物。</li>
+          <li><strong>有声故事配音</strong>：配备完整的开场故事、雷雨避险与森林宴会有声绘本演出。</li>
+          <li><strong>规则简单纯粹</strong>：同屏交接、拆除森林绳网、在家守护庇护罩、勇气自动加步。</li>
+          <li><strong>作品档案完备</strong>：包含孩子创作日记、录音记录与家长反馈评价。</li>
+        </ul>
+        <div class="btn-group">
+          <a class="btn btn-primary" style="background:#5d4037;" href="classic.html">🎮 游玩 2D 经典原版</a>
+          <a class="btn btn-secondary" href="story-review.html">🎙️ 有声绘本剧场</a>
+          <a class="btn btn-secondary" href="parents.html">📝 家长反馈与制作档案</a>
+        </div>
+      </div>
     </div>
+
+    <!-- 游玩指南 -->
+    <div class="guide-section">
+      <h3>💡 怎么和孩子一起玩？</h3>
+      <div class="guide-grid">
+        <div class="guide-item">
+          <strong>1. 一台设备单机双人玩 (推荐!)</strong>
+          点开 3D 版的「👫 单机双人合作模式」，两个人轮流操作！Naomi 小兔先走 3 步按结束回合，然后轮到小熊走 2 步，双方都确认后一起推进到下一回合。
+        </div>
+        <div class="guide-item">
+          <strong>2. 角色分工与默契配合</strong>
+          🐰 小兔跑得快（3步），适合深入迷宫搜救小动物；🐻 小熊力气大（抱2只），而且遇到灰狼时只有小熊能吼退它！狮子则需要一个人站在旁边牵制，另一个抓紧救小动物！
+        </div>
+        <div class="guide-item">
+          <strong>3. 认准真正的家</strong>
+          花园中心插着小旗子、亮着金色暖光的是真正的家。另外 3 座小屋是假房子，走错门小动物会吓得掉在地上哦！
+        </div>
+        <div class="guide-item">
+          <strong>4. 两台 iPad 联机怎么玩？</strong>
+          如果在家中 Mac 电脑上运行了启动器，两台 iPad 连接同一个家庭 Wi-Fi，用 iPad 相机扫描屏幕上的二维码即可各自进入游戏、联机探索！
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Naomi 的合作游戏 · 为陪伴与一起玩耍的时光而做</p>
+      <p style="margin-top:4px;">
+        <a href="../index.html">← 返回学员作品集首页</a> ·
+        <a href="about.html">作品背景</a> ·
+        <a href="journal.html">开发日记</a> ·
+        <a href="README.md">详细规则说明</a>
+      </p>
+    </footer>
   </div>
-  <div class="credit">Naomi 的合作桌游 · 为一起玩耍的时光而做<br><a href="about.html" style="display:inline-block;padding:10px;color:#376e51">作品档案与家长反馈 →</a></div>
-</section>
-<section id="game" class="screen">
-  <header class="topbar"><div><div class="eyebrow">NAOMI'S LITTLE GARDEN</div><h1>小动物回家</h1></div><div class="top-right"><span class="pill" id="teamLabel"></span><button class="quiet-btn" id="helpBtn">怎么玩 ?</button></div></header>
-  <div class="game-grid">
-    <div><div class="garden-shell"><div class="garden-title"><strong>回家的路，总有人陪你走</strong><span>花园救援地图</span></div><div class="board-wrap" id="boardWrap"><div class="board" id="board" role="group" aria-label="花园地图，点击有绿点的相邻格子移动"></div><div class="actors" id="actors"></div></div><div class="legend" id="legend"></div></div><p class="board-note">点亮起的相邻格子出发 · 也可以用键盘 ↑ ↓ ← →</p></div>
-    <aside class="panel" aria-label="救援行动面板">
-      <div class="turn-card banner" id="banner" aria-live="polite"><div class="turn-head"><div class="portrait" id="portrait"></div><div><div class="turn-label" id="turnLabel">现在轮到</div><div class="turn-name" id="turnName"></div><div class="turn-role" id="turnRole"></div></div></div><div id="stat"></div></div>
-      <div class="storm" id="storm"><div class="storm-head"><span>雨云还有多远</span><strong id="stormLabel"></strong></div><div class="bar" role="progressbar" id="stormBar" aria-label="暴风雨接近程度"><div class="fill" id="stormFill"></div></div><div class="storm-caption">每结束一回合，雨云靠近一步</div></div>
-      <div class="card rescue-card" id="petsBox" aria-live="polite"></div>
-      <div class="actions"><div class="btn light" id="boostBtn" role="status" aria-live="polite">勇气自动加步<small>2 勇气 → 自动多走 2 步</small></div><button class="btn light" id="supportBtn">家园守护<small>在家花 1 步 → 1 层盾</small></button><button class="btn light" id="giveBtn">递给队友<small>靠近队友时交接动物</small></button><button class="btn end-turn" id="endBtn">结束回合 <small id="nextName"></small></button></div>
-      <div class="event" id="event" aria-live="polite"></div>
-      <details class="log-wrap"><summary>看看救援日记</summary><div class="log" id="log"></div></details>
-    </aside>
-  </div>
-</section>
-<div id="end" class="modal" role="dialog" aria-modal="true" aria-labelledby="endTitle"><div class="card"><div class="end-art" id="endArt"></div><div class="eyebrow" id="endEyebrow"></div><h2 id="endTitle"></h2><p id="endText"></p><button class="btn" id="againBtn">再一起冒险一次</button><button class="quiet-btn story-ending-replay" id="replayStoryBtn" hidden>再看一次团圆宴会</button><button class="quiet-btn" id="backBtn">回到封面，换位小队友</button></div></div>
-<div id="help" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle"><div class="card help-panel"><div class="eyebrow">给小小救援队的手册</div><h2 id="helpTitle">先商量，再出发</h2><p id="helpRoles"></p><p><b>怎么走：</b>点相邻的绿点格，遇到动物会自动抱起。把动物带回地图中间的小屋，就救援成功啦。走完步数会自动换人，也可以主动结束回合。</p><p><b>花园小路：</b>石头挡路，需要绕开；森林要花 2 步。礼盒可能装着 2 勇气，也可能是恶作剧炸弹——下次暂停一回合，动物不会受伤。</p><p><b>互相帮忙：</b>靠近队友可以递动物；每救回一只动物，大家获得 2 勇气。有 2 勇气就自动换成当前队员的 2 步，每回合一次；多余勇气留到以后，不会溢出丢失。</p><p><b>守护小屋：</b>站在家里花 1 步，得到 1 层庇护，最多 2 层。庇护能挡一次雷雨或森林绳网。绳网开局就在森林里标出来：无庇护时共花 3 步进入并拆网，有庇护时花 2 步并消耗 1 层盾。拆过就不再触发，也可以一直绕开。</p><p><b>怎么赢：</b><span id="helpWin"></span></p><button class="btn" id="closeHelpBtn">知道啦，继续救援</button></div></div>
-<script src="game-core.js?v=20260908-r2"></script>
-<script src="story.js?v=20260912-indextts25"></script>
-<script>
-(function(){
-'use strict';
-const P=PetRescue,$=id=>document.getElementById(id),params=new URLSearchParams(location.search);
-let g=null,lastCurrent=-1,names=['小熊','Naomi'],effectTimer=null,endingPlayed=false;
-const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const svg=(content,view='0 0 100 110')=>'<svg viewBox="'+view+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">'+content+'</svg>';
-function animal(kind,mood='happy',hero=false){
- const palettes={bear:['#b77d4d','#e4bc83'],bunny:['#f8edda','#fff9eb'],cat:['#e0ac61','#f8dc9f'],dog:['#d4b590','#f2e2bd'],hamster:['#dba975','#fae3c3'],chick:['#edce64','#fff0a7'],turtle:['#8fac68','#d0dca3'],pig:['#edb5aa','#f9d8c9'],duck:['#f3df95','#fff3be'],sheep:['#faf5df','#eee1c4'],frog:['#9cb970','#d7e4a9']};
- const c=palettes[kind]||palettes.cat,body=c[0],light=c[1],line='#685943';
- let ears='',faceExtra='',bodyExtra='',head='';
- if(kind==='bunny')ears='<ellipse cx="37" cy="20" rx="9" ry="22" fill="'+body+'"/><ellipse cx="63" cy="20" rx="9" ry="22" fill="'+body+'"/><path d="M36 7v21M64 7v21" stroke="#e9beb0" stroke-width="6"/>';
- else if(kind==='cat')ears='<path d="M25 37 25 12 44 25M57 25 76 12 77 38" fill="'+body+'"/><path d="m29 29 1-10 9 9m23 0 9-9 1 10" fill="#e7b8a1" stroke="none"/>';
- else if(kind==='dog')ears='<ellipse cx="25" cy="38" rx="11" ry="21" transform="rotate(15 25 38)" fill="#977b58"/><ellipse cx="75" cy="38" rx="11" ry="21" transform="rotate(-15 75 38)" fill="#977b58"/>';
- else if(kind==='pig')ears='<path d="m28 32-6-17 21 9m14 0 21-9-6 18" fill="'+body+'"/>';
- else if(kind==='chick')ears='<path d="M44 20q-3-14 5-12l3 10q8-15 11-7l-6 12" fill="#e7b951"/>';
- else if(kind==='duck')ears='<path d="M43 20q0-12 8-9l5 13" fill="'+body+'"/>';
- else if(kind==='turtle')ears='';
- else if(kind==='frog')ears='<circle cx="33" cy="25" r="12" fill="'+body+'"/><circle cx="67" cy="25" r="12" fill="'+body+'"/>';
- else ears='<circle cx="28" cy="24" r="11" fill="'+body+'"/><circle cx="72" cy="24" r="11" fill="'+body+'"/><circle cx="28" cy="24" r="5" fill="'+light+'" stroke="none"/><circle cx="72" cy="24" r="5" fill="'+light+'" stroke="none"/>';
- if(kind==='turtle')bodyExtra='<ellipse cx="50" cy="77" rx="23" ry="19" fill="#6b9158"/><path d="m50 60 10 10-3 17H42l-4-17zM38 70l-10 4m30-4 13 5M43 87l-6 8m19-8 9 7" fill="none" stroke="#bbcd82"/>';
- if(hero)bodyExtra='<path d="M33 65q17-9 34 0l4 25H29z" fill="'+(kind==='bear'?'#829b6c':'#c29487')+'"/><path d="m49 67 1 22" stroke="#ffffff55"/><circle cx="55" cy="77" r="2" fill="#eee6bc" stroke="none"/>';
- if(kind==='sheep')head='<path d="M25 35q-10-12 4-17 4-12 16-5 9-10 18 0 15-4 17 9 12 8 0 18" fill="#fffbed"/>';
- if(kind==='pig')faceExtra='<ellipse cx="50" cy="50" rx="12" ry="8" fill="#dfa39c" stroke="none"/><circle cx="46" cy="50" r="1.8" fill="'+line+'" stroke="none"/><circle cx="54" cy="50" r="1.8" fill="'+line+'" stroke="none"/>';
- else if(kind==='chick'||kind==='duck')faceExtra='<path d="'+(kind==='duck'?'M40 48q10-6 21 0-10 12-21 0':'m44 47 7-4 7 4-7 7z')+'" fill="#db9a4e" stroke="none"/>';
- else faceExtra='<ellipse cx="50" cy="50" rx="12" ry="8" fill="'+light+'" stroke="none"/><path d="m47 46 3 3 3-3" fill="'+line+'" stroke-width="2"/><path d="M50 49v3m0 0q-4 4-7 0m7 0q4 4 7 0" fill="none" stroke-width="1.6"/>';
- const eyes=mood==='happy'?'<path d="M35 40q3-4 6 0m18 0q3-4 6 0" fill="none" stroke-width="2.5"/>':'<ellipse cx="38" cy="40" rx="2.5" ry="3.2" fill="'+line+'" stroke="none"/><ellipse cx="62" cy="40" rx="2.5" ry="3.2" fill="'+line+'" stroke="none"/><path d="m34 33 7 2m18 0 7-2" stroke-width="1.5"/>';
- return svg('<ellipse cx="50" cy="99" rx="28" ry="5" fill="#73865322"/><g stroke="'+line+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="38" cy="93" rx="10" ry="6" fill="'+body+'"/><ellipse cx="62" cy="93" rx="10" ry="6" fill="'+body+'"/><ellipse cx="50" cy="77" rx="23" ry="22" fill="'+body+'"/><ellipse cx="50" cy="77" rx="15" ry="17" fill="'+light+'" stroke="none"/>'+bodyExtra+'<ellipse cx="27" cy="75" rx="6" ry="11" transform="rotate(25 27 75)" fill="'+body+'"/><ellipse cx="73" cy="75" rx="6" ry="11" transform="rotate(-25 73 75)" fill="'+body+'"/>'+ears+'<ellipse cx="50" cy="41" rx="26" ry="24" fill="'+body+'"/>'+head+'<ellipse cx="30" cy="47" rx="5" ry="3" fill="#dc9d8866" stroke="none"/><ellipse cx="70" cy="47" rx="5" ry="3" fill="#dc9d8866" stroke="none"/>'+eyes+faceExtra+(hero?'<path d="m32 60 18 5 18-5-3 10-15 2-15-2z" fill="'+(kind==='bear'?'#dca664':'#729b88')+'"/><path d="m52 68 10 12 7-7-8-8" fill="'+(kind==='bear'?'#dca664':'#729b88')+'"/>':'')+'</g>');
-}
-function house(){return svg('<ellipse cx="50" cy="100" rx="43" ry="6" fill="#887e3b22"/><path d="M19 50h62v46H19z" fill="#f9ebbd" stroke="#997e52" stroke-width="2"/><path d="m9 52 41-36 42 36-9 7-33-27-32 27z" fill="#c78864" stroke="#96714d" stroke-width="2"/><path d="M26 41 49 21l24 20" stroke="#e7b18c" stroke-width="3" fill="none"/><path d="M64 27V13h11v24" fill="#bfa778" stroke="#96714d" stroke-width="2"/><path d="M40 96V72q10-14 20 0v24" fill="#91a880" stroke="#738d65" stroke-width="2"/><circle cx="55" cy="81" r="2" fill="#ecdda0"/><rect x="23" y="60" width="12" height="14" rx="3" fill="#c0d6c1" stroke="#b4a479"/><path d="M29 60v14m-6-7h12" stroke="#fff5d7"/><rect x="65" y="60" width="12" height="14" rx="3" fill="#c0d6c1" stroke="#b4a479"/><path d="M71 60v14m-6-7h12" stroke="#fff5d7"/><path d="M14 94h25m21 0h26" stroke="#a7b56f" stroke-width="8" stroke-linecap="round"/><path d="m47 39 3 3 3-3q8 1 0 9l-3 3-3-3q-8-8 0-9" fill="#e2b47a"/>');}
-function terrain(type){if(type==='rock')return svg('<ellipse cx="50" cy="94" rx="36" ry="5" fill="#6e755c25"/><path d="m14 80 9-32 18-14 26 5 21 31-5 20H26z" fill="#aeb6a0" stroke="#7e8b77" stroke-width="2"/><path d="m24 49 20-7 15 14-10 26-25-4z" fill="#c7cdb8"/><path d="m59 56 14-7 12 24-9 11H54z" fill="#98a58f"/><path d="m28 87 15-4 10 7H23" fill="#8fa265"/>');if(type==='forest')return svg('<ellipse cx="50" cy="101" rx="39" ry="5" fill="#6e755c22"/><path d="M33 66v29m34-28v30" stroke="#8e7c52" stroke-width="7"/><path d="M33 15 9 55h11L8 77h50L45 55h10z" fill="#8fab70" stroke="#6d9259" stroke-width="2"/><path d="M67 7 43 49h10L42 73h50L79 49h12z" fill="#71945d" stroke="#5f8450" stroke-width="2"/><path d="m67 28-8 17m8 7-8 15" stroke="#9cba7e" stroke-width="3" stroke-linecap="round"/>');return svg('<ellipse cx="50" cy="94" rx="31" ry="5" fill="#94834125"/><rect x="22" y="47" width="57" height="43" rx="5" fill="#e9b379" stroke="#a77d4f" stroke-width="2"/><rect x="19" y="41" width="63" height="15" rx="4" fill="#f4ce92" stroke="#a77d4f" stroke-width="2"/><path d="M46 43h10v47H46z" fill="#be8473"/><path d="M50 40q-30 2-23-13 6-12 23 13zm1 0q31 2 23-13-6-12-23 13z" fill="#dba594" stroke="#a77d4f" stroke-width="2"/><circle cx="51" cy="39" r="6" fill="#be8473"/>');}
-const netArt=()=>svg('<path d="m12 23 72 4 10 63-77 6z" fill="#a4885615" stroke="#a48856" stroke-width="3"/><path d="m12 23 82 67M30 24l62 52M48 25l41 36M67 26l20 19M14 43l62 49M16 63l39 31M17 82l15 13M84 27 17 96M63 26 16 76M42 25 14 54M22 24l-9 11M88 47 41 94M91 70 66 93" stroke="#a48856" stroke-width="2" fill="none"/>');
-const types=['cat','dog','hamster','chick','turtle','bunny','pig','duck','sheep','frog'];
-const petArt=(p,mood='worried')=>animal(types[p.id%types.length],mood);
-const miniature=p=>'<span class="mini-pet" title="'+esc(p.name)+'">'+petArt(p,'happy')+'</span>';
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));}
-function start(seed){endingPlayed=false;g=P.newGame({names,seed});lastCurrent=-1;$('end').classList.remove('on');$('actors').innerHTML='';show('game');$('teamLabel').textContent=names.join(' ＋ ');render();}
-function render(){
- const me=P.cur(g),other=P.mate(g),n=g.n,playing=g.status==='playing',legal=playing?P.legalMoves(g):[];
- $('board').style.setProperty('--n',n);$('actors').style.setProperty('--n',n);
- let html='';
- for(let y=0;y<n;y++)for(let x=0;x<n;x++){
-  const home=x===g.home.x&&y===g.home.y,can=legal.some(t=>t.x===x&&t.y===y),t=(g.terrain||[]).find(t=>t.x===x&&t.y===y),gift=(g.gifts||[]).find(t=>t.x===x&&t.y===y&&!t.opened),pets=g.pets.filter(p=>!p.home&&p.carriedBy===null&&p.x===x&&p.y===y),players=g.players.filter(p=>p.x===x&&p.y===y);
-  let inner='',label='第'+(y+1)+'行第'+(x+1)+'列，'+(home?'家':t?t.type==='rock'?'石头，不可通行':'森林，需要2步':'草地');
-  if(home)inner+='<span class="tile-art house">'+house()+'</span><span class="home-sign">我们的家</span>'+(g.shield?'<span class="shield-glow"></span>':'');
-  if(t)inner+='<span class="tile-art '+(t.type==='rock'?'rock':'tree')+'">'+terrain(t.type)+'</span>';
-  if(gift){inner+='<span class="tile-art">'+terrain('gift')+'</span>';label+='，神秘礼盒';}
-  pets.forEach((p,i)=>{inner+='<span class="pet-token'+(pets.length>1?' multi'+(i?' second':''):'')+'" style="animation-delay:-'+(p.id%3)+'s">'+petArt(p)+'</span>';label+='，'+p.name+'等你救援';});
-  if(t&&t.type==='forest'){
-    const trapped=t.net&&!t.cleared,cost=P.moveCost(g,x,y);
-    if(trapped){inner+='<span class="tile-net" aria-hidden="true">'+netArt()+'</span>';label+='，可见绳网，'+(g.shield?'庇护挡网':'拆网额外1步')+'，合计'+cost+'步，拆后不再触发';}
-    inner+='<span class="cost-badge'+(trapped?' trap-badge':'')+'">'+(trapped?'网 · ':'')+cost+'步</span>';
-  }
-  players.forEach(p=>{label+='，'+p.role+' '+p.name+(p.id===me.id?'正在行动':'');const held=P.carried(g,p.id);if(held.length)label+='抱着'+held.map(q=>q.name).join('和');});
-  if(can)label+='，可走，消耗'+(P.moveCost?P.moveCost(g,x,y):1)+'步';
-  html+='<button class="cell'+((x+y)%2?' alt':'')+(!t&&!home&&!pets.length&&(x*7+y)%5===0?' flower':'')+(home?' home':'')+(can?' can':'')+'" data-x="'+x+'" data-y="'+y+'" data-terrain="'+(t?t.type:home?'home':'grass')+'" aria-label="'+esc(label)+'" tabindex="'+(can?'0':'-1')+'">'+inner+'</button>';
- }
- $('board').innerHTML=html;
- g.players.forEach(p=>{
-  let actor=$('actor-'+p.id);if(!actor){actor=document.createElement('div');actor.id='actor-'+p.id;$('actors').appendChild(actor);}
-  const held=P.carried(g,p.id),together=g.players[0].x===g.players[1].x&&g.players[0].y===g.players[1].y;
-  actor.className='actor player-'+p.id+(p.id===me.id?' active':'')+(together?' together':'');actor.style.left=(p.x/n*100)+'%';actor.style.top=(p.y/n*100)+'%';actor.setAttribute('aria-label',p.role+' '+p.name+'在第'+(p.y+1)+'行第'+(p.x+1)+'列'+(p.snared?'，被绳网困住':''));
-  actor.innerHTML='<span class="body-art">'+animal(p.id===0?'bear':'bunny',p.snared||p.skipTurns?'worried':'happy',true)+'</span><span class="player-mark">'+(p.id===0?'熊':'兔')+'</span>'+(held.length?'<span class="carry-stack">'+held.map(q=>'<span class="carry-pet">'+petArt(q,'happy')+'</span>').join('')+'</span>':'')+(p.snared?'<span class="net">'+netArt()+'</span>':'');
- });
- $('portrait').innerHTML=animal(me.id===0?'bear':'bunny',me.snared||me.skipTurns?'worried':'happy',true);$('portrait').className='portrait p'+me.id;
- $('turnLabel').textContent='第 '+(g.turn+1)+' 回合 · 现在轮到';$('turnName').textContent=me.name;$('turnRole').innerHTML=esc(me.role)+' · 最多抱 '+me.carry+' 只'+(me.snared?'<span class="status-chip">绳网 −1步</span>':'')+(me.skipTurns?'<span class="status-chip">下次暂停</span>':'');
- if(lastCurrent!==me.id){$('banner').classList.remove('flash');void $('banner').offsetWidth;$('banner').classList.add('flash');lastCurrent=me.id;}
- const mine=P.carried(g,me.id),theirs=P.carried(g,other.id),ap=Math.max(0,me.ap);
- $('stat').innerHTML='<div class="ap-row"><span>这回合还能走</span><div class="steps" aria-hidden="true">'+Array.from({length:Math.min(8,ap)},()=>'<i class="step"></i>').join('')+'</div><strong>'+ap+' <small>步</small></strong></div><div class="hold-row"><b>你的怀里</b>'+(mine.length?mine.map(miniature).join(''):'<span class="hold-empty">空空的，去接朋友吧</span>')+'</div><div class="mate-row"><span class="mate-name">'+esc(other.name)+' · '+esc(other.role)+'</span>'+(theirs.length?theirs.map(miniature).join(''):'空手等你')+(other.skipTurns?' · 下次暂停':'')+'</div>';
- const left=Math.max(0,g.cfg.STORM_STEPS-g.storm),pct=Math.min(100,g.storm/g.cfg.STORM_STEPS*100);
- $('stormLabel').innerHTML=left+' <small>回合</small>';$('stormFill').style.width=pct+'%';$('storm').classList.toggle('urgent',left<=6);$('stormBar').setAttribute('aria-valuenow',g.storm);$('stormBar').setAttribute('aria-valuemax',g.cfg.STORM_STEPS);$('stormBar').setAttribute('aria-valuemin','0');
- const home=g.pets.filter(p=>p.home),energy=g.energy||0,shield=g.shield||0;
- $('petsBox').innerHTML='<div class="rescue-head"><span>平安回到家</span><b>'+home.length+' <span style="font-size:11px;font-weight:500">/ '+g.pets.length+' 只</span></b></div><div class="pets-line">'+g.pets.map(p=>'<span class="pet-status'+(p.home?' done':p.carriedBy!==null?' held':'')+'" title="'+esc(p.name+(p.home?'已回家':p.carriedBy!==null?'正在怀里':'等待救援'))+'">'+petArt(p,'happy')+'</span>').join('')+'</div><div class="resources"><div class="energy" aria-label="团队勇气剩余'+energy+'点，多余勇气保留">勇气 '+Array.from({length:6},(_,i)=>'<i class="energy-dot'+(i<energy?' on':'')+'"></i>').join('')+' 余'+energy+'</div><span class="shield-count" aria-label="家园庇护'+shield+'层">庇护 '+shield+'/2</span></div>';
- $('giveBtn').disabled=!playing||!P.canGive(g);$('supportBtn').disabled=!playing||!P.canSupport||!P.canSupport(g);$('endBtn').disabled=!playing;
- $('boostBtn').innerHTML=(me.boosted?'本回合已自动 +2 步':'勇气自动加步')+'<small>'+(energy>=2?'余 '+energy+' 勇气，留到下一回合':me.boosted?'每回合一次，不用点按钮':'救回动物或开礼物 → 自动 +2 步')+'</small>';
- $('boostBtn').title='获得勇气或轮到你时，自动用2勇气加2步；每回合一次，剩余勇气不会丢失';$('supportBtn').title=me.supported?'这回合已经守护过啦':shield>=2?'庇护已经满了':'在家中花1步，增加1层庇护';$('giveBtn').title='需要抱着动物、靠近队友，并且队友的怀里还有空位';$('nextName').textContent='交给'+other.name;
- const recent=g.log.length?g.log[g.log.length-1]:'';
- $('event').textContent=g.lastEvent||((/抱起|送回家|礼|勇气|庇护|暂停|绳网|递给/.test(recent))?recent:(P.canGive(g)?'靠近队友啦！可以把怀里的动物递过去。':mine.length===me.carry?'怀里抱满啦，沿着小路送它们回家吧。':'有绿点的格子可以走，和队友商量一下方向吧。'));
- $('log').innerHTML=g.log.slice(-8).reverse().map(l=>'<div>· '+esc(l)+'</div>').join('');
- if(!playing)showEnd();
-}
-function toast(title,subtitle){const old=document.querySelector('.toast');if(old)old.remove();const el=document.createElement('div');el.className='toast';el.innerHTML=esc(title)+(subtitle?'<small>'+esc(subtitle)+'</small>':'');$('boardWrap').appendChild(el);clearTimeout(effectTimer);effectTimer=setTimeout(()=>el.remove(),2250);for(let i=0;i<7;i++){const p=document.createElement('span');p.className='particle';p.textContent=i%2?'✦':'·';p.style.setProperty('--dx',(Math.cos(i)*95)+'px');p.style.setProperty('--dy',(Math.sin(i)*80-20)+'px');$('boardWrap').appendChild(p);setTimeout(()=>p.remove(),1100);}}
-function act(fn,kind){
- if(!g||g.status!=='playing'||NaomiStory.isActive())return;
- const before={home:g.pets.filter(p=>p.home).length,held:g.pets.filter(p=>p.carriedBy!==null).length,gifts:g.gifts.filter(p=>p.opened).length,log:g.log.length};
- if(!fn())return;
- render();
- const saved=g.pets.filter(p=>p.home).length-before.home,opened=g.gifts.filter(p=>p.opened).length>before.gifts,logs=g.log.slice(before.log),automatic=logs.find(l=>l.includes('自动使用2点勇气'));
- const bonus=automatic?P.cur(g).role+'已自动多走 2 步':'勇气留好了，后面的回合自动用';
- if(saved>0)toast('到家啦！谢谢你们','救回 '+saved+' 位小伙伴 · '+(g.status==='win'?'大家都安全啦':bonus));
- else if(opened){const bomb=logs.some(l=>l.includes('恶作剧炸弹'));toast(bomb?'哎呀，是恶作剧礼盒':'发现勇气小礼物',bomb?'下次休息一回合，动物很安全':bonus);}
- else if(automatic)toast(P.cur(g).role+'勇气加步！','自动用 2 勇气，多走 2 步');
- else if(logs.some(l=>l.includes('拆掉了森林绳网')||l.includes('挡住了森林绳网')))toast('绳网拆掉啦！','留在森林里，不会再缠住队员');
- else if(g.pets.filter(p=>p.carriedBy!==null).length>before.held)toast('抱住你啦！','一起回中间的小屋吧');
- else if(kind==='support')toast('小屋亮起了保护光','庇护可以抵挡雷雨或森林绳网');
- else if(kind==='give')toast('好队友，接好啦！','一起送小动物回家');
-}
-function showEnd(){if(g.status==='win'&&!endingPlayed){endingPlayed=true;NaomiStory.play('ending',showEnd);return;}if(NaomiStory.isActive())return;const win=g.status==='win',home=g.pets.filter(p=>p.home).length;$('endArt').innerHTML='<span>'+animal('bear',win?'happy':'worried',true)+'</span><span class="end-house">'+house()+'</span><span>'+animal('bunny',win?'happy':'worried',true)+'</span>';$('endEyebrow').textContent=win?'每一个小伙伴，都被你们好好守护':'这一次的勇气，也很珍贵';$('endTitle').textContent=win?'整个花园，都回家啦！':'雨来了，先在小屋歇一歇';$('endText').innerHTML=win?esc(names[0])+' 和 '+esc(names[1])+' 一起救回了 <b>'+g.pets.length+' 只</b>小动物。<br>比雨云早了 <b>'+Math.max(0,g.cfg.STORM_STEPS-g.storm)+' 回合</b>，你们真有默契！':'你们已经把 <b>'+home+' / '+g.pets.length+' 只</b>小动物送回了家。<br>下一次试试分头接力、绕开绳网，一起再出发。';$('end').classList.add('on');$('replayStoryBtn').hidden=!win;$('againBtn').focus();}
-$('board').addEventListener('click',e=>{const c=e.target.closest('.cell.can');if(c)act(()=>P.move(g,+c.dataset.x,+c.dataset.y),'move');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')$('help').classList.remove('on');if(NaomiStory.isActive()||!g||g.status!=='playing'||!$('game').classList.contains('on')||$('help').classList.contains('on'))return;const d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(!d)return;e.preventDefault();const p=P.cur(g);act(()=>P.move(g,p.x+d[0],p.y+d[1]),'move');});
-$('giveBtn').addEventListener('click',()=>act(()=>P.give(g),'give'));$('supportBtn').addEventListener('click',()=>act(()=>P.support&&P.support(g),'support'));$('endBtn').addEventListener('click',()=>act(()=>P.endTurn(g),'end'));$('startBtn').addEventListener('click',()=>{names=[$('n0').value.trim()||'小熊',$('n1').value.trim()||'Naomi'];NaomiStory.play('intro',()=>start(params.has('seed')?Number(params.get('seed')):undefined));});$('againBtn').addEventListener('click',()=>start());$('backBtn').addEventListener('click',()=>{$('end').classList.remove('on');show('start');});$('helpBtn').addEventListener('click',()=>{$('help').classList.add('on');$('closeHelpBtn').focus();});$('closeHelpBtn').addEventListener('click',()=>{$('help').classList.remove('on');$('helpBtn').focus();});
-$('replayStoryBtn').addEventListener('click',()=>NaomiStory.play('ending'));
-$('nameBear').innerHTML=animal('bear','happy',true);$('nameBunny').innerHTML=animal('bunny','happy',true);$('roleRule').innerHTML='小熊走 '+P.CONFIG.BEAR.moves+' 步，能抱 '+P.CONFIG.BEAR.carry+' 只。<br>小兔走 '+P.CONFIG.BUNNY.moves+' 步，能抱 '+P.CONFIG.BUNNY.carry+' 只。';$('totalRule').textContent=P.CONFIG.PETS;$('helpRoles').innerHTML='<b>分工：</b>小熊一回合走 '+P.CONFIG.BEAR.moves+' 步、最多抱 '+P.CONFIG.BEAR.carry+' 只；小兔一回合走 '+P.CONFIG.BUNNY.moves+' 步、最多抱 '+P.CONFIG.BUNNY.carry+' 只。';$('helpWin').textContent='在 '+P.CONFIG.STORM_STEPS+' 回合用完前，把 '+P.CONFIG.PETS+' 只小动物全部送回家，两个人一起赢！';
-$('heroArt').innerHTML='<div class="sun"></div><div class="hill"></div><div class="hill two"></div><div class="hero-house">'+house()+'</div><div class="hero-bear">'+animal('bear','happy',true)+'</div><div class="hero-bunny">'+animal('bunny','happy',true)+'</div><div class="hero-pet" style="left:9%">'+animal('cat')+'</div><div class="hero-pet" style="right:8%">'+animal('chick')+'</div>';
-$('legend').innerHTML='<span><i class="route"></i> 可走的小路</span><span><i>'+terrain('rock')+'</i> 石头绕开</span><span><i>'+terrain('forest')+'</i> 森林 2 步</span><span><i>'+netArt()+'</i> 绳网 +1 步 · 可绕开</span><span><i>'+terrain('gift')+'</i> 神秘礼盒</span>';
-// 可复现 QA 入口保留。正式游戏中的地图、角色和动作均通过可访问 DOM 呈现。
-const seed=params.has('seed')?Number(params.get('seed')):undefined;
-if(params.has('auto')||params.has('end')){start(seed);const count=Math.max(0,Math.min(500,Number(params.get('auto'))||0));for(let i=0;i<count&&g.status==='playing';i++)P.heuristicTurn(g);if(params.get('end')==='win'){g.pets.forEach(p=>{p.home=true;p.carriedBy=null;});g.status='win';}if(params.get('end')==='lose'){g.pets.slice(0,Math.min(5,g.pets.length)).forEach(p=>{p.home=true;p.carriedBy=null;});g.storm=g.cfg.STORM_STEPS;g.status='lose';}render();}
-})();
-</script>
 </body>
 </html>

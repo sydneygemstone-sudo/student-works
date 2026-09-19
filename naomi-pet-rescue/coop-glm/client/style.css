@@ -1,0 +1,28 @@
+/* 作者: Codex (GLM 5.3 Max) */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; overflow: hidden; font-family: -apple-system, "PingFang SC", sans-serif; background: #0e1a12; color: #fff; }
+#c3d { position: fixed; inset: 0; display: block; }
+
+#lobby { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: linear-gradient(160deg,#123318,#0b1c2a); z-index: 20; }
+#lobby h1 { font-size: 28px; }
+#lobby h1 small { display: block; font-size: 14px; opacity: .7; }
+.cards { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.role-card { padding: 18px 22px; font-size: 18px; border-radius: 16px; border: 2px solid #6fae7f; background: #1c3a24; color: #fff; cursor: pointer; }
+.role-card small { display: block; font-size: 12px; opacity: .75; margin-top: 6px; }
+.role-card.solo { border-color: #d8b25a; background: #3a2f16; }
+#qr-box { text-align: center; }
+#qr svg { background: #fff; padding: 8px; border-radius: 8px; width: 180px; height: 180px; }
+#lan-url { margin-top: 8px; font-family: monospace; color: #aee6b8; }
+#qr-box p { font-size: 12px; opacity: .7; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+#topbar { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px 14px; font-size: 14px; background: rgba(0,0,0,.35); backdrop-filter: blur(6px); }
+#banner { margin: 10px 14px; padding: 10px 14px; border-radius: 10px; background: rgba(120,40,30,.9); font-size: 16px; }
+#controls { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; padding: 14px; pointer-events: none; }
+#controls button { pointer-events: auto; border: none; border-radius: 14px; padding: 14px 16px; font-size: 16px; background: rgba(30,60,38,.92); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+#controls button:active { transform: scale(.96); }
+.dpad .row { display: flex; gap: 8px; margin-top: 8px; }
+.actions { display: grid; gap: 8px; }
+#banner-arrow { position: absolute; top: 40%; left: 50%; transform: translateX(-50%); font-size: 28px; animation: swing 1s infinite alternate; background: rgba(0,0,0,.5); padding: 8px 18px; border-radius: 12px; }
+@keyframes swing { from { transform: translateX(-70%);} to { transform: translateX(-30%);} }
+#btn-ready.armed { background: #d8b25a; color: #222; }

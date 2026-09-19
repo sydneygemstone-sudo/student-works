@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Naomi《小动物回家》全版本体验中心</title>
+  <style>
+    :root {
+      --bg: #f5f8f5;
+      --card-bg: #ffffff;
+      --ink: #2c3e2d;
+      --muted: #6b7f6d;
+      --primary: #48a868;
+      --primary-hover: #3d9158;
+      --accent: #e67e22;
+      --border: #e0eae1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 30px 20px 80px;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .logo {
+      font-size: 54px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1e3a24;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 10px 25px rgba(44, 62, 45, 0.06);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(44, 62, 45, 0.1);
+    }
+    .badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #eef7f0;
+      color: #2e7d32;
+    }
+    .badge.claude { background: #fdf2e9; color: #d35400; }
+    .badge.glm { background: #ebf5fb; color: #2980b9; }
+    .badge.classic { background: #fef9e7; color: #b7950b; }
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    .card h2 {
+      font-size: 21px;
+      margin-bottom: 6px;
+      color: #1e3a24;
+    }
+    .card-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .card-desc {
+      font-size: 15px;
+      color: #4a5d4c;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      text-align: center;
+      flex: 1;
+      min-width: 130px;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(72, 168, 104, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+    .btn-secondary {
+      background: #f0f4f1;
+      color: #2c3e2d;
+    }
+    .btn-secondary:hover {
+      background: #e3eae4;
+    }
+    .status-bar {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .port-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: monospace;
+      font-weight: 600;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2ecc71;
+    }
+    .guide-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      color: #4a5d4c;
+    }
+    .guide-box h3 {
+      font-size: 17px;
+      color: #1e3a24;
+      margin-bottom: 10px;
+    }
+    .guide-box ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+    .guide-box li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">🐻🌸🐰</div>
+      <h1>Naomi《小动物回家》全版本体验中心</h1>
+      <p class="subtitle">动物营救冒险游戏 · 本地多版本并行服务与独立试玩入口</p>
+    </header>
+
+    <div class="grid">
+      <!-- 1. 原版 2D 网页互动版 -->
+      <div class="card">
+        <span class="badge classic">经典 2D 互动版</span>
+        <div class="card-icon">📖</div>
+        <h2>原版绘本桌游版</h2>
+        <div class="card-meta">单机同屏轮流协作 · IndexTTS 2.5 故事配音</div>
+        <div class="card-desc">
+          Naomi 经典两人轮流合作棋盘游戏。抱起 8 只走丢的小动物平安护送回中心家园，躲避森林雷雨，合力守护庇护罩，附带完整的开场有声绘本与通关宴会。
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="/naomi-pet-rescue/" target="_blank">🎮 开始游玩</a>
+          <a class="btn btn-secondary" href="/naomi-pet-rescue/story-review.html" target="_blank">🎙️ 故事配音</a>
+        </div>
+        <div class="status-bar">
+          <span class="port-indicator"><span class="dot"></span>服务端口: 8780</span>
+          <span>静态 Web 服务</span>
+        </div>
+      </div>
+
+      <!-- 2. Antigravity 3D 双 iPad 联机探索版 -->
+      <div class="card">
+        <span class="badge">Gemini 3.8 Flash 架构</span>
+        <div class="card-icon">🐻🐰</div>
+        <h2>Antigravity 3D 联机版</h2>
+        <div class="card-meta">双 iPad 局域网联机 · 越肩 3D · 树篱迷宫</div>
+        <div class="card-desc">
+          采用 Three.js 越肩视角与真实视线遮挡。包含 Naomi 专属的石头阻挡退路箭头提示，东北角 4×4 树篱迷宫救小兔，支持单人测试与 iPad 扫码双人实时联机。
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="http://localhost:8787/naomi-pet-rescue/coop/" target="_blank">👥 联机大厅</a>
+          <a class="btn btn-secondary" href="http://localhost:8787/naomi-pet-rescue/coop/?solo=1" target="_blank">🎯 单人测试模式</a>
+        </div>
+        <div class="status-bar">
+          <span class="port-indicator"><span class="dot"></span>服务端口: 8787</span>
+          <span>WebSocket + HTTP</span>
+        </div>
+      </div>
+
+      <!-- 3. GLM 5.3 Max 3D 对比版 -->
+      <div class="card">
+        <span class="badge glm">Codex GLM 5.3 Max</span>
+        <div class="card-icon">🤖</div>
+        <h2>GLM 3D 对比版</h2>
+        <div class="card-meta">Codex 独立实现 · 双端协同探索</div>
+        <div class="card-desc">
+          由 Codex GLM 5.3 Max 独立实现的 3D 联机对比版本。拥有平滑的视角阻尼与独立的迷宫逻辑，完整适配共同回合推进与动物交接。
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="http://localhost:8789/" target="_blank">👥 联机大厅</a>
+          <a class="btn btn-secondary" href="http://localhost:8789/?solo=1" target="_blank">🎯 单人测试模式</a>
+        </div>
+        <div class="status-bar">
+          <span class="port-indicator"><span class="dot"></span>服务端口: 8789</span>
+          <span>WebSocket + HTTP</span>
+        </div>
+      </div>
+
+      <!-- 4. Claude Opus 3D 对比版 -->
+      <div class="card">
+        <span class="badge claude">Claude Opus 架构</span>
+        <div class="card-icon">🌟</div>
+        <h2>Claude Opus 3D 对比版</h2>
+        <div class="card-meta">Claude Code 独立实现 · 75项测试全通</div>
+        <div class="card-desc">
+          由 Claude Code (Claude Opus) 独立实现。原生 ESM 架构，严谨的防穿墙相机平滑阻尼算法，严格的物理 Wi-Fi 自动检测与断线令牌重连机制。
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="http://localhost:8791/" target="_blank">👥 联机大厅</a>
+          <a class="btn btn-secondary" href="http://localhost:8791/?solo=1" target="_blank">🎯 单人测试模式</a>
+        </div>
+        <div class="status-bar">
+          <span class="port-indicator"><span class="dot"></span>服务端口: 8791</span>
+          <span>WebSocket + HTTP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-box">
+      <h3>📱 局域网与 iPad 游玩指南</h3>
+      <ul>
+        <li><strong>本机单人试玩：</strong>点击任意版本的「🎯 单人测试模式」，进入后随时按 <code>Tab</code> 键可在 🐻 小熊 与 🐰 小兔 视角之间无缝切换，点击屏幕顶部可一键推进共同回合。</li>
+        <li><strong>双 iPad 局域网联机：</strong>确保两台 iPad 与当前 Mac 连接在同一个物理 Wi-Fi 下。在 Mac 打开启动器或访问对应端口网页，用 iPad 系统相机扫描屏幕上的二维码即可秒开加入！</li>
+        <li><strong>桌面快捷方式：</strong>在 Mac 桌面上已放置对应的 <code>.command</code> 双击启动脚本，随时双击即可单独或批量运行。</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+请仔细阅读并完全遵循当前目录下的 TASK_BRIEF.md 产品规格说明书（Spec），在当前目录独立设计、实现并交付 Naomi《小动物回家》双 iPad 局域网联机 3D 探索版 (Claude Code Opus 对比版本)。
+
+核心要求：
+1. 严格遵守隔离约束，严禁查看或复制同级目录中的现有实现。代码作者必须标记为：Claude Code (Claude Opus)。
+2. 完整实现所有模块：
+   - core/ 核心回合与迷宫规则引擎：9x9 网格世界、(4,4) 中心家园庇护、东北 4x4 树篱迷宫 (x: 5~8, y: 0~3) 与小兔宝宝救援、石头退路箭头提示、小熊 (2 AP, 2 只) 与小兔 (3 AP, 1 只) 属性、原地转向 0 步、协作动作 Give/Support/Boost、双方原子确认就绪推进下一回合、天气风暴、14 回合限制。
+   - server/index.js 局域网 Node.js HTTP + WebSocket 服务：端口 8791，真实物理 Wi-Fi (en0) 探测（严格过滤 100.* CGNAT 及 utun/tun/tailscale 等虚拟网卡），终端打印 ASCII 二维码，网页提供二维码，会话断线重连恢复。
+   - client/ 前端页面与 3D 渲染：Three.js 越肩跟随视角、防穿墙相机平滑缩进、视线遮挡 (Line of Sight)、石头退路箭头 3D 动画与横幅提示、单人测试模式 (?solo=1，Tab 键切换角色与一键推进回合)。
+   - tests/ 自动化测试套件：包括核心规则、迷宫逻辑、网络协议与单人测试，确保测试全面覆盖。
+   - package.json：包含 ws, qrcode 等必要依赖，配置 test 与 start 脚本。
+   - start-claude.command：可双击运行的启动器脚本，启动服务并输出局域网二维码。
+3. 编写完成后在当前目录下执行 npm install 并运行 npm test 确保所有测试 100% 通过。
+4. 汇报测试通过结果和各核心模块清单。

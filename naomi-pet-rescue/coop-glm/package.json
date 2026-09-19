@@ -1,0 +1,15 @@
+{
+  "name": "naomi-pet-rescue-coop-glm",
+  "version": "1.0.0",
+  "description": "Naomi\u300a\u5c0f\u52a8\u7269\u56de\u5bb6\u300b\u53cc iPad \u5c40\u57df\u7f51\u8054\u673a 3D \u63a2\u7d22\u7248 \u2014 Codex (GLM 5.3 Max)",
+  "author": "Codex (GLM 5.3 Max)",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "ws": "^8.18.0"
+  }
+}
