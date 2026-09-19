@@ -2,7 +2,7 @@
 
 这里是课堂与家庭里「一句话下单 → AI 交付」的学生作品集：学生用一句话（或回答三个问题）提出需求，AI 负责设计、实现、测试并交付一个能直接玩的作品。仓库公开，所有作品都可以在浏览器里直接玩，也可以下载后离线打开。
 
-隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin、Leesha、Quentin、Joey、Mia、Chloe），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
+隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin、Leesha、Quentin、Joey、Mia、Chloe、Jenson），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。
 
 - 总入口（在线玩）：<https://sydneygemstone-sudo.github.io/student-works/>
 - 仓库：<https://github.com/sydneygemstone-sudo/student-works>
@@ -11,6 +11,7 @@
 
 | 作品 | 学员 | 日期 | 在线玩 | 源码目录 | 说明 |
 |---|---|---|---|---|---|
+| 🚀 Jenson: Imposter on Board | Jenson | 2026-09-19 | <https://sydneygemstone-sudo.github.io/student-works/jenson-imposter-on-board/> | [`jenson-imposter-on-board/`](jenson-imposter-on-board/) | 太空船巡逻推理游戏：扮演保安机器人，在 5 名船员中找出随机内鬼；可巡逻、问话、进安保室查看 CCTV、发现遗体并召开紧急会议投票。支持中文/英文、电脑键盘与 iPad 触控，单文件离线可玩。 |
 | 🎡🐕‍🦺 彩虹探险乐园 · Adventure World | Joey、Mia、Chloe | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/adventure-world/> | [`adventure-world/`](adventure-world/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/adventure-world) | 绘本风合作探索与解谜：白天打卡彩虹水滑梯、动物园观察小动物、小狗草地喂食互动，解锁星光夜间探险；使用飞行、隐身、萌宠嗅探能力寻找三颗星光线索，修复控制台点亮全园！支持 iPad 点触/虚拟摇杆与电脑键盘，离线可玩。详见 [adventure-world/README.md](adventure-world/README.md) |
 | ⛵ 珊瑚船员 · Coral Crew | Leesha、Quentin | 2026-09-17 升级 | <https://sydneygemstone-sudo.github.io/coral-crew/> | [`coral-crew/`](coral-crew/) / [独立仓库 🔗](https://github.com/sydneygemstone-sudo/coral-crew) | 局域网 3D 双人合作探险：海盗守船切瓜开炮、潜水员深海探宝避鲨，带北海巨妖 Kraken 首领战、水下采珠、黄金工坊升级与 Game Master 教师控场出题协议。双 iPad 局域网自动联机扫码即玩。详见 [coral-crew/README.md](coral-crew/README.md) |
 | 🎮 Martin's Monster Quest 3D | Martin | 2026-09-17 | <https://sydneygemstone-sudo.github.io/student-works/martins-monster-quest/> | [`martins-monster-quest/`](martins-monster-quest/) | 3D 抓宠进化与雷霆决战：带 3D 训练师指挥台、跟随神兽伙伴、Mega 进化、被动加护与双阶段 Boss 战。iPad/PC 均可玩。详见 [martins-monster-quest/README.md](martins-monster-quest/README.md) |
@@ -127,6 +128,7 @@ node 2000 局模拟：中位 22 手、P25–P75 19–24、`STORM_STEPS=28` 时�
 
 克隆或下载本仓库后，双击各作品目录里的 `index.html` 即可，离线可玩，无需联网：
 
+- `jenson-imposter-on-board/index.html`
 - `adventure-world/index.html`
 - `coral-crew/index.html`
 - `martins-monster-quest/index.html`
