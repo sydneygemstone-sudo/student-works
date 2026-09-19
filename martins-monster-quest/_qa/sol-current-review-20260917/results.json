@@ -1,0 +1,331 @@
+{
+  "baseline": {
+    "index.html": "01e0822a3df290a6d8adf00f1647d440ed72ad1754ab2bd8c8d2129a5973ff5f",
+    "game.js": "8049fcd5adc3a1c78902a84f66faba31e1d8babf462d2189bd268fe3ba8646e0",
+    "style.css": "55034a4aac34d84f127ada6fa5d73c8af29822daaaa1e78c042bef69d71b7246",
+    "README.md": "043f1b518da0241ca0986596dfe0ee280c7419df1fc48e977f00b0351ab8deb3"
+  },
+  "results": [
+    {
+      "test": "diagnostic_only_css_patch",
+      "note": "Temporary test-browser overlay positioning, source files unchanged; not an original-build pass"
+    },
+    {
+      "test": "dpad_during_battle",
+      "before": {
+        "state": "BATTLE",
+        "pos": {
+          "x": 0,
+          "y": 0,
+          "z": 1.5
+        },
+        "party": [
+          {
+            "id": "flameling",
+            "name": "Flameling 🔥",
+            "species": "Flameling",
+            "type": "Fire",
+            "level": 1,
+            "hp": 20,
+            "maxHp": 31,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 22,
+            "perks": [],
+            "evolvesTo": "Pyrostryke",
+            "moves": [
+              {
+                "name": "Flame Spark",
+                "power": 1,
+                "type": "Fire"
+              },
+              {
+                "name": "Ember Blast",
+                "power": 1.35,
+                "type": "Fire",
+                "minLevel": 2
+              }
+            ]
+          }
+        ],
+        "active": 0,
+        "busy": false,
+        "boss1": false,
+        "battle": {
+          "enemy": {
+            "id": "aquapup",
+            "name": "Rival's Aquapup 💧",
+            "species": "Aquapup",
+            "type": "Water",
+            "level": 2,
+            "hp": 13,
+            "maxHp": 34,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 40,
+            "perks": [],
+            "evolvesTo": "Tidallord",
+            "moves": [
+              {
+                "name": "Water Pulse",
+                "power": 1,
+                "type": "Water"
+              },
+              {
+                "name": "Aqua Surge",
+                "power": 1.3,
+                "type": "Water",
+                "minLevel": 2
+              }
+            ]
+          },
+          "turn": "player"
+        }
+      },
+      "after": {
+        "state": "BATTLE",
+        "pos": {
+          "x": 6,
+          "y": 0,
+          "z": 4.5
+        },
+        "party": [
+          {
+            "id": "flameling",
+            "name": "Flameling 🔥",
+            "species": "Flameling",
+            "type": "Fire",
+            "level": 1,
+            "hp": 31,
+            "maxHp": 31,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 22,
+            "perks": [],
+            "evolvesTo": "Pyrostryke",
+            "moves": [
+              {
+                "name": "Flame Spark",
+                "power": 1,
+                "type": "Fire"
+              },
+              {
+                "name": "Ember Blast",
+                "power": 1.35,
+                "type": "Fire",
+                "minLevel": 2
+              }
+            ]
+          }
+        ],
+        "active": 0,
+        "busy": false,
+        "boss1": false,
+        "battle": {
+          "enemy": {
+            "id": "aquapup",
+            "name": "Rival's Aquapup 💧",
+            "species": "Aquapup",
+            "type": "Water",
+            "level": 2,
+            "hp": 13,
+            "maxHp": 34,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 40,
+            "perks": [],
+            "evolvesTo": "Tidallord",
+            "moves": [
+              {
+                "name": "Water Pulse",
+                "power": 1,
+                "type": "Water"
+              },
+              {
+                "name": "Aqua Surge",
+                "power": 1.3,
+                "type": "Water",
+                "minLevel": 2
+              }
+            ]
+          },
+          "turn": "player"
+        }
+      }
+    },
+    {
+      "test": "capture",
+      "snapshot": {
+        "state": "OVERWORLD",
+        "pos": {
+          "x": 6,
+          "y": 0,
+          "z": 4.5
+        },
+        "party": [
+          {
+            "id": "flameling",
+            "name": "Flameling 🔥",
+            "species": "Flameling",
+            "type": "Fire",
+            "level": 1,
+            "hp": 31,
+            "maxHp": 31,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 22,
+            "perks": [],
+            "evolvesTo": "Pyrostryke",
+            "moves": [
+              {
+                "name": "Flame Spark",
+                "power": 1,
+                "type": "Fire"
+              },
+              {
+                "name": "Ember Blast",
+                "power": 1.35,
+                "type": "Fire",
+                "minLevel": 2
+              }
+            ]
+          },
+          {
+            "id": "aquapup",
+            "name": "Aquapup 💧",
+            "species": "Aquapup",
+            "type": "Water",
+            "level": 2,
+            "hp": 13,
+            "maxHp": 34,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 40,
+            "perks": [],
+            "evolvesTo": "Tidallord",
+            "moves": [
+              {
+                "name": "Water Pulse",
+                "power": 1,
+                "type": "Water"
+              },
+              {
+                "name": "Aqua Surge",
+                "power": 1.3,
+                "type": "Water",
+                "minLevel": 2
+              }
+            ]
+          }
+        ],
+        "active": 0,
+        "busy": true,
+        "boss1": false,
+        "battle": null
+      },
+      "note": "Captured via button after battle movement exploit; not a clean full playthrough"
+    },
+    {
+      "test": "fainted_switch_fixture",
+      "snapshot": {
+        "state": "BATTLE",
+        "pos": {
+          "x": 6,
+          "y": 0,
+          "z": 4.5
+        },
+        "party": [
+          {
+            "id": "flameling",
+            "name": "Flameling 🔥",
+            "species": "Flameling",
+            "type": "Fire",
+            "level": 1,
+            "hp": 31,
+            "maxHp": 31,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 22,
+            "perks": [],
+            "evolvesTo": "Pyrostryke",
+            "moves": [
+              {
+                "name": "Flame Spark",
+                "power": 1,
+                "type": "Fire"
+              },
+              {
+                "name": "Ember Blast",
+                "power": 1.35,
+                "type": "Fire",
+                "minLevel": 2
+              }
+            ]
+          },
+          {
+            "id": "aquapup",
+            "name": "Aquapup 💧",
+            "species": "Aquapup",
+            "type": "Water",
+            "level": 2,
+            "hp": 0,
+            "maxHp": 34,
+            "attack": 11,
+            "xp": 0,
+            "xpNeeded": 40,
+            "perks": [],
+            "evolvesTo": "Tidallord",
+            "moves": [
+              {
+                "name": "Water Pulse",
+                "power": 1,
+                "type": "Water"
+              },
+              {
+                "name": "Aqua Surge",
+                "power": 1.3,
+                "type": "Water",
+                "minLevel": 2
+              }
+            ]
+          }
+        ],
+        "active": 1,
+        "busy": true,
+        "boss1": false,
+        "battle": {
+          "enemy": {
+            "id": "leafbit",
+            "name": "Leafbit 🌿",
+            "species": "Leafbit",
+            "type": "Nature",
+            "level": 1,
+            "hp": 26,
+            "maxHp": 26,
+            "attack": 8,
+            "xp": 0,
+            "xpNeeded": 20,
+            "perks": [],
+            "evolvesTo": "Floraknight",
+            "moves": [
+              {
+                "name": "Leaf Slice",
+                "power": 1,
+                "type": "Nature"
+              },
+              {
+                "name": "Vine Whip",
+                "power": 1.3,
+                "type": "Nature",
+                "minLevel": 2
+              }
+            ]
+          },
+          "turn": "player"
+        }
+      },
+      "note": "Only test-browser party HP seeded to 0; original source unmodified"
+    }
+  ],
+  "runtime_errors": []
+}

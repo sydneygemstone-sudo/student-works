@@ -1,1 +1,192 @@
-<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=https://sydneygemstone-sudo.github.io/adventure-world/"><title>Moved</title><p>This project moved to <a href="https://sydneygemstone-sudo.github.io/adventure-world/">https://sydneygemstone-sudo.github.io/adventure-world/</a>.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Adventure World | 彩虹探险乐园</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌈</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Storage Warning Banner -->
+    <div id="storage-banner" class="hud-banner warning" style="display: none;" data-i18n="storage_disabled">
+      Note: Local storage is disabled, current session progress won't be saved.
+    </div>
+
+    <!-- Ready for Night Exploration Banner -->
+    <div id="banner-night-ready" class="hud-banner night-ready" style="display: none;">
+      <span data-i18n="ready_for_night">All stamps collected! Ready for night adventure?</span>
+      <button id="btn-banner-night" class="banner-btn" data-i18n="btn_start_night">Begin Night Tour</button>
+    </div>
+
+    <!-- In-Game Toast Notification -->
+    <div id="game-toast" class="game-toast" style="display: none;"></div>
+
+    <!-- HUD Overlay (Top Bar) -->
+    <div id="hud-top" class="hud-layer">
+      <div class="hud-left">
+        <div class="hud-passport-box">
+          <span class="hud-label" data-i18n="hud_stamps">Stamps</span>
+          <div class="badge-row">
+            <div id="hud-stamp-waterpark" class="stamp-badge locked" title="Water Park Stamp">🌊</div>
+            <div id="hud-stamp-zoo" class="stamp-badge locked" title="Zoo Stamp">🦁</div>
+            <div id="hud-stamp-puppy" class="stamp-badge locked" title="Puppy Stamp">🐶</div>
+          </div>
+        </div>
+
+        <div class="hud-clues-box">
+          <span class="hud-label" data-i18n="hud_clues">Star Clues</span>
+          <div class="badge-row">
+            <div id="hud-clue-sky" class="clue-badge locked" title="Sky Star">⭐</div>
+            <div id="hud-clue-quiet" class="clue-badge locked" title="Quiet Star">🌙</div>
+            <div id="hud-clue-trail" class="clue-badge locked" title="Trail Star">🐾</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <div class="avatar-switcher-bar">
+          <button class="btn-avatar-switch active" data-avatar="avatar-1" title="Explorer Sky">1</button>
+          <button class="btn-avatar-switch" data-avatar="avatar-2" title="Explorer Forest">2</button>
+          <button class="btn-avatar-switch" data-avatar="avatar-3" title="Explorer Sunny">3</button>
+        </div>
+        <button id="btn-hud-sound" class="icon-btn" title="Toggle Sound">🔇</button>
+        <button id="btn-hud-lang" class="icon-btn" title="Toggle Language">中</button>
+        <button id="btn-hud-pause" class="icon-btn" title="Pause Game">⏸</button>
+      </div>
+    </div>
+
+    <!-- On-screen Control Hint Bar -->
+    <div id="hud-bottom-hint" class="hud-bottom-hint">
+      <span data-i18n="hint_controls">🎮 WASD or Click Ground to Move | [E] or Click Bubble to Interact | [F] Fly | [I] Invis | [L] Torch</span>
+    </div>
+
+    <!-- Touch Joystick (Bottom Left) -->
+    <div id="hud-controls-left" class="hud-layer">
+      <div id="joystick-base" class="joystick-base">
+        <div id="joystick-knob" class="joystick-knob"></div>
+      </div>
+    </div>
+
+    <!-- Touch & Desktop Action Buttons (Bottom Right) -->
+    <div id="hud-controls-right" class="hud-layer">
+      <div class="action-grid">
+        <button id="btn-action-interact" class="action-btn primary" title="Interact (E)">
+          <span class="action-icon">✨</span>
+          <span class="action-label">Interact [E]</span>
+        </button>
+
+        <button id="btn-action-fly" class="action-btn" title="Flight (F)">
+          <span class="action-icon">🪽</span>
+          <span class="action-label">Fly [F]</span>
+          <span class="cooldown-text"></span>
+        </button>
+
+        <button id="btn-action-invis" class="action-btn" title="Invisibility (I)">
+          <span class="action-icon">🫧</span>
+          <span class="action-label">Invis [I]</span>
+          <span class="cooldown-text"></span>
+        </button>
+
+        <button id="btn-action-torch" class="action-btn disabled" title="Flashlight (L)">
+          <span class="action-icon">🔦</span>
+          <span class="action-label">Torch [L]</span>
+          <span class="cooldown-text"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Title Screen Overlay -->
+    <div id="screen-title" class="fullscreen-overlay flex-center">
+      <div class="card title-card">
+        <div class="badge-free" data-i18n="badge_free">FREE ADMISSION</div>
+        <h1 class="game-logo" data-i18n="title">Adventure World</h1>
+        <h2 class="game-subtitle" data-i18n="subtitle">Rainbow Adventure Park</h2>
+        <p class="creators-credit" data-i18n="creators">Co-created by Joey · Mia · Chloe</p>
+        
+        <div class="features-highlights">
+          <span>🌈 Water Slides</span>
+          <span>🐾 Wildlife Zoo</span>
+          <span>🐶 Puppy Bestie</span>
+          <span>⭐ Night Star Clues</span>
+        </div>
+
+        <button id="btn-title-start" class="btn-primary" data-i18n="btn_start">Start Adventure</button>
+      </div>
+    </div>
+
+    <!-- Avatar Selection Screen Overlay -->
+    <div id="screen-select" class="fullscreen-overlay flex-center" style="display: none;">
+      <div class="card select-card">
+        <h2 data-i18n="btn_select_character">Choose Your Explorer</h2>
+        <div class="avatar-card-grid">
+          <div class="avatar-select-card selected" data-avatar="avatar-1">
+            <div class="avatar-preview avatar-preview-1">🧢</div>
+            <h3 data-i18n="avatar_1">Explorer Sky</h3>
+            <p data-i18n="avatar_1_desc">Brave and energetic, loves water slides!</p>
+          </div>
+
+          <div class="avatar-select-card" data-avatar="avatar-2">
+            <div class="avatar-preview avatar-preview-2">🌲</div>
+            <h3 data-i18n="avatar_2">Explorer Forest</h3>
+            <p data-i18n="avatar_2_desc">Curious animal lover, friend to wildlife!</p>
+          </div>
+
+          <div class="avatar-select-card" data-avatar="avatar-3">
+            <div class="avatar-preview avatar-preview-3">🌻</div>
+            <h3 data-i18n="avatar_3">Explorer Sunny</h3>
+            <p data-i18n="avatar_3_desc">Gentle puppy whisperer, master puzzle solver!</p>
+          </div>
+        </div>
+
+        <button id="btn-confirm-avatar" class="btn-primary" data-i18n="btn_confirm_select">Enter Park (Free)</button>
+      </div>
+    </div>
+
+    <!-- Modal Dialog Overlay -->
+    <div id="screen-dialog" class="fullscreen-overlay flex-center" style="display: none;">
+      <div class="card modal-card">
+        <h2 id="modal-title">Night Adventure Begins!</h2>
+        <p id="modal-text">The park's Starglow lights went out! Use your free flashlight and special abilities with puppy's help to find 3 Star Clues!</p>
+        <button id="btn-modal-confirm" class="btn-primary" data-i18n="btn_got_it">Let's Go!</button>
+      </div>
+    </div>
+
+    <!-- Pause Menu Overlay -->
+    <div id="screen-pause" class="fullscreen-overlay flex-center" style="display: none;">
+      <div class="card menu-card">
+        <h2 data-i18n="paused">Game Paused</h2>
+        <div class="menu-btn-stack">
+          <button id="btn-pause-resume" class="btn-secondary" data-i18n="btn_resume">Resume Game</button>
+          <button id="btn-pause-day" class="btn-secondary" data-i18n="btn_return_day">Return to Daytime</button>
+          <button id="btn-pause-restart" class="btn-danger" data-i18n="btn_restart">Restart Adventure</button>
+        </div>
+        <div class="controls-guide">
+          <h3 data-i18n="controls_title">How to Play</h3>
+          <p data-i18n="controls_desktop">Move: WASD / Arrows | Interact: E | Fly: F | Invisibility: I | Flashlight: L | Switch Avatar: 1, 2, 3 | Pause: Esc</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Screen Overlay -->
+    <div id="screen-victory" class="fullscreen-overlay flex-center" style="display: none;">
+      <div class="card victory-card">
+        <div class="trophy-icon">🏆</div>
+        <h1 data-i18n="victory_title">Park Star Lights Restored!</h1>
+        <p data-i18n="victory_text">Hooray! Joey, Mia, Chloe and puppy brought back the starry magic to Adventure World!</p>
+        <div id="victory-stamps-summary" class="victory-stats">Stamps: 3/3 | Star Clues: 3/3</div>
+        <div class="victory-actions">
+          <button id="btn-victory-continue" class="btn-primary" data-i18n="btn_continue_roam">Keep Exploring</button>
+          <button id="btn-victory-restart" class="btn-secondary" data-i18n="btn_restart">Restart Adventure</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./bundle.js"></script>
+</body>
+</html>

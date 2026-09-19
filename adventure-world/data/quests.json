@@ -1,0 +1,78 @@
+{
+  "constants": {
+    "torchRange": 140,
+    "interactionRadius": 48,
+    "playerSpeed": 120,
+    "flightSpeedMultiplier": 1.25,
+    "flightDuration": 5.0,
+    "flightCooldown": 3.0,
+    "invisDuration": 8.0,
+    "invisCooldown": 4.0,
+    "torchMinHoldSec": 1.0
+  },
+  "stamps": [
+    {
+      "id": "waterpark",
+      "name_en": "Rainbow Splash",
+      "name_zh": "彩虹水上乐园",
+      "icon": "🌊",
+      "description_en": "Ride the rainbow water slide to the splash pool",
+      "description_zh": "乘坐一次彩虹水滑梯并安全滑入戏水池"
+    },
+    {
+      "id": "zoo",
+      "name_en": "Animal Explorer",
+      "name_zh": "野生动物探秘",
+      "icon": "🦁",
+      "target_count": 3,
+      "description_en": "Observe 3 different wildlife animals",
+      "description_zh": "近距离观察3种不同的可爱动物"
+    },
+    {
+      "id": "puppy",
+      "name_en": "Puppy's Best Friend",
+      "name_zh": "小狗的好伙伴",
+      "icon": "🐶",
+      "description_en": "Pet the puppy and feed it a yummy dog biscuit",
+      "description_zh": "抚摸小狗一次并喂食一块香脆狗零食"
+    }
+  ],
+  "clues": [
+    {
+      "id": "sky",
+      "name_en": "Sky Star Clue",
+      "name_zh": "高空之星线索",
+      "icon": "⭐",
+      "target_id": "sky_tower",
+      "x": 180,
+      "y": 180,
+      "required_ability": "flight",
+      "description_en": "Fly across the barrier to the high observation deck and illuminate with flashlight",
+      "description_zh": "飞行越过障碍到达高空观察台，并用手电筒照亮"
+    },
+    {
+      "id": "quiet",
+      "name_en": "Quiet Star Clue",
+      "name_zh": "静谧之星线索",
+      "icon": "🌙",
+      "target_id": "owl",
+      "x": 920,
+      "y": 480,
+      "required_ability": "invis",
+      "description_en": "Stay invisible along the public walkway and shine flashlight at the shy owl",
+      "description_zh": "保持隐形站在林荫步道，用手电筒照亮害羞猫头鹰"
+    },
+    {
+      "id": "trail",
+      "name_en": "Trail Star Clue",
+      "name_zh": "嗅探之星线索",
+      "icon": "🐾",
+      "target_id": "trail_end_spot",
+      "x": 140,
+      "y": 640,
+      "required_state": "trailRevealed",
+      "description_en": "Follow the puppy's glowing pawprint trail to the secret spot and shine flashlight",
+      "description_zh": "跟随小狗留下的发光脚印到达终点，用手电筒照亮"
+    }
+  ]
+}
