@@ -16,7 +16,7 @@
  */
 
 import * as THREE from 'three';
-import { toWorld, dirToYaw, rightOf, lerpAngle } from './coords.js';
+import { toWorld, dirToYaw, yawToForward, rightOf, lerpAngle } from './coords.js';
 import {
   TERRAIN, ROLES, ROLE_LIST, DIR_VECTOR, GRID_SIZE,
   CAMERA_DISTANCE, CAMERA_HEIGHT, CAMERA_SHOULDER_OFFSET, CAMERA_MIN_DISTANCE, LOS_MAX_DISTANCE,
@@ -406,7 +406,7 @@ export class GardenRenderer {
       const dx = nextTarget.x - previousTarget.x;
       const dz = nextTarget.z - previousTarget.z;
       if (Math.hypot(dx, dz) > 0.001) {
-        mesh.userData.facingYaw = Math.atan2(dx, -dz);
+        mesh.userData.facingYaw = Math.atan2(-dx, -dz);
       } else if (mesh.userData.facingYaw == null) {
         mesh.userData.facingYaw = mesh.rotation.y;
       }
@@ -708,7 +708,7 @@ export class GardenRenderer {
     const pose = this.poses.get(this.viewRole);
     if (!pose || !this.world) return;
 
-    const forward = new THREE.Vector3(Math.sin(pose.yaw), 0, -Math.cos(pose.yaw));
+    const forward = yawToForward(pose.yaw);
     const right = rightOf(forward);
     const anchor = new THREE.Vector3(pose.x, 0, pose.z);
 

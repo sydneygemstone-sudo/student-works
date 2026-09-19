@@ -74,8 +74,8 @@ export class StoryTheatre {
           <span style="font-weight:800; color:#2e7d32; font-size:14px;">NAOMI · 小动物回家</span>
           <span data-chapter style="font-size:13px; color:#64748b; font-weight:600;"></span>
         </div>
-        <div style="position:relative; width:100%; height:240px; border-radius:14px; overflow:hidden; background:#1f2937; margin-bottom:14px;">
-          <div data-art style="width:200%; height:200%; background-image:url('${ASSET_BASE}garden-story.png'); background-size:cover; transition:transform .8s ease;"></div>
+        <div style="position:relative; width:100%; aspect-ratio:3/2; border-radius:14px; overflow:hidden; background:#1f2937; margin-bottom:14px;">
+          <div data-art style="position:absolute; inset:0; width:100%; height:100%; background-image:url('${ASSET_BASE}garden-story.png'); background-size:200% 200%; background-position:0% 0%; transition:background-position .8s ease;"></div>
           <div data-badge style="position:absolute; bottom:10px; left:10px; background:rgba(0,0,0,.65); color:#fff; padding:4px 12px; border-radius:8px; font-size:12px; font-weight:700;"></div>
         </div>
         <div class="modal-title" data-title style="font-size:19px;"></div>
@@ -156,7 +156,7 @@ export class StoryTheatre {
     this.el.title.textContent = scene.title;
     this.el.text.textContent = scene.text;
     this.el.badge.textContent = scene.label;
-    this.el.art.style.transform = `translate(-${scene.x * 0.5}%, -${scene.y * 0.5}%) scale(1.05)`;
+    this.el.art.style.backgroundPosition = `${scene.x}% ${scene.y}%`;
 
     this.el.next.textContent =
       this.index < this.sequence.length - 1

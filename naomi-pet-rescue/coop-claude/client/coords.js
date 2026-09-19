@@ -30,7 +30,14 @@ export function dirToVec3(dir) {
 /** 方向 → 绕 Y 轴的朝向角（让模型的 -Z 面朝向该方向）。 */
 export function dirToYaw(dir) {
   const v = DIR_VECTOR[dir];
-  return Math.atan2(v.dx, -v.dy);
+  // Three.js 绕 +Y 旋转时，本地 -Z 的世界方向是 (-sin(yaw), 0, -cos(yaw))。
+  // 因此东 (+X) 必须是 -90°，西 (-X) 必须是 +90°。
+  return Math.atan2(-v.dx, -v.dy);
+}
+
+/** yaw → 模型正脸 / 相机前方的世界单位向量。 */
+export function yawToForward(yaw) {
+  return new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
 }
 
 /** 朝向的右手方向（越肩相机用）。 */

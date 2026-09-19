@@ -18,9 +18,23 @@ import {
 } from '../core/constants.js';
 import { hasHedge, inMaze, findGazebos, mazeOpenings } from '../core/maze.js';
 import { GameEngine } from '../core/game.js';
+import { dirToYaw, yawToForward } from '../client/coords.js';
 
 const world = buildWorld();
 const gazebos = findGazebos(world.walls);
+
+test('3D 朝向约定：模型正脸、移动方向与相机 forward 对四个方向完全一致', () => {
+  for (const dir of DIRECTIONS) {
+    const expected = DIR_VECTOR[dir];
+    const yaw = dirToYaw(dir);
+    const forward = yawToForward(yaw);
+    assert.ok(Math.abs(forward.x - expected.dx) < 1e-9, `${dir} 的 X 朝向应一致`);
+    assert.ok(Math.abs(forward.z - expected.dy) < 1e-9, `${dir} 的 Z 朝向应一致`);
+  }
+
+  assert.ok(dirToYaw('E') < 0, 'Three.js 中模型 -Z 转向东应为负 90°');
+  assert.ok(dirToYaw('W') > 0, 'Three.js 中模型 -Z 转向西应为正 90°');
+});
 
 /** 找一处「A — 障碍 — B」的直线三连格，用来验证遮挡。 */
 function findOccluder(terrain) {
