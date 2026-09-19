@@ -18,7 +18,8 @@ for(const [id,title,task]of checks){const row=el('div');row.className='check-row
 function read(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback;}catch{return fallback;}}
 function today(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);}
 let record=read(KEY,null),history=read(HISTORY,[]);if(!Array.isArray(history))history=[];
-function fresh(){return{schemaVersion:1,id:crypto.randomUUID(),createdAt:new Date().toISOString(),fields:{date:today(),version:'Legends 3.0',decision:'pending'}};}
+function makeId(){try{if(globalThis.crypto&&typeof globalThis.crypto.randomUUID==='function')return globalThis.crypto.randomUUID();}catch{}return 'bk-review-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);}
+function fresh(){return{schemaVersion:1,id:makeId(),createdAt:new Date().toISOString(),fields:{date:today(),version:'Legends 3.0',decision:'pending'}};}
 if(!record||typeof record.fields!=='object')record=fresh();
 function fill(){form.reset();for(const [name,value]of Object.entries(record.fields)){const field=form.elements.namedItem(name);if(field&&typeof value==='string')field.value=value;}count();}
 function collect(){record.fields=Object.fromEntries(new FormData(form).entries());record.updatedAt=new Date().toISOString();return record;}

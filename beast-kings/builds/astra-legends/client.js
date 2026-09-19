@@ -2,7 +2,8 @@
 const G=window.BeastGame,A=window.BeastArt,$=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const PROFILE_KEY='beast-kings-evolve-profile',SETTINGS_KEY='beast-kings-evolve-settings';
 function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key))||fallback;}catch{return fallback;}}
-let profile=G.normalizeProfile(readJSON(PROFILE_KEY,{id:crypto.randomUUID(),name:'Player',character:'frost'}));
+function makeId(){try{if(globalThis.crypto&&typeof globalThis.crypto.randomUUID==='function')return globalThis.crypto.randomUUID();}catch{}return 'bk-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);}
+let profile=G.normalizeProfile(readJSON(PROFILE_KEY,{id:makeId(),name:'Player',character:'frost'}));
 let settings={reduced:true,sound:false,...readJSON(SETTINGS_KEY,{})},mode='duel',arena='moon',tab='lobby';
 let state=null,localWorld=null,localMode='practice',networkWanted=false,networkUp=false,ws=null,myId=profile.id,spectator=false,seq=0,retryTimer=null,rtt=0,lastStateAt=0,lastRound='',lastHUD=0,lastFrame=performance.now(),accumulator=0,lastFPS=performance.now(),frames=0,fps=60,toastTimer=null;
 const taps={},tapKeys=['jump','punch','kick','spin','dash','super','special'];const keys={},pointers=new Map(),keyboard=new Set(),positions=new Map(),seenRewards=new Set(profile.rewardIds),pendingPings=new Map();
