@@ -63,3 +63,44 @@ test('LocalGameClient: 双方一键就绪与重置', () => {
   client.reset();
   assert.equal(state.round, 1);
 });
+
+test('NetClient: 本地模式首屏事件会等 UI 监听器注册后再发出', async () => {
+  const previousLocation = globalThis.location;
+  const previousLocalStorage = globalThis.localStorage;
+  const previousDocument = globalThis.document;
+  const previousWindow = globalThis.window;
+
+  const store = new Map();
+  globalThis.location = { host: 'localhost', hostname: 'localhost', protocol: 'http:' };
+  globalThis.localStorage = {
+    getItem: (key) => store.get(key) ?? null,
+    setItem: (key, value) => store.set(key, String(value)),
+    removeItem: (key) => store.delete(key),
+  };
+  globalThis.document = { addEventListener() {} };
+  globalThis.window = { addEventListener() {} };
+
+  try {
+    const { NetClient } = await import('../client/net.js');
+    const client = new NetClient();
+    let welcome = null;
+    let state = null;
+
+    // 模拟 app.js 的 URL 自动入场：先 start，再继续安装 UI 监听器。
+    client.start({ solo: true, local: true, role: 'auto' });
+    client.addEventListener('welcome', (e) => { welcome = e.detail; });
+    client.addEventListener('state', (e) => { state = e.detail.snapshot; });
+
+    await new Promise((resolve) => queueMicrotask(resolve));
+
+    assert.equal(client.isLocal, true);
+    assert.equal(welcome?.isLocal, true);
+    assert.equal(welcome?.solo, true);
+    assert.equal(state?.round, 1);
+  } finally {
+    globalThis.location = previousLocation;
+    globalThis.localStorage = previousLocalStorage;
+    globalThis.document = previousDocument;
+    globalThis.window = previousWindow;
+  }
+});

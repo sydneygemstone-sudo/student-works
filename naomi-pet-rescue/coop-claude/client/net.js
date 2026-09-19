@@ -83,7 +83,15 @@ export class NetClient extends EventTarget {
       this.localClient.addEventListener('state', (e) => this.emit('state', e.detail));
       this.localClient.addEventListener('rejected', (e) => this.emit('rejected', e.detail));
     }
-    this.localClient.start(pref);
+
+    // 本地引擎会同步发出 status / welcome / state。URL 参数自动入场时，
+    // app.js 可能还在继续注册监听器；如果这里同步 start，这三个首屏事件会
+    // 在监听器安装前丢失，表现成“单机版一直等待联机”。
+    // 放到当前模块初始化结束后的 microtask 再启动，既不触碰 WebSocket，
+    // 也保证纯本地模式的首个快照一定能被 UI 收到。
+    queueMicrotask(() => {
+      if (this.isLocal && this.localClient) this.localClient.start(pref);
+    });
   }
 
   connect() {
