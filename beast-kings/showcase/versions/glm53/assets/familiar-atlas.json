@@ -1,0 +1,19 @@
+{
+  "cellWidth": 320,
+  "cellHeight": 360,
+  "columns": 5,
+  "framesPerPose": 3,
+  "poses": [
+    "idle",
+    "walk",
+    "punch",
+    "kick",
+    "spin",
+    "dash",
+    "super",
+    "special",
+    "fly",
+    "block"
+  ],
+  "source": "AI Familiar active identity/rig.mjs and presentation.mjs; rendered locally, no account data included."
+}

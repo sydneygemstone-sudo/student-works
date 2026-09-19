@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Beast Kings · 试玩测评 / Playtest Review</title><link rel="stylesheet" href="./assets/site.css"></head>
+<body><main class="site-shell">
+<nav class="site-nav"><a href="./index.html" data-carry-lang><span data-zh="♛ 版本中心" data-en="♛ Version Hub">♛ 版本中心</span></a><a href="./development.html" data-carry-lang><span data-zh="📖 开发日志" data-en="📖 Development">📖 开发日志</span></a><a class="active" href="./review.html" data-carry-lang><span data-zh="✍️ 试玩测评" data-en="✍️ Playtest">✍️ 试玩测评</span></a><a href="./parents.html" data-carry-lang><span data-zh="👪 家长报告" data-en="👪 Parent Report">👪 家长报告</span></a><div class="lang"><button data-lang-set="zh">中文</button><button data-lang-set="en">EN</button></div></nav>
+<header class="hero"><div class="eyebrow">PLAYTEST EVIDENCE</div><h1 data-zh="玩一轮，留下一条真正能改游戏的证据。" data-en="Play a round. Leave evidence that can actually improve the game.">玩一轮，留下一条真正能改游戏的证据。</h1><p data-zh="表单会自动保存在当前 iPad 浏览器。填完可以下载 Word 兼容文档、HTML 或 JSON，也可以调用系统邮件 App，把报告作为正文带进新邮件。系统不会自动上传孩子资料。" data-en="The form autosaves in the current iPad browser. When finished, download a Word-compatible document, HTML or JSON, or open the system Mail app with the report prefilled in a new message. Student information is not uploaded automatically.">表单仅保存在当前设备，除非你主动导出或发邮件。</p></header>
+<form id="reviewForm" class="report-card">
+<div class="form-grid">
+<div class="field"><label data-zh="日期" data-en="Date">日期</label><input type="date" name="date"></div>
+<div class="field"><label data-zh="试玩者 / 发言人" data-en="Players / speakers">试玩者 / 发言人</label><input name="players" maxlength="100" data-zh-placeholder="例如 Nathan, Leo, Dean" data-en-placeholder="e.g. Nathan, Leo, Dean"></div>
+<div class="field"><label data-zh="版本" data-en="Build">版本</label><select name="build"><option value="Original">Original / 初版</option><option value="Astra Legends">Astra Legends 3.0</option><option value="GLM 5.3">GLM 5.3 Upgrade</option><option value="GPT-5.6 Sol" selected>GPT-5.6 Sol Enhanced</option></select></div>
+<div class="field"><label data-zh="设备 / 浏览器" data-en="Device / browser">设备 / 浏览器</label><input name="device" maxlength="120" data-zh-placeholder="例如 iPad + Safari 横屏" data-en-placeholder="e.g. iPad + Safari landscape"></div>
+<div class="field"><label data-zh="模式" data-en="Mode">模式</label><select name="mode"><option value="Battle">Battle</option><option value="Boss Fight">Boss Fight</option><option value="Crown Dash">Crown Dash</option><option value="Solo Gauntlet">Solo Beast King Gauntlet</option><option value="Practice">Practice</option></select></div>
+<div class="field"><label data-zh="本局使用 Beast / Game ID" data-en="Beast / Game ID">本局使用 Beast / Game ID</label><input name="character" maxlength="100"></div>
+
+<div class="field wide"><label data-zh="最好玩的部分是什么？请尽量写谁说的。" data-en="What was the best part? Record who said it where possible.">最好玩的部分是什么？</label><textarea name="best" maxlength="1600"></textarea></div>
+<div class="field wide"><label data-zh="最糟 / 最烦 / 最困惑的部分是什么？" data-en="What was the worst, most frustrating or most confusing part?">最糟 / 最烦 / 最困惑的部分是什么？</label><textarea name="worst" maxlength="1600"></textarea></div>
+
+<div class="field"><label data-zh="触控是否稳定？" data-en="Were touch controls stable?">触控是否稳定？</label><select name="touch"><option value="untested">未测试 / Untested</option><option value="pass">稳定 / Stable</option><option value="issue">有问题 / Issue</option></select></div>
+<div class="field"><label data-zh="是否发生误缩放 / 误触？" data-en="Any accidental zoom / touches?">是否发生误缩放 / 误触？</label><select name="zoom"><option value="untested">未测试 / Untested</option><option value="none">没有 / None</option><option value="yes">有 / Yes</option></select></div>
+<div class="field"><label data-zh="2.5D 前后移动是否容易理解？" data-en="Was 2.5D forward/back movement easy to understand?">2.5D 是否好理解？</label><select name="depth"><option value="untested">未测试 / Untested</option><option value="clear">清楚 / Clear</option><option value="confusing">困惑 / Confusing</option></select></div>
+<div class="field"><label data-zh="Boss 技能提示是否看得懂？" data-en="Were boss telegraphs readable?">Boss 技能提示是否看得懂？</label><select name="boss"><option value="untested">未测试 / Untested</option><option value="clear">清楚 / Clear</option><option value="unclear">不清楚 / Unclear</option></select></div>
+<div class="field"><label data-zh="Energy 强化是否有意义？" data-en="Did Energy boosts feel meaningful?">Energy 强化是否有意义？</label><select name="energy"><option value="untested">未测试 / Untested</option><option value="yes">有 / Yes</option><option value="no">没有 / No</option></select></div>
+<div class="field"><label data-zh="你会主动再玩一局吗？" data-en="Would you choose to play another round?">你会主动再玩一局吗？</label><select name="replay"><option value="maybe">不确定 / Maybe</option><option value="yes">会 / Yes</option><option value="no">不会 / No</option></select></div>
+
+<div class="field wide"><label data-zh="发现的 Bug：发生了什么？" data-en="Bug observed: what happened?">发现的 Bug：发生了什么？</label><textarea name="bug" maxlength="1800"></textarea></div>
+<div class="field wide"><label data-zh="复现步骤：怎样才能再次看到它？" data-en="Reproduction steps: how can we make it happen again?">复现步骤</label><textarea name="steps" maxlength="1800"></textarea></div>
+<div class="field wide"><label data-zh="期望结果 vs 实际结果" data-en="Expected result vs actual result">期望结果 vs 实际结果</label><textarea name="expected" maxlength="1800"></textarea></div>
+<div class="field wide"><label data-zh="如果下一轮只能改一个东西，改什么？怎样证明改好了？" data-en="If we can change only one thing next, what should it be—and how will we prove it is fixed?">下一轮只改一个东西</label><textarea name="next" maxlength="1800"></textarea></div>
+<div class="field wide"><label data-zh="原话 / Quote（可选，确认说话人）" data-en="Direct quote (optional; confirm speaker)">原话 / Quote</label><textarea name="quote" maxlength="1200"></textarea></div>
+</div>
+<div class="actions-row">
+<button class="button primary" type="button" id="saveNow"><span data-zh="💾 保存草稿" data-en="💾 Save draft">💾 保存草稿</span></button>
+<button class="button gold" type="button" id="downloadDoc"><span data-zh="📄 保存 Word 文档" data-en="📄 Save Word document">📄 保存 Word 文档</span></button>
+<button class="button" type="button" id="downloadHtml"><span data-zh="⬇️ 保存 HTML" data-en="⬇️ Save HTML">⬇️ 保存 HTML</span></button>
+<button class="button" type="button" id="downloadJson"><span data-zh="{} 保存 JSON" data-en="{} Save JSON">{} 保存 JSON</span></button>
+<button class="button" type="button" id="emailReport"><span data-zh="✉️ 用邮件发送" data-en="✉️ Send by email">✉️ 用邮件发送</span></button>
+<button class="button" type="button" id="newReview"><span data-zh="＋ 新建一份" data-en="＋ New review">＋ 新建一份</span></button>
+</div>
+<p class="small muted" id="saveState" data-zh="草稿尚未修改。" data-en="Draft unchanged.">草稿尚未修改。</p>
+</form>
+<div class="notice info"><strong data-zh="隐私说明：" data-en="Privacy note:">隐私说明：</strong> <span data-zh="本页不自动上传表单。邮件按钮只调用设备自己的 mailto 功能；是否发送、发给谁，由使用者在邮件 App 中确认。" data-en="This page does not automatically upload the form. The email button only opens the device's mailto handler; the user confirms whether to send and to whom inside the Mail app.">不自动上传。</span></div>
+<footer class="footer"><span data-zh="测评评价游戏，不评价孩子。" data-en="The review evaluates the game, not the child.">测评评价游戏，不评价孩子。</span><span>Beast Kings Playtest · 2026-09-19</span></footer>
+</main><script src="./assets/site.js"></script><script src="./assets/review.js"></script></body></html>

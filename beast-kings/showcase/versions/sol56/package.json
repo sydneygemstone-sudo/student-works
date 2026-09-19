@@ -1,0 +1,12 @@
+{
+  "name": "beast-kings-legends",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test --test-concurrency=1 server-tests.js combat-tests.js gauntlet-tests.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
