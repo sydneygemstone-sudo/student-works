@@ -36,8 +36,10 @@ async function load(){
    let html=await zip.file(C.index).async("string");
    if(model==="claude"){
      const [game,vendor]=await Promise.all([zip.file(C.game).async("string"),zip.file(C.vendor).async("string")]);
-     html=html.replace('<script src="vendor/three.min.js"></script>','<script>'+vendor.replaceAll("</script","<\\/script")+'<\\/script>');
-     html=html.replace('<script src="game.js"></script>','<script>'+game.replaceAll("</script","<\\/script")+'<\\/script>');
+     const closeTag="<"+"/script>";
+     const safe=x=>x.replaceAll("<"+"/script","<\\/script");
+     html=html.replace('<script src="vendor/three.min.js">'+closeTag,'<script>'+safe(vendor)+closeTag);
+     html=html.replace('<script src="game.js">'+closeTag,'<script>'+safe(game)+closeTag);
    }
    frame.srcdoc=html;
    frame.onload=()=>{$("loading").style.display="none";setTimeout(()=>{try{frame.contentWindow.focus()}catch{}},50)};
