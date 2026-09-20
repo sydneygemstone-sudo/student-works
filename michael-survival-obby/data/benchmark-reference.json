@@ -1,0 +1,26 @@
+{
+  "note": "Publisher-reported reference models only. Exact classroom model IDs and inference settings are not verified. Terminal-Bench 3.0 and 4.0 are not directly comparable.",
+  "rows": [
+    {
+      "model": "GLM-5.3",
+      "terminal_bench_3_0": 28.3,
+      "terminal_bench_4_0": null,
+      "deepswe_v1_1": 66.9,
+      "source": "https://huggingface.co/zai-org/GLM-5.3/blob/main/README.md"
+    },
+    {
+      "model": "Claude Fable 5.1",
+      "terminal_bench_3_0": null,
+      "terminal_bench_4_0": 55.8,
+      "deepswe_v1_1": 67.4,
+      "source": "https://openai.com/index/gpt-6-astra/"
+    },
+    {
+      "model": "GPT-6 Astra",
+      "terminal_bench_3_0": null,
+      "terminal_bench_4_0": 57.9,
+      "deepswe_v1_1": 74.1,
+      "source": "https://openai.com/index/gpt-6-astra/"
+    }
+  ]
+}
