@@ -1,0 +1,80 @@
+{
+  "date": "2026-09-20",
+  "release": "1.1.0",
+  "canonical": "student-works/michael-survival-obby",
+  "originals": [
+    {
+      "engine": "glm",
+      "archive": "glm-classroom-original.zip",
+      "sha256": "2fc813f0d7407629cd1c630eca11d3a1a8c9ed4a614aced5fe8f7ec0b4234214",
+      "files": [
+        {
+          "path": "index.html",
+          "sha256": "2b8961acf9115e7ed0c70ca02085b371307f3a5466642f99041947db654b6a47"
+        }
+      ]
+    },
+    {
+      "engine": "claude",
+      "archive": "claude-classroom-original.zip",
+      "sha256": "129e27e022b031d47c13d68cdbc65f7c41b2c16f5c022d48f109ed70e131cf21",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "f145a823d5e907945765f50333547c8ae9ba8406977f448738b61227ef396fbe"
+        },
+        {
+          "path": "game.js",
+          "sha256": "2899eef4902330a0e2c600eaf85caf273fe12fe2ad366811dc5dd8ae09b184e2"
+        },
+        {
+          "path": "index.html",
+          "sha256": "c3adf8dfca2c37bea3097aff3ce8ee21d4b20e6a759ab5e6422fd1d3c2ebe19d"
+        },
+        {
+          "path": "vendor/three.min.js",
+          "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+        }
+      ]
+    },
+    {
+      "engine": "codex-astra",
+      "archive": "codex-astra-classroom-original.zip",
+      "sha256": "a5be18f10df5517f38ceef776cd7f4a9a3b42944c1923f678c72f507e973bcc8",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "2691d3b1a0f6f792bf19c0f4752bf867d16d9d7ee8d35f8ba6e2b20ab5acc208"
+        },
+        {
+          "path": "build.ps1",
+          "sha256": "cd09ac35b712befd7635514ef18c324388a6dddd76ed591f11d2f34a6c22fde5"
+        },
+        {
+          "path": "release/Bone-Run.html",
+          "sha256": "5a2eb68bcce8880b515e4c5b0e1938aca6b4410a2fb9b2c46e60ebfe33747c51"
+        },
+        {
+          "path": "source/game.js",
+          "sha256": "5a7d68f145c572452897a6ac784396c6b979f71e38c2bb4ca20a36bbb868ee2f"
+        },
+        {
+          "path": "source/shell.html",
+          "sha256": "b0814c4b7fa4d02a7e6d95d7b17351ede34e9ae47541a4f4fddffd4e00bbe03a"
+        },
+        {
+          "path": "source/vendor/LICENSE",
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+        },
+        {
+          "path": "source/vendor/three.core.js",
+          "sha256": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+        },
+        {
+          "path": "source/vendor/three.module.js",
+          "sha256": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea"
+        }
+      ]
+    }
+  ]
+}

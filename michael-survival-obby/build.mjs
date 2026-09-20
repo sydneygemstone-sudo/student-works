@@ -1,0 +1,11 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.dirname(fileURLToPath(import.meta.url));
+await mkdir(path.join(root,'.build'),{recursive:true});
+execFileSync(process.platform==='win32'?'npx.cmd':'npx',['--yes','esbuild@0.25.12',path.join(root,'source/game.js'),'--bundle','--minify','--format=iife','--target=es2020','--legal-comments=inline','--outfile='+path.join(root,'.build/game.js')],{stdio:'inherit'});
+const shell=await readFile(path.join(root,'source/shell.html'),'utf8');
+const bundle=(await readFile(path.join(root,'.build/game.js'),'utf8')).replaceAll('</script','<\\/script');
+await writeFile(path.join(root,'play.html'),shell.replace('<!-- GAME_BUNDLE -->','<script>'+bundle+'</script>'));
+console.log('Built self-contained play.html');
