@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Michael · Classroom Version Viewer</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#0f2931;color:#eff7ee;font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}body{display:flex;flex-direction:column;overflow:hidden}a,button{font:inherit}a{color:#d6f4ad}button{min-height:44px;border:1px solid #78968c;border-radius:11px;background:#d3efa0;color:#163833;font-weight:800;padding:8px 13px;touch-action:none}.top{display:flex;gap:9px;align-items:center;padding:max(9px,env(safe-area-inset-top)) 12px 8px;flex-wrap:wrap}.top strong{margin-right:auto}.sub{font-size:11px;color:#b7cfca}.stage{position:relative;flex:1;min-height:160px;margin:0 10px;border:1px solid #557a74;border-radius:14px;overflow:hidden;background:#091820}.stage iframe{width:100%;height:100%;border:0;background:#0c1825}.loading,.error{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:25px;background:#0d252eea;z-index:4}.error{display:none;color:#ffd6c2}.controls{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:9px max(15px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(15px,env(safe-area-inset-left));background:#0f2931}.pad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,46px);gap:4px}.pad button{padding:0;font-size:21px}.pad .u{grid-column:2}.pad .l{grid-column:1;grid-row:2}.pad .d{grid-column:2;grid-row:2}.pad .r{grid-column:3;grid-row:2}.jump{width:92px;height:92px;border-radius:50%;font-size:15px}.help{max-width:560px;font-size:11px;line-height:1.45;color:#c1d8d3}.help b{color:#e5f7b7}.native .pad,.native .jump{display:none}.native .controls{justify-content:center}.pressed{background:#fff!important;transform:scale(.96)}@media(max-width:720px){.help{font-size:10px;max-width:45vw}.top{font-size:12px}.pad{grid-template-columns:repeat(3,46px);grid-template-rows:repeat(2,42px)}.jump{width:82px;height:82px}}@media(max-height:540px){.top{padding:5px 9px}.controls{padding:5px 12px}.pad{grid-template-columns:repeat(3,42px);grid-template-rows:repeat(2,35px)}.pad button{min-height:35px}.jump{width:70px;height:70px}.help{font-size:9px}}
+</style></head><body>
+<div class="top"><a href="../comparison.html" id="back">← Value Lab</a><strong id="name">Loading…</strong><span class="sub" id="kind"></span><button id="reload">Restart</button><button id="lang">中文</button></div>
+<div class="stage"><iframe id="frame" title="classroom game"></iframe><div class="loading" id="loading">Loading preserved classroom build…</div><div class="error" id="error"></div></div>
+<div class="controls" id="controls"><div class="pad"><button class="u" data-key="KeyW">↑</button><button class="l" data-key="KeyA">←</button><button class="d" data-key="KeyS">↓</button><button class="r" data-key="KeyD">→</button></div><div class="help" id="help"></div><button class="jump" data-key="Space">JUMP</button></div>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+const cfg={
+ glm:{name:"GLM",zip:"../archive/glm-classroom-original.zip",index:"glm/index.html",native:false},
+ claude:{name:"Claude",zip:"../archive/claude-classroom-original.zip",index:"claude/index.html",game:"claude/game.js",vendor:"claude/vendor/three.min.js",native:false},
+ "codex-astra":{name:"Codex Astra",zip:"../archive/codex-astra-classroom-original.zip",index:"codex-astra/release/Bone-Run.html",native:true}
+};
+const words={
+ en:{back:"← Value Lab",restart:"Restart",help:"Preserved classroom rules and level. Touch buttons are a later viewing adapter for keyboard-only builds and are not counted in the model score.",native:"This frozen build already includes its own touch controls.",loading:"Loading preserved classroom build…",bad:"Unknown version.",fail:"Could not load this archived version. Reload the page or use the original ZIP from the Value Lab."},
+ zh:{back:"← 返回价值实验室",restart:"重新开始",help:"保留课堂原版规则和关卡。键盘版的触屏按钮属于后加展示适配，不计入原模型评分。",native:"这个冻结原版自身已经带触屏控制。",loading:"正在读取课堂原版存档…",bad:"未知版本。",fail:"无法读取这个课堂原版。请刷新页面，或从价值实验室下载原始 ZIP。"}
+};
+let language=localStorage.getItem("studentWorksLang")||((navigator.language||"").startsWith("zh")?"zh":"en");
+let model=new URLSearchParams(location.search).get("model")||"glm", C=cfg[model];
+const $=id=>document.getElementById(id), frame=$("frame");
+function text(){const w=words[language];$("back").textContent=w.back;$("reload").textContent=w.restart;$("lang").textContent=language==="zh"?"EN / English":"中文 / ZH";$("help").textContent=C?(C.native?w.native:w.help):w.bad;$("loading").textContent=w.loading;document.documentElement.lang=language==="zh"?"zh-CN":"en";}
+$("lang").onclick=()=>{language=language==="zh"?"en":"zh";localStorage.setItem("studentWorksLang",language);text()};
+$("reload").onclick=()=>load();
+function send(code,type){try{const win=frame.contentWindow;const doc=win.document;const key=code==="Space"?" ":(code==="KeyW"?"w":code==="KeyA"?"a":code==="KeyS"?"s":"d");const ev=new win.KeyboardEvent(type,{code,key,bubbles:true,cancelable:true});doc.dispatchEvent(ev);win.dispatchEvent(new win.KeyboardEvent(type,{code,key,bubbles:true,cancelable:true}));}catch{}}
+document.querySelectorAll("[data-key]").forEach(b=>{const code=b.dataset.key;const down=e=>{e.preventDefault();b.classList.add("pressed");send(code,"keydown")};const up=e=>{e.preventDefault();b.classList.remove("pressed");send(code,"keyup")};b.addEventListener("pointerdown",down);["pointerup","pointercancel","lostpointercapture"].forEach(t=>b.addEventListener(t,up));});
+async function load(){
+ if(!C){$("loading").style.display="none";$("error").style.display="grid";$("error").textContent=words[language].bad;return}
+ document.body.classList.toggle("native",C.native);$("name").textContent=C.name;$("kind").textContent=C.native?"· native touch":"· classroom original";$("loading").style.display="grid";$("error").style.display="none";text();
+ try{
+   if(!window.JSZip)throw new Error("ZIP runtime unavailable");
+   const res=await fetch(C.zip,{cache:"no-store"});if(!res.ok)throw new Error("archive HTTP "+res.status);
+   const zip=await JSZip.loadAsync(await res.arrayBuffer());
+   let html=await zip.file(C.index).async("string");
+   if(model==="claude"){
+     const [game,vendor]=await Promise.all([zip.file(C.game).async("string"),zip.file(C.vendor).async("string")]);
+     html=html.replace('<script src="vendor/three.min.js"></script>','<script>'+vendor.replaceAll("</script","<\\/script")+'<\\/script>');
+     html=html.replace('<script src="game.js"></script>','<script>'+game.replaceAll("</script","<\\/script")+'<\\/script>');
+   }
+   frame.srcdoc=html;
+   frame.onload=()=>{$("loading").style.display="none";setTimeout(()=>{try{frame.contentWindow.focus()}catch{}},50)};
+ }catch(err){$("loading").style.display="none";$("error").style.display="grid";$("error").textContent=words[language].fail+"\n"+err.message}
+}
+text();load();
+</script></body></html>
