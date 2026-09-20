@@ -1,0 +1,20 @@
+{
+  "scope": "Frozen classroom source engineering review; not a ranking of model intelligence or a child fun score.",
+  "rows": [
+    {
+      "version": "GLM",
+      "score": 54,
+      "notes": "Core loop present; random route and lighter delivery/test evidence reduce reproducibility."
+    },
+    {
+      "version": "Claude",
+      "score": 84,
+      "notes": "Richer authored obstacles, moving elements and jump forgiveness; original delivery is mainly keyboard-oriented."
+    },
+    {
+      "version": "Codex Astra",
+      "score": 91,
+      "notes": "Deterministic route, touch controls, pause and stronger source/release structure; original pause/touch issue still counted against the frozen build."
+    }
+  ]
+}
