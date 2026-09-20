@@ -1,0 +1,156 @@
+{
+  "project": "michael-survival-obby",
+  "evidence_date": "2026-09-21",
+  "actual_billable_usage": {
+    "status": "session_receipts_not_recovered",
+    "billed_tokens": null,
+    "incremental_charge_usd": null,
+    "rule": "Unknown is not zero. Artifact token-equivalent must not be presented as provider-billed usage."
+  },
+  "artifact_token_proxy": {
+    "method": "Count custom text characters in archived deliverables, exclude vendored Three.js and duplicate release bundles, divide by 4. This is a reproducible output-footprint proxy, not provider tokenization.",
+    "rows": [
+      {
+        "version": "GLM classroom prototype",
+        "custom_chars": 15597,
+        "token_equivalent_approx": 3900
+      },
+      {
+        "version": "Claude classroom prototype",
+        "custom_chars": 33740,
+        "token_equivalent_approx": 8400
+      },
+      {
+        "version": "Codex Astra classroom prototype",
+        "custom_chars": 31461,
+        "token_equivalent_approx": 7900
+      },
+      {
+        "version": "Integrated 1.1 family release",
+        "custom_chars": 79649,
+        "token_equivalent_approx": 19900
+      }
+    ]
+  },
+  "current_reference_pricing": [
+    {
+      "model": "Claude Fable 5.1",
+      "classroom_identity_verified": false,
+      "input_usd_per_mtok": 10,
+      "cache_read_usd_per_mtok": 0.25,
+      "output_usd_per_mtok": 50,
+      "source": "https://www.anthropic.com/claude/fable"
+    },
+    {
+      "model": "GPT-6 Astra",
+      "classroom_identity_verified": false,
+      "input_usd_per_mtok": 10,
+      "cached_input_usd_per_mtok": 1,
+      "cache_write_usd_per_mtok": 12.5,
+      "output_usd_per_mtok": 50,
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+    },
+    {
+      "model": "GLM / ZCode Coding Plan",
+      "classroom_identity_verified": false,
+      "standalone_per_token_tariff_used": false,
+      "lite_list_usd_month": 18,
+      "lite_display_usd_month": 12.6,
+      "lite_credits_week": 10000,
+      "source": "https://zcode.z.ai/en"
+    }
+  ],
+  "artifact_output_only_scale": [
+    {
+      "version": "Claude",
+      "reference_model": "Claude Fable 5.1",
+      "proxy_output_tokens": 8400,
+      "illustrative_output_only_usd": 0.42
+    },
+    {
+      "version": "Codex Astra",
+      "reference_model": "GPT-6 Astra",
+      "proxy_output_tokens": 7900,
+      "illustrative_output_only_usd": 0.395
+    },
+    {
+      "version": "GLM",
+      "reference_model": "GLM",
+      "illustrative_output_only_usd": null,
+      "reason": "No standalone per-token tariff used for this estimate."
+    }
+  ],
+  "human_rebuild_equivalent": {
+    "method": "Employee labour replacement model, not a contractor quote. 1,976 h/year; Sydney 2026 Robert Half median JavaScript Developer A$125,350 and Senior Full Stack JavaScript Developer A$163,500; add 12% super.",
+    "hourly_aud_including_super": {
+      "javascript_developer": 71.05,
+      "senior_full_stack": 92.67
+    },
+    "rows": [
+      {
+        "scope": "GLM classroom prototype",
+        "hours": [
+          5,
+          8
+        ],
+        "aud": [
+          355,
+          741
+        ]
+      },
+      {
+        "scope": "Claude classroom prototype",
+        "hours": [
+          8,
+          12
+        ],
+        "aud": [
+          568,
+          1112
+        ]
+      },
+      {
+        "scope": "Codex Astra classroom prototype",
+        "hours": [
+          8,
+          12
+        ],
+        "aud": [
+          568,
+          1112
+        ]
+      },
+      {
+        "scope": "Integrated 1.1 family release",
+        "hours": [
+          14,
+          22
+        ],
+        "aud": [
+          995,
+          2039
+        ]
+      },
+      {
+        "scope": "Three-model R&D package + integrated release",
+        "hours": [
+          35,
+          54
+        ],
+        "aud": [
+          2487,
+          5004
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.roberthalf.com/au/en/job-details/javascript-developer/sydney",
+      "https://www.roberthalf.com/au/en/job-details/senior-full-stack-javascript-developer/sydney",
+      "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-contributions/how-much-super-to-pay"
+    ]
+  },
+  "headline": {
+    "final_release_rebuild_aud": "~A$1.0k–2.0k",
+    "full_three_model_rnd_aud": "~A$2.5k–5.0k"
+  }
+}
