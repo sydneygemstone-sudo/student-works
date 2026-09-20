@@ -1,0 +1,325 @@
+{
+  "date": "2026-09-20",
+  "release": "1.1.0",
+  "checks": [
+    {
+      "name": "Game initializes",
+      "ok": true
+    },
+    {
+      "name": "Release speed 8.8 and unchanged enemy cap",
+      "ok": true
+    },
+    {
+      "name": "No replacement characters in English game UI",
+      "ok": true
+    },
+    {
+      "name": "Chinese menu and accessible controls",
+      "ok": true
+    },
+    {
+      "name": "Keyboard moves player",
+      "ok": true
+    },
+    {
+      "name": "Space jumps",
+      "ok": true
+    },
+    {
+      "name": "Pause freezes time and enemy",
+      "ok": true
+    },
+    {
+      "name": "Paused screen translates",
+      "ok": true
+    },
+    {
+      "name": "Movement-only automated route wins",
+      "ok": true,
+      "detail": {
+        "state": "won",
+        "count": 12,
+        "time": 282.6333333333491,
+        "jumps": 12,
+        "final": {
+          "state": "won",
+          "time": 282.6333333333491,
+          "count": 12,
+          "p": {
+            "x": 0.051854497287014426,
+            "s": 145.71755719467538,
+            "y": 0,
+            "vx": -3.172010143514244e-23,
+            "vs": 8.799999999999995,
+            "vy": 0,
+            "grounded": true,
+            "coyote": 0.16,
+            "jumpBuffer": 0
+          },
+          "enemy": {
+            "s": 127.21666666667225,
+            "x": -0.6623076923069188
+          },
+          "collected": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        },
+        "samples": [
+          {
+            "s": 2,
+            "x": 0,
+            "y": 0,
+            "count": 0,
+            "gap": 11
+          },
+          {
+            "s": 19.14686145467709,
+            "x": 0,
+            "y": 1.393333333333337,
+            "count": 1,
+            "gap": 22.546861454677067
+          },
+          {
+            "s": 35.24625100368556,
+            "x": -0.4218566857590268,
+            "y": 0.3,
+            "count": 3,
+            "gap": 21.646251003685553
+          },
+          {
+            "s": 50.60968577653906,
+            "x": 1.7628997904501327,
+            "y": 1.3183333333333338,
+            "count": 4,
+            "gap": 20.00968577653917
+          },
+          {
+            "s": 66.66308341082873,
+            "x": -1.348231703694622,
+            "y": 1.3350000000000037,
+            "count": 5,
+            "gap": 19.063083410828952
+          },
+          {
+            "s": 83.44035711538915,
+            "x": 0.32685534881405737,
+            "y": 0.4,
+            "count": 7,
+            "gap": 18.840357115389423
+          },
+          {
+            "s": 99.43645443967806,
+            "x": -0.05230407066218703,
+            "y": 1.675000000000001,
+            "count": 8,
+            "gap": 17.836454439676743
+          },
+          {
+            "s": 116.58490375982858,
+            "x": -0.8296719600526469,
+            "y": 1.4500000000000037,
+            "count": 9,
+            "gap": 17.98490375982567
+          },
+          {
+            "s": 133.69089052801033,
+            "x": 0.05185449728709326,
+            "y": 0,
+            "count": 11,
+            "gap": 18.09089052800583
+          }
+        ]
+      }
+    },
+    {
+      "name": "Winning result translates to Chinese",
+      "ok": true
+    },
+    {
+      "name": "Caught condition",
+      "ok": true
+    },
+    {
+      "name": "Fall condition",
+      "ok": true
+    },
+    {
+      "name": "Timeout condition",
+      "ok": true
+    },
+    {
+      "name": "Exit needs enough crystals",
+      "ok": true
+    },
+    {
+      "name": "Restart resets run state",
+      "ok": true
+    },
+    {
+      "name": "No external game requests",
+      "ok": true,
+      "detail": [
+        "http://127.0.0.1:54029/michael-survival-obby/play.html?qa=1&lang=en"
+      ]
+    },
+    {
+      "name": "Daylight toggle is labelled",
+      "ok": true
+    },
+    {
+      "name": "Simulated iPad displays both touch controls",
+      "ok": true
+    },
+    {
+      "name": "Trusted multi-touch moves and jumps together",
+      "ok": true,
+      "detail": {
+        "x": 0,
+        "s": 3.5582932831201615,
+        "y": 1.843333333333335,
+        "vx": 0,
+        "vs": 8.405371529403466,
+        "vy": 5.200000000000008,
+        "grounded": false,
+        "coyote": -0.22499999999999998,
+        "jumpBuffer": -0.22499999999999998
+      }
+    },
+    {
+      "name": "Touch cancellation clears stick",
+      "ok": true
+    },
+    {
+      "name": "Pause hides gameplay touch controls",
+      "ok": true
+    },
+    {
+      "name": "Blur pauses and clears input",
+      "ok": true
+    },
+    {
+      "name": "No horizontal overflow 390x844",
+      "ok": true
+    },
+    {
+      "name": "Resume reachable 390x844",
+      "ok": true
+    },
+    {
+      "name": "No horizontal overflow 844x390",
+      "ok": true
+    },
+    {
+      "name": "Resume reachable 844x390",
+      "ok": true
+    },
+    {
+      "name": "English page renders index.html",
+      "ok": true
+    },
+    {
+      "name": "No invalid text index.html",
+      "ok": true
+    },
+    {
+      "name": "Chinese page renders index.html",
+      "ok": true
+    },
+    {
+      "name": "No missing translation keys index.html",
+      "ok": true
+    },
+    {
+      "name": "English page renders michael-survival-obby/index.html",
+      "ok": true
+    },
+    {
+      "name": "No invalid text michael-survival-obby/index.html",
+      "ok": true
+    },
+    {
+      "name": "Chinese page renders michael-survival-obby/index.html",
+      "ok": true
+    },
+    {
+      "name": "No missing translation keys michael-survival-obby/index.html",
+      "ok": true
+    },
+    {
+      "name": "English page renders michael-survival-obby/parents.html",
+      "ok": true
+    },
+    {
+      "name": "No invalid text michael-survival-obby/parents.html",
+      "ok": true
+    },
+    {
+      "name": "Chinese page renders michael-survival-obby/parents.html",
+      "ok": true
+    },
+    {
+      "name": "No missing translation keys michael-survival-obby/parents.html",
+      "ok": true
+    },
+    {
+      "name": "English page renders michael-survival-obby/review.html",
+      "ok": true
+    },
+    {
+      "name": "No invalid text michael-survival-obby/review.html",
+      "ok": true
+    },
+    {
+      "name": "Chinese page renders michael-survival-obby/review.html",
+      "ok": true
+    },
+    {
+      "name": "No missing translation keys michael-survival-obby/review.html",
+      "ok": true
+    },
+    {
+      "name": "Draft saves with explicit not-sent status",
+      "ok": true
+    },
+    {
+      "name": "Draft survives reload",
+      "ok": true
+    },
+    {
+      "name": "Clear removes local review and run",
+      "ok": true
+    },
+    {
+      "name": "Normal play has no mutation API",
+      "ok": true
+    },
+    {
+      "name": "No JavaScript errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "scope": "Chrome on Windows; desktop, simulated iPad and simulated phone. Not a physical iPad or student acceptance.",
+  "resources": {
+    "browserClosed": true,
+    "serverClosed": true
+  },
+  "browser": "153.0.8010.48",
+  "summary": {
+    "passed": 47,
+    "failed": 0
+  }
+}

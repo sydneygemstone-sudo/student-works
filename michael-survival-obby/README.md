@@ -9,7 +9,7 @@ After-class 1.1.0, based on Michael's idea and final classroom review. Follow a 
 
 `index.html`: 项目展示 / project hub; `play.html`: 自包含游戏 / standalone game; `parents.html`: 家长指南 / parent guide; `review.html`: 本机反馈草稿 / local review draft.
 
-`node build.mjs` 重建 / rebuilds `play.html`. `source/vendor/LICENSE` 保留 / retains Three.js's MIT license. Game assets are generated in code; no remote runtime resources.
+`npm ci && npm run build` 重建 / rebuilds `play.html`. `source/vendor/LICENSE` 保留 / retains Three.js's MIT license. Game assets are generated in code; no remote runtime resources.
 
 详细文档 / Documents: [需求 / Spec](docs/DEVELOPMENT_SPEC.md), [合并 / Merge](docs/MERGE_RECORD.md), [版本记录 / Changelog](docs/CHANGELOG.md), [检查 / Checks](docs/ENGINEERING_CHECKS.md).
 

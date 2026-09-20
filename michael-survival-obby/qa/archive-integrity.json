@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-20",
+  "archives": [
+    {
+      "source": "glm",
+      "files": 1,
+      "sha256_verified": true
+    },
+    {
+      "source": "claude",
+      "files": 4,
+      "sha256_verified": true
+    },
+    {
+      "source": "codex-astra",
+      "files": 8,
+      "sha256_verified": true
+    }
+  ],
+  "existing_hub_links_preserved": true
+}

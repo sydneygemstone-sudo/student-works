@@ -41,8 +41,8 @@ Turn Michael's classroom idea and final review into a 3D obstacle game that open
 Astra 是底座：Three.js 0.186.0 的实际 vendored 源码及 MIT 许可证保留；固定关卡、1/120 秒物理步进、触屏输入、暂停与单 HTML 发布结构继承。Claude 的跳跃容错与路边发光灯柱做了适配；GLM 明亮天空配色作为切换模式。
 Astra supplies the base: vendored Three.js 0.186.0 and its MIT license, deterministic route, fixed 1/120-second simulation, touch input, pause and single-HTML packaging. Claude-inspired jump tolerance and roadside beacons are adapted; GLM's daylight palette becomes a toggle.
 
-运行 `node build.mjs` 重建 `play.html`。构建时可能下载固定版本 esbuild 0.25.12；游戏运行不请求外部引擎、字体或资源。静态 HUB 页面使用同目录资源。
-Run `node build.mjs` to rebuild `play.html`. Building may fetch pinned esbuild 0.25.12; playing loads no external engine, font or asset. Static hub pages use same-directory resources.
+运行 `npm ci && npm run build` 重建 `play.html`。构建时可能下载固定版本 esbuild 0.25.12；游戏运行不请求外部引擎、字体或资源。静态 HUB 页面使用同目录资源。
+Run `npm ci && npm run build` to rebuild `play.html`. Building may fetch pinned esbuild 0.25.12; playing loads no external engine, font or asset. Static hub pages use same-directory resources.
 
 ### 5. 课后家庭测试 / Home test
 先用触屏玩两局，分别关注“加速会不会冲过头”和“边移动边跳是否可靠”。记录具体平台、动作、结果与一个建议。无需赢才能完成测评；不可把自动通关当成学生体验已通过。
