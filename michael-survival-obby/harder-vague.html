@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123b43">
+<title>Michael · “难一点”字面调参实验</title>
+<link rel="stylesheet" href="site.css">
+<style>
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}.big{font-size:clamp(42px,8vw,96px);line-height:.95;margin:.25em 0}.bad{color:#ff916f}.good{color:#c5fd71}.parameter-table{width:100%;border-collapse:collapse}.parameter-table th,.parameter-table td{padding:12px;border-bottom:1px solid #ffffff18;text-align:left}.parameter-table th{color:#b7d3d1}.parameter-table td:nth-child(2),.parameter-table td:nth-child(3){font-variant-numeric:tabular-nums}.warning{border-left:5px solid #ff916f}.choice{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.choice .btn{min-width:210px}.questions li{margin:.7em 0;line-height:1.55}@media(max-width:760px){.compare{grid-template-columns:1fr}.parameter-table{font-size:13px}}
+</style>
+</head>
+<body>
+<nav><a href="./">Michael 的作品</a><div class="links"><a href="lesson-difficulty-design.html">难度设计课</a><a href="play.html">标准版</a></div></nav>
+<main>
+<section class="hero">
+<div>
+<div class="eyebrow">TEACHING EXPERIMENT · 2026-09-21</div>
+<h1 class="big">“难一点”<br><span class="bad">真的够了吗？</span></h1>
+<p>这不是推荐的最终版本。这是一个故意忠实执行“太简单，做难一点”这句模糊反馈的实验：不问具体哪里、不问想练什么技能，直接同时拧紧多组参数。</p>
+<div class="choice"><a class="btn secondary" href="play.html?lang=zh">先玩标准版 1.1</a><a class="btn" href="play.html?preset=vague-hard&lang=zh">再玩参数硬调版 1.2</a></div>
+</div>
+</section>
+
+<section class="box warning">
+<div class="eyebrow">先别看答案</div>
+<h2>先各玩两局，再回来。</h2>
+<ol class="questions">
+<li>新版是不是更难？具体难在哪里？</li>
+<li>新版是不是更好玩？如果不是，哪一种“难”只是更烦？</li>
+<li>哪一次失败让你知道下次应该怎么改动作？哪一次只让你想重来？</li>
+<li>如果只能保留一个难度变化，你会保留哪一个？为什么？</li>
+</ol>
+</section>
+
+<section class="box">
+<div class="eyebrow">PARAMETER REVEAL</div>
+<h2>我只收到“难一点”，所以系统只能猜。</h2>
+<table class="parameter-table">
+<thead><tr><th>旋钮</th><th>标准版</th><th>硬调版</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>必收水晶</td><td>8 / 12</td><td>10 / 12</td><td>目标负担增加</td></tr>
+<tr><td>时限</td><td>300 s</td><td>180 s</td><td>时间压力增加</td></tr>
+<tr><td>玩家速度</td><td>8.8</td><td>8.35</td><td>余量减少</td></tr>
+<tr><td>重力</td><td>24</td><td>26.5</td><td>滞空更短</td></tr>
+<tr><td>跳跃力度</td><td>10.8</td><td>10.35</td><td>跳距余量减少</td></tr>
+<tr><td>边缘宽限</td><td>0.16 s</td><td>0.08 s</td><td>容错减半</td></tr>
+<tr><td>跳跃缓冲</td><td>0.20 s</td><td>0.10 s</td><td>提前按键更难成功</td></tr>
+<tr><td>追兵基础速度</td><td>5.6</td><td>6.35</td><td>追逐压力增加</td></tr>
+<tr><td>追兵最高速度</td><td>8.5</td><td>9.35</td><td>失误更容易被抓</td></tr>
+<tr><td>追赶系数</td><td>0.55</td><td>0.68</td><td>落后时追得更猛</td></tr>
+</tbody>
+</table>
+</section>
+
+<div class="compare">
+<section class="box">
+<div class="eyebrow bad">HARDER</div>
+<h2>更难，我确实做到了。</h2>
+<p>更多目标、更短时间、更快追兵、更小输入窗口，都会让成功率下降。</p>
+</section>
+<section class="box">
+<div class="eyebrow good">BETTER?</div>
+<h2>但“更好玩”没有被定义。</h2>
+<p>你没有告诉系统希望玩家学习什么、做什么新决定，也没有定义怎样的失败才是有趣的。所以系统无法替你做产品判断。</p>
+</section>
+</div>
+
+<section class="box">
+<h2>下一步：把体感改写成设计。</h2>
+<p>不要再说“难一点”。至少说清楚：</p>
+<p><strong>在哪里 → 为什么简单 → 想增加哪一种难度 → 改什么 → 希望玩家怎么行动 → 会牺牲什么 → 怎么测试。</strong></p>
+<a class="btn" href="lesson-difficulty-design.html">进入完整难度设计教学页</a>
+</section>
+</main>
+<footer>Michael · Crystal Escape · Difficulty Design Lab · 教学实验版本，不代表最终推荐难度。</footer>
+</body>
+</html>

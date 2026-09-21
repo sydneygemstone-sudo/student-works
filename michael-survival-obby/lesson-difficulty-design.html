@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102630">
+<title>Michael · 跑酷游戏难度设计课</title>
+<style>
+:root{--bg:#0b2029;--panel:#112d36;--ink:#eef8f3;--muted:#b8ced0;--lime:#c5fd71;--mint:#79e5d5;--orange:#ff9c72;--red:#ff6e67;--line:#ffffff1c;--blue:#8fc9ff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+body{overflow:hidden}a{color:var(--mint)}button{font:inherit}.deck{height:100dvh;position:relative;overflow:hidden;background:radial-gradient(circle at 90% 5%,#28515c88,transparent 36%),linear-gradient(135deg,#081b23,#102b35 60%,#0a1d26)}
+.slide{position:absolute;inset:0;padding:clamp(24px,5vw,78px) clamp(24px,7vw,108px) 88px;display:none;overflow:auto}.slide.active{display:block}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);font-weight:800}.num{position:absolute;right:clamp(24px,5vw,72px);top:clamp(22px,4vw,58px);font-size:12px;color:#8faeb2}
+h1{font-size:clamp(40px,7vw,88px);line-height:.98;letter-spacing:-.045em;margin:.2em 0 .3em;max-width:1100px}h2{font-size:clamp(30px,4.6vw,62px);letter-spacing:-.035em;line-height:1.05;margin:.25em 0 .5em}h3{font-size:clamp(19px,2vw,28px);margin:.3em 0}.lead{font-size:clamp(18px,2.1vw,30px);line-height:1.5;max-width:1050px;color:#d7e9e7}.muted{color:var(--muted)}.accent{color:var(--lime)}.danger{color:var(--orange)}.tiny{font-size:12px;color:#9db8bb;line-height:1.5}
+.grid2,.grid3,.grid4{display:grid;gap:18px;margin-top:24px}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:#102d36d9;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 18px 45px #0002}.card p,.card li{line-height:1.55;color:#cfdfdf}.card strong{color:#fff}.card.bad{border-color:#ff846b55}.card.good{border-color:#c5fd7160}.pill{display:inline-block;border:1px solid #ffffff2b;border-radius:999px;padding:6px 10px;font-size:12px;color:#d9e8e8;margin:3px 4px 3px 0}.pill.lime{border-color:#c5fd7160;color:var(--lime)}
+.big-quote{font-size:clamp(30px,5.3vw,72px);line-height:1.12;letter-spacing:-.04em;max-width:1120px;margin:.5em 0}.strike{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:.09em}.arrow{color:var(--lime);padding:0 .2em}
+.axis{display:grid;grid-template-columns:150px 1fr 1fr;gap:10px;border-top:1px solid var(--line);padding:11px 0;align-items:center}.axis b{color:var(--lime)}.axis span{color:#cfdfdf}.axis small{color:#9eb7ba}
+.flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:28px}.step{flex:1;min-width:175px;background:#14343d;border:1px solid var(--line);border-radius:16px;padding:18px}.step b{display:block;color:var(--lime);margin-bottom:8px}.flow .chev{display:flex;align-items:center;font-size:28px;color:#6d9999}
+.example{border-left:5px solid var(--orange);background:#182c33;padding:18px 20px;border-radius:12px;margin:15px 0;line-height:1.65}.example.good{border-left-color:var(--lime)}
+.case-title{display:flex;align-items:center;gap:12px}.case-mark{width:54px;height:54px;border-radius:15px;background:#c5fd7118;border:1px solid #c5fd7144;display:grid;place-items:center;font-weight:900;color:var(--lime)}
+.mini-course{display:flex;gap:10px;align-items:flex-end;margin:30px 0 15px;min-height:145px}.platform{background:#385b5c;border-top:6px solid var(--mint);min-width:90px;border-radius:8px 8px 3px 3px;display:flex;align-items:flex-start;justify-content:center;padding-top:8px;color:#d5eeee;font-size:12px}.gap{width:36px}.player{width:28px;height:42px;background:var(--lime);border-radius:14px 14px 7px 7px;margin:auto}
+.matrix{width:100%;border-collapse:collapse;margin-top:18px;font-size:clamp(13px,1.4vw,17px)}.matrix th,.matrix td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.matrix th{color:var(--lime)}.matrix td{color:#d1e2e1}.matrix .no{color:#ffad8f}.matrix .yes{color:#c5fd71}
+.rubric{display:grid;grid-template-columns:170px repeat(4,1fr);font-size:13px;border:1px solid var(--line);border-radius:14px;overflow:hidden}.rubric>*{padding:11px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.rubric b{color:var(--lime)}
+.source{font-size:13px;line-height:1.55;padding:12px 0;border-top:1px solid var(--line)}.source a{word-break:break-all}
+.controls{position:fixed;z-index:10;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;background:#071921dd;border:1px solid #ffffff24;border-radius:999px;padding:8px 10px;backdrop-filter:blur(10px)}.controls button,.controls a{border:0;background:#173640;color:#fff;border-radius:999px;min-width:44px;height:42px;padding:0 14px;display:grid;place-items:center;text-decoration:none;cursor:pointer}.controls button:hover,.controls a:hover{background:#28515b}.counter{font-variant-numeric:tabular-nums;color:#bcd0d2;font-size:12px;min-width:70px;text-align:center}.progress{position:fixed;z-index:10;left:0;right:0;bottom:0;height:4px;background:#ffffff10}.progress div{height:100%;background:var(--lime);width:0;transition:width .2s}
+.teacher{margin-top:25px;border:1px dashed #8fc9ff66;border-radius:14px;padding:14px 16px;color:#bad9f4;background:#8fc9ff0b;font-size:13px;line-height:1.55}.teacher b{color:var(--blue)}
+@media(max-width:850px){.grid3,.grid4{grid-template-columns:1fr 1fr}.axis{grid-template-columns:110px 1fr}.axis small{grid-column:2}.rubric{display:block}.rubric>*{display:block;border-right:0}.slide{padding-bottom:100px}}@media(max-width:600px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.slide{padding-left:20px;padding-right:20px}.controls{left:12px;right:12px;transform:none;justify-content:center}.flow .chev{display:none}.axis{grid-template-columns:1fr}.axis small{grid-column:auto}}
+@media print{body{overflow:visible}.deck{height:auto;background:#fff;color:#111}.slide{position:relative;display:block!important;min-height:100vh;page-break-after:always;background:#fff;color:#111}.card,.step,.example{background:#f4f6f5;color:#111;box-shadow:none}.card p,.card li,.axis span,.matrix td,.lead,.muted{color:#333}.controls,.progress{display:none}.kicker,.axis b,.matrix th{color:#355f1c}a{color:#075985}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<section class="slide active">
+<div class="num">01</div><div class="kicker">Michael · Game Product Design Lab</div>
+<h1>“难一点”<br><span class="accent">不是一个设计。</span></h1>
+<p class="lead">今天不教你“怎么把数值调狠”。我们要学的是：怎样把玩家的体感，变成一个可以实现、可以取舍、可以测试的产品方案。</p>
+<div class="flow"><div class="step"><b>感觉</b>“太简单”</div><div class="chev">→</div><div class="step"><b>定位</b>哪里简单？</div><div class="chev">→</div><div class="step"><b>方案</b>改哪个机制？</div><div class="chev">→</div><div class="step"><b>证据</b>怎样算改好？</div></div>
+<div class="teacher"><b>教师提示：</b>先让学生说，不替他补答案。今天评价的是“设计信息是否完整”，不是话说得长不长。</div>
+</section>
+
+<section class="slide">
+<div class="num">02</div><div class="kicker">Home Test → Design Brief</div>
+<h2>“我觉得太简单，做难一点。”<br><span class="danger">这句话少了什么？</span></h2>
+<div class="grid3">
+<div class="card"><h3>位置</h3><p>是第几块平台？追逐？收集？出口？还是整局节奏？</p></div>
+<div class="card"><h3>原因</h3><p>为什么简单？反应时间多、跳距短、没有路线选择，还是追兵没有压力？</p></div>
+<div class="card"><h3>目标行为</h3><p>你希望玩家因此开始观察、判断、练习时机，还是承担风险？</p></div>
+<div class="card"><h3>方案</h3><p>速度、平台、规则、路线、奖励，到底改哪一个？</p></div>
+<div class="card"><h3>取舍</h3><p>变难后会不会让触屏更难控制、让镜头来不及读、让收集变成重复劳动？</p></div>
+<div class="card"><h3>验证</h3><p>跑几次？看成功率、失败原因、动作变化，还是主观乐趣？</p></div>
+</div>
+<p class="lead"><strong>体感是入口，不是施工图。</strong></p>
+</section>
+
+<section class="slide">
+<div class="num">03</div><div class="kicker">A/B Experiment</div>
+<h2>我完全照字面做了一个<span class="danger">“更难”版</span>。</h2>
+<p class="lead">我没有问“难在哪”。所以我同时改了：时限、水晶数、追兵、重力、跳跃力度、Coyote time、Jump buffer……</p>
+<div class="grid2">
+<div class="card good"><h3>标准版 1.1</h3><p>8/12 水晶 · 300 秒 · 8.8 速度 · 0.16s 边缘宽限 · 0.20s 跳跃缓冲 · 追兵上限 8.5</p><p><a href="play.html?lang=zh">打开标准版</a></p></div>
+<div class="card bad"><h3>vague-hard 1.2</h3><p>10/12 水晶 · 180 秒 · 8.35 速度 · 0.08s 边缘宽限 · 0.10s 跳跃缓冲 · 追兵上限 9.35</p><p><a href="play.html?preset=vague-hard&lang=zh">打开字面“难一点”版</a></p></div>
+</div>
+<div class="example"><strong>问题：</strong>新版如果不好玩，你能指出究竟是哪一个变化导致的吗？如果不能，这就是模糊需求的成本。</div>
+</section>
+
+<section class="slide">
+<div class="num">04</div><div class="kicker">Difficulty ≠ One Number</div>
+<h2>难度至少有 <span class="accent">9 个旋钮</span>。</h2>
+<div class="axis"><b>时间压力</b><span>倒计时、障碍速度、预告时间</span><small>风险：没时间理解</small></div>
+<div class="axis"><b>操作精度</b><span>平台宽度、跳距、落点窗口</span><small>风险：触屏挫败</small></div>
+<div class="axis"><b>追逐压力</b><span>敌人速度、距离、恢复速度</span><small>风险：没有观察空间</small></div>
+<div class="axis"><b>路线判断</b><span>分叉、捷径、安全路/危险路</span><small>风险：提示不清会变成猜</small></div>
+<div class="axis"><b>动作组合</b><span>跳+转向、连续跳、冲刺+落点</span><small>风险：一次教太多</small></div>
+<div class="axis"><b>信息压力</b><span>可见范围、预告、记忆</span><small>风险：不公平</small></div>
+<div class="axis"><b>资源取舍</b><span>水晶、护盾、救命机会</span><small>风险：价值不清</small></div>
+<div class="axis"><b>风险/奖励</b><span>危险路线提供额外收益</span><small>风险：奖励不值得</small></div>
+<div class="axis"><b>失败成本</b><span>检查点、重来距离、失去资源</span><small>风险：浪费练习时间</small></div>
+</section>
+
+<section class="slide">
+<div class="num">05</div><div class="kicker">Case 1 · Temple Run</div>
+<div class="case-title"><div class="case-mark">TR</div><div><h2 style="margin:0">Temple Run：动作很少，组合很深</h2></div></div>
+<p class="lead">官方介绍的基础动作就是<strong>转向、跳跃、滑行</strong>；再叠加金币、强化与持续跑远的目标。<a href="#src1">[1]</a></p>
+<div class="grid3">
+<div class="card"><h3>动作词汇少</h3><p>玩家不用先记十几个按钮。</p></div>
+<div class="card"><h3>时机越来越紧</h3><p>同样的动作，在不同障碍顺序中形成反应与预判。</p></div>
+<div class="card"><h3>奖励改变路线</h3><p>金币与强化可以诱导玩家承担额外风险。</p></div>
+</div>
+<div class="example good"><strong>学到什么：</strong>不要先问“能不能再快 20%”。先问“我能不能用已有动作制造一个新的判断？”</div>
+</section>
+
+<section class="slide">
+<div class="num">06</div><div class="kicker">Case 2 · Subway Surfers</div>
+<div class="case-title"><div class="case-mark">SS</div><div><h2 style="margin:0">简单控制，不代表简单游戏</h2></div></div>
+<p class="lead">App Store 的编辑介绍把核心概括为：简单滑动控制下的 <strong>jump / slide / dodge</strong>，并特别强调换道与跳跃不应该靠猜，而要有紧密、响应明确的控制。<a href="#src2">[2]</a></p>
+<div class="flow">
+<div class="step"><b>看见</b>火车 / 障碍</div><div class="chev">→</div>
+<div class="step"><b>识别</b>跳？滑？换道？</div><div class="chev">→</div>
+<div class="step"><b>执行</b>在正确时间输入</div><div class="chev">→</div>
+<div class="step"><b>反馈</b>马上知道成败原因</div>
+</div>
+<div class="example good"><strong>产品原则：</strong>可读性越高，你越有资格提高速度。看不懂的“快”不是技巧挑战，只是猜。</div>
+</section>
+
+<section class="slide">
+<div class="num">07</div><div class="kicker">Case 3 · Roblox Obby</div>
+<div class="case-title"><div class="case-mark">RBX</div><div><h2 style="margin:0">平台本身就是难度设计语言</h2></div></div>
+<p class="lead">Roblox 官方 Classic Obby 教程明确采用<strong>从容易到更难</strong>的课程，并加入移动、推动、伤害等平台变化；它还提醒平台跳距如果一开始过难，玩家可能直接退出。<a href="#src3">[3]</a><a href="#src4">[4]</a></p>
+<div class="mini-course">
+<div class="platform" style="height:70px;width:150px">宽平台</div><div class="gap"></div>
+<div class="platform" style="height:90px;width:120px">变窄</div><div class="gap" style="width:55px"></div>
+<div class="platform" style="height:110px;width:95px;transform:rotate(-4deg)">更远 + 旋转</div><div class="gap" style="width:70px"></div>
+<div class="platform" style="height:135px;width:80px">测试</div>
+</div>
+<p class="muted">位置、尺寸、朝向、运动方式，都可以改变同一个“跳跃”动作需要的判断。Roblox Platformer 模板还展示双跳、冲刺、翻滚、长跳、移动平台与金币等扩展机制。<a href="#src5">[5]</a></p>
+</section>
+
+<section class="slide">
+<div class="num">08</div><div class="kicker">Input Is Not Gameplay</div>
+<h2>“键盘跳跃”只是输入。<br><span class="accent">游戏设计的是动作。</span></h2>
+<p class="lead">Roblox 的输入文档把“jump / sprint / shoot”作为<strong>动作</strong>，再为不同硬件绑定输入。<a href="#src6">[6]</a></p>
+<div class="grid2">
+<div class="card bad"><h3>设备思维</h3><p>“把空格键变难一点。”</p><p>这没有说明玩家要掌握什么。</p></div>
+<div class="card good"><h3>动作思维</h3><p>“让玩家在连续两次跳跃之间，必须判断落点方向。”</p><p>键盘、触屏、手柄都可以实现同一个动作目标。</p></div>
+</div>
+<div class="example good"><strong>Crystal Escape 的原则：</strong>iPad 和键盘可以有不同输入方式，但应该尽量考同一种游戏技能。</div>
+</section>
+
+<section class="slide">
+<div class="num">09</div><div class="kicker">Case 4 · Vector</div>
+<div class="case-title"><div class="case-mark">V</div><div><h2 style="margin:0">跑酷高级感来自“时机谜题”</h2></div></div>
+<p class="lead">Vector 的官方 Steam 描述列出 run / vault / slide / climb，并把复杂关卡描述为快速的 <strong>timing puzzles</strong>。<a href="#src7">[7]</a></p>
+<div class="grid3">
+<div class="card"><h3>动作</h3><p>跑、翻越、滑行、攀爬。</p></div>
+<div class="card"><h3>时机</h3><p>什么时候使用哪一个动作，决定流畅度。</p></div>
+<div class="card"><h3>关卡</h3><p>关卡排列负责提出问题，而不是只提高人物速度。</p></div>
+</div>
+<div class="example good"><strong>迁移：</strong>如果 Crystal Escape 将来加入冲刺或翻越，先用安全区教会，再用组合区测试，最后再加入变化。</div>
+</section>
+
+<section class="slide">
+<div class="num">10</div><div class="kicker">Hard but Boring</div>
+<h2>六种“确实更难，<span class="danger">但可能更无聊</span>”的改法</h2>
+<div class="grid3">
+<div class="card bad"><h3>全部加速</h3><p>反应时间变短，但没有新决定。</p></div>
+<div class="card bad"><h3>平台全部缩小</h3><p>同一个动作只是容错更低。</p></div>
+<div class="card bad"><h3>追兵贴脸</h3><p>玩家失去观察与探索空间。</p></div>
+<div class="card bad"><h3>失败重跑很远</h3><p>练习目标被重复劳动淹没。</p></div>
+<div class="card bad"><h3>随机且没预告</h3><p>失败后不知道自己能学什么。</p></div>
+<div class="card bad"><h3>目标数量堆高</h3><p>收集更多，但路线和策略不变。</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="num">11</div><div class="kicker">Hard and Interesting</div>
+<h2>更好的难度：<span class="accent">制造新问题，并让失败可学习。</span></h2>
+<div class="grid2">
+<div class="card good"><h3>Teach → Test → Twist</h3><p><strong>教：</strong>安全环境第一次出现机制。<br><strong>测：</strong>单独要求玩家掌握。<br><strong>变：</strong>再和已有机制组合。</p></div>
+<div class="card good"><h3>Risk → Reward</h3><p>安全路更慢但稳；危险路更快或奖励更多。玩家主动选择难度，而不是被系统硬压。</p></div>
+<div class="card good"><h3>Read → Decide → Act</h3><p>先看清问题，再做选择，再执行。速度可以压缩窗口，但不能消灭阅读。</p></div>
+<div class="card good"><h3>Fail → Understand → Retry</h3><p>失败必须能回答“我为什么失败”和“下次改什么”。检查点要让玩家快速回到学习点。</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="num">12</div><div class="kicker">Trade-offs</div>
+<h2>每一个“更难”都要支付代价。</h2>
+<table class="matrix">
+<thead><tr><th>改动</th><th>可能获得</th><th>可能失去</th><th>该问的问题</th></tr></thead>
+<tbody>
+<tr><td>追兵更快</td><td>紧张感</td><td>观察与探索</td><td>玩家是因为追逐改变路线，还是只来不及看？</td></tr>
+<tr><td>平台更窄</td><td>精度要求</td><td>触屏稳定性</td><td>失败来自判断错误，还是输入误差？</td></tr>
+<tr><td>时限更短</td><td>节奏、紧迫</td><td>试验路线的自由</td><td>倒计时是否真的影响决策？</td></tr>
+<tr><td>必收水晶更多</td><td>路线规划</td><td>重复劳动</td><td>水晶位置是否产生选择？</td></tr>
+<tr><td>新增动作</td><td>技巧表达</td><td>认知负担</td><td>玩家是否已经在安全区学会它？</td></tr>
+</tbody>
+</table>
+<p class="lead">产品设计的工作不是避免代价，而是<strong>知道自己在换什么</strong>。</p>
+</section>
+
+<section class="slide">
+<div class="num">13</div><div class="kicker">Requirement Writing</div>
+<h2>把一句模糊需求，改写成<span class="accent">可执行方案</span>。</h2>
+<div class="example"><strong class="danger">不够：</strong>“太简单了，做难一点。”</div>
+<div class="example"><strong>进步：</strong>“骷髅太慢，让它快一点。”</div>
+<div class="example good"><strong class="accent">可执行：</strong>“第 60–100 距离这一段，我几乎感觉不到骷髅压力，所以一直直跑，不需要看危险条。先只把追兵基础速度 5.6 → 6.1，其他不动。我希望这里至少出现一次明显追近，但正常操作仍能逃掉。各跑 3 次，如果玩家因为追兵而改变动作，而不是因为跳跃突然变难，再考虑保留。”</div>
+</section>
+
+<section class="slide">
+<div class="num">14</div><div class="kicker">The 7-Part Design Sentence</div>
+<h2>以后每个修改，至少说清楚这 7 项。</h2>
+<div class="flow">
+<div class="step"><b>1 位置</b>在哪一段？</div>
+<div class="step"><b>2 现象</b>现在玩家怎么做？</div>
+<div class="step"><b>3 原因</b>你认为为什么？</div>
+<div class="step"><b>4 改动</b>具体改什么？</div>
+<div class="step"><b>5 目标</b>想让玩家怎么变？</div>
+<div class="step"><b>6 代价</b>可能伤害什么？</div>
+<div class="step"><b>7 证据</b>怎么测试？</div>
+</div>
+<div class="example good">
+<strong>填写模板：</strong><br>
+在 ______ ，玩家现在会 ______ 。我认为原因是 ______ 。我想先只把 ______ 从 ______ 改成 ______ 。我希望玩家因此开始 ______ 。代价可能是 ______ 。我会测试 ______ 次；如果 ______ ，就保留，否则回退。
+</div>
+</section>
+
+<section class="slide">
+<div class="num">15</div><div class="kicker">Product Detail Checklist</div>
+<h2>完整游戏产品，需要描述的不止“玩法”。</h2>
+<div class="grid4">
+<div class="card"><h3>目标</h3><p>赢什么？一局多久？为什么继续玩？</p></div>
+<div class="card"><h3>核心循环</h3><p>观察 → 行动 → 反馈 → 奖励/失败 → 再决策。</p></div>
+<div class="card"><h3>动作词汇</h3><p>移动、跳、冲刺、滑、攀爬，各自什么时候有意义？</p></div>
+<div class="card"><h3>关卡语法</h3><p>平台、障碍、分叉、节奏、检查点如何组合？</p></div>
+<div class="card"><h3>镜头与可读性</h3><p>玩家是否能提前看见落点与危险？</p></div>
+<div class="card"><h3>难度曲线</h3><p>教什么？何时测试？何时组合？何时放松？</p></div>
+<div class="card"><h3>失败与恢复</h3><p>为什么失败？多久重回练习点？</p></div>
+<div class="card"><h3>奖励与风险</h3><p>为什么走危险路线？为什么收集？</p></div>
+<div class="card"><h3>节奏</h3><p>紧张、缓冲、高潮如何交替？</p></div>
+<div class="card"><h3>输入设备</h3><p>键盘和触屏是否考同一种技能？</p></div>
+<div class="card"><h3>参数</h3><p>速度、距离、宽度、时间要写成数字，而不是形容词。</p></div>
+<div class="card"><h3>验证</h3><p>主观评价 + 可观察行为 + 失败原因。</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="num">16</div><div class="kicker">Next Lesson Challenge</div>
+<h2>下节课不是“把游戏做难”。<br>是做一次<span class="accent">真正的设计实验</span>。</h2>
+<div class="grid2">
+<div class="card"><h3>任务 A：A/B 两版</h3><ol><li>标准版两局</li><li>硬调版两局</li><li>指出至少 3 个具体差异</li><li>区分“紧张”“技巧”“烦躁”</li></ol></div>
+<div class="card"><h3>任务 B：写三个方案</h3><ol><li>每个只选 1 个主要难度轴</li><li>写位置与原因</li><li>写具体参数/规则</li><li>写代价与测试方法</li></ol></div>
+<div class="card"><h3>任务 C：只实现一个</h3><p>先做最小变化，不允许同时把所有旋钮都拧紧。</p></div>
+<div class="card"><h3>任务 D：三次测试</h3><p>跑三次，记录失败原因和动作是否改变。然后决定：保留、回退、还是提出下一假设。</p></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="num">17</div><div class="kicker">Assessment</div>
+<h2>本课真正的“通关条件”</h2>
+<p class="big-quote">从 <span class="strike">“难一点”</span><span class="arrow">→</span> “<span class="accent">我知道哪里有问题，我有一个方案，我知道它的代价，我知道怎么验证。</span>”</p>
+<div class="rubric">
+<b>维度</b><b>1 体感</b><b>2 定位</b><b>3 设计</b><b>4 产品思维</b>
+<span>表达</span><span>“太简单”</span><span>指出具体段落</span><span>说明原因与改法</span><span>方案 + 取舍 + 验证</span>
+<span>修改</span><span>要求“更难”</span><span>选一个参数</span><span>选一个难度轴</span><span>最小实验并回退/保留</span>
+<span>测试</span><span>“好/不好”</span><span>说哪里失败</span><span>说为什么失败</span><span>用多次测试支持判断</span>
+</div>
+<div class="teacher"><b>教师验收：</b>不要求学生使用术语。只要他能独立给出“具体位置 + 原因 + 解决办法 + 验证”，就算真正跨过这一步。</div>
+</section>
+
+<section class="slide" id="sources">
+<div class="num">18</div><div class="kicker">Sources · 2026-09-21</div>
+<h2>案例引用</h2>
+<div class="source" id="src1"><strong>[1] Imangi Studios — Temple Run.</strong> 官方页面描述 swipe to turn, jump, slide，收集 coins、购买 power-ups、跑得更远。<br><a href="https://imangistudios.com/thegames/temple-run/" target="_blank" rel="noreferrer">https://imangistudios.com/thegames/temple-run/</a></div>
+<div class="source" id="src2"><strong>[2] Apple App Store — Game essentials: Subway Surfers.</strong> 编辑介绍描述 simple swipe controls，以及 jump / slide / dodge、收集与持续生存；同时强调响应明确的换道与跳跃。<br><a href="https://apps.apple.com/au/story/id1453245869" target="_blank" rel="noreferrer">https://apps.apple.com/au/story/id1453245869</a></div>
+<div class="source" id="src3"><strong>[3] Roblox Creator Hub — Get started.</strong> Classic Obby 示例从容易开始并逐渐变难，包括移动、推动和伤害平台。<br><a href="https://create.roblox.com/docs/tutorials/curriculums/building/get-started" target="_blank" rel="noreferrer">https://create.roblox.com/docs/tutorials/curriculums/building/get-started</a></div>
+<div class="source" id="src4"><strong>[4] Roblox Creator Hub — Work with parts.</strong> 平台位置、尺寸、方向构成 jumping puzzle；官方提醒起步跳距过难可能导致玩家退出。<br><a href="https://create.roblox.com/docs/tutorials/curriculums/building/work-with-parts" target="_blank" rel="noreferrer">https://create.roblox.com/docs/tutorials/curriculums/building/work-with-parts</a></div>
+<div class="source" id="src5"><strong>[5] Roblox Creator Hub — Templates / Platformer.</strong> Platformer 模板包含 double jump、dash、roll、long jump、moving platform、one-way platform、coin pickups。<br><a href="https://create.roblox.com/docs/resources/roblox-connect" target="_blank" rel="noreferrer">https://create.roblox.com/docs/resources/roblox-connect</a></div>
+<div class="source" id="src6"><strong>[6] Roblox Creator Hub — Mouse and keyboard input.</strong> 官方 Input Action System 将 jump、sprint、shoot 等视为动作，再为多种硬件绑定输入。<br><a href="https://create.roblox.com/docs/input/mouse-and-keyboard" target="_blank" rel="noreferrer">https://create.roblox.com/docs/input/mouse-and-keyboard</a></div>
+<div class="source" id="src7"><strong>[7] Steam — Vector.</strong> 官方页面描述 run / vault / slide / climb，并称高阶关卡形成 fast-paced timing puzzles。<br><a href="https://store.steampowered.com/app/248970/" target="_blank" rel="noreferrer">https://store.steampowered.com/app/248970/</a></div>
+<p class="tiny">说明：案例中的“迁移到 Crystal Escape”“Teach → Test → Twist”“7-Part Design Sentence”等为本课程的教学分析框架，并非以上来源的原文或官方结论。</p>
+</section>
+
+</div>
+<div class="controls">
+<a href="./" title="返回作品 HUB">HUB</a>
+<button id="prev" aria-label="上一页">←</button>
+<div class="counter" id="counter">1 / 18</div>
+<button id="next" aria-label="下一页">→</button>
+<a href="harder-vague.html" title="A/B 实验">A/B</a>
+</div>
+<div class="progress"><div id="bar"></div></div>
+<script>
+const slides=[...document.querySelectorAll(".slide")];let current=0;
+function show(n){current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle("active",i===current));document.getElementById("counter").textContent=(current+1)+" / "+slides.length;document.getElementById("bar").style.width=((current+1)/slides.length*100)+"%";slides[current].scrollTop=0;history.replaceState(null,"","#slide-"+(current+1));}
+document.getElementById("prev").onclick=()=>show(current-1);document.getElementById("next").onclick=()=>show(current+1);
+addEventListener("keydown",e=>{if(["ArrowRight","PageDown"," "].includes(e.key)){e.preventDefault();show(current+1)}if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==="Home")show(0);if(e.key==="End")show(slides.length-1)});
+let x=null;addEventListener("touchstart",e=>{x=e.changedTouches[0].clientX},{passive:true});addEventListener("touchend",e=>{if(x===null)return;const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>70)show(current+(d<0?1:-1));x=null},{passive:true});
+const m=location.hash.match(/slide-(\d+)/);if(m)current=Math.max(0,Math.min(slides.length-1,Number(m[1])-1));show(current);
+</script>
+</body>
+</html>

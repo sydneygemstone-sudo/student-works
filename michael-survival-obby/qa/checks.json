@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-20",
-  "release": "1.1.0",
+  "date": "2026-09-21",
+  "release": "1.1.0 + 1.2 teaching lab",
   "checks": [
     {
       "name": "Game initializes",
@@ -8,6 +8,28 @@
     },
     {
       "name": "Release speed 8.8 and unchanged enemy cap",
+      "ok": true
+    },
+    {
+      "name": "Vague-hard preset changes multiple difficulty axes",
+      "ok": true,
+      "detail": {
+        "preset": "vague-hard",
+        "speed": 8.35,
+        "required": 10,
+        "limit": 180,
+        "coyote": 0.08,
+        "jumpBuffer": 0.1,
+        "gravity": 26.5,
+        "jump": 10.35,
+        "enemyIntro": 3.3,
+        "enemyBase": 6.35,
+        "enemySpeedCap": 9.35,
+        "enemyCatchup": 0.68
+      }
+    },
+    {
+      "name": "Vague-hard intro states 10 crystals and 3 minutes",
       "ok": true
     },
     {
@@ -171,7 +193,7 @@
       "name": "No external game requests",
       "ok": true,
       "detail": [
-        "http://127.0.0.1:54029/michael-survival-obby/play.html?qa=1&lang=en"
+        "http://127.0.0.1:58047/michael-survival-obby/play.html?qa=1&lang=en"
       ]
     },
     {
@@ -187,14 +209,14 @@
       "ok": true,
       "detail": {
         "x": 0,
-        "s": 3.5582932831201615,
-        "y": 1.843333333333335,
+        "s": 4.761107566885069,
+        "y": 2.3250000000000024,
         "vx": 0,
-        "vs": 8.405371529403466,
-        "vy": 5.200000000000008,
+        "vs": 8.52334228517914,
+        "vy": 1.8000000000000054,
         "grounded": false,
-        "coyote": -0.22499999999999998,
-        "jumpBuffer": -0.22499999999999998
+        "coyote": -0.366666666666667,
+        "jumpBuffer": -0.366666666666667
       }
     },
     {
@@ -302,6 +324,14 @@
       "ok": true
     },
     {
+      "name": "Difficulty lesson has 18 slides and cited sources",
+      "ok": true
+    },
+    {
+      "name": "A/B lab links both standard and vague-hard builds",
+      "ok": true
+    },
+    {
       "name": "Normal play has no mutation API",
       "ok": true
     },
@@ -312,14 +342,14 @@
     }
   ],
   "errors": [],
-  "scope": "Chrome on Windows; desktop, simulated iPad and simulated phone. Not a physical iPad or student acceptance.",
+  "scope": "Chrome browser automation; desktop, simulated iPad and simulated phone. Not a physical iPad or student acceptance.",
   "resources": {
     "browserClosed": true,
     "serverClosed": true
   },
-  "browser": "153.0.8010.48",
+  "browser": "153.0.8010.50",
   "summary": {
-    "passed": 47,
+    "passed": 51,
     "failed": 0
   }
 }
