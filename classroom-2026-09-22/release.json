@@ -17,8 +17,8 @@
     },
     "kehan-latest": {
       "path": "downloads/kehan-latest.zip",
-      "bytes": 642979,
-      "sha256": "569539b2c1acde7efdcb2f8e48815d3539bcbac618be31a7fe0219ce11ed1b17"
+      "bytes": 642980,
+      "sha256": "467bcc12058a0d7b57cad1f2b0902bdbc9a16450dd04a469acd885bc624d2d68"
     }
   },
   "files": {
@@ -28,7 +28,7 @@
     "device-kit.css": "43b58fc39dc033588706cbbd0bb14deeeb4f5ba8051f420cdac336368dde45ea",
     "device-kit.js": "7037dd66c550a36e56aef80dde4f2538b6e8f3ed0fcacb95c535df20eb782122",
     "downloads/harrison-zavier-latest.zip": "5d6e89896e18eee5a1f501cbf7395bc7d03ff7c8d1d3d27df00d9c97d3201d3e",
-    "downloads/kehan-latest.zip": "569539b2c1acde7efdcb2f8e48815d3539bcbac618be31a7fe0219ce11ed1b17",
+    "downloads/kehan-latest.zip": "467bcc12058a0d7b57cad1f2b0902bdbc9a16450dd04a469acd885bc624d2d68",
     "evidence/kehan-astra-planet.png": "27788a04945bc74c23e840f25b9b4bdb58396bca0fcf95d330c9d1950d381d74",
     "evidence/kehan-claude-planet.png": "462c1f8efdddc5838fdd6614ca0a363e0cde45fc89792a0bddd28de5d759c450",
     "evidence/kehan-claude-voyage.png": "97f45d4e99d1137fa9724a27771f60f761c90fcd9a11d7475446b686ed0f5560",
@@ -63,7 +63,7 @@
     "kehan/vendor/THREE-LICENSE.txt": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
     "kehan/vendor/three.core.js": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
     "kehan/vendor/three.module.js": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
-    "kehan-claude/index.html": "398d3d5131f2988190c8f3cc86f99c35f3a7a1c15fb12fa1cbd233e8a7607f16",
+    "kehan-claude/index.html": "cdfd52acb1d7eaaf2eea9fbcd0d99086126bc2c49cbf0f2f51dffd9073a24376",
     "kehan-claude/src/art-chars.js": "17ed869056973b52e1df55a34c38342ed05aff7d5b1592b63e279fcc3c8b807a",
     "kehan-claude/src/art-world.js": "2cc40d753d1f9b84ab07652f1398b66960ad63b0bd6a61c39248f2c6cd3546c1",
     "kehan-claude/src/audio.js": "4516af639c41735530a7d696a1f39137f53d6a4733e044b2e35ed0b42dbf8fe2",
@@ -84,12 +84,12 @@
     "reports/input-regression.json": "60f8c7a090dd2ac9aa8672c624f1cc14bcd7d35a59258a5ac8225e4033949783",
     "reports/ipad.json": "ff06649cfcbf539ff30b1499823a24a21af41bb4a9691a8864752a5cccc85ab3",
     "reports/multitouch.json": "00df6e03d1ce63f5c148e893b7315cea35e1f7241bb49fd4a10163b2fd2ec261",
-    "reports/packages.json": "d10046fc48fa7fecb2eb4f7520224a3bce1d4cf8e0f69f610129c631bb17cf9b",
+    "reports/packages.json": "a87d6596bfb9ccd2c3e565b0fba8c844320f2ae4a9f052d774f2ba42d1b29e02",
     "reports/studio.json": "15dc6f4959816ea29b51624b221f683ec058ee4db8ae237be5cc56997279ea4b",
     "studio-data.json": "b68b33bd49adb81673a621bf9544b88ad3bab80631a57a5ee0ec8e1d3b3026b9",
     "studio-r3.css": "25eebf6889fab91f12bf57f6bea1a613eb4c6ef8bfedd9ea602522ae7e99dc42",
     "studio.css": "10474d980a37cba22bf1b11b932569a2d1ec6ce61e12802f0e0cb475bf2718aa",
-    "studio.js": "dfff0341772007f8de0c3c720f0c66ac27dc1fb3417a1177e40e80eabc092e1e",
+    "studio.js": "f13991cddcb0d11795fe1cfaaac4bf094318e53091e4aa98f53dea137a4f2b82",
     "touch-guard.js": "5410eb2dbafe553ed4ad10638fd42a72397fdd37310324f97b8e9bfeabe93660"
   }
 }
