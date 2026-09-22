@@ -1,6 +1,20 @@
-# Classroom Studio · 2026.09.23-r4
+# Classroom Studio · 2026.09.23-r5 · Presentation review
 
 Class: 22 September 2026. English + simplified Chinese. Original classroom folders are retained locally and are not deleted by this release.
+
+## r5 presentation review — template not finalized
+
+The two stable HUB links now show budget used/pool, seven delivery milestones, task-based manual labour estimates and prototype-stage efficiency comparisons. Kehan has a five-dimension side-by-side review and a proposed integration sequence. Harrison/Zavier documents a completed rejection decision, with only Astra continuing. Development pages trace the full classroom brief, tool direction, technical choices, feedback and subsequent revisions; they are not a latest-patch changelog.
+
+[Kehan full journey](kehan-development.html) · [Harrison/Zavier full journey](harrison-zavier-development.html)
+
+[Manual labour and efficiency — Kehan](kehan-costs.html) · [Manual labour and efficiency — Harrison/Zavier](harrison-zavier-costs.html)
+
+The manual rebuild ranges are planning assumptions using the archived Alex/Victory reference parameter A$63.44/h, not a new rate survey or invoiced labour. Current-package rebuild and classroom-prototype multipliers have different, explicitly labelled scopes. Unmetered controller/teacher work is not counted as zero. The 86% progress indicator means six of seven delivery gates, not measured code completion. The final gate is physical iPad play plus teacher approval.
+
+The game rules and r4 touch protections are unchanged. Only Harrison/Zavier landing-word punctuation was edited in the runtime. Both matching offline packages were actually extracted and started with external requests blocked.
+
+The current review passed 59 presentation checks and 7 extracted-package checks. New test reports are separate from previous gameplay evidence. No formal HUB template or Skill has been finalized or added to GitHub in this revision; teacher approval is still required.
 
 ## Project decisions
 
@@ -18,7 +32,7 @@ All three retained games use a vertical left-side toolbar. The joystick occupies
 
 A shared early-loaded gesture guard protects game surfaces from double-tap zoom. Game input still uses independent pointers; normal menu buttons, language, pause and name entry remain usable. Reading pages retain normal browser accessibility. Dynamic stylesheet injection and offline packages use the same versioned assets.
 
-This revision has 48 passing WebKit/Chromium gesture/layout checks at 1024×768, 768×1024 and 844×390; a separate Claude multi-touch test passes 4 checks; actual extracted packages pass 7 checks. The first broad Chromium regression encountered one navigation timeout; the targeted rerun and WebKit package tests are retained alongside that first-attempt note. These checks are not physical iPad certification.
+The previous r4 revision has 48 passing WebKit/Chromium gesture/layout checks at 1024×768, 768×1024 and 844×390; a separate Claude multi-touch test passes 4 checks; actual extracted packages pass 7 checks. The first broad Chromium regression encountered one navigation timeout; the targeted rerun and WebKit package tests are retained alongside that first-attempt note. These checks are not physical iPad certification.
 
 ## At home
 

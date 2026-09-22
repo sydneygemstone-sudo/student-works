@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "kehan ZIP extraction and all manifest hashes",
+    "kehan extracted offline selection page",
+    "kehan-claude extracted ZIP: WebKit touch start + local HUB link resolves, external requests blocked",
+    "kehan extracted ZIP: WebKit touch start + local HUB link resolves, external requests blocked",
+    "harrison-zavier ZIP extraction and all manifest hashes",
+    "harrison-zavier extracted offline selection page",
+    "harrison-zavier extracted ZIP: WebKit touch start + local HUB link resolves, external requests blocked"
+  ],
+  "errors": [],
+  "status": "PASS",
+  "completedAt": "2026-09-22T23:51:09.353Z",
+  "release": "2026.09.23-r5"
+}

@@ -1,36 +1,52 @@
 {
-  "release": "2026.09.23-r4",
-  "status": "PASS_WITH_DOCUMENTED_TEST_SCOPE",
-  "completedAt": "2026-09-22T16:47:47.015819+00:00",
+  "release": "2026.09.23-r5",
+  "status": "READY_FOR_TEACHER_REVIEW",
+  "completedAt": "2026-09-22T23:54:50.422647+00:00",
   "class_date": "2026-09-22",
+  "template_status": "AWAITING_USER_APPROVAL_NOT_CHANGED_NOT_PUBLISHED",
   "changes": [
-    "Vertical left-side utility rail in all three retained games",
-    "Separate joystick zone and safe-area handling",
-    "Scoped double-tap/gesture prevention while preserving multi-touch and normal controls",
-    "Versioned shared assets included in both offline packages"
+    "Budget used/pool with progress bar; explicit delivery-gate bar",
+    "Task-based manual rebuild estimate; stage-matched time/tool-cost comparisons",
+    "Full brief-to-current development routes with tool and stack summaries",
+    "Kehan compares two retained builds and proposes, but does not implement, a merge",
+    "Harrison/Zavier records the completed Opus rejection after two failed classroom repairs",
+    "English/Chinese full stops removed from three game landing words and matching offline package"
   ],
-  "current_revision_checks": {
-    "gesture-layout": 48,
-    "multitouch": 4,
-    "packages": 7
+  "current_tests": {
+    "presentation": {
+      "status": "PASS",
+      "checks": 59,
+      "report": "reports/presentation-r5.json"
+    },
+    "packages": {
+      "status": "PASS",
+      "checks": 7,
+      "report": "reports/packages-r5.json"
+    }
   },
-  "first_attempt_note": "The broad Chromium harness timed out once on Claude initial navigation; Claude startup and controls were then separately verified. Do not interpret the first broad run as fully passed.",
-  "reports": {
-    "gesture-layout": "reports/gesture-layout.json",
-    "multitouch": "reports/multitouch.json",
-    "packages": "reports/packages.json",
-    "input-regression": "reports/input-regression.json"
+  "preserved_runtime": {
+    "unchanged_from_r4": [
+      "device-kit.js",
+      "device-kit.css",
+      "touch-guard.js",
+      "kehan/game.js",
+      "kehan-claude/src/game.js",
+      "harrison-zavier/game.js",
+      "harrison-zavier/engine.mjs"
+    ],
+    "kehan_zip_identical_to_r4": true,
+    "harrison_zavier_changes": [
+      "Landing-word punctuation",
+      "Versioned translation-script reference"
+    ]
   },
-  "baseline_reports": [
-    "reports/ipad.json",
-    "reports/balance.json",
-    "reports/studio.json"
-  ],
+  "previous_gameplay_acceptance": "reports/acceptance-r4.json",
   "limitations": [
-    "No physical iPad hardware test.",
-    "WebKit/Chromium touch and page-scale checks do not certify every iPadOS/Safari version.",
-    "Claude planet stage was injected only for input testing, not a claimed full playthrough.",
-    "Current controller token receipt is unavailable, not counted as zero."
+    "Browser tests and extracted ZIP startup, not a physical iPad playthrough",
+    "Human hours are task-based scenario estimates, not recorded labour or invoices",
+    "Efficiency ratios compare the measured classroom prototype stage only",
+    "Controller usage and teacher labour after class are not fully metered and are not zero",
+    "Delivery progress counts 6 of 7 equally weighted milestones; final physical-device play and teacher approval are pending"
   ],
   "original_source_cleanup": false,
   "private_voice_assets_published": false

@@ -1,5 +1,5 @@
 {
-  "release": "2026.09.23-r4",
+  "release": "2026.09.23-r5",
   "classDate": "2026-09-22",
   "projects": {
     "kehan": {
@@ -10,12 +10,12 @@
         "Star Rescue"
       ],
       "heroTitle": [
-        "你的宇宙，<br>不止一种玩法。",
-        "Your universe.<br>Two ways to explore."
+        "飞船探索 × 冰火战斗<br><em>比较两版，找到融合方向</em>",
+        "Ship exploration × ice & fire<br><em>Compare both, then combine</em>"
       ],
       "intro": [
-        "驾驶飞船穿越星海，或登陆星球展开冰火战斗。两条值得保留的分支，都有自己的最新版。",
-        "Pilot a ship through the stars, or land for an ice-and-fire battle. Two worthwhile branches, each with its own current build."
+        "Kehan 想开大飞船、换小飞船，再用枪与冰魔法救回地球。两次实现各有长处：飞行过程更完整，或地面战斗更直接。",
+        "Kehan wanted a mothership, a shuttle, guns and ice magic to save Earth. Two implementations offer different strengths: a fuller journey or more direct ground combat."
       ],
       "hero": "evidence/kehan-claude-voyage.png",
       "theme": "space",
@@ -59,8 +59,8 @@
         ]
       },
       "decision": [
-        "课堂结论：保留 Claude 的飞船探索，也保留 Astra 的战斗手感；不是用一个覆盖另一个。",
-        "Classroom decision: keep Claude’s ship exploration and Astra’s combat feel. Do not overwrite one with the other."
+        "保留两个最新版作对照：Claude 看探索流程，Astra 看战斗手感；明确各自短板，再确定怎么融合。",
+        "Retain both current builds: compare Claude’s journey with Astra’s combat feel, identify weaknesses, then define the merge."
       ],
       "branches": [
         {
@@ -311,6 +311,644 @@
           "只选一个改进，你会保留哪一版的什么功能？",
           "For one next improvement, what would you borrow from each branch?"
         ]
+      ],
+      "milestones": [
+        {
+          "name": [
+            "构想",
+            "Idea"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "Brief",
+            "Brief"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "原型",
+            "Prototype"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "版本评估",
+            "Review"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "家庭适配",
+            "Home build"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "验证与呈现",
+            "Test & present"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "实机与定稿",
+            "Final approval"
+          ],
+          "status": "pending"
+        }
+      ],
+      "progress_scope": [
+        "本期家庭交付 · 6 / 7 阶段",
+        "Home delivery · 6 / 7 stages"
+      ],
+      "progress_next": [
+        "下一步：实体 iPad 试玩与展示确认",
+        "Next: physical-iPad playtest and presentation approval"
+      ],
+      "milestone_note": [
+        "进度按七个交付阶段等权计数，不代表代码完成率；最后一关由实机试玩与教师确认完成。融合开发和三台 iPad 联机是另列的后续范围。",
+        "Seven equally weighted delivery gates, not a percentage of code. The final gate requires physical-device play and teacher approval. A merged game and three-iPad networking are separate future scopes."
+      ],
+      "hourly_rate": 63.44,
+      "rate_note": [
+        "沿用 Alex / Victory 样板的 A$63.44/h 估算参数；不是本次实际人工账单、外包报价或新的市场调查。",
+        "Uses the Alex / Victory reference parameter of A$63.44/h. It is not a labour invoice, contractor quote or a new salary survey."
+      ],
+      "cost_note": [
+        "已记录工具用量，不含未计量的主控与教师人工",
+        "Recorded tool usage; unmetered controller and teacher labour excluded"
+      ],
+      "metric_scope_note": [
+        "人工重建看当前整套交付；倍数只比较有时间与费用记录的课堂原型阶段。",
+        "Rebuild estimate covers the current package; ratios compare the metered classroom prototype stage only."
+      ],
+      "milestone_evidence": [
+        [
+          "主题与目标已明确",
+          "Theme and goal agreed"
+        ],
+        [
+          "可执行需求已写入会话",
+          "Executable brief recorded"
+        ],
+        [
+          "候选作品已落地",
+          "Candidates implemented"
+        ],
+        [
+          "教师反馈与版本结论已整理",
+          "Teacher feedback and decisions documented"
+        ],
+        [
+          "单机、触控、语言与左侧工具栏已接入",
+          "Solo, touch, language and left toolbar implemented"
+        ],
+        [
+          "浏览器回归、文件核验与审阅页已完成",
+          "Browser regression, file checks and review pages prepared"
+        ],
+        [
+          "实体设备的完整玩法与最终呈现待确认",
+          "Full physical-device play and final presentation await approval"
+        ]
+      ],
+      "human_tasks": [
+        {
+          "task": [
+            "需求与关卡设计",
+            "Requirements and level design"
+          ],
+          "range": [
+            2,
+            3
+          ]
+        },
+        {
+          "task": [
+            "共享 3D 场景与角色",
+            "Shared 3D scenes and characters"
+          ],
+          "range": [
+            6,
+            10
+          ]
+        },
+        {
+          "task": [
+            "母舰、换乘和降落",
+            "Mothership, transfer and descent"
+          ],
+          "range": [
+            5,
+            8
+          ]
+        },
+        {
+          "task": [
+            "两套战斗与交互实现",
+            "Two combat/control implementations"
+          ],
+          "range": [
+            8,
+            13
+          ]
+        },
+        {
+          "task": [
+            "iPad 与双语共用组件",
+            "Shared iPad and bilingual controls"
+          ],
+          "range": [
+            5,
+            8
+          ]
+        },
+        {
+          "task": [
+            "双版本测评与 HUB",
+            "Dual-build review and HUB"
+          ],
+          "range": [
+            6,
+            10
+          ]
+        },
+        {
+          "task": [
+            "回归、调试与离线交付",
+            "Regression, debugging and offline delivery"
+          ],
+          "range": [
+            8,
+            12
+          ]
+        }
+      ],
+      "human": {
+        "hours_range": [
+          40,
+          64
+        ],
+        "hours_mid": 52.0,
+        "aud_range": [
+          2537.6,
+          4060.16
+        ],
+        "aud_mid": 3298.88,
+        "scope": [
+          "一次重建当前交付，不把所有迭代重复相加",
+          "Rebuild the current delivery once; do not sum every iteration"
+        ]
+      },
+      "efficiency": {
+        "stage": [
+          "课堂原型阶段",
+          "Classroom prototype stage"
+        ],
+        "manual_hours_range": [
+          18,
+          28
+        ],
+        "manual_hours_mid": 23.0,
+        "manual_aud_range": [
+          1141.92,
+          1776.32
+        ],
+        "manual_aud_mid": 1459.12,
+        "elapsed_seconds": 968.0,
+        "elapsed_display": "16m 08s",
+        "tool_cost_aud": 12.0969851186,
+        "time_ratio_mid": 85.53719008264463,
+        "time_ratio_range": [
+          66.94214876033058,
+          104.13223140495867
+        ],
+        "cost_ratio_mid": 120.61848350598498,
+        "cost_ratio_range": [
+          94.39707404816218,
+          146.8398929638078
+        ],
+        "window_utc": [
+          "2026-09-22T06:12:19+00:00",
+          "2026-09-22T06:28:27+00:00"
+        ],
+        "note": [
+          "时间采用两条开发会话的首尾联合窗口，不把并行时间相加。它不是教师工时，也不包括课后 HUB 修订。工具费倍数以人工估算 / 已记录 API 等值费用计算；不是全项目总成本节省率。",
+          "Time uses the union of both session windows, not their sum. It is neither teacher hours nor later HUB revision time. Tool-cost ratio is estimated manual labour / metered API-equivalent cost, not total-project cost savings."
+        ]
+      },
+      "prototype_estimate_basis": [
+        "18–28 小时：重建课堂中的两条可玩原型，共享需求和基本美术只计一次；不包含后续统一工具栏、全面测评和当前 HUB。",
+        "18–28 hours to recreate both classroom prototypes, counting shared brief/basic art once. Later shared controls, complete comparisons and this HUB are excluded."
+      ],
+      "sources": [
+        {
+          "id": "K-BRIEF",
+          "label": [
+            "16:12 课堂需求",
+            "16:12 classroom brief"
+          ],
+          "kind": "classroom_brief",
+          "note": [
+            "与两份开发会话中的制作要求交叉核对；不是逐字录音全文。",
+            "Cross-checked against both development prompts; not a full audio transcript."
+          ]
+        },
+        {
+          "id": "K-CLAUDE",
+          "label": "Claude Code · 16:12–16:27",
+          "kind": "development_log",
+          "note": [
+            "15 分钟限制；Bash、Workflow 模块并行、Read 截图检查。",
+            "15-minute limit; Bash, parallel Workflow modules and Read screenshot checks."
+          ]
+        },
+        {
+          "id": "K-ASTRA",
+          "label": "Codex · 16:13–16:28",
+          "kind": "development_log",
+          "note": [
+            "独立目录、Three.js 模块、脚本验收、截图与交付回执。",
+            "Separate project, Three.js module, scripted checks, screenshots and handoff."
+          ]
+        },
+        {
+          "id": "K-REVIEW",
+          "label": [
+            "教师课后复盘",
+            "Teacher review"
+          ],
+          "kind": "teacher_feedback",
+          "note": [
+            "Claude 飞船完整但手感弱；Astra 飞船简陋但地面战斗更直接。要求保留两版。",
+            "Claude has richer flight but weaker feel; Astra has sparse flight but more direct combat. Both should remain."
+          ]
+        },
+        {
+          "id": "R3",
+          "label": "r3 · 版本与手感 / branches & feel",
+          "kind": "release_receipt"
+        },
+        {
+          "id": "R4",
+          "label": "r4 · iPad / gestures",
+          "kind": "release_receipt"
+        }
+      ],
+      "journey": [
+        {
+          "id": "idea",
+          "date": "09.22 · 课堂",
+          "title": [
+            "先确定一条救地球的冒险路线",
+            "Define a journey to save Earth"
+          ],
+          "summary": [
+            "Kehan 的目标不是只有一场打怪，而是先旅行、再登陆、最后夺宝。",
+            "Kehan’s goal was a journey, a landing and a relic—not just an isolated fight."
+          ],
+          "brief": [
+            "大飞船 → 安全区 → 小飞船 → 怪物星球；失败重试，拿到宝物救地球。",
+            "Mothership → safe zone → shuttle → monster planet; retry failure and recover the relic."
+          ],
+          "tool": [
+            "课堂讨论整理成一份可执行 brief",
+            "Class discussion consolidated into one executable brief"
+          ],
+          "tech": [
+            "拆成场景阶段、胜负状态、操作动作",
+            "Define scene stages, win/lose states and player actions"
+          ],
+          "result": [
+            "两个工具得到同样目标，并有 15 分钟开发限制。",
+            "Both tools received the same goal and a 15-minute deadline."
+          ],
+          "source": "K-BRIEF",
+          "status": "done"
+        },
+        {
+          "id": "parallel",
+          "date": "09.22 · 16:12–16:28",
+          "title": [
+            "同一份需求，分成两条实现路线",
+            "One brief, two implementations"
+          ],
+          "summary": [
+            "两边都复用了本地 Three.js 资源，但组织代码和分配时间的方式不同。",
+            "Both reused local Three.js assets, but organized the implementation differently."
+          ],
+          "brief": [
+            "必须第三人称；枪打怪、冰冻火球、能跑跳后退。",
+            "Third-person view, guns, frozen fireballs, running, jumping and reversing."
+          ],
+          "tool": [
+            "Claude：Bash 检查环境 → Workflow 并行模块 → 集成；Astra：exec 调用 → 写场景／状态机 → 测试",
+            "Claude: Bash checks → parallel Workflow modules → integration; Astra: exec calls → scenes/state machine → tests"
+          ],
+          "tech": [
+            "Claude：独立场景与 UI 脚本；Astra：ES modules + Three.js + JavaScript 状态机",
+            "Claude: separate world/UI scripts; Astra: ES modules, Three.js and a JavaScript state machine"
+          ],
+          "result": [
+            "飞船探索与冰火战斗成为两个不同的候选，而不是同一个游戏的前后备份。",
+            "Ship exploration and ice/fire combat emerged as separate candidates, not old/new backups."
+          ],
+          "source": "K-CLAUDE + K-ASTRA",
+          "status": "done"
+        },
+        {
+          "id": "flight",
+          "date": "09.22 · Claude 分支",
+          "title": [
+            "把母舰与穿梭机做成主动驾驶",
+            "Make the ships actively playable"
+          ],
+          "summary": [
+            "保留驾驶、避开小行星、穿过安全区和降落，再切到星球战斗。",
+            "Pilot, dodge asteroids, reach the safe zone and descend before the ground battle."
+          ],
+          "brief": [
+            "“先用大飞船到安全区，再坐小飞船”必须在游戏中看得见。",
+            "The mothership-to-shuttle journey must be visible in the game."
+          ],
+          "tool": [
+            "模块装配 → 启动本地预览 → 截图读取 → 阶段与结算脚本检查",
+            "Assemble modules → local preview → screenshot inspection → stage/ending scripts"
+          ],
+          "tech": [
+            "本地 Three.js；分阶段逻辑；DOM 血条、卡片与触屏控件",
+            "Local Three.js, stage logic, DOM HUD/cards/touch controls"
+          ],
+          "result": [
+            "探索完整度成为长处；教师试玩指出移动与转向手感还不够好。",
+            "Journey completeness is the strength; teacher play identified weak movement/turning feel."
+          ],
+          "source": "K-CLAUDE + K-REVIEW",
+          "status": "done"
+        },
+        {
+          "id": "combat",
+          "date": "09.22 · Astra 分支",
+          "title": [
+            "把冰冻与射击做成更直接的交互",
+            "Prioritize direct ice-and-gun feedback"
+          ],
+          "summary": [
+            "将更多实现集中到地面战斗；母舰旅行主要是过场。",
+            "More implementation went into ground combat, while the voyage remained mainly cinematic."
+          ],
+          "brief": [
+            "普通火球与 Boss 大火球都能被冻结；打倒 Boss 再夺宝。",
+            "Freeze ordinary and giant boss fireballs, defeat the boss, then claim the relic."
+          ],
+          "tool": [
+            "写入 game.js → Playwright 测试 → 读取登陆／战斗／结局截图 → 回执",
+            "Write game.js → Playwright tests → landing/combat/ending screenshots → receipt"
+          ],
+          "tech": [
+            "程序化场景、第三人称相机、投射物与碰撞、状态机",
+            "Procedural scenes, third-person camera, projectiles/collisions and states"
+          ],
+          "result": [
+            "操作反馈更直接，但不能拿短过场代替完整飞船探索。",
+            "More direct controls, but short cinematics do not replace full ship exploration."
+          ],
+          "source": "K-ASTRA + K-REVIEW",
+          "status": "done"
+        },
+        {
+          "id": "selection",
+          "date": "课后 · 对照与家庭适配",
+          "title": [
+            "纠正只保留一版，分别打磨两版",
+            "Restore both builds and improve each"
+          ],
+          "summary": [
+            "最初归档偏向 Astra；教师明确要求两版都留下，为后续融合提供比较。",
+            "The initial archive favored Astra; the teacher asked to retain both for a future merge."
+          ],
+          "brief": [
+            "在家用 iPad 单机玩；保留两个不同长处。",
+            "At-home iPad solo play, with both distinct strengths preserved."
+          ],
+          "tool": [
+            "读候选与反馈 → 修触控输入 → 断网单机检查 → 重建双分支下载包",
+            "Read candidates/feedback → fix touch input → solo checks → two-branch ZIP"
+          ],
+          "tech": [
+            "左摇杆与转视角分离、输入取消、暂停、阶段重试",
+            "Separate movement/look, cancel input, pause and stage retry"
+          ],
+          "result": [
+            "两张可玩卡片；每个分支只保留最新版。",
+            "Two playable cards, with one current release per branch."
+          ],
+          "source": "K-REVIEW + R3",
+          "status": "done"
+        },
+        {
+          "id": "home",
+          "date": "09.23 · 家庭交付",
+          "title": [
+            "解决界面遮挡和连点放大",
+            "Address overlap and repeated-tap zoom"
+          ],
+          "summary": [
+            "工具栏从底部移到左侧；手势保护不能破坏双指移动和射击。",
+            "Move tools from bottom to left; gesture protection must preserve two-finger play."
+          ],
+          "brief": [
+            "工具栏不能挡按钮，连续点按不能放大页面。",
+            "Tools must not cover controls, and repeated taps must not zoom the page."
+          ],
+          "tool": [
+            "共享组件修复 → WebKit/Chrome 点按与布局 → 双指专项 → 解压包核验",
+            "Shared fix → WebKit/Chrome gestures/layout → multi-touch test → extracted ZIP checks"
+          ],
+          "tech": [
+            "touch-action、限定区域触摸兜底、safe-area、带版本号的资源",
+            "touch-action, scoped gesture fallback, safe areas and versioned assets"
+          ],
+          "result": [
+            "网页与包已验证；实体 iPad 的完整长流程仍需最终试玩。",
+            "Website/package checks passed; full physical-iPad play remains the final gate."
+          ],
+          "source": "R4",
+          "status": "done"
+        },
+        {
+          "id": "next",
+          "date": "下一步 · 待验证",
+          "title": [
+            "从双版本测评进入融合验证",
+            "Turn comparison into a merge experiment"
+          ],
+          "summary": [
+            "先选要借鉴的模块，再验证一个小的融合样例，不直接把两套代码拼起来。",
+            "Choose modules first, then validate a small integration sample instead of concatenating the codebases."
+          ],
+          "brief": [
+            "Claude 的主动飞行＋Astra 的地面反馈。",
+            "Claude’s active flight plus Astra’s ground feedback."
+          ],
+          "tool": [
+            "建议：统一动作接口 → 接一个登陆战斗样例 → 两指与冰火回归",
+            "Proposed: common action interface → one landing/battle slice → touch and ice/fire regression"
+          ],
+          "tech": [
+            "以 move/look/fire/ice/jump/pause 为接口，关卡状态与战斗实现解耦",
+            "Use move/look/fire/ice/jump/pause interfaces to separate stage flow from combat"
+          ],
+          "result": [
+            "这是下一轮建议，尚未制作融合版，也没有替换两个现行版本。",
+            "This is a proposal, not an implemented merge; both current builds remain."
+          ],
+          "source": "K-REVIEW",
+          "status": "planned"
+        }
+      ],
+      "comparison_rows": [
+        {
+          "topic": [
+            "飞行与探索",
+            "Flight & exploration"
+          ],
+          "left": [
+            "主动操控母舰，避小行星并换乘降落",
+            "Active mothership, asteroids, transfer and descent"
+          ],
+          "right": [
+            "航行以过场为主，主动探索较少",
+            "Mostly cinematic travel, little active exploration"
+          ],
+          "direction": [
+            "融合时采用 Claude 的阶段骨架",
+            "Use Claude’s stage structure"
+          ]
+        },
+        {
+          "topic": [
+            "地面操作",
+            "Ground controls"
+          ],
+          "left": [
+            "原始转向/横移混合；现已分离但待实机手感反馈",
+            "Turning/strafe were mixed; revised but feel awaits device feedback"
+          ],
+          "right": [
+            "第三人称移动与冰火反馈较直接",
+            "More direct third-person and ice/fire feedback"
+          ],
+          "direction": [
+            "将 Astra 的操作响应做成统一动作接口",
+            "Use Astra-style response through one action interface"
+          ]
+        },
+        {
+          "topic": [
+            "冰冻与射击",
+            "Ice & shooting"
+          ],
+          "left": [
+            "冰冻普通/巨型火球，接完整关卡旅程",
+            "Freeze ordinary/giant fireballs within the journey"
+          ],
+          "right": [
+            "战斗演示和动作反馈更集中",
+            "More focused combat/actions"
+          ],
+          "direction": [
+            "统一命中提示、冷却和两指操作",
+            "Unify hit cues, cooldowns and two-finger input"
+          ]
+        },
+        {
+          "topic": [
+            "失败重试",
+            "Failure & retry"
+          ],
+          "left": [
+            "当前阶段重试，不强迫重飞全部航程",
+            "Retry the current stage, not the whole voyage"
+          ],
+          "right": [
+            "现有冒险重试流程",
+            "Existing adventure retry"
+          ],
+          "direction": [
+            "保留关卡检查点，与战斗状态隔离",
+            "Keep checkpoints separate from combat state"
+          ]
+        },
+        {
+          "topic": [
+            "家庭 iPad",
+            "Home iPad"
+          ],
+          "left": [
+            "已接左侧栏和手势保护，实体长流程待测",
+            "Left rail and gesture guard; hardware full-flow pending"
+          ],
+          "right": [
+            "同样有单机、触屏和双语",
+            "Also solo, touch and bilingual"
+          ],
+          "direction": [
+            "把同一套验收用于融合样例",
+            "Use the same test gates on the merge slice"
+          ]
+        }
+      ],
+      "merge_steps": [
+        [
+          "锁定两份当前版本，先在 iPad 对照飞行、移动、冰冻和失败重试。",
+          "Freeze both current builds and compare flight, movement, ice and retry on iPad."
+        ],
+        [
+          "以 Claude 关卡流程为主，抽出统一的移动／转视角／攻击接口，不直接粘合两个 game.js。",
+          "Use Claude’s stage flow and extract common movement/look/attack interfaces; do not paste two game.js files together."
+        ],
+        [
+          "只接通“降落 → 一波怪 → 冰冻大火球 → 重试”的小样，确认手感比任一旧版更好。",
+          "Integrate only landing → one wave → giant-fireball freeze → retry; check that the feel improves."
+        ],
+        [
+          "通过双指、暂停、连点防缩放和关卡回归后，再扩成完整融合版。",
+          "Expand into a full merge only after multi-touch, pause, no-zoom and stage regression pass."
+        ]
+      ],
+      "next_scope": [
+        "当前发布的是两个对照版本；融合方案待你看完测评后决定，不提前替换。",
+        "Two comparison builds are published; the merge awaits review and does not replace them yet."
+      ],
+      "flow_lanes": [
+        {
+          "name": "Claude",
+          "state": "retained",
+          "desc": [
+            "主动飞船 → 阶段重试 → 待实机对照",
+            "Active flight → stage retry → device comparison"
+          ]
+        },
+        {
+          "name": "Astra",
+          "state": "retained",
+          "desc": [
+            "地面战斗 → 直接反馈 → 待实机对照",
+            "Ground combat → direct feedback → device comparison"
+          ]
+        }
+      ],
+      "runtime_release": "2026.09.23-r4",
+      "review_state": [
+        "本版呈现待教师确认",
+        "Presentation awaiting teacher approval"
       ]
     },
     "harrison-zavier": {
@@ -321,12 +959,12 @@
         "RPS · Monster Rush"
       ],
       "heroTitle": [
-        "队友会帮忙，<br>但胜利要靠你。",
-        "Your team will help.<br>The win is up to you."
+        "判断克制<br><em>一起撑过怪物突袭</em>",
+        "Match the monster<br><em>Survive the rush together</em>"
       ],
       "intro": [
-        "战士、法师与战斗机，各有克制目标。减少电脑代打，让走位、救援与大招时机重新成为玩家的选择。",
-        "Fighter, Mage and Jet each counter different enemies. Less bot carrying means positioning, revives and super timing matter again."
+        "战士破甲，法师对付水晶怪，战斗机追击快怪。宝箱放在最终胜利之后，大招用于解围，队友帮忙但不能替玩家赢。",
+        "Fighter breaks armor, Mage handles crystal enemies, and Jet catches runners. The chest rewards victory; supers are emergency tools, and teammates support rather than carry."
       ],
       "hero": "evidence/rps-r3-combat.png",
       "theme": "forest",
@@ -370,8 +1008,8 @@
         ]
       },
       "decision": [
-        "课堂结论：保留能进入课堂游玩的 Astra 版；Opus 版修复两次仍未通过课堂使用，停止追加，明确弃用。",
-        "Classroom decision: retain the usable Astra branch. The Opus candidate still failed classroom use after two repairs; stop spending on it and mark it rejected."
+        "版本取舍已确定：Opus 两次修复后仍有课堂使用 Bug，停止投入；保留 Astra，继续改善移动、队友和 Boss 平衡。",
+        "Decision made: Opus still had classroom-use bugs after two repairs, so stop investing. Keep Astra and improve movement, bots and boss balance."
       ],
       "branches": [
         {
@@ -623,7 +1261,534 @@
           "为什么有画面、但课堂不能用的版本要舍弃？",
           "Why reject a version with attractive visuals when it does not work in class?"
         ]
+      ],
+      "milestones": [
+        {
+          "name": [
+            "构想",
+            "Idea"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "Brief",
+            "Brief"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "原型",
+            "Prototype"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "版本评估",
+            "Review"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "家庭适配",
+            "Home build"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "验证与呈现",
+            "Test & present"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "实机与定稿",
+            "Final approval"
+          ],
+          "status": "pending"
+        }
+      ],
+      "progress_scope": [
+        "本期家庭交付 · 6 / 7 阶段",
+        "Home delivery · 6 / 7 stages"
+      ],
+      "progress_next": [
+        "下一步：实体 iPad 试玩与展示确认",
+        "Next: physical-iPad playtest and presentation approval"
+      ],
+      "milestone_note": [
+        "进度按七个交付阶段等权计数，不代表代码完成率；最后一关由实机试玩与教师确认完成。融合开发和三台 iPad 联机是另列的后续范围。",
+        "Seven equally weighted delivery gates, not a percentage of code. The final gate requires physical-device play and teacher approval. A merged game and three-iPad networking are separate future scopes."
+      ],
+      "hourly_rate": 63.44,
+      "rate_note": [
+        "沿用 Alex / Victory 样板的 A$63.44/h 估算参数；不是本次实际人工账单、外包报价或新的市场调查。",
+        "Uses the Alex / Victory reference parameter of A$63.44/h. It is not a labour invoice, contractor quote or a new salary survey."
+      ],
+      "cost_note": [
+        "已记录工具用量，不含未计量的主控与教师人工",
+        "Recorded tool usage; unmetered controller and teacher labour excluded"
+      ],
+      "metric_scope_note": [
+        "人工重建看当前整套交付；倍数只比较有时间与费用记录的课堂原型阶段。",
+        "Rebuild estimate covers the current package; ratios compare the metered classroom prototype stage only."
+      ],
+      "milestone_evidence": [
+        [
+          "主题与目标已明确",
+          "Theme and goal agreed"
+        ],
+        [
+          "可执行需求已写入会话",
+          "Executable brief recorded"
+        ],
+        [
+          "候选作品已落地",
+          "Candidates implemented"
+        ],
+        [
+          "教师反馈与版本结论已整理",
+          "Teacher feedback and decisions documented"
+        ],
+        [
+          "单机、触控、语言与左侧工具栏已接入",
+          "Solo, touch, language and left toolbar implemented"
+        ],
+        [
+          "浏览器回归、文件核验与审阅页已完成",
+          "Browser regression, file checks and review pages prepared"
+        ],
+        [
+          "实体设备的完整玩法与最终呈现待确认",
+          "Full physical-device play and final presentation await approval"
+        ]
+      ],
+      "human_tasks": [
+        {
+          "task": [
+            "需求与职业克制设计",
+            "Requirements and role-counter design"
+          ],
+          "range": [
+            2,
+            3
+          ]
+        },
+        {
+          "task": [
+            "方块世界与角色美术",
+            "Voxel world and characters"
+          ],
+          "range": [
+            5,
+            8
+          ]
+        },
+        {
+          "task": [
+            "波次、技能与首领规则",
+            "Waves, skills and boss rules"
+          ],
+          "range": [
+            8,
+            12
+          ]
+        },
+        {
+          "task": [
+            "课堂原型到本地单机",
+            "Classroom prototype to local solo"
+          ],
+          "range": [
+            4,
+            6
+          ]
+        },
+        {
+          "task": [
+            "iPad 与双语控制",
+            "iPad and bilingual controls"
+          ],
+          "range": [
+            3,
+            5
+          ]
+        },
+        {
+          "task": [
+            "测评、HUB 与打包验收",
+            "Review, HUB and package verification"
+          ],
+          "range": [
+            8,
+            12
+          ]
+        }
+      ],
+      "human": {
+        "hours_range": [
+          30,
+          46
+        ],
+        "hours_mid": 38.0,
+        "aud_range": [
+          1903.1999999999998,
+          2918.24
+        ],
+        "aud_mid": 2410.72,
+        "scope": [
+          "一次重建当前交付，不把所有迭代重复相加",
+          "Rebuild the current delivery once; do not sum every iteration"
+        ]
+      },
+      "efficiency": {
+        "stage": [
+          "课堂原型阶段",
+          "Classroom prototype stage"
+        ],
+        "manual_hours_range": [
+          20,
+          32
+        ],
+        "manual_hours_mid": 26.0,
+        "manual_aud_range": [
+          1268.8,
+          2030.08
+        ],
+        "manual_aud_mid": 1649.44,
+        "elapsed_seconds": 2213.0,
+        "elapsed_display": "36m 53s",
+        "tool_cost_aud": 22.2680506809,
+        "time_ratio_mid": 42.29552643470402,
+        "time_ratio_range": [
+          32.53502033438771,
+          52.056032535020336
+        ],
+        "cost_ratio_mid": 74.07204266041913,
+        "cost_ratio_range": [
+          56.97849435416856,
+          91.1655909666697
+        ],
+        "window_utc": [
+          "2026-09-22T08:16:56+00:00",
+          "2026-09-22T08:53:49+00:00"
+        ],
+        "note": [
+          "时间采用两条开发会话的首尾联合窗口，不把并行时间相加。它不是教师工时，也不包括课后 HUB 修订。工具费倍数以人工估算 / 已记录 API 等值费用计算；不是全项目总成本节省率。",
+          "Time uses the union of both session windows, not their sum. It is neither teacher hours nor later HUB revision time. Tool-cost ratio is estimated manual labour / metered API-equivalent cost, not total-project cost savings."
+        ]
+      },
+      "prototype_estimate_basis": [
+        "20–32 小时：重建被保留的课堂战斗原型并包含当堂显示修正；不假设三台实体 iPad 已联机通过。对照费用仍包含被弃用 Opus 的试错投入。",
+        "20–32 hours to recreate the retained classroom combat prototype including its display revision, without assuming verified three-iPad networking. The cost comparator still includes the rejected Opus attempts."
+      ],
+      "sources": [
+        {
+          "id": "HZ-BRIEF",
+          "label": [
+            "18:17–18:18 最终 Brief",
+            "18:17–18:18 final brief"
+          ],
+          "kind": "classroom_brief",
+          "note": [
+            "保留最初的宝箱想法，但改成胜利奖励；克制是战斗逻辑，不是猜拳按钮。",
+            "Keep the early chest idea as the final reward. Counters are combat logic, not literal hand-sign buttons."
+          ]
+        },
+        {
+          "id": "HZ-CLAUDE",
+          "label": "Claude Code · 18:18–18:36",
+          "kind": "development_log",
+          "note": [
+            "18:23 明确三台 iPad；18:25 入口反馈；18:32 移动和名字输入 Bug。",
+            "18:23 three iPads specified; 18:25 entry issue; 18:32 movement and name-entry bugs."
+          ]
+        },
+        {
+          "id": "HZ-ASTRA",
+          "label": "Codex · 18:16–18:53",
+          "kind": "development_log",
+          "note": [
+            "规则引擎、Three.js 渲染和服务器分层；后续加入 iPad 显示修正。",
+            "Separate rules, Three.js rendering and server layers; later iPad display fixes."
+          ]
+        },
+        {
+          "id": "HZ-REVIEW",
+          "label": [
+            "教师取舍与平衡反馈",
+            "Teacher decision and balance feedback"
+          ],
+          "kind": "teacher_feedback",
+          "note": [
+            "Opus 修两次仍不能用而弃用；Astra 要更顺、电脑更弱、Boss 更有压力。",
+            "Reject Opus after two unsuccessful repairs; Astra needs smoother movement, weaker bots and more boss pressure."
+          ]
+        },
+        {
+          "id": "R3",
+          "label": "r3 · 单机与平衡 / solo & balance",
+          "kind": "release_receipt"
+        },
+        {
+          "id": "R4",
+          "label": "r4 · 侧栏与防缩放 / rail & zoom",
+          "kind": "release_receipt"
+        }
+      ],
+      "journey": [
+        {
+          "id": "idea",
+          "date": "09.22 · 课堂",
+          "title": [
+            "把“宝箱＋猜拳”变成职业克制",
+            "Turn chest and hand-sign ideas into role counters"
+          ],
+          "summary": [
+            "最初的宝箱想法保留，但从开箱规则改成最终奖励。",
+            "Keep the early chest idea, but use it as the final reward rather than an opening rule."
+          ],
+          "brief": [
+            "三个英雄要判断谁克制哪种怪物，不要采矿与合成。",
+            "Three heroes decide who counters each monster; no mining or crafting."
+          ],
+          "tool": [
+            "课堂讨论收敛为最终 brief",
+            "Class discussion converges on a final brief"
+          ],
+          "tech": [
+            "三职业、三类敌人、大招冷却、五波流程和三阶段 Boss",
+            "Three roles/enemy types, super cooldowns, five waves and a three-phase boss"
+          ],
+          "result": [
+            "明确一条从输入名字到宝箱胜利的完整战斗循环。",
+            "Define the full loop from name entry to treasure victory."
+          ],
+          "source": "HZ-BRIEF",
+          "status": "done"
+        },
+        {
+          "id": "parallel",
+          "date": "09.22 · 18:17–18:23",
+          "title": [
+            "并行实现，但选择不同的集成方式",
+            "Implement in parallel with different integration choices"
+          ],
+          "summary": [
+            "两边都有 15 分钟限制；课堂同时明确每人一台 iPad。",
+            "Both had a 15-minute limit; the class also clarified one iPad per player."
+          ],
+          "brief": [
+            "第三人称优先，可切第一人称；三人要进入同一场战斗。",
+            "Third-person first, optional first-person; three players share one battle."
+          ],
+          "tool": [
+            "Claude：Bash/Workflow 拆分契约与模块；Astra：exec 写引擎、客户端、服务器",
+            "Claude: Bash/Workflow contracts and modules; Astra: exec writes engine, client and server"
+          ],
+          "tech": [
+            "Three.js 方块世界；Node.js / WebSocket 课堂服务；规则与渲染分层",
+            "Three.js voxel world; Node.js/WebSocket classroom service; separate rules and rendering"
+          ],
+          "result": [
+            "得到两条候选：模块集成型 Opus 与分层规则引擎的 Astra。",
+            "Two candidates: modular Opus and Astra with a separate rules engine."
+          ],
+          "source": "HZ-CLAUDE + HZ-ASTRA",
+          "status": "done"
+        },
+        {
+          "id": "opus",
+          "date": "09.22 · 18:25–18:36",
+          "title": [
+            "Opus 两次修复后仍未通过课堂使用",
+            "Opus remains unusable in class after two repairs"
+          ],
+          "summary": [
+            "18:25 先反馈服务入口不对；18:32 又反馈不能移动、名字不能输入 A、名字状态混乱。",
+            "18:25 reports a wrong service entry; 18:32 reports no movement, blocked A entry and inconsistent names."
+          ],
+          "brief": [
+            "教师反馈：“我们不能在名字里面输 A”；这是输入与联机链路，不只是美术问题。",
+            "Teacher feedback reports that A cannot be entered in names; this is input/network integration, not an art issue."
+          ],
+          "tool": [
+            "检查端口/服务 → 输入框与移动脚本自检 → 连接和加入逻辑修复 → 回归",
+            "Check service → input/movement scripts → repair join/connection logic → regression"
+          ],
+          "tech": [
+            "表单焦点与游戏按键隔离、多人身份/状态同步、入口与缓存",
+            "Separate form/game keys, synchronize identities/state, fix entry and cache"
+          ],
+          "result": [
+            "虽然日志里有局部测试，教师复盘仍判定两次修复后不能用；停止投入并弃用。",
+            "Local tests exist, but teacher review still reports failure after two repairs. Stop investing and reject it."
+          ],
+          "source": "HZ-CLAUDE + HZ-REVIEW",
+          "status": "rejected"
+        },
+        {
+          "id": "astra",
+          "date": "09.22 · 18:17–18:53",
+          "title": [
+            "Astra 先交付战斗，再修当堂 iPad 显示",
+            "Astra delivers combat, then fixes iPad display"
+          ],
+          "summary": [
+            "先完成波次与职业；当堂反馈强调的是全屏和页面被放大后看不到内容。",
+            "Complete waves/roles first; the classroom feedback then identifies fullscreen and zoom hiding the game."
+          ],
+          "brief": [
+            "18:39 反馈：这版不是不能移动，而是 iPad 缩放后看不全。",
+            "18:39 clarification: this build can move, but iPad zoom obscures the view."
+          ],
+          "tool": [
+            "引擎测试 → 浏览器试玩与截图 → 技能短按修复 → display.js 与 WebKit 回归",
+            "Engine tests → browser/screenshots → quick-skill fix → display.js/WebKit checks"
+          ],
+          "tech": [
+            "engine.mjs 规则；Three.js 客户端；显示模块管理 viewport 与全屏",
+            "engine.mjs rules, Three.js client, viewport/fullscreen display module"
+          ],
+          "result": [
+            "保留 Astra，课堂原型窗口延续到显示修复；不把后续空闲会话时间算进去。",
+            "Retain Astra; its classroom window includes the display repair, not later idle session time."
+          ],
+          "source": "HZ-ASTRA",
+          "status": "done"
+        },
+        {
+          "id": "solo",
+          "date": "课后 · 家庭版本",
+          "title": [
+            "拆掉单机对课堂服务器的依赖",
+            "Remove solo dependence on the classroom server"
+          ],
+          "summary": [
+            "家里不应该等老师开电脑或凑齐队友。",
+            "Home play should not require the teacher’s computer or a full team."
+          ],
+          "brief": [
+            "一名真人＋两名电脑，也能走完波次与 Boss。",
+            "One human and two bots can run the wave/boss loop."
+          ],
+          "tool": [
+            "接本地传输适配 → 验证本地引擎 → 断网继续 → 打包",
+            "Add local transport → check engine → continue offline → package"
+          ],
+          "tech": [
+            "solo-transport.mjs 复用 engine.mjs；静态页面运行，素材本地化",
+            "solo-transport.mjs reuses engine.mjs in a static page with bundled assets"
+          ],
+          "result": [
+            "家庭单机可发布；三台实体 iPad 联机不被混写成已通过。",
+            "Publish home solo without claiming three-device network acceptance."
+          ],
+          "source": "HZ-REVIEW + R3",
+          "status": "done"
+        },
+        {
+          "id": "balance",
+          "date": "09.23 · 手感与平衡",
+          "title": [
+            "让玩家重新承担走位和技能选择",
+            "Restore player responsibility for movement and skills"
+          ],
+          "summary": [
+            "教师发现走路发卡、Bot 太强、Boss 压力不足。",
+            "Teacher identifies walking judder, overly strong bots and a weak boss."
+          ],
+          "brief": [
+            "队友能帮忙，也会倒下；大招用于解围，Boss 要主动躲。",
+            "Bots help but can fall; save supers and actively dodge the boss."
+          ],
+          "tool": [
+            "检查镜头位置 → 降低 Bot 频率 → 加强 Boss → 规则回归和固定策略模拟",
+            "Inspect camera → reduce bot frequency → strengthen boss → regression and seeded simulation"
+          ],
+          "tech": [
+            "按时间平滑；Bot 普攻间隔 ×1.8，每波最多一次大招；预警砸击",
+            "Time-based smoothing; bot intervals ×1.8, one super per wave; telegraphed slam"
+          ],
+          "result": [
+            "模拟主动策略可胜可败，不操作策略全败；不把模拟统计当作孩子胜率。",
+            "Active scripted runs include wins and losses; idle runs lose. These are not child win rates."
+          ],
+          "source": "R3 + HZ-REVIEW",
+          "status": "done"
+        },
+        {
+          "id": "home",
+          "date": "09.23 · 家庭交付",
+          "title": [
+            "共用左侧工具栏，保留清楚的版本结论",
+            "Share the left toolbar and preserve the decision"
+          ],
+          "summary": [
+            "加入防连点缩放与侧栏，避免挡住说明和按键；这次去掉右侧三词句号。",
+            "Add a left rail and repeated-tap protection; remove periods from the three right-side words in this review."
+          ],
+          "brief": [
+            "移动／选择／生存；可直接进入保留的单机版本。",
+            "Move / Choose / Survive; enter the retained solo build directly."
+          ],
+          "tool": [
+            "侧栏/手势回归 → 单机包核验 → 全程开发记录与可视化",
+            "Rail/gesture regression → package verification → complete visual development history"
+          ],
+          "tech": [
+            "共用 device-kit、手势防护、双语页面、预算与阶段数据",
+            "Shared device kit, gesture protection, bilingual pages and budget/stage data"
+          ],
+          "result": [
+            "当前待实机与展示确认；Opus 只留失败原因和成本，不重新包装成可玩版。",
+            "Await physical-device and presentation approval; Opus remains a documented rejection, not a playable release."
+          ],
+          "source": "R4 + HZ-REVIEW",
+          "status": "done"
+        }
+      ],
+      "next_scope": [
+        "接下来验证保留版本的实机手感与后期难度。只有另行决定恢复联机开发，才重开三台 iPad 的端到端任务。",
+        "Next validate hardware feel and late-game difficulty in the retained build. Reopen three-iPad end-to-end work only with a separate networking decision."
+      ],
+      "rejection": [
+        "这是已经完成的取舍，不是还等两版竞赛：Opus 两次修复后仍未满足当堂可玩要求，停止投入。保留失败证据与 A$10.78 的工具投入，不发布试玩按钮。",
+        "This decision is complete, not an open contest: after two repairs Opus still failed classroom usability. Stop spending, preserve the failure evidence and A$10.78 tool cost, and provide no play button."
+      ],
+      "flow_lanes": [
+        {
+          "name": "Opus",
+          "state": "rejected",
+          "desc": [
+            "入口问题 → 修复 → 输入/移动问题 → 再修 → 弃用",
+            "Entry fault → repair → input/movement faults → repair → rejected"
+          ]
+        },
+        {
+          "name": "Astra",
+          "state": "retained",
+          "desc": [
+            "战斗原型 → 显示修复 → 家庭单机 → 平衡",
+            "Combat → display repair → home solo → balance"
+          ]
+        }
+      ],
+      "runtime_release": [
+        "r4 · 文字修订 r5",
+        "r4 · copy revision r5"
+      ],
+      "review_state": [
+        "本版呈现待教师确认",
+        "Presentation awaiting teacher approval"
       ]
     }
-  }
+  },
+  "template_status": "AWAITING_USER_APPROVAL",
+  "review_date": "2026-09-23"
 }
