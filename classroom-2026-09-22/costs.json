@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "class_date": "2026-09-22",
+  "currency": "AUD",
+  "basis": "Actual logged Codex and Claude Code usage, valued at published Standard API prices. API-equivalent cost is not an additional subscription invoice.",
+  "method": "Codex: use final cumulative token totals, not a sum of cumulative snapshots. Claude: deduplicate streamed assistant rows by requestId, taking the maximum usage counters per request. Reasoning is already included in output tokens. Claude cache creation uses the recorded one-hour rate.",
+  "fx": {"date": "2026-09-22", "usd_per_aud": 0.7123, "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"},
+  "rates_usd_per_million": {
+    "gpt-6-astra": {"input": 10, "cache_read": 1, "cache_write": 12.5, "output": 50, "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"},
+    "claude-opus-5": {"input": 5, "cache_read": 0.5, "cache_write_5m": 6.25, "cache_write_1h": 10, "output": 25, "source": "https://platform.claude.com/docs/en/models/opus-5/overview"}
+  },
+  "scope_notes": [
+    "Includes both the selected Codex build and the parallel Claude candidate, even when that candidate was not selected for publication.",
+    "Only the two identified classroom project sessions from each tool are allocated. Naomi and unrelated sessions are excluded.",
+    "ChatGPT classroom voice and HUB/controller sessions have no provider usage receipt exposed here. They are excluded, not counted as zero.",
+    "Subscription fees, tax and actual invoice payments are not allocated without invoice evidence. Remaining budget is calculated against the recorded development usage only."
+  ],
+  "projects": {
+    "kehan": {
+      "budget_aud": 50,
+      "total_tokens": 4996170,
+      "api_equivalent_usd": 8.6166825,
+      "api_equivalent_aud": 12.0969851186,
+      "remaining_recorded_basis_aud": 37.9030148814,
+      "engines": [
+        {"engine": "Codex", "model": "gpt-6-astra", "input_uncached": 117644, "cache_read": 1199744, "cache_write_1h": 0, "output": 23458, "reasoning_included_in_output": 2203, "total_tokens": 1340846, "usd": 3.549084, "aud": 4.9825691422, "source_window_utc": "2026-09-22T06:13:32Z/2026-09-22T06:28:27Z"},
+        {"engine": "Claude Code", "model": "claude-opus-5", "input_uncached": 66, "cache_read": 3434417, "cache_write_1h": 144731, "output": 76110, "total_tokens": 3655324, "raw_usage_rows": 100, "unique_requests": 33, "streaming_duplicates_removed": 67, "usd": 5.0675985, "aud": 7.1144159764, "source_window_utc": "2026-09-22T06:12:19Z/2026-09-22T06:27:00Z"}
+      ]
+    },
+    "harrison-zavier": {
+      "budget_aud": 100,
+      "total_tokens": 11988696,
+      "api_equivalent_usd": 15.8615325,
+      "api_equivalent_aud": 22.2680506809,
+      "remaining_recorded_basis_aud": 77.7319493191,
+      "engines": [
+        {"engine": "Codex", "model": "gpt-6-astra", "input_uncached": 142891, "cache_read": 4581248, "cache_write_1h": 0, "output": 43399, "reasoning_included_in_output": 9964, "total_tokens": 4767538, "usd": 8.180108, "aud": 11.4840769339, "source_window_utc": "2026-09-22T08:16:56Z/2026-09-22T08:53:49Z"},
+        {"engine": "Claude Code", "model": "claude-opus-5", "input_uncached": 120, "cache_read": 6946709, "cache_write_1h": 176717, "output": 97612, "total_tokens": 7221158, "raw_usage_rows": 168, "unique_requests": 60, "streaming_duplicates_removed": 108, "usd": 7.6814245, "aud": 10.7839737470, "source_window_utc": "2026-09-22T08:18:06Z/2026-09-22T08:36:16Z"}
+      ]
+    }
+  }
+}

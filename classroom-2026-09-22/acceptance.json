@@ -1,0 +1,51 @@
+{
+  "status": "GITHUB_REVIEW_READY",
+  "release": "2026.09.22-r2",
+  "checks_passed": 15,
+  "rule_tests_passed": 6,
+  "supplemental_game_checks_passed": 7,
+  "hub_checks_passed": 4,
+  "observed_errors": 0,
+  "completedAt": "2026-09-22T13:35:58.343Z",
+  "checks": [
+    "kehan zh-CN renders without localization errors",
+    "kehan en renders without localization errors",
+    "harrison-zavier zh-CN renders without localization errors",
+    "harrison-zavier en renders without localization errors",
+    "Kehan simplified-Chinese start click and safe-zone transition",
+    "Kehan ordinary-keyboard shuttle to combat",
+    "RPS simplified-Chinese solo click with two bots",
+    "RPS local pause and resume",
+    "RPS solo keeps ticking offline",
+    "RPS injected all-down defeat",
+    "RPS retry from defeat",
+    "Preview does not expose private documents",
+    "Both latest archive links return downloadable files",
+    "kehan standalone package starts with external requests blocked",
+    "harrison-zavier standalone package starts with external requests blocked"
+  ],
+  "supplemental_checks": [
+    "Kehan English playable start to safe zone",
+    "Kehan language switches during play",
+    "RPS local solo: one human and two bot teammates",
+    "RPS pause and resume",
+    "RPS continues offline without a network game server",
+    "RPS browser boss-phase/chest/victory UI integration (injected)",
+    "RPS restart after victory"
+  ],
+  "hub_checks": [
+    "kehan HUB: budget, sections, GitHub feedback and screenshot",
+    "kehan HUB English switch",
+    "harrison-zavier HUB: budget, sections, GitHub feedback and screenshot",
+    "harrison-zavier HUB English switch"
+  ],
+  "limitations": [
+    "Physical iPad/Safari has not been tested.",
+    "Boss integration uses explicitly injected scenarios; the full autonomous rule simulation is separate from a human playthrough.",
+    "Voice/controller usage is not included in the available development receipts."
+  ],
+  "summary": [
+    "发布回归 15 项通过，另有 6 项完整规则测试通过。两款单机包均在屏蔽外网时启动；正常点击、键盘登船、暂停、断网继续、失败重试通过。三阶段 Boss 与宝箱规则通过，浏览器结算为明确标记的场景注入测试。开发用量已核算；实体 iPad/Safari 尚未实机验收。",
+    "15 release checks and 6 complete rule tests passed. Both offline packages start with external requests blocked. Ordinary clicks, keyboard boarding, pause, offline continuation and defeat/retry passed. Three-phase boss/chest rules and explicitly injected browser endings passed. Development usage is reconciled; physical iPad/Safari testing is not included."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "release": "2026.09.22-r2",
+  "class_date": "2026-09-22",
+  "repository": "sydneygemstone-sudo/student-works",
+  "projects": [
+    "kehan",
+    "harrison-zavier"
+  ],
+  "latest_only": true,
+  "offline_packages": {
+    "kehan": {
+      "path": "downloads/kehan-latest.zip",
+      "bytes": 424686,
+      "sha256": "d1ef5281b4791e8e3d70c3a68e92704c8243d96eb176e5a765ad264284a278b5"
+    },
+    "harrison-zavier": {
+      "path": "downloads/harrison-zavier-latest.zip",
+      "bytes": 293251,
+      "sha256": "261610585de22d5c19778b9d5a052c0e757b9d62b39268ce86c85fb65eca43f0"
+    }
+  },
+  "files": {
+    "index.html": "68cee4fb9ff1c8e80e5097513b0180bdf02c8c24a13d4e3a67e25a418144b042",
+    "hub.js": "40c9f92371201641c66c7cafd00f23c1ef4202195b19afff58338aed016ba8de",
+    "acceptance.json": "c3cd5c09b33e92c8cb22e40d7727a5d7eb83bd642eb9dd784aeac135856d5c1c",
+    "hub.css": "7e4ba10aaf12ed6d5d506646e5f75ebc864e8b9e10665ad500c1a04562f9e44a",
+    "harrison-zavier-hub.html": "68cee4fb9ff1c8e80e5097513b0180bdf02c8c24a13d4e3a67e25a418144b042",
+    "projects.js": "5ec5ba6c69cb2b4571283e07d22f97b055f55483c73833fedb3f16dca97759eb",
+    "kehan-hub.html": "68cee4fb9ff1c8e80e5097513b0180bdf02c8c24a13d4e3a67e25a418144b042",
+    "costs.json": "5620bc49e9b133aced87e02fe639af979fc5ed30cbe9d3cf17edf8abe64c7564",
+    "evidence/rps-combat.png": "7e80fd25f5d7425aff63f8b65aeaaffb52d7352ee50d5cae2c6ccf54ac12d001",
+    "evidence/kehan-title.png": "e6c68cb146606ec620847f729b5a67da3abacb586dfa48d46982e7958d4636ba",
+    "kehan/game.js": "53b542602ed8e7f1b5a928a2d61d513622b6dbd5c2c5da6e5ab76df934a1a54a",
+    "kehan/index.html": "5b167430ead52d065a4cc9d42902bd289c398b84a7df3818388aff8c3a881265",
+    "kehan/icon.svg": "9037016ecae3969d144766bbf8a3c15330d105379cc72c274e82ca24b11bc0be",
+    "kehan/review-language.js": "c51dd02b317657bbace4104c342c1b5e05b005449e91ca51ea76aa1777826ef5",
+    "kehan/style.css": "682624a6be49696fd66f9a06066f99f36e75be07e3aa7c83a142418fe8c3c380",
+    "kehan/vendor/three.module.js": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+    "kehan/vendor/THREE-LICENSE.txt": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+    "kehan/vendor/three.core.js": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+    "downloads/kehan-latest.zip": "d1ef5281b4791e8e3d70c3a68e92704c8243d96eb176e5a765ad264284a278b5",
+    "downloads/harrison-zavier-latest.zip": "261610585de22d5c19778b9d5a052c0e757b9d62b39268ce86c85fb65eca43f0",
+    "harrison-zavier/game.js": "84f4803645eedeb37ad6319ee51b4f72672e70c2ca74326c053026d4fb20dc19",
+    "harrison-zavier/index.html": "730ee2912f3f482f2cf81d43d02a0def165c5a6aeb434b11f1e06e63e97deb5c",
+    "harrison-zavier/display.js": "f1eaeb930292052a19a0ea93c43581383860fccb4cb8be9180b772066763afce",
+    "harrison-zavier/solo-transport.mjs": "d155852de7cd3dc6ea1dc52c26d178352011c4dba686a24a36feed3dac0b84be",
+    "harrison-zavier/icon.svg": "231eeeb93c6d72878574bd31ff852fc25859a8a6eac11882f262080c9b20f702",
+    "harrison-zavier/engine.mjs": "daa9dc8368d99e396e267a6b48da0f2db79463fb1bcde8272ac721d19f7728e9",
+    "harrison-zavier/review-language.js": "c51dd02b317657bbace4104c342c1b5e05b005449e91ca51ea76aa1777826ef5",
+    "harrison-zavier/style.css": "81b510dc85a505e574b3375e91c3c15b28013d70aac7b183a44790ebe1c6bc4d",
+    "harrison-zavier/manifest.json": "e38b7af987aeea0033973e94834b2ec39c4e120f1cfc4be2a4f5cc619afb7563",
+    "harrison-zavier/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+    "harrison-zavier/vendor/THREE-LICENSE": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+  }
+}
