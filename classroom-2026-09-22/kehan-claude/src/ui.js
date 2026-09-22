@@ -173,7 +173,7 @@
     var style = document.createElement('style');
     style.id = 'uiStyleTag';
     style.textContent = css;
-    document.head.appendChild(style);var device=document.createElement('link');device.rel='stylesheet';device.href='../device-kit.css';document.head.appendChild(device);
+    document.head.appendChild(style);var device=document.createElement('link');device.rel='stylesheet';device.href='../device-kit.css?v=20260923-r4';document.head.appendChild(device);
   }
 
   // ---------- DOM 结构构建 ----------

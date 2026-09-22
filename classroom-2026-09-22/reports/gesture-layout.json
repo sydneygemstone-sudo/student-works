@@ -1,0 +1,794 @@
+{
+  "release": "2026.09.23-r4",
+  "checks": [
+    "webkit kehan-claude ordinary start/name entry remains usable",
+    "webkit kehan-claude landscape left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan-claude repeated browser touch taps do not change page scale",
+    "webkit kehan-claude double-click fallback cancels browser default",
+    "webkit kehan-claude sidebar language + pause/resume work",
+    "webkit kehan-claude 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan-claude 844x390 left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan-claude no runtime JS errors",
+    "webkit kehan ordinary start/name entry remains usable",
+    "webkit kehan landscape left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan repeated browser touch taps do not change page scale",
+    "webkit kehan double-click fallback cancels browser default",
+    "webkit kehan sidebar language + pause/resume work",
+    "webkit kehan 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan 844x390 left rail, 44px targets and no control/instruction overlap",
+    "webkit kehan no runtime JS errors",
+    "webkit harrison-zavier ordinary start/name entry remains usable",
+    "webkit harrison-zavier landscape left rail, 44px targets and no control/instruction overlap",
+    "webkit harrison-zavier repeated browser touch taps do not change page scale",
+    "webkit harrison-zavier double-click fallback cancels browser default",
+    "webkit harrison-zavier sidebar language + pause/resume work",
+    "webkit harrison-zavier 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "webkit harrison-zavier 844x390 left rail, 44px targets and no control/instruction overlap",
+    "webkit harrison-zavier no runtime JS errors",
+    "chromium kehan-claude ordinary start/name entry remains usable",
+    "chromium kehan-claude landscape left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan-claude repeated browser touch taps do not change page scale",
+    "chromium kehan-claude double-click fallback cancels browser default",
+    "chromium kehan-claude sidebar language + pause/resume work",
+    "chromium kehan-claude 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan-claude 844x390 left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan-claude no runtime JS errors",
+    "chromium kehan ordinary start/name entry remains usable",
+    "chromium kehan landscape left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan repeated browser touch taps do not change page scale",
+    "chromium kehan double-click fallback cancels browser default",
+    "chromium kehan sidebar language + pause/resume work",
+    "chromium kehan 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan 844x390 left rail, 44px targets and no control/instruction overlap",
+    "chromium kehan no runtime JS errors",
+    "chromium harrison-zavier ordinary start/name entry remains usable",
+    "chromium harrison-zavier landscape left rail, 44px targets and no control/instruction overlap",
+    "chromium harrison-zavier repeated browser touch taps do not change page scale",
+    "chromium harrison-zavier double-click fallback cancels browser default",
+    "chromium harrison-zavier sidebar language + pause/resume work",
+    "chromium harrison-zavier 768x1024 left rail, 44px targets and no control/instruction overlap",
+    "chromium harrison-zavier 844x390 left rail, 44px targets and no control/instruction overlap",
+    "chromium harrison-zavier no runtime JS errors"
+  ],
+  "failures": [],
+  "measurements": [
+    {
+      "label": "webkit kehan-claude landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit kehan-claude",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 8,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "webkit kehan-claude 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit kehan-claude 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit kehan landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit kehan",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 8,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "webkit kehan 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit kehan 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit harrison-zavier landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit harrison-zavier",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 6,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "webkit harrison-zavier 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "webkit harrison-zavier 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan-claude landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan-claude",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 8,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "chromium kehan-claude 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan-claude 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 8,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "chromium kehan 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium kehan 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium harrison-zavier landscape",
+      "viewport": [
+        1024,
+        768
+      ],
+      "rail": {
+        "x": 8,
+        "y": 275.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 492.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium harrison-zavier",
+      "before": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768
+      },
+      "after": {
+        "scale": 1,
+        "w": 1024,
+        "h": 768,
+        "guard": {
+          "nativeTouchDefaults": 8,
+          "doubleClicks": 0,
+          "nativeGestures": 0
+        },
+        "root": "manipulation",
+        "canvas": "none"
+      }
+    },
+    {
+      "label": "chromium harrison-zavier 768x1024",
+      "viewport": [
+        768,
+        1024
+      ],
+      "rail": {
+        "x": 8,
+        "y": 403.5,
+        "w": 58,
+        "h": 217,
+        "bottom": 620.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    },
+    {
+      "label": "chromium harrison-zavier 844x390",
+      "viewport": [
+        844,
+        390
+      ],
+      "rail": {
+        "x": 8,
+        "y": 89.5,
+        "w": 58,
+        "h": 211,
+        "bottom": 300.5
+      },
+      "direction": "column",
+      "overlaps": [],
+      "buttons": [
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          48,
+          48
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "Touch-browser emulation is not a physical iPad.",
+    "Native page-scale measurements in these browsers do not certify every Safari/iPadOS build."
+  ],
+  "status": "PASS",
+  "completedAt": "2026-09-22T16:35:29.180Z"
+}

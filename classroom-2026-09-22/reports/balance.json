@@ -606,5 +606,7 @@
       "defeat": 18
     }
   },
-  "note": "Deterministic scripted-policy simulations; not child playtests or real-world win-rate estimates."
+  "note": "Deterministic scripted-policy simulations; not child playtests or real-world win-rate estimates.",
+  "release": "2026.09.22-r3",
+  "evidence_scope": "Previous release baseline; not claimed as a new complete r4 rerun."
 }

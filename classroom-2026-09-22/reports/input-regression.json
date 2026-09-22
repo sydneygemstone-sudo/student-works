@@ -1,0 +1,29 @@
+{
+  "release": "2026.09.23-r4",
+  "status": "PARTIAL_FIRST_ATTEMPT_WITH_TARGETED_FOLLOWUP",
+  "passed_checks": [
+    "Astra: real touch start, joystick approach and shuttle boarding into combat",
+    "Astra: touch ice, jump, held fire and pause/resume",
+    "kehan: portrait bounds and 44px touch controls",
+    "kehan: no page errors or external game dependencies",
+    "RPS: independent touch movement + attack with two local bots",
+    "RPS: offline continuation, real all-down defeat and retry",
+    "harrison-zavier: portrait bounds and 44px touch controls",
+    "harrison-zavier: no page errors or external game dependencies",
+    "WebKit touch startup: kehan-claude",
+    "WebKit touch startup: kehan",
+    "WebKit touch startup: harrison-zavier"
+  ],
+  "initial_failures": [
+    {
+      "scenario": "kehan-claude touch landscape",
+      "summary": "Chromium navigation did not finish within the harness 12-second navigation timeout."
+    }
+  ],
+  "followup": "Claude normal start, simultaneous movement/shooting, cancellation and action taps passed in the separate targeted test. See multitouch.json. Full WebKit startup for the actual extracted packages passed separately.",
+  "reports": [
+    "multitouch.json",
+    "gesture-layout.json",
+    "packages.json"
+  ]
+}

@@ -1,4 +1,4 @@
-# Classroom Studio · 2026.09.22-r3
+# Classroom Studio · 2026.09.23-r4
 
 Class: 22 September 2026. English + simplified Chinese. Original classroom folders are retained locally and are not deleted by this release.
 
@@ -11,6 +11,14 @@ Keep BOTH latest branches. Claude retains real mothership/shuttle exploration; A
 [Harrison × Zavier HUB](harrison-zavier-hub.html) · [Retained/rejected assessment](harrison-zavier-comparison.html)
 
 Retain Astra. Reject Opus after the teacher's report of two repairs that still failed classroom use. Existing local tests and screenshots do not override the failure to establish usable three-iPad classroom play. The rejected candidate has a screenshot and analysis, no playable entry, and its development cost remains in the ledger.
+
+## r4: left utility rail and double-tap protection
+
+All three retained games use a vertical left-side toolbar. The joystick occupies a separate zone, preserving instructions and action buttons. Buttons are at least 44 CSS pixels; the toolbar uses 48-pixel targets.
+
+A shared early-loaded gesture guard protects game surfaces from double-tap zoom. Game input still uses independent pointers; normal menu buttons, language, pause and name entry remain usable. Reading pages retain normal browser accessibility. Dynamic stylesheet injection and offline packages use the same versioned assets.
+
+This revision has 48 passing WebKit/Chromium gesture/layout checks at 1024×768, 768×1024 and 844×390; a separate Claude multi-touch test passes 4 checks; actual extracted packages pass 7 checks. The first broad Chromium regression encountered one navigation timeout; the targeted rerun and WebKit package tests are retained alongside that first-attempt note. These checks are not physical iPad certification.
 
 ## At home
 

@@ -33,5 +33,7 @@
     "Scenario injection is used only for combat/ending plumbing; normal voyage/start and touch input are separately exercised."
   ],
   "completedAt": "2026-09-22T15:41:55.779Z",
-  "status": "PASS"
+  "status": "PASS",
+  "release": "2026.09.22-r3",
+  "evidence_scope": "Previous release baseline; not claimed as a new complete r4 rerun."
 }

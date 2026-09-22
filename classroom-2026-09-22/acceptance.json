@@ -1,57 +1,37 @@
 {
-  "release": "2026.09.22-r3",
-  "status": "PASS",
-  "completedAt": "2026-09-22T15:59:25.940927+00:00",
+  "release": "2026.09.23-r4",
+  "status": "PASS_WITH_DOCUMENTED_TEST_SCOPE",
+  "completedAt": "2026-09-22T16:47:47.015819+00:00",
   "class_date": "2026-09-22",
-  "retained_branches": {
-    "kehan": [
-      "Claude ship explorer",
-      "Astra ice and fire"
-    ],
-    "harrison-zavier": [
-      "Astra solo balance revision"
-    ]
-  },
-  "rejected_branch": {
-    "project": "harrison-zavier",
-    "branch": "Claude Opus classroom candidate",
-    "basis": "Teacher reports two failed repairs and continued inability to play in class. Existing local scripts/screenshots did not establish a working three-iPad end-to-end session.",
-    "playable_entry": false
-  },
-  "checks": {
-    "ipad": 17,
-    "studio": 31,
-    "balance": 5,
+  "changes": [
+    "Vertical left-side utility rail in all three retained games",
+    "Separate joystick zone and safe-area handling",
+    "Scoped double-tap/gesture prevention while preserving multi-touch and normal controls",
+    "Versioned shared assets included in both offline packages"
+  ],
+  "current_revision_checks": {
+    "gesture-layout": 48,
+    "multitouch": 4,
     "packages": 7
   },
-  "balance_simulations": {
-    "count": 36,
-    "summary": {
-      "active": {
-        "defeat": 4,
-        "treasure": 14
-      },
-      "idle": {
-        "defeat": 18
-      }
-    },
-    "interpretation": "Scripted policies, not child playtest win rates."
+  "first_attempt_note": "The broad Chromium harness timed out once on Claude initial navigation; Claude startup and controls were then separately verified. Do not interpret the first broad run as fully passed.",
+  "reports": {
+    "gesture-layout": "reports/gesture-layout.json",
+    "multitouch": "reports/multitouch.json",
+    "packages": "reports/packages.json",
+    "input-regression": "reports/input-regression.json"
   },
-  "limitations": [
-    "Browser iPad emulation, not a physical iPad.",
-    "Scenario injection is used only for combat/ending plumbing; normal voyage/start and touch input are separately exercised.",
-    "No physical iPad hardware test.",
-    "The home release is solo; no three-iPad network certification.",
-    "Current ChatGPT controller tokens have no exposed provider receipt; not billed as zero."
+  "baseline_reports": [
+    "reports/ipad.json",
+    "reports/balance.json",
+    "reports/studio.json"
   ],
-  "report_paths": {
-    "ipad": "reports/ipad.json",
-    "studio": "reports/studio.json",
-    "balance": "reports/balance.json",
-    "packages": "reports/packages.json"
-  },
-  "summary": [
-    "r3：Kehan 两条最新版保留，Harrison/Zavier 只发布已选 Astra 分支；Opus 弃用理由与成本明确记录。触控、WebKit 启动、双语 HUB、平衡规则及解压离线包均有验收记录。实体 iPad 手感仍需要实机验证。",
-    "r3 retains both latest Kehan branches and only the selected Astra Harrison/Zavier build. Opus rejection and sunk cost are documented. Touch, WebKit startup, bilingual HUBs, balance rules and extracted offline packages have recorded tests. Physical iPad feel remains unverified."
-  ]
+  "limitations": [
+    "No physical iPad hardware test.",
+    "WebKit/Chromium touch and page-scale checks do not certify every iPadOS/Safari version.",
+    "Claude planet stage was injected only for input testing, not a claimed full playthrough.",
+    "Current controller token receipt is unavailable, not counted as zero."
+  ],
+  "original_source_cleanup": false,
+  "private_voice_assets_published": false
 }

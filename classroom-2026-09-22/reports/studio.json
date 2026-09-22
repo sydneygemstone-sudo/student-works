@@ -34,5 +34,7 @@
   ],
   "errors": [],
   "status": "PASS",
-  "completedAt": "2026-09-22T15:42:54.864Z"
+  "completedAt": "2026-09-22T15:42:54.864Z",
+  "release": "2026.09.22-r3",
+  "evidence_scope": "Previous release baseline; not claimed as a new complete r4 rerun."
 }
