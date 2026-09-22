@@ -1,0 +1,610 @@
+{
+  "checks": [
+    "All roles: bot normal interval 1.8x, one super per wave, human cooldown unchanged",
+    "Three required boss roles, stronger phases and treasure victory",
+    "Boss warning targets the human location and supplies reaction time",
+    "Downed teammate remains out after 15 seconds; nearby help speeds recovery",
+    "Full-team defeat and clean retry"
+  ],
+  "runs": [
+    {
+      "seed": 1,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 4,
+      "time": 92.63,
+      "downs": 4,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1,
+      "role": "fighter",
+      "active": true,
+      "state": "defeat",
+      "wave": 5,
+      "time": 91.73,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 2,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 4,
+      "time": 86.13,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "fighter",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 92.37,
+      "downs": 1,
+      "minHumanHp": 0,
+      "bossPhases": 3,
+      "hp": [
+        86,
+        135,
+        34
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 64.97,
+      "downs": 4,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "fighter",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 91.33,
+      "downs": 1,
+      "minHumanHp": 0,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        69,
+        100
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 60.23,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "fighter",
+      "active": true,
+      "state": "defeat",
+      "wave": 5,
+      "time": 95.27,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 2,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 66.33,
+      "downs": 4,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "fighter",
+      "active": true,
+      "state": "defeat",
+      "wave": 5,
+      "time": 94.77,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 2,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "fighter",
+      "active": false,
+      "state": "defeat",
+      "wave": 4,
+      "time": 96.23,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "fighter",
+      "active": true,
+      "state": "defeat",
+      "wave": 5,
+      "time": 92.93,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 2,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 59,
+      "downs": 4,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 96.63,
+      "downs": 2,
+      "minHumanHp": 69,
+      "bossPhases": 3,
+      "hp": [
+        2,
+        69,
+        45
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 58.77,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 92.17,
+      "downs": 1,
+      "minHumanHp": 47,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        47,
+        60
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 58.5,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 91.23,
+      "downs": 1,
+      "minHumanHp": 69,
+      "bossPhases": 3,
+      "hp": [
+        86,
+        69,
+        20
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 4,
+      "time": 82.83,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 98.67,
+      "downs": 2,
+      "minHumanHp": 47,
+      "bossPhases": 3,
+      "hp": [
+        24,
+        47,
+        45
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 57.23,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 89.37,
+      "downs": 1,
+      "minHumanHp": 135,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        135,
+        20
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "mage",
+      "active": false,
+      "state": "defeat",
+      "wave": 4,
+      "time": 77.07,
+      "downs": 4,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "mage",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 93.43,
+      "downs": 1,
+      "minHumanHp": 69,
+      "bossPhases": 3,
+      "hp": [
+        64,
+        69,
+        60
+      ]
+    },
+    {
+      "seed": 1,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 60.33,
+      "downs": 5,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 98.73,
+      "downs": 2,
+      "minHumanHp": 34,
+      "bossPhases": 3,
+      "hp": [
+        46,
+        21,
+        34
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 59.43,
+      "downs": 5,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 2,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 93,
+      "downs": 1,
+      "minHumanHp": 100,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        11,
+        100
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 2,
+      "time": 42.4,
+      "downs": 3,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 3,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 96.1,
+      "downs": 1,
+      "minHumanHp": 88,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        29,
+        100
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 61.47,
+      "downs": 5,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 4,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 99.07,
+      "downs": 4,
+      "minHumanHp": 78,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        0,
+        78
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 56.93,
+      "downs": 5,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 5,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 92.37,
+      "downs": 2,
+      "minHumanHp": 100,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        0,
+        100
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "jet",
+      "active": false,
+      "state": "defeat",
+      "wave": 3,
+      "time": 58.13,
+      "downs": 5,
+      "minHumanHp": 0,
+      "bossPhases": 0,
+      "hp": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 6,
+      "role": "jet",
+      "active": true,
+      "state": "treasure",
+      "wave": 5,
+      "time": 94.1,
+      "downs": 1,
+      "minHumanHp": 78,
+      "bossPhases": 3,
+      "hp": [
+        0,
+        55,
+        78
+      ]
+    }
+  ],
+  "balance": {
+    "botAttackIntervalScale": 1.8,
+    "botDamageScale": 1,
+    "botSkillLimit": 1,
+    "botSkillCooldownScale": 2,
+    "botReaction": 0.7,
+    "reviveSeconds": 5,
+    "remoteReviveSeconds": 22,
+    "bossPhaseHP": 440,
+    "bossContactDamage": 22,
+    "bossSlamDamage": 40,
+    "bossSlamRadius": 5.8
+  },
+  "summary": {
+    "active": {
+      "defeat": 4,
+      "treasure": 14
+    },
+    "idle": {
+      "defeat": 18
+    }
+  },
+  "note": "Deterministic scripted-policy simulations; not child playtests or real-world win-rate estimates."
+}

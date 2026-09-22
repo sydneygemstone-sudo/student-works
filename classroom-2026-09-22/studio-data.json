@@ -1,0 +1,592 @@
+{
+  "release": "2026.09.22-r3",
+  "classDate": "2026-09-22",
+  "projects": {
+    "kehan": {
+      "id": "kehan",
+      "name": "Kehan",
+      "title": [
+        "星海救援",
+        "Star Rescue"
+      ],
+      "heroTitle": [
+        "你的宇宙，<br>不止一种玩法。",
+        "Your universe.<br>Two ways to explore."
+      ],
+      "intro": [
+        "驾驶飞船穿越星海，或登陆星球展开冰火战斗。两条值得保留的分支，都有自己的最新版。",
+        "Pilot a ship through the stars, or land for an ice-and-fire battle. Two worthwhile branches, each with its own current build."
+      ],
+      "hero": "evidence/kehan-claude-voyage.png",
+      "theme": "space",
+      "budget": 50,
+      "people": 1,
+      "cost": {
+        "budget_aud": 50,
+        "total_tokens": 4996170,
+        "api_equivalent_usd": 8.6166825,
+        "api_equivalent_aud": 12.0969851186,
+        "remaining_recorded_basis_aud": 37.9030148814,
+        "engines": [
+          {
+            "engine": "Codex",
+            "model": "gpt-6-astra",
+            "input_uncached": 117644,
+            "cache_read": 1199744,
+            "cache_write_1h": 0,
+            "output": 23458,
+            "reasoning_included_in_output": 2203,
+            "total_tokens": 1340846,
+            "usd": 3.549084,
+            "aud": 4.9825691422,
+            "source_window_utc": "2026-09-22T06:13:32Z/2026-09-22T06:28:27Z"
+          },
+          {
+            "engine": "Claude Code",
+            "model": "claude-opus-5",
+            "input_uncached": 66,
+            "cache_read": 3434417,
+            "cache_write_1h": 144731,
+            "output": 76110,
+            "total_tokens": 3655324,
+            "raw_usage_rows": 100,
+            "unique_requests": 33,
+            "streaming_duplicates_removed": 67,
+            "usd": 5.0675985,
+            "aud": 7.1144159764,
+            "source_window_utc": "2026-09-22T06:12:19Z/2026-09-22T06:27:00Z"
+          }
+        ]
+      },
+      "decision": [
+        "课堂结论：保留 Claude 的飞船探索，也保留 Astra 的战斗手感；不是用一个覆盖另一个。",
+        "Classroom decision: keep Claude’s ship exploration and Astra’s combat feel. Do not overwrite one with the other."
+      ],
+      "branches": [
+        {
+          "key": "claude",
+          "name": [
+            "A · 飞船探索版",
+            "A · Ship explorer"
+          ],
+          "tool": "Claude / Opus",
+          "path": "kehan-claude/",
+          "image": "evidence/kehan-claude-voyage.png",
+          "status": "keep",
+          "tag": [
+            "保留 · iPad 触控修订",
+            "Retained · touch revision"
+          ],
+          "subtitle": [
+            "真正驾驶母舰与穿梭机，再下到怪物星球。",
+            "Actually pilot the mothership and shuttle, then reach the planet."
+          ],
+          "detail": [
+            "保留小行星航行、安全区、换乘与降落。修正横向输入重复，左摇杆改为移动、右侧拖动视角；失败从当前阶段重试。",
+            "Keep asteroid flight, safe zone, transfer and landing. Correct duplicate lateral input; use the left stick to move and drag on the right to look. Retry the current stage."
+          ],
+          "strength": [
+            "探索过程完整，飞船是玩法，不只是过场。",
+            "The ship journey is gameplay, not just a cutscene."
+          ],
+          "limit": [
+            "原版转向与横移混合；本轮统一触控后仍需孩子实机反馈来继续调手感。",
+            "Original turning and strafing were mixed. Touch controls are revised, but child/device feedback is still needed for feel."
+          ],
+          "scores": [
+            4.2,
+            3.8,
+            4.2,
+            4.0
+          ],
+          "usd": 5.0675985,
+          "aud": 7.1144159764,
+          "tokens": 3655324
+        },
+        {
+          "key": "astra",
+          "name": [
+            "B · 冰火战斗版",
+            "B · Ice & fire"
+          ],
+          "tool": "Codex / Astra",
+          "path": "kehan/",
+          "image": "evidence/kehan-astra-planet.png",
+          "status": "keep",
+          "tag": [
+            "保留 · iPad 触控修订",
+            "Retained · touch revision"
+          ],
+          "subtitle": [
+            "登船、登陆、开枪、冰冻：更直接的第三人称战斗。",
+            "Board, land, shoot and freeze: a more direct third-person battle."
+          ],
+          "detail": [
+            "保留第三人称移动、跳跃、射击、冰冻和夺宝。航行仍偏过场；本轮补齐触屏暂停、输入释放、屏幕边距和低帧率时钟。",
+            "Keep third-person movement, jumping, shooting, ice and treasure. Flight is still mostly cinematic. This revision completes touch pause, input release, safe areas and elapsed-time simulation."
+          ],
+          "strength": [
+            "冰冻火球与战斗反馈更直接，适合对照体验操作手感。",
+            "Direct ice/fire feedback makes this a useful control-feel comparison."
+          ],
+          "limit": [
+            "主动驾驶内容不及飞船探索版；没有把简短过场称为完整飞行玩法。",
+            "Less active piloting than the explorer branch. Short cinematics are not described as a full flight game."
+          ],
+          "scores": [
+            3.9,
+            4.1,
+            4.0,
+            4.2
+          ],
+          "usd": 3.549084,
+          "aud": 4.9825691422,
+          "tokens": 1340846
+        }
+      ],
+      "requirements": [
+        [
+          [
+            "世界与目标",
+            "World & goal"
+          ],
+          [
+            "地球陷入危机，探险家从怪物星球带回能量宝物。",
+            "Earth is in danger. Recover an energy relic from the monster planet."
+          ]
+        ],
+        [
+          [
+            "飞行旅程",
+            "The journey"
+          ],
+          [
+            "大飞船 → 安全区 → 小飞船 → 怪物星球。两个版本在“主动驾驶”上不同，必须让家长看得出来。",
+            "Mothership → safe zone → shuttle → monster planet. The branches differ in active piloting; that distinction must remain visible."
+          ]
+        ],
+        [
+          [
+            "战斗与防御",
+            "Combat & defence"
+          ],
+          [
+            "第三人称跑动、后退、跳跃与枪击；冰魔法冻结普通和巨大火球。",
+            "Third-person movement, reverse, jump and shooting. Ice freezes ordinary and giant fireballs."
+          ]
+        ],
+        [
+          [
+            "结局与重试",
+            "Endings & retry"
+          ],
+          [
+            "打败巨大 Boss、拿到宝物、拯救地球；失败可再次挑战。飞船版新增当前阶段重试。",
+            "Defeat the giant boss, recover the relic and save Earth. Failure offers retry; the flight branch now retries the current stage."
+          ]
+        ],
+        [
+          [
+            "家庭使用",
+            "At home"
+          ],
+          [
+            "iPad 直接打开网页；不需要老师的电脑开机，不需要多人房间。横屏优先，也检查竖屏布局。",
+            "Open the website directly on iPad. No teacher computer or multiplayer room is needed. Landscape is preferred; portrait layout is also checked."
+          ]
+        ]
+      ],
+      "timeline": [
+        [
+          "16:12",
+          [
+            "同一份课堂 brief，同时交给两个开发工具。",
+            "The same classroom brief was given to both development tools."
+          ]
+        ],
+        [
+          "16:13–16:28",
+          [
+            "Claude 走完整飞行探索路线；Astra 更快形成直接的第三人称战斗。两者不是同一个成果的简单旧版与新版。",
+            "Claude built the complete flight journey; Astra delivered more direct third-person combat. They are distinct alternatives, not merely an old and new copy."
+          ]
+        ],
+        [
+          "REVIEW",
+          [
+            "教师指出：Claude 飞船更完整但手感弱；Astra 飞船简陋但战斗更直接。上一轮只开放 Astra 是错误的取舍。",
+            "Teacher review: Claude’s ships are richer but controls weaker; Astra’s voyage is sparse but combat more direct. Publishing only Astra was the wrong selection."
+          ]
+        ],
+        [
+          "R3 · INPUT",
+          [
+            "飞船横向输入去重；地面移动与转向分离；双指移动与射击；取消触摸或失焦时释放输入。",
+            "Remove duplicate flight input; separate ground movement and turning; allow two-finger move/fire; release controls on cancellation or focus loss."
+          ]
+        ],
+        [
+          "R3 · HOME",
+          [
+            "两个分支统一暂停、语言切换、屏幕安全区；飞船版按关卡重试。保留两种玩法，不宣称已经完全融合成一个新游戏。",
+            "Unify pause, language and safe-area controls; add stage retry to the flight branch. Preserve both play styles rather than claiming a fully merged game."
+          ]
+        ]
+      ],
+      "changes": [
+        [
+          [
+            "飞船会横着冲得过猛",
+            "Over-strong lateral steering"
+          ],
+          [
+            "原版左右量被重复累计。现在只计算一次摇杆横向输入。",
+            "Lateral input was accumulated twice. It is now applied once."
+          ]
+        ],
+        [
+          [
+            "移动和转视角混在一起",
+            "Movement and turning were mixed"
+          ],
+          [
+            "左摇杆平移，右侧拖动视角；键盘 WASD 移动、Q/E 转向。",
+            "Left stick moves; right-side drag looks. Keyboard WASD moves; Q/E turns."
+          ]
+        ],
+        [
+          [
+            "长流程失败后重来太累",
+            "Retry repeated too much"
+          ],
+          [
+            "飞船版从当前航行、降落或星球阶段重新挑战。",
+            "Retry the current voyage, descent or planet stage."
+          ]
+        ],
+        [
+          [
+            "家庭 iPad 操作不完整",
+            "Incomplete iPad controls"
+          ],
+          [
+            "暂停、语言、方向变化、输入取消与安全区统一整理；不要求键盘或联机后端。",
+            "Consolidate pause, language, rotation, input cancellation and safe areas. No keyboard or network game server is required."
+          ]
+        ]
+      ],
+      "guide": [
+        "飞船探索版：左摇杆驾驶飞船；登陆后左摇杆移动、右侧空白画面拖动转视角。右侧三个按钮分别为跳跃、冰冻、射击，可边移动边射击。冰火战斗版：先点开始，用左摇杆走近小飞船，再点登船；登陆后用跳跃、冰冻和射击按钮。下方中间可暂停、切语言及尝试全屏。",
+        "Ship explorer: steer with the left stick. On the planet, move with the left stick and drag the empty right side to look. Jump, Freeze and Shoot work while moving. Ice & fire: start, approach the shuttle with the stick, then tap Board. On landing, use Jump, Freeze and Shoot. The bottom-center toolbar offers pause, language and optional fullscreen."
+      ],
+      "questions": [
+        [
+          "哪一版让你更像在驾驶飞船？",
+          "Which branch feels more like piloting a ship?"
+        ],
+        [
+          "哪一版的冰冻更容易瞄准？",
+          "Which ice control is easier to aim?"
+        ],
+        [
+          "只选一个改进，你会保留哪一版的什么功能？",
+          "For one next improvement, what would you borrow from each branch?"
+        ]
+      ]
+    },
+    "harrison-zavier": {
+      "id": "harrison-zavier",
+      "name": "Harrison × Zavier",
+      "title": [
+        "石剪布 · 怪物突袭",
+        "RPS · Monster Rush"
+      ],
+      "heroTitle": [
+        "队友会帮忙，<br>但胜利要靠你。",
+        "Your team will help.<br>The win is up to you."
+      ],
+      "intro": [
+        "战士、法师与战斗机，各有克制目标。减少电脑代打，让走位、救援与大招时机重新成为玩家的选择。",
+        "Fighter, Mage and Jet each counter different enemies. Less bot carrying means positioning, revives and super timing matter again."
+      ],
+      "hero": "evidence/rps-r3-combat.png",
+      "theme": "forest",
+      "budget": 100,
+      "people": 2,
+      "cost": {
+        "budget_aud": 100,
+        "total_tokens": 11988696,
+        "api_equivalent_usd": 15.8615325,
+        "api_equivalent_aud": 22.2680506809,
+        "remaining_recorded_basis_aud": 77.7319493191,
+        "engines": [
+          {
+            "engine": "Codex",
+            "model": "gpt-6-astra",
+            "input_uncached": 142891,
+            "cache_read": 4581248,
+            "cache_write_1h": 0,
+            "output": 43399,
+            "reasoning_included_in_output": 9964,
+            "total_tokens": 4767538,
+            "usd": 8.180108,
+            "aud": 11.4840769339,
+            "source_window_utc": "2026-09-22T08:16:56Z/2026-09-22T08:53:49Z"
+          },
+          {
+            "engine": "Claude Code",
+            "model": "claude-opus-5",
+            "input_uncached": 120,
+            "cache_read": 6946709,
+            "cache_write_1h": 176717,
+            "output": 97612,
+            "total_tokens": 7221158,
+            "raw_usage_rows": 168,
+            "unique_requests": 60,
+            "streaming_duplicates_removed": 108,
+            "usd": 7.6814245,
+            "aud": 10.783973747,
+            "source_window_utc": "2026-09-22T08:18:06Z/2026-09-22T08:36:16Z"
+          }
+        ]
+      },
+      "decision": [
+        "课堂结论：保留能进入课堂游玩的 Astra 版；Opus 版修复两次仍未通过课堂使用，停止追加，明确弃用。",
+        "Classroom decision: retain the usable Astra branch. The Opus candidate still failed classroom use after two repairs; stop spending on it and mark it rejected."
+      ],
+      "branches": [
+        {
+          "key": "astra",
+          "name": [
+            "A · 当前可玩版",
+            "A · Current playable build"
+          ],
+          "tool": "Codex / Astra",
+          "path": "harrison-zavier/",
+          "image": "evidence/rps-r3-combat.png",
+          "status": "keep",
+          "tag": [
+            "保留 · 手感与平衡修订",
+            "Retained · movement & balance"
+          ],
+          "subtitle": [
+            "一名玩家＋两名电脑队友，单机即可进入完整战斗。",
+            "One player and two bot teammates. Start a full battle locally."
+          ],
+          "detail": [
+            "角色与镜头采用同一连续位置、按时间平滑；电脑普通攻击间隔变为 1.8 倍，每波最多一次大招。Boss 更耐打，并提前标出定点砸击。",
+            "Character and camera share a continuous position with time-based smoothing. Bot attack intervals are 1.8× longer, with at most one super per wave. The tougher boss telegraphs targeted slams."
+          ],
+          "strength": [
+            "保留职业克制、三阶段 Boss 和宝箱结局，浏览器本地单机不依赖课堂联机服务。",
+            "Retain role counters, a three-phase boss and the treasure ending. Local solo does not depend on the classroom multiplayer service."
+          ],
+          "limit": [
+            "这是单机家庭版，不把它当作“三台 iPad 联机已验收”。平衡模拟也不是学生胜率统计。",
+            "This is the home solo build, not certification of three-iPad networking. Balance simulations are not student win-rate data."
+          ],
+          "scores": [
+            4.0,
+            4.0,
+            4.1,
+            4.2
+          ],
+          "usd": 8.180108,
+          "aud": 11.4840769339,
+          "tokens": 4767538
+        },
+        {
+          "key": "opus",
+          "name": [
+            "B · 课堂弃用候选",
+            "B · Rejected classroom candidate"
+          ],
+          "tool": "Claude / Opus",
+          "path": null,
+          "image": "evidence/rps-opus-original.png",
+          "status": "reject",
+          "tag": [
+            "弃用 · 课堂验收未通过",
+            "Rejected · classroom gate failed"
+          ],
+          "subtitle": [
+            "两次修复后仍不能正常玩：不再以漂亮截图代替交付。",
+            "Still unusable after two repairs. Attractive screenshots are not delivery."
+          ],
+          "detail": [
+            "记录中出现错误服务端口，以及移动、名字输入和多人同步问题。已有局部脚本与截图，但没有完成可用的三 iPad 端到端课堂闭环。两次修复仍失败的结论来自教师复盘。",
+            "Records show the wrong service port, movement problems, name-entry issues and multiplayer state trouble. Local scripts and screenshots exist, but they did not establish a usable three-iPad classroom session. The two-failed-repairs conclusion comes from the teacher’s review."
+          ],
+          "strength": [
+            "保留候选截图与尝试记录，用来解释制作和选择过程。",
+            "Keep candidate screenshots and attempt records to explain the selection process."
+          ],
+          "limit": [
+            "不提供可玩按钮，不发布未经通过的联机版本；已经消耗的 Token 仍计入项目。",
+            "No play button or unaccepted networking release. Its consumed tokens remain charged to the project."
+          ],
+          "scores": null,
+          "usd": 7.6814245,
+          "aud": 10.783973747,
+          "tokens": 7221158
+        }
+      ],
+      "requirements": [
+        [
+          [
+            "角色与表达",
+            "Roles & expression"
+          ],
+          [
+            "Minecraft 风格 3D；孩子自己输入名字，选择战士、法师或战斗机。",
+            "Minecraft-inspired 3D. Children enter a name and choose Fighter, Mage or Jet."
+          ]
+        ],
+        [
+          [
+            "克制与大招",
+            "Counters & supers"
+          ],
+          [
+            "石头护甲、魔法水晶、绿色快怪有对应克制。熔岩拳、火焰环、炸弹轰炸用于解围，不应一直释放。",
+            "Stone armor, magic crystals and green runners have role counters. Lava Punch, Fire Ring and Bomb Strike are emergency tools, not unlimited spam."
+          ]
+        ],
+        [
+          [
+            "视角与流程",
+            "View & flow"
+          ],
+          [
+            "默认第三人称、可切第一人称。普通波次 → 精英波次 → 三阶段 Boss → 宝箱胜利。",
+            "Third-person by default, with first-person switching. Normal waves → elite wave → three-phase boss → treasure victory."
+          ]
+        ],
+        [
+          [
+            "课堂与家庭的区别",
+            "Classroom versus home"
+          ],
+          [
+            "课堂原需求为三个孩子各用一台 iPad。家庭版明确改为一人＋两名电脑队友，不把静态单机发布冒称已解决多人联机。",
+            "The original classroom requested three separate iPads. The home build explicitly uses one human plus two bots. Static solo delivery is not claimed as a networking fix."
+          ]
+        ],
+        [
+          [
+            "本轮调整",
+            "This revision"
+          ],
+          [
+            "走路不要发卡；电脑别代打；后期有败局可能，Boss 需要主动躲避。",
+            "Reduce walking judder. Bots should support rather than carry. Late waves can fail, and the boss requires active dodging."
+          ]
+        ]
+      ],
+      "timeline": [
+        [
+          "18:18",
+          [
+            "形成最终 brief：三个职业、克制、大招冷却、第三／第一人称和波次战斗。",
+            "Final brief defines three roles, counters, cooldowns, camera modes and waves."
+          ]
+        ],
+        [
+          "18:23",
+          [
+            "明确课堂是三个学生各用一台 iPad，不是同屏共享键盘。",
+            "Clarify three students on three iPads, not a shared keyboard."
+          ]
+        ],
+        [
+          "18:25",
+          [
+            "Opus 分支服务入口不对；教师指出端口并非预期的 8123。",
+            "The Opus service entry is wrong; the teacher reports that it is not the expected port 8123."
+          ]
+        ],
+        [
+          "18:32",
+          [
+            "教师反馈无法移动、名字不能正常输入、内容跳动／重复，联机服务仍有问题。",
+            "Teacher reports failure to move, broken name entry, jumping/duplicated state and continued service problems."
+          ]
+        ],
+        [
+          "DECISION",
+          [
+            "按教师复盘，两次修复后仍不能用，课堂选择舍弃 Opus，保留 Astra。局部测试不抵消实际课堂失败。",
+            "According to teacher review, two repairs still did not make it usable. Reject Opus and retain Astra. Local tests do not override classroom failure."
+          ]
+        ],
+        [
+          "R3",
+          [
+            "在已选分支上修正镜头跟随、减少电脑攻击与大招频率，增强 Boss；模拟过难后再校准，而非反复抽新版本。",
+            "Improve the selected branch: camera follow, less frequent bot attacks and supers, stronger boss. Recalibrate an over-hard first pass rather than repeatedly generating new candidates."
+          ]
+        ]
+      ],
+      "changes": [
+        [
+          [
+            "走路发卡",
+            "Walking judder"
+          ],
+          [
+            "角色按帧插值、镜头却跟随离散状态，两个位置不同步。现在镜头跟随已平滑的角色位置，插值系数也按真实时间计算。",
+            "Character interpolation and camera following used different positions. The camera now follows the smoothed character, and interpolation depends on elapsed time."
+          ]
+        ],
+        [
+          [
+            "电脑过强",
+            "Bots carry the game"
+          ],
+          [
+            "普攻间隔 ×1.8，频率约减少 44%；大招每波最多 1 次且冷却翻倍；目标判断每 0.7 秒更新。保留对倒地队友的救援。",
+            "Normal attack intervals ×1.8, roughly 44% lower frequency. At most one super per wave with doubled cooldown, and target decisions every 0.7 seconds. Teammate rescue remains."
+          ]
+        ],
+        [
+          [
+            "Boss 过于轻松",
+            "Boss lacks pressure"
+          ],
+          [
+            "每阶段血量 340 → 440；接触伤害 19 → 22；砸击伤害 34 → 40。先标记玩家位置，再延迟落地，留出躲避时间。",
+            "Phase HP 340 → 440; contact damage 19 → 22; slam damage 34 → 40. Mark the player’s position before a delayed impact so dodging is possible."
+          ]
+        ],
+        [
+          [
+            "不要把难度改成堵死",
+            "Avoid an unfair difficulty wall"
+          ],
+          [
+            "首轮削弱过重、测试全败，已回调队友单次伤害和精英密度。保留后期失败可能与三职业阶段条件。",
+            "The first pass was too harsh and all simulations failed. Restore bot per-hit damage and reduce elite density while retaining possible late failure and all three required boss roles."
+          ]
+        ]
+      ],
+      "guide": [
+        "输入名字、选择职业，点开始单机，再点开始战斗。左摇杆移动；右侧攻击可按住，大招按钮只在合适时使用。拖动画面转视角，可切第一／第三人称。红圈标出 Boss 砸击的位置：尽快移开。靠近倒地队友能更快救起；全队倒下会失败，可重试。",
+        "Enter a name, choose a role, select Play Solo, then Start the Rush. Move with the left stick; hold Attack and save your super for the right moment. Drag to look and switch first/third person. Move out of the boss’s red impact marker. Nearby teammates revive faster. If the whole team falls, retry."
+      ],
+      "questions": [
+        [
+          "哪种怪物应该交给哪位英雄？",
+          "Which hero counters each monster?"
+        ],
+        [
+          "什么时候该留大招，什么时候该救队友？",
+          "When should you save a super or rescue a teammate?"
+        ],
+        [
+          "为什么有画面、但课堂不能用的版本要舍弃？",
+          "Why reject a version with attractive visuals when it does not work in class?"
+        ]
+      ]
+    }
+  }
+}

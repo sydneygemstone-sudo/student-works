@@ -1,0 +1,37 @@
+{
+  "checks": [
+    "Claude: normal touch launch, steer the mothership and cancel the stick",
+    "Claude: pause freezes the actual flight",
+    "Claude: independent two-finger movement + shooting; cancellation releases both",
+    "Claude: live language switch and defeat retry from the planet checkpoint",
+    "kehan-claude: portrait bounds and 44px touch controls",
+    "kehan-claude: no page errors or external game dependencies",
+    "Astra: real touch start, joystick approach and shuttle boarding into combat",
+    "Astra: touch ice, jump, held fire and pause/resume",
+    "kehan: portrait bounds and 44px touch controls",
+    "kehan: no page errors or external game dependencies",
+    "RPS: independent touch movement + attack with two local bots",
+    "RPS: offline continuation, real all-down defeat and retry",
+    "harrison-zavier: portrait bounds and 44px touch controls",
+    "harrison-zavier: no page errors or external game dependencies",
+    "WebKit touch startup: kehan-claude",
+    "WebKit touch startup: kehan",
+    "WebKit touch startup: harrison-zavier"
+  ],
+  "failures": [],
+  "screenshots": [
+    "kehan-claude-voyage.png",
+    "kehan-claude-planet.png",
+    "kehan-claude-portrait.png",
+    "kehan-astra-planet.png",
+    "kehan-portrait.png",
+    "rps-r3-combat.png",
+    "harrison-zavier-portrait.png"
+  ],
+  "limitations": [
+    "Browser iPad emulation, not a physical iPad.",
+    "Scenario injection is used only for combat/ending plumbing; normal voyage/start and touch input are separately exercised."
+  ],
+  "completedAt": "2026-09-22T15:41:55.779Z",
+  "status": "PASS"
+}

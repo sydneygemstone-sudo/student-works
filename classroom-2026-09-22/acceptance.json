@@ -1,51 +1,57 @@
 {
-  "status": "GITHUB_REVIEW_READY",
-  "release": "2026.09.22-r2",
-  "checks_passed": 15,
-  "rule_tests_passed": 6,
-  "supplemental_game_checks_passed": 7,
-  "hub_checks_passed": 4,
-  "observed_errors": 0,
-  "completedAt": "2026-09-22T13:35:58.343Z",
-  "checks": [
-    "kehan zh-CN renders without localization errors",
-    "kehan en renders without localization errors",
-    "harrison-zavier zh-CN renders without localization errors",
-    "harrison-zavier en renders without localization errors",
-    "Kehan simplified-Chinese start click and safe-zone transition",
-    "Kehan ordinary-keyboard shuttle to combat",
-    "RPS simplified-Chinese solo click with two bots",
-    "RPS local pause and resume",
-    "RPS solo keeps ticking offline",
-    "RPS injected all-down defeat",
-    "RPS retry from defeat",
-    "Preview does not expose private documents",
-    "Both latest archive links return downloadable files",
-    "kehan standalone package starts with external requests blocked",
-    "harrison-zavier standalone package starts with external requests blocked"
-  ],
-  "supplemental_checks": [
-    "Kehan English playable start to safe zone",
-    "Kehan language switches during play",
-    "RPS local solo: one human and two bot teammates",
-    "RPS pause and resume",
-    "RPS continues offline without a network game server",
-    "RPS browser boss-phase/chest/victory UI integration (injected)",
-    "RPS restart after victory"
-  ],
-  "hub_checks": [
-    "kehan HUB: budget, sections, GitHub feedback and screenshot",
-    "kehan HUB English switch",
-    "harrison-zavier HUB: budget, sections, GitHub feedback and screenshot",
-    "harrison-zavier HUB English switch"
-  ],
+  "release": "2026.09.22-r3",
+  "status": "PASS",
+  "completedAt": "2026-09-22T15:59:25.940927+00:00",
+  "class_date": "2026-09-22",
+  "retained_branches": {
+    "kehan": [
+      "Claude ship explorer",
+      "Astra ice and fire"
+    ],
+    "harrison-zavier": [
+      "Astra solo balance revision"
+    ]
+  },
+  "rejected_branch": {
+    "project": "harrison-zavier",
+    "branch": "Claude Opus classroom candidate",
+    "basis": "Teacher reports two failed repairs and continued inability to play in class. Existing local scripts/screenshots did not establish a working three-iPad end-to-end session.",
+    "playable_entry": false
+  },
+  "checks": {
+    "ipad": 17,
+    "studio": 31,
+    "balance": 5,
+    "packages": 7
+  },
+  "balance_simulations": {
+    "count": 36,
+    "summary": {
+      "active": {
+        "defeat": 4,
+        "treasure": 14
+      },
+      "idle": {
+        "defeat": 18
+      }
+    },
+    "interpretation": "Scripted policies, not child playtest win rates."
+  },
   "limitations": [
-    "Physical iPad/Safari has not been tested.",
-    "Boss integration uses explicitly injected scenarios; the full autonomous rule simulation is separate from a human playthrough.",
-    "Voice/controller usage is not included in the available development receipts."
+    "Browser iPad emulation, not a physical iPad.",
+    "Scenario injection is used only for combat/ending plumbing; normal voyage/start and touch input are separately exercised.",
+    "No physical iPad hardware test.",
+    "The home release is solo; no three-iPad network certification.",
+    "Current ChatGPT controller tokens have no exposed provider receipt; not billed as zero."
   ],
+  "report_paths": {
+    "ipad": "reports/ipad.json",
+    "studio": "reports/studio.json",
+    "balance": "reports/balance.json",
+    "packages": "reports/packages.json"
+  },
   "summary": [
-    "发布回归 15 项通过，另有 6 项完整规则测试通过。两款单机包均在屏蔽外网时启动；正常点击、键盘登船、暂停、断网继续、失败重试通过。三阶段 Boss 与宝箱规则通过，浏览器结算为明确标记的场景注入测试。开发用量已核算；实体 iPad/Safari 尚未实机验收。",
-    "15 release checks and 6 complete rule tests passed. Both offline packages start with external requests blocked. Ordinary clicks, keyboard boarding, pause, offline continuation and defeat/retry passed. Three-phase boss/chest rules and explicitly injected browser endings passed. Development usage is reconciled; physical iPad/Safari testing is not included."
+    "r3：Kehan 两条最新版保留，Harrison/Zavier 只发布已选 Astra 分支；Opus 弃用理由与成本明确记录。触控、WebKit 启动、双语 HUB、平衡规则及解压离线包均有验收记录。实体 iPad 手感仍需要实机验证。",
+    "r3 retains both latest Kehan branches and only the selected Astra Harrison/Zavier build. Opus rejection and sunk cost are documented. Touch, WebKit startup, bilingual HUBs, balance rules and extracted offline packages have recorded tests. Physical iPad feel remains unverified."
   ]
 }
