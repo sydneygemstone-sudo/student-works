@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "project_id": "adventure-world",
+  "release": "aw-hub-2026.09.23-r1",
+  "sha256": "c7a3a92a70e177ccf27fae015b5f5d87b8f2418bd9327c5caa294dde1d0e1e50",
+  "encoding": "xz-base64-utf8-json",
+  "parts": 5,
+  "source_files": ["hub.html", "hub-app.js", "hub-data.js", "play.html"],
+  "standard_id": "CLASSROOM-HUB-R5-20260923",
+  "standard_version": "3.0.0",
+  "tested_game_commit": "392ed683daeb5e15ab89194c4ad6d491ad526589",
+  "source_repository_head": "90a9d487586ba8ead81c3d01cb8c1136d2246749",
+  "checks_before_delivery": {
+    "browser_content_fixture_checks": "72 PASS; local content fixtures, not native-origin persistence certification",
+    "game_unit_tests": "10/10 PASS",
+    "physical_ipad": "NOT_TESTED",
+    "student_reviews": "NOT_YET_COLLECTED"
+  },
+  "privacy": "Public content contains first names and deidentified summaries only. Reports remain local unless deliberately exported/shared. No test-child reports are shipped.",
+  "change_scope": "Add this project HUB, report form, minimal game entry adapter and package; preserve original game logic and locked R5 references."
+}
