@@ -1,11 +1,12 @@
-## Current independent HUB and voice tools · 2026-09-23
+## Current family/student HUB · 2026-09-23 r2
 
-- Current HUB: [Naomi HUB](hub-v41/index.html), standard r5 / 3.0.0.
-- Story and voice module: [V4.1 story module](hub-v41/story.html).
-- Fixed reusable voice toolkit: [Classroom Voice Studio 1.0.0](../tools/classroom-voice-studio/README.md).
-- Authoritative entry: `LATEST-HUB.json`; source tags `voice-studio-v1.0.0` and `naomi-voice-v4.1.0`.
+- Single family/student entry: [Naomi HUB](hub.html), using the locked R5 / 3.0.0 presentation contract.
+- Current playable game remains [index.html](index.html); this HUB release does not change gameplay source.
+- The generated V4.1 four-scene story master is presented beside the game as a current project asset. Its audio remains private; the teacher's local HUB mirror contains the playable final MP3 masters.
+- Mixer, local model runtime, MIDI controls and recovery source are teacher-side production assets. They are not promoted from the public HUB.
+- Cost evidence and estimates are recorded in `NAOMI-COSTS.json`; the authoritative entry policy is in `LATEST-HUB.json`.
 
-The V4.1 voice arrangement is independent. The existing game files and gameplay are not changed; original and cloned student voice assets remain in private local packs, not this public repository. The earlier project notes below are preserved as history.
+Historical V4.1 HUB/mixer source remains recoverable from Git tag `naomi-voice-v4.1.0` / commit `dbb9f606139e9005f43f5909c7ec0ab339cfc6fb`; it is not the current family interface. Original and cloned student voice assets remain in private local packs, not this public repository.
 
 ---
 

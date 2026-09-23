@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "currency": "AUD",
+  "release": "naomi-hub-2026.09.23-r2",
+  "measured": {
+    "claude_comparison_build_usd": 8.56672925,
+    "usd_to_aud": 1.41252,
+    "aud": 12.1,
+    "fx_date": "2026-09-23"
+  },
+  "estimated": {
+    "unmetered_controller_hub_aud_range": [
+      10,
+      25
+    ],
+    "tool_total_aud_range": [
+      22.1,
+      37.1
+    ],
+    "tool_total_midpoint_aud": 29.6
+  },
+  "local_inference": {
+    "external_model_api_aud": 0,
+    "recorded_runtime_lower_bound_seconds": 3562.95,
+    "electricity": "not metered"
+  },
+  "human_rebuild": {
+    "rate_aud_per_hour": 63.44,
+    "hours_range": [
+      20,
+      30
+    ],
+    "cost_range_aud": [
+      1268.8,
+      1903.2
+    ],
+    "midpoint_aud": 1586.0
+  },
+  "notes": [
+    "Measured Claude receipt is counted once despite archived duplicates.",
+    "ChatGPT/controller usage receipt is not exposed; estimate is explicitly separate.",
+    "V4 exact model runtime was not found on Mac; V4.1 used no new model inference.",
+    "A$50 is a classroom reference pool; voice work had separate authorization."
+  ]
+}

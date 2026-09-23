@@ -1,15 +1,12 @@
 {
   "project_id": "naomi-pet-rescue",
-  "hub_entry": "hub-v41/index.html",
+  "hub_entry": "hub.html",
+  "hub_release": "naomi-hub-2026.09.23-r2",
   "hub_standard": "CLASSROOM-HUB-R5-20260923",
   "standard_version": "3.0.0",
-  "voice_arrangement": "4.1.0",
-  "accepted_speech_baseline": "4.0.0",
-  "voice_studio": "1.0.0",
-  "source_tag": "voice-studio-v1.0.0",
-  "project_tag": "naomi-voice-v4.1.0",
-  "original_game_entry": "index.html",
-  "new_voice_merged_into_original_game": false,
-  "private_voice_publication": false,
-  "scope": "Independent HUB and local voice studio; the original game remains unchanged."
+  "current_game_entry": "index.html",
+  "generated_story_asset": "V4.1 private master",
+  "family_student_entry_policy": "hub.html is the only promoted family/student entry",
+  "mixer_policy": "local teacher production asset only; not a public HUB entry",
+  "private_voice_publication": false
 }
