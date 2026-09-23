@@ -1,0 +1,87 @@
+name: adventure-world-hub-build
+on:
+  push:
+    branches: [main]
+    paths: ['adventure-world/hub-source-delivery.json']
+permissions:
+  contents: write
+concurrency:
+  group: adventure-world-hub-20260923
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Verify approved R5 before applying new course files
+        run: python3 scripts/verify_hub_standard.py --self-test
+      - name: Decode hash-pinned course sources and build offline package
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, lzma, pathlib, shutil, subprocess, tempfile, zipfile
+          root=pathlib.Path.cwd(); course=root/'adventure-world'
+          expected='c7a3a92a70e177ccf27fae015b5f5d87b8f2418bd9327c5caa294dde1d0e1e50'
+          delivery=json.loads((course/'hub-source-delivery.json').read_text())
+          assert delivery['schema']==1 and delivery['project_id']=='adventure-world'
+          assert delivery['encoding']=='xz-base64-utf8-json' and delivery['sha256']==expected
+          assert len(delivery['data'])<150000
+          raw=lzma.decompress(base64.b64decode(delivery['data'],validate=True))
+          assert len(raw)<300000 and hashlib.sha256(raw).hexdigest()==expected
+          sources=json.loads(raw)
+          allowed={'hub.html','hub-app.js','hub-data.js','play.html'}
+          assert set(sources)==allowed
+          for name,content in sources.items():
+              assert isinstance(content,str)
+              target=course/name
+              if target.exists():
+                  assert target.read_bytes()==content.encode('utf-8'), 'Refuse to overwrite a differing parallel file: '+name
+          data=json.loads(sources['hub-data.js'].split(' = ',1)[1].rsplit(';',1)[0])
+          assert data['standard']['id']=='CLASSROOM-HUB-R5-20260923'
+          assert data['standard']['version']=='3.0.0'
+          assert hashlib.sha256((course/'bundle.js').read_bytes()).hexdigest()==data['game']['bundle_sha256'], 'Runtime changed; do not silently rebase'
+          for name,content in sources.items():
+              (course/name).write_bytes(content.encode('utf-8'))
+          subprocess.run(['node','--check','hub-app.js'],cwd=course,check=True)
+          subprocess.run(['node','tests/unit-tests.js'],cwd=course,check=True)
+          with tempfile.TemporaryDirectory() as tmp:
+              tmp=pathlib.Path(tmp)
+              for part in ['src','data','scripts']:
+                  shutil.copytree(course/part,tmp/part)
+              subprocess.run(['node','scripts/build-bundle.js'],cwd=tmp,check=True)
+              assert (tmp/'bundle.js').read_bytes()==(course/'bundle.js').read_bytes(), 'Source/bundle mismatch'
+          files=['adventure-world/'+n for n in sorted(allowed)]
+          files += ['adventure-world/'+n for n in ['index.html','bundle.js','styles.css','data/world.json','data/quests.json','data/locale.en.json','data/locale.zh.json']]
+          files += ['classroom-2026-09-22/'+n for n in ['studio.css','studio-r3.css','studio-r5.css','touch-guard.js']]
+          hashes={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in files}
+          receipt={'release':delivery['release'],'standard_id':data['standard']['id'],'standard_version':'3.0.0','source_payload_sha256':expected,'game_tested_commit':data['game']['tested_commit'],'source_repo_head_at_collection':data['game']['source_head'],'checks':{'approved_r5_preflight':'PASS','unit_tests':'10/10','bundle_source_match':'PASS','physical_ipad':'NOT_TESTED','child_reviews':'NOT_YET_COLLECTED'},'runtime_sha256':hashes}
+          out=course/'downloads/adventure-world-hub-20260923-r1.zip';out.parent.mkdir(exist_ok=True)
+          with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for name in files:
+                  z.writestr(name,(root/name).read_bytes())
+              z.writestr('START.html','<!doctype html><html><meta charset="utf-8"><title>Adventure World</title><h1>Adventure World</h1><p><a href="adventure-world/hub.html">Open classroom HUB / 打开课堂 HUB</a></p><p>Extract this ZIP first. 请先解压。</p></html>')
+              z.writestr('README.txt','Adventure World — R5 classroom review kit\nExtract this ZIP and open START.html on a computer. No Node or online AI is required for play.\n解压后用电脑浏览器打开 START.html。不需要 Node 或在线模型。\nReport and game saves belong to the browser/origin. They do not automatically transfer between online/offline or devices. Export reports before moving.\n报告保存在当前设备；线上与离线、不同浏览器不保证存档互通。移动前请导出。\nExporting a report does not confirm teacher receipt. Physical iPad remains unverified.\nOnly this course and the required approved R5 styles/gesture guard are included.\n')
+              z.writestr('manifest.json',json.dumps(receipt,ensure_ascii=False,indent=2))
+          with tempfile.TemporaryDirectory() as tmp, zipfile.ZipFile(out) as z:
+              assert z.testzip() is None
+              z.extractall(tmp)
+              for name,digest in hashes.items():
+                  assert hashlib.sha256((pathlib.Path(tmp)/name).read_bytes()).hexdigest()==digest
+          receipt['checks']['zip_extraction_and_runtime_hashes']='PASS'
+          receipt['zip_sha256']=hashlib.sha256(out.read_bytes()).hexdigest()
+          (course/'HUB-DELIVERY-RECEIPT.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Recheck golden samples are untouched
+        run: python3 scripts/verify_hub_standard.py
+      - name: Commit only this course delivery; never force push
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- adventure-world/hub.html adventure-world/hub-app.js adventure-world/hub-data.js adventure-world/play.html adventure-world/downloads/adventure-world-hub-20260923-r1.zip adventure-world/HUB-DELIVERY-RECEIPT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'feat(adventure-world): publish R5 HUB, individual reviews and offline kit'
+          git push origin HEAD:main
