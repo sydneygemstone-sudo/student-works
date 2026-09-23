@@ -1,3 +1,14 @@
+## Current independent HUB and voice tools · 2026-09-23
+
+- Current HUB: [Naomi HUB](hub-v41/index.html), standard r5 / 3.0.0.
+- Story and voice module: [V4.1 story module](hub-v41/story.html).
+- Fixed reusable voice toolkit: [Classroom Voice Studio 1.0.0](../tools/classroom-voice-studio/README.md).
+- Authoritative entry: `LATEST-HUB.json`; source tags `voice-studio-v1.0.0` and `naomi-voice-v4.1.0`.
+
+The V4.1 voice arrangement is independent. The existing game files and gameplay are not changed; original and cloned student voice assets remain in private local packs, not this public repository. The earlier project notes below are preserved as history.
+
+---
+
 # 2026-09-12 · 故事演出与 IndexTTS 2.5 配音版
 
 点「一起出发」观看开场；救回全部小动物后播放团圆宴会。可暂停、跳过、调音量和重播。也可以打开 [故事小剧场](story-review.html) 单独看两段演出。

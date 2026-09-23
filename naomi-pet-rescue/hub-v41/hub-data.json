@@ -1,0 +1,526 @@
+{
+  "project_id": "naomi-pet-rescue",
+  "title": {
+    "zh": "小动物回家",
+    "en": "Little Animals, Home Together"
+  },
+  "student": "Naomi",
+  "release": "2026.09.23-v4.1",
+  "hub_standard_id": "CLASSROOM-HUB-R5-20260923",
+  "hub_standard_version": "3.0.0",
+  "baseline_commit": "f45d0750b78322937be17a6a6af743b2d5c08755",
+  "decision_mode": "decision_pending",
+  "decision_scope": {
+    "zh": "游戏历史分支不在本轮重新排名；声音明确保留V4人声，新增V4.1独立编排。",
+    "en": "Historical game branches are not being re-ranked. V4 speech is retained; V4.1 is a separate arrangement."
+  },
+  "voice_version": "4.1.0",
+  "studio_version": "1.0.0",
+  "voice_acceptance": {
+    "zh": "教师已认可V4主体呈现；V4.1动物层次增强待试听。",
+    "en": "The teacher accepted the core V4 presentation; richer V4.1 animal layers await listening."
+  },
+  "links": {
+    "game": "../index.html",
+    "classic": "../classic.html",
+    "mixer": "../../tools/classroom-voice-studio/web/",
+    "source": "https://github.com/sydneygemstone-sudo/student-works/tree/main/tools/classroom-voice-studio",
+    "source_zip": "downloads/classroom-voice-studio-1.0.0-source.zip"
+  },
+  "budget": {
+    "approved_aud": null,
+    "recorded_aud": null,
+    "default_lesson_budget_aud": 50,
+    "scope": {
+      "zh": "游戏与配音累计；配音曾单独授权不套课堂上限，完整账本未核齐。",
+      "en": "Cumulative game and voice work; voice production had a separate authorization. Full accounting is incomplete."
+    },
+    "local_model_api_cash_aud": 0,
+    "missing": {
+      "zh": "缺历史主控/执行端API等值、教师工时与电费；不能把本地推理零API账单写成总成本零。",
+      "en": "Historical controller/executor usage, teacher time and electricity are missing. Zero local-inference API bills do not mean zero total cost."
+    }
+  },
+  "manual": {
+    "scope": {
+      "zh": "当前游戏展示＋声音管线与编排，一次重建的规划估算，不累加所有旧版。",
+      "en": "Planning estimate to rebuild the current game presentation and voice pipeline/arranger once, not a sum of every past version."
+    },
+    "hourly_aud": 63.44,
+    "rate_basis": {
+      "zh": "沿用已批准HUB的历史假设时薪；不是市场新报价或已付人工。",
+      "en": "Historical assumed hourly rate from the approved HUB, not a current market quote or paid labour."
+    },
+    "tasks": [
+      {
+        "name": {
+          "zh": "需求、脚本与验收设计",
+          "en": "Requirements, script and acceptance design"
+        },
+        "low": 3,
+        "high": 5
+      },
+      {
+        "name": {
+          "zh": "现有游戏呈现与资料整理",
+          "en": "Existing-game presentation and records"
+        },
+        "low": 5,
+        "high": 9
+      },
+      {
+        "name": {
+          "zh": "本地克隆、情绪与发音调试",
+          "en": "Local cloning, emotion and pronunciation"
+        },
+        "low": 5,
+        "high": 8
+      },
+      {
+        "name": {
+          "zh": "动物分轨、音效与混音",
+          "en": "Animal stems, effects and mixing"
+        },
+        "low": 3,
+        "high": 5
+      },
+      {
+        "name": {
+          "zh": "轻量调音台、MIDI与版本管理",
+          "en": "Lightweight mixer, MIDI and versioning"
+        },
+        "low": 5,
+        "high": 8
+      },
+      {
+        "name": {
+          "zh": "HUB、验证、打包与发布",
+          "en": "HUB, checks, packaging and publishing"
+        },
+        "low": 3,
+        "high": 5
+      }
+    ]
+  },
+  "efficiency": {
+    "stage": {
+      "zh": "当前整套交付",
+      "en": "Current complete delivery"
+    },
+    "recorded_hours": null,
+    "recorded_tool_aud": null,
+    "time_multiple": null,
+    "cost_multiple": null,
+    "reason": {
+      "zh": "同阶段真实时间与完整工具计量缺失，不给跨阶段节省倍数。",
+      "en": "Comparable recorded time and full tool usage are missing; no cross-stage savings multiple is claimed."
+    }
+  },
+  "stages": [
+    {
+      "name": {
+        "zh": "构想",
+        "en": "Idea"
+      },
+      "state": "done",
+      "evidence": {
+        "zh": "合作救回八只动物的课堂主题。",
+        "en": "Classroom concept: rescue eight animals together."
+      }
+    },
+    {
+      "name": {
+        "zh": "Brief",
+        "en": "Brief"
+      },
+      "state": "done",
+      "evidence": {
+        "zh": "故事、角色、合作规则与双语声音要求。",
+        "en": "Story, roles, cooperation rules and bilingual voice requirements."
+      }
+    },
+    {
+      "name": {
+        "zh": "原型",
+        "en": "Prototype"
+      },
+      "state": "done",
+      "evidence": {
+        "zh": "已有游戏版本与四幕声音管线。",
+        "en": "Existing game editions and a working four-scene voice pipeline."
+      }
+    },
+    {
+      "name": {
+        "zh": "版本评估",
+        "en": "Review"
+      },
+      "state": "done",
+      "evidence": {
+        "zh": "教师试听认可V4；明确动物层次的最后改进。",
+        "en": "Teacher accepted V4 listening and requested richer animal layers."
+      }
+    },
+    {
+      "name": {
+        "zh": "家庭适配",
+        "en": "Home access"
+      },
+      "state": "in_progress",
+      "evidence": {
+        "zh": "保留原单设备游戏；新增私密配音包的实体iPad导入待测。",
+        "en": "Original single-device game retained; private voice import on physical iPad is pending."
+      }
+    },
+    {
+      "name": {
+        "zh": "验证与呈现",
+        "en": "Checks & HUB"
+      },
+      "state": "done",
+      "evidence": {
+        "zh": "Chromium/WebKit、双语页面与本地混音导出通过；实机另外验收。",
+        "en": "Chromium/WebKit, bilingual pages and local mix exports passed; physical devices remain separate."
+      }
+    },
+    {
+      "name": {
+        "zh": "实机与定稿",
+        "en": "Device sign-off"
+      },
+      "state": "pending",
+      "evidence": {
+        "zh": "V4.1动物试听、实体MIDI与iPad尚未验收。",
+        "en": "V4.1 animal listening, physical MIDI and iPad are not yet accepted."
+      }
+    }
+  ],
+  "versions": [
+    {
+      "id": "game",
+      "title": {
+        "zh": "花园救援 · 原游戏",
+        "en": "Garden Rescue · Existing game"
+      },
+      "version": "Existing game / unchanged",
+      "image": "images/game-mid.png",
+      "image_note": {
+        "zh": "历史游戏截图，不冒充本轮新实机测试。",
+        "en": "Historical gameplay capture, not a new physical-device test."
+      },
+      "status": {
+        "zh": "原入口保留",
+        "en": "Original entry retained"
+      },
+      "strength": {
+        "zh": "同一设备轮流合作；八动物救援目标清楚。",
+        "en": "Shared-device turn-taking with a clear eight-animal rescue goal."
+      },
+      "limit": {
+        "zh": "本轮不重写玩法、不把克隆声音合入游戏；实体设备回归另记。",
+        "en": "No gameplay rewrite or cloned-voice merge in this release; physical regression is separate."
+      },
+      "rating": null,
+      "play": "../index.html",
+      "report": "comparison.html",
+      "tokens": null,
+      "cost_aud": null
+    },
+    {
+      "id": "voice4",
+      "title": {
+        "zh": "故事人声 · V4基线",
+        "en": "Story voice · V4 baseline"
+      },
+      "version": "Voice 4.0.0 / IndexTTS 2.5",
+      "image": "images/garden-story.png",
+      "image_note": {
+        "zh": "游戏已有故事美术，非新游戏截图。",
+        "en": "Existing story artwork, not a new gameplay screenshot."
+      },
+      "status": {
+        "zh": "教师已认可主体效果",
+        "en": "Core presentation accepted"
+      },
+      "strength": {
+        "zh": "本人情绪参考真实接入，双语四幕，害怕0.55/0.75对照。",
+        "en": "Real emotional references, four bilingual scenes, fear 0.55/0.75 A/B."
+      },
+      "limit": {
+        "zh": "教师指出动物层次还不够；原人声保留不重做。",
+        "en": "Teacher requested richer animal layers; speech stays unchanged."
+      },
+      "rating": null,
+      "play": null,
+      "report": "story.html",
+      "tokens": null,
+      "cost_aud": null
+    },
+    {
+      "id": "voice41",
+      "title": {
+        "zh": "故事编排 · V4.1",
+        "en": "Story arrangement · V4.1"
+      },
+      "version": "Arrangement 4.1.0 / Studio 1.0.0",
+      "image": "images/arranger-demo.png",
+      "image_note": {
+        "zh": "调音台合成音演示截图，不包含学生声音。",
+        "en": "Mixer screenshot using synthetic demo tones; no student voice."
+      },
+      "status": {
+        "zh": "新增独立模块 · 待试听",
+        "en": "Separate new module · listen next"
+      },
+      "strength": {
+        "zh": "八条动物轨、68个双语事件；声音可叠加、独听、编辑时间与力度。",
+        "en": "Eight animal tracks and 68 bilingual cues; layering, solo, timing and velocity controls."
+      },
+      "limit": {
+        "zh": "复用已有独立音效编排，不冒充八种动物的新情绪生成；硬件MIDI未测。",
+        "en": "Reuses independent effects, not eight newly generated emotional performances; hardware MIDI untested."
+      },
+      "rating": null,
+      "play": "../../tools/classroom-voice-studio/web/",
+      "report": "story.html",
+      "tokens": null,
+      "cost_aud": null
+    }
+  ],
+  "journey": [
+    {
+      "date": "2026-08-25",
+      "title": {
+        "zh": "从合作救援开始",
+        "en": "A cooperative rescue idea"
+      },
+      "need": {
+        "zh": "Naomi的课堂作品：暴风雨前把小动物带回家。",
+        "en": "Naomi’s classroom project: bring the animals home before a storm."
+      },
+      "method": {
+        "zh": "先确定角色、目标与共同成功条件，再实现回合规则。",
+        "en": "Define roles, goals and shared success before implementing turns."
+      },
+      "tech": {
+        "zh": "浏览器游戏与独立规则逻辑。",
+        "en": "Browser game with separate rule logic."
+      },
+      "result": {
+        "zh": "形成同设备轮流合作的基础。",
+        "en": "Established the shared-device cooperation baseline."
+      },
+      "evidence": "project-record"
+    },
+    {
+      "date": "2026-09-08 / 09-11",
+      "title": {
+        "zh": "试玩与规则修复",
+        "en": "Playtesting and rule fixes"
+      },
+      "need": {
+        "zh": "让障碍、森林网、勇气与回家目标更清楚。",
+        "en": "Make obstacles, forest nets, courage and the home objective clearer."
+      },
+      "method": {
+        "zh": "课堂反馈→规则与美术修改→版本留存。",
+        "en": "Classroom feedback → rule/art changes → version preservation."
+      },
+      "tech": {
+        "zh": "JavaScript规则、场景呈现与历史截图。",
+        "en": "JavaScript rules, scene presentation and historical captures."
+      },
+      "result": {
+        "zh": "游戏形成可展示的救援闭环；不是本轮新通关。",
+        "en": "Produced a demonstrable rescue loop, not a new playthrough this release."
+      },
+      "evidence": "historical-game-record"
+    },
+    {
+      "date": "2026-09-12",
+      "title": {
+        "zh": "四幕故事进入作品",
+        "en": "Four-scene storytelling"
+      },
+      "need": {
+        "zh": "花园派对、风雨、救援、团圆形成连贯故事。",
+        "en": "Garden, storm, rescue and reunion become a coherent story."
+      },
+      "method": {
+        "zh": "分幕脚本、故事图、配音资源与触发流程整理。",
+        "en": "Organize scene scripts, artwork, audio resources and triggers."
+      },
+      "tech": {
+        "zh": "已有故事模块与IndexTTS配音版本。",
+        "en": "Existing story module and IndexTTS narration edition."
+      },
+      "result": {
+        "zh": "后续本人声音替换有了明确脚本基线。",
+        "en": "Created a clear script baseline for the later personal voice work."
+      },
+      "evidence": "git-a478770"
+    },
+    {
+      "date": "2026-09-15 / 09-22",
+      "title": {
+        "zh": "合作探索与本人配音需求",
+        "en": "Co-op exploration and personal voice"
+      },
+      "need": {
+        "zh": "课堂探索版与不同情绪的本人声音；速度可调、句尾稳定。",
+        "en": "Classroom exploration and personal emotional speech, adjustable pace and stable endings."
+      },
+      "method": {
+        "zh": "核对coop-claude基线；保护参考录音，先试小样再试听。",
+        "en": "Check the coop-claude baseline, protect references and compare small samples first."
+      },
+      "tech": {
+        "zh": "本地IndexTTS与MOSS分轨，Mac试听、GPU本地推理。",
+        "en": "Local IndexTTS and MOSS stems; private playback and local GPU inference."
+      },
+      "result": {
+        "zh": "游戏和私密声音候选保持独立。",
+        "en": "Kept the game and private voice candidates separate."
+      },
+      "evidence": "classroom-brief-and-v2-spec"
+    },
+    {
+      "date": "2026-09-23 · V3",
+      "title": {
+        "zh": "参数传入，但表演过于克制",
+        "en": "Parameters present, performance too restrained"
+      },
+      "need": {
+        "zh": "教师听到声音偏平，动物与环境音奇怪。",
+        "en": "Teacher heard flat speech and awkward animal/environment effects."
+      },
+      "method": {
+        "zh": "审查真实生成参数、情绪权重、参考输入和混音时间线。",
+        "en": "Audit actual generation parameters, emotion weights, references and the mix timeline."
+      },
+      "tech": {
+        "zh": "QwenEmotion文字向量、低强度、统一减速与整段动物音。",
+        "en": "Text-emotion vectors, low intensity, global slowdown and grouped animal effects."
+      },
+      "result": {
+        "zh": "确定定向修改表演与编排，而不是推倒管线。",
+        "en": "Target performance and arrangement instead of rebuilding the pipeline."
+      },
+      "evidence": "v3-parameter-audit"
+    },
+    {
+      "date": "2026-09-23 · V4",
+      "title": {
+        "zh": "本人情绪参考真正进入生成",
+        "en": "Emotional references drive generation"
+      },
+      "need": {
+        "zh": "保持Naomi音色，增强起伏，同时能对照和回退。",
+        "en": "Retain Naomi’s identity, add expression and preserve comparisons."
+      },
+      "method": {
+        "zh": "14条人声分段生成；害怕两档同种子对照；12条音效分开制作。",
+        "en": "Generate 14 speech takes, controlled fear A/B and 12 separate effects."
+      },
+      "tech": {
+        "zh": "IndexTTS 2.5参考/向量、原生时长控制；MOSS 2.0独立短素材。",
+        "en": "IndexTTS 2.5 reference/vector control and native timing; independent MOSS 2.0 effects."
+      },
+      "result": {
+        "zh": "教师认可主体效果，仅要求动物更丰富。",
+        "en": "Teacher accepted the core result and requested richer animals."
+      },
+      "evidence": "v4-delivery-and-teacher-feedback"
+    },
+    {
+      "date": "2026-09-23 · V4.1",
+      "title": {
+        "zh": "从听故事，到做声音导演",
+        "en": "From listening to directing sound"
+      },
+      "need": {
+        "zh": "动物叠加更丰富，保留调音与MIDI编排，并固定可复用技术栈。",
+        "en": "Richer layers, editable MIDI-style arrangement and a pinned reusable stack."
+      },
+      "method": {
+        "zh": "原人声逐字节保留→八动物轨→68个事件→独立调音台→HUB与版本锁。",
+        "en": "Preserve speech bytes → eight animal tracks → 68 cues → independent mixer → HUB and version lock."
+      },
+      "tech": {
+        "zh": "Web Audio采样器、JSON编排、可选Web MIDI、本地WAV与口型包络导出。",
+        "en": "Web Audio sampler, JSON arrangements, optional Web MIDI, local WAV and mouth-envelope export."
+      },
+      "result": {
+        "zh": "声音模块独立呈现；尚未接入完整数字人或原游戏。",
+        "en": "Separate voice module; not yet a full avatar or original-game integration."
+      },
+      "evidence": "v41-arrangement-receipt"
+    }
+  ],
+  "tests": {
+    "audio_integrity": "pass",
+    "v4_voice_unchanged": "pass",
+    "animal_event_bounds": "pass",
+    "browser_mixer": "pass",
+    "browser_hub": "pass",
+    "physical_ipad": "pending",
+    "hardware_midi": "pending",
+    "v41_listening": "pending",
+    "original_game_modified": false
+  },
+  "sources": [
+    {
+      "id": "project-record",
+      "text": {
+        "zh": "项目记录：首次课堂2026-08-25；公开摘要不含姓氏和私人记录。",
+        "en": "Project record: first class 2026-08-25; public summary excludes surname and private records."
+      }
+    },
+    {
+      "id": "historical-game-record",
+      "text": {
+        "zh": "既有规则记录与游戏截图；版本fd61995。",
+        "en": "Existing rule records and screenshots, edition fd61995."
+      }
+    },
+    {
+      "id": "git-a478770",
+      "text": {
+        "zh": "Git历史：a478770，故事呈现与配音资源版本。",
+        "en": "Git history: a478770, story presentation and narration resources."
+      }
+    },
+    {
+      "id": "classroom-brief-and-v2-spec",
+      "text": {
+        "zh": "课堂brief与V2需求总结的脱敏摘要。",
+        "en": "Sanitized classroom brief and V2 requirement summary."
+      }
+    },
+    {
+      "id": "v3-parameter-audit",
+      "text": {
+        "zh": "实际生成配置与混音脚本审计，私密音频不公开。",
+        "en": "Actual parameter and mix-code audit; private audio is not published."
+      }
+    },
+    {
+      "id": "v4-delivery-and-teacher-feedback",
+      "text": {
+        "zh": "V4交付核验与教师本轮试听反馈。",
+        "en": "V4 delivery verification and current teacher listening feedback."
+      }
+    },
+    {
+      "id": "v41-arrangement-receipt",
+      "text": {
+        "zh": "V4.1本地资产校验：八动物轨、68事件、V4人声不变。",
+        "en": "V4.1 local verification: eight animal tracks, 68 events, unchanged V4 speech."
+      }
+    }
+  ],
+  "disclaimer": {
+    "zh": "作品观察与工程验收，不是学生成绩。未知成本与实机项目不填零、不填通过。",
+    "en": "Work observations and engineering checks, not a student grade. Unknown costs and physical-device tests are not recorded as zero or passed."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "source_lock_passed": true,
+  "javascript_tests_passed": true,
+  "python_tests_passed": true,
+  "clean_initialization_passed": true,
+  "new_project_not_authorized_by_default": true,
+  "source_zip_sha256": "ca68ab21fe0c9b98a2b426c8d938ae785c9a74e3cc4bcd3a316364d5151505e0",
+  "source_files": 34,
+  "private_audio_in_source_zip": false,
+  "cross_platform_lf_enforced": true
+}

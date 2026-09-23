@@ -1,0 +1,28 @@
+{
+  "version": "4.1.0",
+  "hub_standard": "CLASSROOM-HUB-R5-20260923",
+  "hub_standard_version": "3.0.0",
+  "source_zip_sha256": "ca68ab21fe0c9b98a2b426c8d938ae785c9a74e3cc4bcd3a316364d5151505e0",
+  "files": {
+    "CHANGELOG.md": "d68d12f390d79bdf65aad39ab6ca5681b3117de40e564e2df87a92b711ca5881",
+    "README.md": "879a661e7618bdebbaca8e250c3cd790a39fd00c3dce4e6425eae1d3c4020ab6",
+    "comparison.html": "987a1eb3321c8a30425aa7867201eb46567f96ea781df30869cc26b12982ae08",
+    "costs.html": "0d9e94134946c7c0df5abb69113dac2cf104fe2c21222a1271b52687af514cbd",
+    "development.html": "abb0bbdca72a7a2b3f156d95895fbb40ba46372c0819c63d87cbf74f6d53f789",
+    "downloads/classroom-voice-studio-1.0.0-source.zip": "ca68ab21fe0c9b98a2b426c8d938ae785c9a74e3cc4bcd3a316364d5151505e0",
+    "guide.html": "fb982ef4c5d16297235f6d0d0e2cafa36a18b6defd209b1456ff791abf0637e1",
+    "hub-data.json": "4319029cd36de01268f7be96c0e344d14aecffc3f810b1a72925cc2cd3fc2f8d",
+    "hub.css": "49f120eae9a9c7dd6cb4f15e0325e62acc02170e709b6992aa446b120ccfad0b",
+    "hub.js": "e3681b2e448b379d079fccb94cff4a13fecddbcb7f1cca11d4ab781ed25a1463",
+    "images/arranger-demo.png": "d62d66b4f97e4dc20f9e18de28d5c4645219d9f20c0cbd6c993c284b27378810",
+    "images/game-mid.png": "0efeb29cf502dccb95579ee6a521ec139f7bf6d5c4872f63f5b766437fecfb5b",
+    "images/game-win.png": "6ab42d6bfe61a67bf23e9cf485fb0fa59b4e74db862a7e60013a17166639cea0",
+    "images/garden-story.png": "32d7877f119bc82e3c7a4076c0987729de60695600ba33e983aaf43873bac9f1",
+    "index.html": "46664428964e2fdbb4e3b250056c0435cdc75dbca81216fb47640e4dd595fab1",
+    "parents.html": "495fb23b97bbb3052fc33f1bbd8ffe14f71e4329b719af3c14b5644d0b57082f",
+    "reports/browser-results.json": "c18d71a2de68a5284998c4938b9721589c92ab362365a1b7da031a5b371c24b7",
+    "reports/source-restoration.json": "994d8cd39e7c18173addbd1ceb6b77f160b272d010944812160af775222d6f79",
+    "review.html": "aabc9b37eeb5f5021d4ce19da74691a41eeac90e1fd73bd6824c0e66c953f1e5",
+    "story.html": "d8806b171b0feea2333573e46b1b1a0fc1741a673c54a524479eb5d51d4c1e2f"
+  }
+}

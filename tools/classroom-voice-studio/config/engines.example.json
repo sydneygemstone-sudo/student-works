@@ -1,0 +1,7 @@
+{
+  "index_root": "C:/local-models/index-tts",
+  "index_python": "C:/local-models/index-tts/.venv/Scripts/python.exe",
+  "moss_python": "C:/local-models/moss/.venv/Scripts/python.exe",
+  "moss_model": "C:/local-models/moss/weights",
+  "moss_revision": "e35df4d82fbe87fcd5d14e5d100e349c0c3c076d"
+}

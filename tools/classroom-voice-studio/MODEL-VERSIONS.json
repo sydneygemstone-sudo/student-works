@@ -1,0 +1,22 @@
+{
+  "index": {
+    "version": "2.5.0",
+    "git_head": "39207d91c30899cad1e7c1b9eb678c241f678e55",
+    "weights": {
+      "gpt.pth": "43a8f4c30eccdf201958d3b9713511482c19d56dc20b0b1c4ee1e6b080b19d85",
+      "codec.pth": "d15cbed16a40f478438c961fb043f68dfa6353bf56c966761315db3433e9722c",
+      "s2mel.pth": "9b1b0003fc189c94cc349758d7ebc25f903b7eb2de4602879959cc64ce816456",
+      "qwen0.6bemo4-merge/model.safetensors": "11293257a8df593c154a8ecd5fc039f3076de35411e35f06d41b471e136f6641"
+    }
+  },
+  "moss": {
+    "revision": "e35df4d82fbe87fcd5d14e5d100e349c0c3c076d",
+    "git_head": "934d6826b084c46a0d033402174d5f8ac4ed2519",
+    "weights": {
+      "text_encoder/model-00001-of-00002.safetensors": "169ad53ec313c3a34b06c0809216e4fc072cce444a5d4ff2b59690d064130ed5",
+      "text_encoder/model-00002-of-00002.safetensors": "912becff8d60672aa8628ef08c05898d9adf17c2ad4ae3caf99b065622fdeff9",
+      "transformer/diffusion_pytorch_model.safetensors": "bda86e4d6730ff47cea47851d219880191e9d21d4d264b21a6ffe7cb2db9dfb0",
+      "vae/vae_128d_48k.pth": "07e6139ff33bd21ba8a7a7f40ed24aab13ac0d100cd686f8a9f3e03dc5251cb1"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "unit_checks": 22,
+  "unit_failures": 0,
+  "browser_status": "PASS",
+  "browsers": [
+    "chromium",
+    "webkit"
+  ],
+  "verified": [
+    "playback_stop",
+    "mixing_eight_scenes",
+    "JSON_preset_save_restore",
+    "event_editing",
+    "WAV_export",
+    "MIDI_file_export",
+    "local_file_import",
+    "recording_consent_guard",
+    "speaking_envelope_export"
+  ],
+  "physical_ipad_tested": false,
+  "hardware_midi_tested": false,
+  "microphone_capture_tested": false,
+  "human_perceptual_acceptance_v41": false
+}

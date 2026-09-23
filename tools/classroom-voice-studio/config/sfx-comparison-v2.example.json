@@ -1,0 +1,197 @@
+{
+  "routes": {
+    "cartoon": {
+      "playing": {
+        "id": "sfx-playing",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "playing",
+        "label": "动物 · 玩耍",
+        "prompt": "A gentle animated woodland party. A squeaky bunny character giggles hee-hee, a chittery squirrel character chuckles rapidly, a low chuffy fox character gives a warm little laugh, and a rounded owl character answers with a hooting giggle. Playful nonverbal cartoon animal acting, recognizable happy laughter with animal timbres. Short turns, quiet gaps and a little soft paw patter. No spoken words, no narration, no human crowd, no music.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92600,
+        "bus": "animals",
+        "loop": false,
+        "route": "cartoon",
+        "take_label": "A · 动画片情绪表演",
+        "negative_prompt": "Spoken words, intelligible dialogue, adult human conversation, narration, screaming, singing, music, harsh distortion."
+      },
+      "startled": {
+        "id": "sfx-startled",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "startled",
+        "label": "动物 · 受惊",
+        "prompt": "Friendly cartoon animal characters notice a distant surprise: a bunny gives a tiny high oh-like squeak, a squirrel makes a quick surprised chirrup, an owl gives a questioning hoo, and a chuffy little fox gasps then reassures the others with a small gentle chuckle. Nonverbal animated animal emotion, clear surprise then comfort, not terrifying. Short turns and quiet gaps. No actual words, no screaming, no human conversation, no music.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92601,
+        "bus": "animals",
+        "loop": false,
+        "route": "cartoon",
+        "take_label": "A · 动画片情绪表演",
+        "negative_prompt": "Spoken words, intelligible dialogue, adult human conversation, narration, screaming, singing, music, harsh distortion."
+      },
+      "reunion": {
+        "id": "sfx-reunion",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "reunion",
+        "label": "动物 · 团圆",
+        "prompt": "A warm reunion of cartoon woodland animal friends. A squeaky little bunny gives a joyful giggle, a trilling raccoon chuckles happily, a soft low fox chuffs a laugh, a squirrel chatters excitedly and a round-voiced owl hoots with delight. Affectionate nonverbal laughter and animal-style cheers that clearly express happiness. Short alternating turns, no endless chorus. No spoken words, no narration, no human crowd, no music.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92602,
+        "bus": "animals",
+        "loop": false,
+        "route": "cartoon",
+        "take_label": "A · 动画片情绪表演",
+        "negative_prompt": "Spoken words, intelligible dialogue, adult human conversation, narration, screaming, singing, music, harsh distortion."
+      }
+    },
+    "ensemble": {
+      "playing": {
+        "id": "sfx-playing",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "playing",
+        "label": "动物 · 玩耍",
+        "prompt": "Eight individual game animals, separately generated and arranged into a playing scene.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92700,
+        "bus": "animals",
+        "loop": false,
+        "route": "ensemble",
+        "take_label": "B · 八种动物合奏",
+        "negative_prompt": "Human voices, human laughter, talking, narration, singing, music, harsh distortion."
+      },
+      "startled": {
+        "id": "sfx-startled",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "startled",
+        "label": "动物 · 受惊",
+        "prompt": "Eight individual game animals, separately generated and arranged into a startled scene.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92701,
+        "bus": "animals",
+        "loop": false,
+        "route": "ensemble",
+        "take_label": "B · 八种动物合奏",
+        "negative_prompt": "Human voices, human laughter, talking, narration, singing, music, harsh distortion."
+      },
+      "reunion": {
+        "id": "sfx-reunion",
+        "kind": "sfx",
+        "stage": "sample",
+        "group": "reunion",
+        "label": "动物 · 团圆",
+        "prompt": "Eight individual game animals, separately generated and arranged into a reunion scene.",
+        "seconds": 18,
+        "variants": 1,
+        "steps": 100,
+        "cfg": 4,
+        "volume": 1.0,
+        "seed": 92702,
+        "bus": "animals",
+        "loop": false,
+        "route": "ensemble",
+        "take_label": "B · 八种动物合奏",
+        "negative_prompt": "Human voices, human laughter, talking, narration, singing, music, harsh distortion."
+      }
+    }
+  },
+  "species": {
+    "owl": {
+      "id": "owl",
+      "label": "小猫头鹰",
+      "prompt": "A little owl makes several soft rounded hoots and small questioning chirrups, with quiet pauses. Close, cute, gentle, natural animal vocal sounds. No human voices, no words, no music.",
+      "seconds": 6,
+      "seed": 92800,
+      "steps": 100,
+      "cfg": 4
+    },
+    "squirrel": {
+      "id": "squirrel",
+      "label": "小松鼠",
+      "prompt": "A small squirrel makes light chittering and tiny chirps, alternately fast and slow, with little pauses. Soft, bright, playful natural squirrel sounds. No human voices, no words, no music.",
+      "seconds": 6,
+      "seed": 92801,
+      "steps": 100,
+      "cfg": 4
+    },
+    "fox": {
+      "id": "fox",
+      "label": "小狐狸",
+      "prompt": "A young fox gives soft low friendly gekkering and quiet short chuffs, with pauses. Gentle, curious, cute and not frightening. No piercing scream, no human voices, no music.",
+      "seconds": 6,
+      "seed": 92802,
+      "steps": 100,
+      "cfg": 4
+    },
+    "raccoon": {
+      "id": "raccoon",
+      "label": "小浣熊",
+      "prompt": "A little raccoon makes soft trills, small chittering squeaks and quiet friendly purring sounds, with pauses. Cute close woodland animal sounds. No human voices, no words, no music.",
+      "seconds": 6,
+      "seed": 92803,
+      "steps": 100,
+      "cfg": 4
+    },
+    "bunny_baby": {
+      "id": "bunny_baby",
+      "label": "小兔宝宝",
+      "prompt": "A baby rabbit makes very soft little squeaks, a gentle sniff and a few light paw taps, with quiet spaces. Delicate and cute. No crying human baby, no speech, no music.",
+      "seconds": 6,
+      "seed": 92804,
+      "steps": 100,
+      "cfg": 4
+    },
+    "deer": {
+      "id": "deer",
+      "label": "小鹿",
+      "prompt": "A young deer gives a soft short bleat, gentle nasal snuffles and two tiny hoof taps with quiet pauses. Soft, warm, natural animal sounds. No loud alarm, no human voice, no music.",
+      "seconds": 6,
+      "seed": 92805,
+      "steps": 100,
+      "cfg": 4
+    },
+    "hedgehog": {
+      "id": "hedgehog",
+      "label": "小刺猬",
+      "prompt": "A small hedgehog snuffles softly and makes tiny grunting breaths as its little feet shuffle through dry leaves. Close and delicate, several short movements separated by silence. No human voice, no music.",
+      "seconds": 6,
+      "seed": 92806,
+      "steps": 100,
+      "cfg": 4
+    },
+    "turtle": {
+      "id": "turtle",
+      "label": "小乌龟",
+      "prompt": "A tiny turtle slowly crawls through soft grass and dry leaves, making delicate scratchy little footsteps and subtle shell taps, pausing between movements. Quiet close foley. No invented loud animal call, no human voice, no music.",
+      "seconds": 6,
+      "seed": 92807,
+      "steps": 100,
+      "cfg": 4
+    }
+  },
+  "source": "Teacher second audition request"
+}
