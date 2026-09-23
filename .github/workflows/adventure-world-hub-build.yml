@@ -28,8 +28,15 @@ jobs:
           delivery=json.loads((course/'hub-source-delivery.json').read_text())
           assert delivery['schema']==1 and delivery['project_id']=='adventure-world'
           assert delivery['encoding']=='xz-base64-utf8-json' and delivery['sha256']==expected
-          assert len(delivery['data'])<150000
-          raw=lzma.decompress(base64.b64decode(delivery['data'],validate=True))
+          part_hashes=['b9cba2469d564748703a13e685397ad9f0632b9f028ac763dfdbcffed079b375','aa88b1f421e31b826a7fd7a7fc8caede6cb354e9cc739a685c742f5f99f03ec6','08ec484a51e1c2489df35e86ba011fa530fc587fd912ea3a817056982ed3054a','21f292a8883f52efcb0635e52542dd070d5cb722049c7b9b37040c65ad2f28db','2ff0b5343b8643a2314e0b5967c7e8213ecd6249e6913cf395f0d761099bb5c0']
+          parts=[]
+          for i,digest in enumerate(part_hashes,1):
+              part=(course/f'hub-source-part-{i}.b64').read_text().strip()
+              assert hashlib.sha256(part.encode('ascii')).hexdigest()==digest, f'Transport part {i} mismatch'
+              parts.append(part)
+          encoded=''.join(parts)
+          assert len(encoded)==49336
+          raw=lzma.decompress(base64.b64decode(encoded,validate=True))
           assert len(raw)<300000 and hashlib.sha256(raw).hexdigest()==expected
           sources=json.loads(raw)
           allowed={'hub.html','hub-app.js','hub-data.js','play.html'}
