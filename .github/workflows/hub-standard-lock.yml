@@ -1,0 +1,37 @@
+name: hub-standard-lock
+on:
+  push:
+    paths:
+      - 'classroom-2026-09-22/**'
+      - 'docs/hub-standard/**'
+      - 'scripts/verify_hub_standard.py'
+      - 'HUB-ENTRY.json'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - '.github/workflows/hub-standard-lock.yml'
+  pull_request:
+    paths:
+      - 'classroom-2026-09-22/**'
+      - 'docs/hub-standard/**'
+      - 'scripts/verify_hub_standard.py'
+      - 'HUB-ENTRY.json'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - '.github/workflows/hub-standard-lock.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  approved-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout pinned official action
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify canonical entry, approval and golden bytes
+        run: python3 scripts/verify_hub_standard.py --self-test

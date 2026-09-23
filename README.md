@@ -1,5 +1,9 @@
 # 学员作品 · Student Works
 
+## 已批准的 HUB 唯一基准
+
+**CLASSROOM-HUB-R5-20260923 / v3.0.0 / APPROVED_LOCKED**。后续学生 HUB 任务先读 [HUB-ENTRY.json](HUB-ENTRY.json) → [正式标准](docs/hub-standard/HUB-STANDARD.md)，执行 `python3 scripts/verify_hub_standard.py`。r5 黄金样板固定在提交 `f45d0750b78322937be17a6a6af743b2d5c08755`；不能回退 Naomi、Alex/Victory 原样板或 r1–r4。数字和课堂结论按每课重新核算。完整规范以该单一正文为准。
+
 这里是课堂与家庭里「一句话下单 → AI 交付」的学生作品集：学生用一句话（或回答三个问题）提出需求，AI 负责设计、实现、测试并交付一个能直接玩的作品。仓库公开，所有作品都可以在浏览器里直接玩，也可以下载后离线打开。
 
 隐私口径：本仓库只写学生的名字（Naomi、Victory、Alex、Martin、Leesha、Quentin、Joey、Mia、Chloe、Jenson），不写姓氏，除年龄之外不记录任何个人信息，不写邮箱；老师 / 家长一律只称 Dean。

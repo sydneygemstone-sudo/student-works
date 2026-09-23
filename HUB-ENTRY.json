@@ -1,0 +1,12 @@
+{
+  "standard_id": "CLASSROOM-HUB-R5-20260923",
+  "version": "3.0.0",
+  "status": "APPROVED_LOCKED",
+  "baseline_commit": "f45d0750b78322937be17a6a6af743b2d5c08755",
+  "baseline_tag": "hub-approved-r5-20260923",
+  "standard": "docs/hub-standard/HUB-STANDARD.md",
+  "lock": "docs/hub-standard/LOCK.json",
+  "skill_entry": "docs/hub-standard/SKILL.md",
+  "preflight": "python3 scripts/verify_hub_standard.py",
+  "fallback": "FORBIDDEN: stop on mismatched id/version/hash; never select by latest mtime or old session cwd"
+}
