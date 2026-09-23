@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Adventure World · Play &amp; Review</title>
+<link href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌈&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
+<link href="./styles.css?v=aw-hub-2026.09.23-r1" rel="stylesheet"/>
+<style>
+#game-container{margin-left:68px;width:calc(100% - 68px);height:100%;height:100dvh}
+#aw-tools{position:fixed;z-index:200;left:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;width:52px}
+#aw-tools a,#aw-tools button{width:52px;min-height:48px;border:1px solid #547279;border-radius:12px;background:#17343b;color:#f6f2de;font:700 11px/1.2 system-ui;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;padding:6px;touch-action:manipulation}
+#aw-tools button:focus-visible,#aw-tools a:focus-visible{outline:3px solid #ffd58b;outline-offset:2px}
+#aw-tools .highlight{background:#f1d393;color:#172b30}#btn-hud-lang,#btn-hud-pause{display:none!important}
+#hud-controls-left,#hud-controls-right{bottom:max(58px,env(safe-area-inset-bottom))}
+#hud-bottom-hint{bottom:8px;max-width:calc(100% - 32px);font-size:11px;line-height:1.3;white-space:normal;text-align:center;z-index:2}
+#aw-tools-note{position:fixed;left:76px;right:12px;top:90px;z-index:210;background:#fff1bd;color:#243139;border-radius:12px;padding:12px;font:14px/1.5 system-ui}
+#aw-tools-note[hidden]{display:none}#game-canvas,#joystick-base,.action-btn{touch-action:none;-webkit-user-select:none}
+@media(max-height:540px){#aw-tools{gap:4px}#aw-tools a,#aw-tools button{min-height:44px}#hud-controls-left,#hud-controls-right{bottom:60px}.title-card,.select-card,.menu-card{max-height:calc(100dvh - 28px);overflow:auto}.action-btn{width:56px;height:56px}.action-grid{gap:6px}#hud-bottom-hint{font-size:10px}}
+@media(max-width:800px){.hud-left{gap:6px}.hud-passport-box,.hud-clues-box{padding:8px}.hud-right{gap:5px}.avatar-switcher-bar{gap:2px}}
+</style><script integrity="sha256-VBDrLbr+VT7UrRBjj9Qqcjl/3TcxAyT5e46b/qvpNmA=" src="../classroom-2026-09-22/touch-guard.js?v=20260923-r5"></script></head>
+<body><aside aria-label="Game tools" id="aw-tools" role="toolbar"><a href="hub.html" id="aw-home">HUB</a><a class="highlight" href="hub.html#review" id="aw-review">Report</a><button id="aw-lang" type="button">中文</button><button id="aw-pause" type="button">Pause</button><button id="aw-full" type="button">Full</button></aside><div hidden="" id="aw-tools-note" role="status"></div>
+<div id="game-container">
+<canvas id="game-canvas"></canvas>
+<!-- Storage Warning Banner -->
+<div class="hud-banner warning" data-i18n="storage_disabled" id="storage-banner" style="display: none;">
+      Note: Local storage is disabled, current session progress won't be saved.
+    </div>
+<!-- Ready for Night Exploration Banner -->
+<div class="hud-banner night-ready" id="banner-night-ready" style="display: none;">
+<span data-i18n="ready_for_night">All stamps collected! Ready for night adventure?</span>
+<button class="banner-btn" data-i18n="btn_start_night" id="btn-banner-night">Begin Night Tour</button>
+</div>
+<!-- In-Game Toast Notification -->
+<div class="game-toast" id="game-toast" style="display: none;"></div>
+<!-- HUD Overlay (Top Bar) -->
+<div class="hud-layer" id="hud-top">
+<div class="hud-left">
+<div class="hud-passport-box">
+<span class="hud-label" data-i18n="hud_stamps">Stamps</span>
+<div class="badge-row">
+<div class="stamp-badge locked" id="hud-stamp-waterpark" title="Water Park Stamp">🌊</div>
+<div class="stamp-badge locked" id="hud-stamp-zoo" title="Zoo Stamp">🦁</div>
+<div class="stamp-badge locked" id="hud-stamp-puppy" title="Puppy Stamp">🐶</div>
+</div>
+</div>
+<div class="hud-clues-box">
+<span class="hud-label" data-i18n="hud_clues">Star Clues</span>
+<div class="badge-row">
+<div class="clue-badge locked" id="hud-clue-sky" title="Sky Star">⭐</div>
+<div class="clue-badge locked" id="hud-clue-quiet" title="Quiet Star">🌙</div>
+<div class="clue-badge locked" id="hud-clue-trail" title="Trail Star">🐾</div>
+</div>
+</div>
+</div>
+<div class="hud-right">
+<div class="avatar-switcher-bar">
+<button class="btn-avatar-switch active" data-avatar="avatar-1" title="Explorer Sky">1</button>
+<button class="btn-avatar-switch" data-avatar="avatar-2" title="Explorer Forest">2</button>
+<button class="btn-avatar-switch" data-avatar="avatar-3" title="Explorer Sunny">3</button>
+</div>
+<button class="icon-btn" id="btn-hud-sound" title="Toggle Sound">🔇</button>
+<button class="icon-btn" id="btn-hud-lang" title="Toggle Language">中</button>
+<button class="icon-btn" id="btn-hud-pause" title="Pause Game">⏸</button>
+</div>
+</div>
+<!-- On-screen Control Hint Bar -->
+<div class="hud-bottom-hint" id="hud-bottom-hint">
+<span data-i18n="hint_controls">🎮 WASD or Click Ground to Move | [E] or Click Bubble to Interact | [F] Fly | [I] Invis | [L] Torch</span>
+</div>
+<!-- Touch Joystick (Bottom Left) -->
+<div class="hud-layer" id="hud-controls-left">
+<div class="joystick-base" id="joystick-base">
+<div class="joystick-knob" id="joystick-knob"></div>
+</div>
+</div>
+<!-- Touch & Desktop Action Buttons (Bottom Right) -->
+<div class="hud-layer" id="hud-controls-right">
+<div class="action-grid">
+<button class="action-btn primary" id="btn-action-interact" title="Interact (E)">
+<span class="action-icon">✨</span>
+<span class="action-label">Interact [E]</span>
+</button>
+<button class="action-btn" id="btn-action-fly" title="Flight (F)">
+<span class="action-icon">🪽</span>
+<span class="action-label">Fly [F]</span>
+<span class="cooldown-text"></span>
+</button>
+<button class="action-btn" id="btn-action-invis" title="Invisibility (I)">
+<span class="action-icon">🫧</span>
+<span class="action-label">Invis [I]</span>
+<span class="cooldown-text"></span>
+</button>
+<button class="action-btn disabled" id="btn-action-torch" title="Flashlight (L)">
+<span class="action-icon">🔦</span>
+<span class="action-label">Torch [L]</span>
+<span class="cooldown-text"></span>
+</button>
+</div>
+</div>
+<!-- Title Screen Overlay -->
+<div class="fullscreen-overlay flex-center" id="screen-title">
+<div class="card title-card">
+<div class="badge-free" data-i18n="badge_free">FREE ADMISSION</div>
+<h1 class="game-logo" data-i18n="title">Adventure World</h1>
+<h2 class="game-subtitle" data-i18n="subtitle">Rainbow Adventure Park</h2>
+<p class="creators-credit" data-i18n="creators">Co-created by Joey · Mia · Chloe</p>
+<div class="features-highlights">
+<span>🌈 Water Slides</span>
+<span>🐾 Wildlife Zoo</span>
+<span>🐶 Puppy Bestie</span>
+<span>⭐ Night Star Clues</span>
+</div>
+<button class="btn-primary" data-i18n="btn_start" id="btn-title-start">Start Adventure</button>
+</div>
+</div>
+<!-- Avatar Selection Screen Overlay -->
+<div class="fullscreen-overlay flex-center" id="screen-select" style="display: none;">
+<div class="card select-card">
+<h2 data-i18n="btn_select_character">Choose Your Explorer</h2>
+<div class="avatar-card-grid">
+<div class="avatar-select-card selected" data-avatar="avatar-1">
+<div class="avatar-preview avatar-preview-1">🧢</div>
+<h3 data-i18n="avatar_1">Explorer Sky</h3>
+<p data-i18n="avatar_1_desc">Brave and energetic, loves water slides!</p>
+</div>
+<div class="avatar-select-card" data-avatar="avatar-2">
+<div class="avatar-preview avatar-preview-2">🌲</div>
+<h3 data-i18n="avatar_2">Explorer Forest</h3>
+<p data-i18n="avatar_2_desc">Curious animal lover, friend to wildlife!</p>
+</div>
+<div class="avatar-select-card" data-avatar="avatar-3">
+<div class="avatar-preview avatar-preview-3">🌻</div>
+<h3 data-i18n="avatar_3">Explorer Sunny</h3>
+<p data-i18n="avatar_3_desc">Gentle puppy whisperer, master puzzle solver!</p>
+</div>
+</div>
+<button class="btn-primary" data-i18n="btn_confirm_select" id="btn-confirm-avatar">Enter Park (Free)</button>
+</div>
+</div>
+<!-- Modal Dialog Overlay -->
+<div class="fullscreen-overlay flex-center" id="screen-dialog" style="display: none;">
+<div class="card modal-card">
+<h2 id="modal-title">Night Adventure Begins!</h2>
+<p id="modal-text">The park's Starglow lights went out! Use your free flashlight and special abilities with puppy's help to find 3 Star Clues!</p>
+<button class="btn-primary" data-i18n="btn_got_it" id="btn-modal-confirm">Let's Go!</button>
+</div>
+</div>
+<!-- Pause Menu Overlay -->
+<div class="fullscreen-overlay flex-center" id="screen-pause" style="display: none;">
+<div class="card menu-card">
+<h2 data-i18n="paused">Game Paused</h2>
+<div class="menu-btn-stack">
+<button class="btn-secondary" data-i18n="btn_resume" id="btn-pause-resume">Resume Game</button>
+<button class="btn-secondary" data-i18n="btn_return_day" id="btn-pause-day">Return to Daytime</button>
+<button class="btn-danger" data-i18n="btn_restart" id="btn-pause-restart">Restart Adventure</button>
+</div>
+<div class="controls-guide">
+<h3 data-i18n="controls_title">How to Play</h3>
+<p data-i18n="controls_desktop">Move: WASD / Arrows | Interact: E | Fly: F | Invisibility: I | Flashlight: L | Switch Avatar: 1, 2, 3 | Pause: Esc</p>
+</div>
+</div>
+</div>
+<!-- Victory Screen Overlay -->
+<div class="fullscreen-overlay flex-center" id="screen-victory" style="display: none;">
+<div class="card victory-card">
+<div class="trophy-icon">🏆</div>
+<h1 data-i18n="victory_title">Park Star Lights Restored!</h1>
+<p data-i18n="victory_text">Hooray! Joey, Mia, Chloe and puppy brought back the starry magic to Adventure World!</p>
+<div class="victory-stats" id="victory-stamps-summary">Stamps: 3/3 | Star Clues: 3/3</div>
+<div class="victory-actions">
+<button class="btn-primary" data-i18n="btn_continue_roam" id="btn-victory-continue">Keep Exploring</button>
+<button class="btn-secondary" data-i18n="btn_restart" id="btn-victory-restart">Restart Adventure</button>
+</div>
+</div>
+</div>
+</div>
+<script src="./bundle.js?v=aw-hub-2026.09.23-r1"></script>
+<script>
+/* Adventure-specific adapter; original runtime and source files are unchanged. */
+(()=>{'use strict';const q=new URLSearchParams(location.search),student=['Joey','Mia','Chloe'].includes(q.get('student'))?q.get('student'):'',bar=document.querySelector('#aw-tools'),note=document.querySelector('#aw-tools-note');let initial=false;const g=()=>window.__AW_GAME__;const en=()=>g()?.state?.locale!=='zh';const lang=()=>en()?'en':'zh';const url=page=>'hub.html?lang='+lang()+(student?'&student='+encodeURIComponent(student):'')+'#'+page;
+function refresh(){const game=g();if(!game?.state)return;document.querySelector('#aw-home').href=url('hub');document.querySelector('#aw-review').href=url('review');document.querySelector('#aw-review').textContent=en()?'Report':'测评';document.querySelector('#aw-lang').textContent=en()?'中文':'EN';document.querySelector('#aw-pause').textContent=game.state.uiState==='PAUSED'?(en()?'Resume':'继续'):(en()?'Pause':'暂停');document.querySelector('#aw-full').textContent=en()?'Full':'全屏';bar.setAttribute('aria-label',en()?'Game tools':'游戏工具栏');document.documentElement.lang=en()?'en':'zh-CN';}
+function stop(){const game=g();game?.input?.reset();if(game?.state?.player)game.state.player.targetMove=null;if(game?.state?.uiState==='PLAY')document.querySelector('#btn-hud-pause').click();refresh();}
+document.querySelector('#aw-pause').onclick=()=>{document.querySelector('#btn-hud-pause').click();refresh();};document.querySelector('#aw-lang').onclick=()=>{document.querySelector('#btn-hud-lang').click();refresh();};document.querySelector('#aw-full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else throw Error('not supported');}catch{note.hidden=false;note.textContent=en()?'Fullscreen is optional. You can keep playing in Safari.':'全屏是可选项，可以直接在 Safari 内继续游玩。';setTimeout(()=>note.hidden=true,5000);}};
+for(const id of ['aw-home','aw-review'])document.getElementById(id).addEventListener('click',()=>{stop();g()?.saveMgr?.save(g().state,true);});
+bar.addEventListener('keydown',e=>{if([' ','Enter'].includes(e.key))e.stopPropagation();});
+// Action buttons use a single pointer-up activation; native touch click is suppressed.
+const pressed=new Map();let lastTouch=0;const owned=e=>e.target instanceof Element&&e.target.closest('#game-canvas,#joystick-base,.action-btn');
+for(const type of ['touchstart','touchmove','touchend'])document.addEventListener(type,e=>{if(owned(e)&&e.cancelable)e.preventDefault();},{capture:true,passive:false});
+for(const type of ['gesturestart','gesturechange'])document.addEventListener(type,e=>{if(owned(e)&&e.cancelable)e.preventDefault();},{capture:true,passive:false});
+document.addEventListener('pointerdown',e=>{const b=e.target instanceof Element&&e.target.closest('.action-btn');if(!b||e.pointerType==='mouse')return;pressed.set(e.pointerId,{b,x:e.clientX,y:e.clientY});b.setPointerCapture?.(e.pointerId);},{capture:true});
+document.addEventListener('pointerup',e=>{const p=pressed.get(e.pointerId);pressed.delete(e.pointerId);if(p&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<24){lastTouch=performance.now();p.b.click();}},{capture:true});
+for(const type of ['pointercancel','lostpointercapture'])document.addEventListener(type,e=>pressed.delete(e.pointerId),{capture:true});
+document.addEventListener('click',e=>{if(e.isTrusted&&e.detail>0&&performance.now()-lastTouch<650&&e.target instanceof Element&&e.target.closest('.action-btn')){e.preventDefault();e.stopImmediatePropagation();}},{capture:true});
+window.addEventListener('blur',()=>{pressed.clear();stop();});document.addEventListener('visibilitychange',()=>{if(document.hidden){pressed.clear();stop();}});
+window.addEventListener('pagehide',()=>pressed.clear());
+new MutationObserver(refresh).observe(document.querySelector('#screen-pause'),{attributes:true,attributeFilter:['style']});
+new MutationObserver(refresh).observe(document.querySelector('#btn-hud-lang'),{childList:true});
+const timer=setInterval(()=>{const game=g();if(!game?.state||!game.localeData?.en)return;if(!initial){initial=true;const wanted=q.get('lang')==='zh'?'zh':'en';if(game.state.locale!==wanted)document.querySelector('#btn-hud-lang').click();refresh();clearInterval(timer);}},100);
+})();
+</script></body>
+</html>

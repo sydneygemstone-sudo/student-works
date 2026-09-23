@@ -1,0 +1,34 @@
+{
+  "release": "aw-hub-2026.09.23-r1",
+  "standard_id": "CLASSROOM-HUB-R5-20260923",
+  "standard_version": "3.0.0",
+  "source_payload_sha256": "c7a3a92a70e177ccf27fae015b5f5d87b8f2418bd9327c5caa294dde1d0e1e50",
+  "game_tested_commit": "392ed683daeb5e15ab89194c4ad6d491ad526589",
+  "source_repo_head_at_collection": "90a9d487586ba8ead81c3d01cb8c1136d2246749",
+  "checks": {
+    "approved_r5_preflight": "PASS",
+    "unit_tests": "10/10",
+    "bundle_source_match": "PASS",
+    "physical_ipad": "NOT_TESTED",
+    "child_reviews": "NOT_YET_COLLECTED",
+    "zip_extraction_and_runtime_hashes": "PASS"
+  },
+  "runtime_sha256": {
+    "adventure-world/hub-app.js": "f2ba5b0190ac8685b4f9607da9d2339dd5aea4f4a4972c90fac2e6771c4513c5",
+    "adventure-world/hub-data.js": "4ecf163b3ae3d8a1e42b88c380ff720f11dba4d101ed93e6765818af75b9bbac",
+    "adventure-world/hub.html": "84968ad3e6952d89b52bd40d7605f4f524560d35a4607367735e3592616f6dc3",
+    "adventure-world/play.html": "5bc1cffa4a6c684be6d800e7e56b6496ec7d716f43736e5d9c743c37e8d66f9d",
+    "adventure-world/index.html": "8d640f2ad045aa9b949da1b9d379dabca2c5d4b5c272be8b37270aba4ca6ac98",
+    "adventure-world/bundle.js": "b1727ac3d4143f88e1da1672431856b2521f13220c4a51ff421c6798ce160e30",
+    "adventure-world/styles.css": "cc5ed5c8da8c7dc24ad877a0a8e8ef5d54068804a8924113dcbd6c4c0cabb25e",
+    "adventure-world/data/world.json": "ede21b536e24e50212798390f7df9e0417b35f1a8416c054810ade81019b60a5",
+    "adventure-world/data/quests.json": "a07824284d0be9aa2f4ca1fd13b0c4c48bce832d780e86ff939e63149e33d68e",
+    "adventure-world/data/locale.en.json": "0c4cad23c1da5f1607cafa233cb79f5e3a93fa28fe94a9f42e3763f8ae504efd",
+    "adventure-world/data/locale.zh.json": "b4a8555705bccf69064c4c082922ffd01bb09a56d8e0deac49f20cc1cb1cf866",
+    "classroom-2026-09-22/studio.css": "10474d980a37cba22bf1b11b932569a2d1ec6ce61e12802f0e0cb475bf2718aa",
+    "classroom-2026-09-22/studio-r3.css": "25eebf6889fab91f12bf57f6bea1a613eb4c6ef8bfedd9ea602522ae7e99dc42",
+    "classroom-2026-09-22/studio-r5.css": "7852c1b590305cda2f0fe4607cb57520b1724fd87d0a3ac994368cdb1cd19fd4",
+    "classroom-2026-09-22/touch-guard.js": "5410eb2dbafe553ed4ad10638fd42a72397fdd37310324f97b8e9bfeabe93660"
+  },
+  "zip_sha256": "5b69e1470631c1fe9df503d93be5da3f3a50cf8731398e3f8c48428d6edd9b44"
+}
