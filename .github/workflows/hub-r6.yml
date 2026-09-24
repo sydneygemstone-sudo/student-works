@@ -1,0 +1,65 @@
+name: HUB R6 build and verify
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/build_hub_r6.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: hub-r6-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build R6 from the approved R5 source
+        run: python3 scripts/build_hub_r6.py
+      - name: Install browser test tools outside published source
+        run: |
+          npm install --prefix /tmp/hub-r6-qa playwright@1.58.2
+          /tmp/hub-r6-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Run R6 acceptance
+        env:
+          PLAYWRIGHT_PATH: /tmp/hub-r6-qa/node_modules/playwright
+        run: node scripts/qa_hub_r6.cjs
+      - name: Save source and acceptance together
+        run: |
+          git config user.name 'Classroom HUB publishing'
+          git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
+          git add martins-monster-quest adventure-world shared/hub-r6 docs/hub-standard/R6.json index.html classroom-2026-09-24
+          git diff --cached --quiet || git commit -m 'feat(hub-r6): native R5 layout, complete budgets, bilingual solo games and project-only entries'
+          git push origin HEAD:main
+      - name: Prepare the static deployment
+        run: |
+          mkdir -p /tmp/hub-r6-site
+          git archive HEAD | tar -x -C /tmp/hub-r6-site
+          rm -rf /tmp/hub-r6-site/.github
+          touch /tmp/hub-r6-site/.nojekyll
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hub-r6-qa
+          path: shared/hub-r6/qa/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/hub-r6-site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish verified project HUBs
+        id: deployment
+        uses: actions/deploy-pages@v4
