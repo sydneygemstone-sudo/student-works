@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "path": "server.js",
+      "timestamp": "2026-09-24T08:26:42.452Z",
+      "status": "INITIAL_WRITE_BEFORE_QA"
+    },
+    {
+      "path": "public/index.html",
+      "timestamp": "2026-09-24T08:31:48.874Z",
+      "status": "INITIAL_WRITE_BEFORE_QA"
+    }
+  ],
+  "scope": "First generated source only, before subsequent QA fixes. Not presented as the classroom-ready desktop release."
+}

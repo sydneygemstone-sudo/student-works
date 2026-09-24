@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-24",
+  "standard_id": "CLASSROOM-HUB-R5-20260923",
+  "source_git_head": "9d62cf5",
+  "public_runtime_edits": "None: original game logic preserved; HUB/records/publication packaging only. Metadata redaction in newly published QA documents is recorded.",
+  "projects": 2,
+  "versions": [
+    {
+      "id": "martin-v1",
+      "source": "martins-monster-quest/",
+      "role": "historical playable baseline"
+    },
+    {
+      "id": "martin-v2",
+      "source": "martins-monster-quest/v2/",
+      "role": "new solo candidate",
+      "commit": "9d62cf5"
+    },
+    {
+      "id": "adventure-world-v1",
+      "source": "adventure-world/",
+      "role": "historical solo baseline"
+    },
+    {
+      "id": "skyvale-before-hud",
+      "source": "adventure-world/builds/skyvale-3d/development/ipad-hud-before/",
+      "role": "three exact pre-fix files; other runtime files shared with current source"
+    },
+    {
+      "id": "skyvale-hud-1",
+      "source": "adventure-world/builds/skyvale-3d/",
+      "role": "latest network candidate; server required"
+    },
+    {
+      "id": "trio-opus-initial-write",
+      "source": "adventure-world/builds/trio-world-opus/development/initial-write/",
+      "role": "first server/client creation before later QA; not falsely labelled final desktop delivery"
+    },
+    {
+      "id": "trio-opus-touch",
+      "source": "adventure-world/builds/trio-world-opus/",
+      "role": "latest network candidate; server required"
+    }
+  ],
+  "coverage": {
+    "scheduled_students": 8,
+    "artifact_backed_students": 4,
+    "artifact_projects": 2,
+    "pending_evidence_students": 4,
+    "absence_excluded": 1,
+    "note": [
+      "课表另四位学员暂无可核验课堂文本/作品回收，不补写学习成果；完整姓名与时间仅在教师私密清单。",
+      "Four other scheduled learners have no recovered lesson text/artifact evidence; no outcomes are invented. Full roster/times are private."
+    ]
+  },
+  "privacy": "Public redacted summaries and necessary creator first names only. Detailed visible messages, original paths and teacher roster are private. No recorded student audio, model reasoning, credentials or full system/tool logs are archived.",
+  "gaps": [
+    "Original voice recordings/full classroom transcripts unavailable through retrieved sources.",
+    "No final teacher selection between Skyvale and Opus is recorded.",
+    "No confirmed post-fix physical-iPad completion for both network branches.",
+    "Four scheduled learners have no recovered artifact/lesson evidence.",
+    "API pricing/FX and controller/teacher costs not verified; monetary spend remains null."
+  ]
+}

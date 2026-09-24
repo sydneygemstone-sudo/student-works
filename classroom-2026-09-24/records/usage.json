@@ -1,0 +1,52 @@
+{
+  "martin": {
+    "tokens": {
+      "input_tokens": 1553323,
+      "cached_input_tokens": 1448192,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 27631,
+      "reasoning_output_tokens": 2453,
+      "total_tokens": 1580954
+    },
+    "cost_aud": null,
+    "scope": "Worker session cumulative final count; cached input is a subset of input; reasoning is a subset of output. Controller and teacher work excluded."
+  },
+  "skyvale": {
+    "tokens": {
+      "input_tokens": 2341576,
+      "cached_input_tokens": 2216960,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 34749,
+      "reasoning_output_tokens": 4503,
+      "total_tokens": 2376325
+    },
+    "cost_aud": null,
+    "scope": "Worker session cumulative final count; cached input is a subset of input; reasoning is a subset of output. Controller and teacher work excluded."
+  },
+  "trio-opus": {
+    "tokens": {
+      "input_tokens": 62,
+      "cache_read_input_tokens": 4046870,
+      "cache_creation_input_tokens": 141682,
+      "output_tokens": 87959
+    },
+    "total_tokens": 4276573,
+    "cost_aud": null,
+    "request_count": 30,
+    "scope": "Deduplicated assistant usage records. Input, cache read, cache creation and output are separate counters. No unverified monetary price applied."
+  },
+  "historical_adventure_world": {
+    "cost_aud": null,
+    "estimated_aud_range": [
+      5,
+      12
+    ],
+    "estimated_aud_midpoint": 8,
+    "scope": "Prior 23 Sep estimate for the 17 Sep work only. Not a measured bill and not the cost of today’s 3D branches."
+  },
+  "historical_martin_v1": {
+    "cost_aud": null,
+    "prior_budget_cap_aud": 2,
+    "scope": "Old requested prototype budget, not verified spend and not the V2 budget."
+  }
+}

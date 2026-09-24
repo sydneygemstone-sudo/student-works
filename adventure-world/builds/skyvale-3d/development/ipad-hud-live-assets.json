@@ -1,0 +1,18 @@
+{
+  "index.html": {
+    "matches": true,
+    "sha256": "5b27dbd605e997dc3e14f3165e201e10032775fd25bed0f4791df935b01fbaf4"
+  },
+  "game.js": {
+    "matches": true,
+    "sha256": "c6f9757c95234440b8bf71cdf84da249b7f03c2cec5183b523af4785289128ca"
+  },
+  "ipad.css": {
+    "matches": true,
+    "sha256": "a5762eb1dd4cb1bf67a193b0a193c0dd2467fedb82081fab334fd9e288b483ce"
+  },
+  "viewport.js": {
+    "matches": true,
+    "sha256": "5f6f55f360c28785f9ccfdf8d1bf212cb2f3d85dde6e5086ba0c1d8626904ac3"
+  }
+}

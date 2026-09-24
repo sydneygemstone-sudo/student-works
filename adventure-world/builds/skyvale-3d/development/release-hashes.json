@@ -1,0 +1,12 @@
+[
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "EE8D877B888895AEE15D3474B676A0D8F2F1CBD62BB874F4D3A38370261875F1",
+        "Path":  "C:\\GemstoneKingdom\\Prism\\ai-bounty-board\\games\\student-works-martin-v2\\adventure-world\\builds\\skyvale-3d\\public\\game.js"
+    },
+    {
+        "Algorithm":  "SHA256",
+        "Hash":  "571DA34F73DCB3924B93231993EB7E7095D692FED5C2CF4ED083624C97CC840A",
+        "Path":  "C:\\GemstoneKingdom\\Prism\\ai-bounty-board\\games\\student-works-martin-v2\\adventure-world\\builds\\skyvale-3d\\server.mjs"
+    }
+]

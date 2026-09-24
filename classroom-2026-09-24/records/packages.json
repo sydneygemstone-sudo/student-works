@@ -1,0 +1,26 @@
+{
+  "runtime_packages": [
+    {
+      "name": "skyvale-hud1-runtime.zip",
+      "bytes": 1408068,
+      "sha256": "7945f782b2769556c1f8d2e1dc91042337050413dc68ec46c2871572438bd297",
+      "runtime_files": 53,
+      "node_installer_bundled": false
+    },
+    {
+      "name": "trio-opus-touch-runtime.zip",
+      "bytes": 362656,
+      "sha256": "c6c33b1f1096003ac375113ffde381d12fa248766ac0fc6cdc263c6a57518180",
+      "runtime_files": 32,
+      "node_installer_bundled": false
+    }
+  ],
+  "complete_archive": {
+    "name": "classroom-20260924-complete.zip",
+    "bytes": 15753945,
+    "sha256": "0b45d0c301d588fd414121499dfb08134baf298a706914cb2fe732a32d2c27df",
+    "file_count": 196,
+    "zip_integrity": "PASS",
+    "all_manifest_hashes": "PASS"
+  }
+}

@@ -1,0 +1,547 @@
+{
+  "base": "<CLASSROOM_SERVER>",
+  "results": [
+    {
+      "name": "old bug reproduced",
+      "visibleHeight": 560,
+      "oldActionsBottom": 740
+    },
+    {
+      "name": "landscape-with-toolbar",
+      "viewport": {
+        "left": 0,
+        "top": 0,
+        "width": 1024,
+        "height": 560
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 738,
+          "y": 416,
+          "width": 82,
+          "height": 64,
+          "right": 820,
+          "bottom": 480,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 828,
+          "y": 416,
+          "width": 82,
+          "height": 64,
+          "right": 910,
+          "bottom": 480,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 918,
+          "y": 416,
+          "width": 82,
+          "height": 64,
+          "right": 1000,
+          "bottom": 480,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 738,
+          "y": 488,
+          "width": 82,
+          "height": 48,
+          "right": 820,
+          "bottom": 536,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 828,
+          "y": 488,
+          "width": 82,
+          "height": 48,
+          "right": 910,
+          "bottom": 536,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 918,
+          "y": 488,
+          "width": 82,
+          "height": 48,
+          "right": 1000,
+          "bottom": 536,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 24,
+          "y": 408,
+          "width": 128,
+          "height": 128,
+          "right": 152,
+          "bottom": 536,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "toolbar-and-top-offset",
+      "viewport": {
+        "left": 0,
+        "top": 44,
+        "width": 1024,
+        "height": 500
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 738,
+          "y": 408,
+          "width": 82,
+          "height": 56,
+          "right": 820,
+          "bottom": 464,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 828,
+          "y": 408,
+          "width": 82,
+          "height": 56,
+          "right": 910,
+          "bottom": 464,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 918,
+          "y": 408,
+          "width": 82,
+          "height": 56,
+          "right": 1000,
+          "bottom": 464,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 738,
+          "y": 472,
+          "width": 82,
+          "height": 48,
+          "right": 820,
+          "bottom": 520,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 828,
+          "y": 472,
+          "width": 82,
+          "height": 48,
+          "right": 910,
+          "bottom": 520,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 918,
+          "y": 472,
+          "width": 82,
+          "height": 48,
+          "right": 1000,
+          "bottom": 520,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 24,
+          "y": 408,
+          "width": 112,
+          "height": 112,
+          "right": 136,
+          "bottom": 520,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "short-visible-height",
+      "viewport": {
+        "left": 0,
+        "top": 0,
+        "width": 1024,
+        "height": 420
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 738,
+          "y": 284,
+          "width": 82,
+          "height": 56,
+          "right": 820,
+          "bottom": 340,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 828,
+          "y": 284,
+          "width": 82,
+          "height": 56,
+          "right": 910,
+          "bottom": 340,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 918,
+          "y": 284,
+          "width": 82,
+          "height": 56,
+          "right": 1000,
+          "bottom": 340,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 738,
+          "y": 348,
+          "width": 82,
+          "height": 48,
+          "right": 820,
+          "bottom": 396,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 828,
+          "y": 348,
+          "width": 82,
+          "height": 48,
+          "right": 910,
+          "bottom": 396,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 918,
+          "y": 348,
+          "width": 82,
+          "height": 48,
+          "right": 1000,
+          "bottom": 396,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 24,
+          "y": 284,
+          "width": 112,
+          "height": 112,
+          "right": 136,
+          "bottom": 396,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "portrait",
+      "viewport": {
+        "left": 0,
+        "top": 0,
+        "width": 768,
+        "height": 850
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 482,
+          "y": 706,
+          "width": 82,
+          "height": 64,
+          "right": 564,
+          "bottom": 770,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 572,
+          "y": 706,
+          "width": 82,
+          "height": 64,
+          "right": 654,
+          "bottom": 770,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 662,
+          "y": 706,
+          "width": 82,
+          "height": 64,
+          "right": 744,
+          "bottom": 770,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 482,
+          "y": 778,
+          "width": 82,
+          "height": 48,
+          "right": 564,
+          "bottom": 826,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 572,
+          "y": 778,
+          "width": 82,
+          "height": 48,
+          "right": 654,
+          "bottom": 826,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 662,
+          "y": 778,
+          "width": 82,
+          "height": 48,
+          "right": 744,
+          "bottom": 826,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 24,
+          "y": 698,
+          "width": 128,
+          "height": 128,
+          "right": 152,
+          "bottom": 826,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "ipad-pro-landscape",
+      "viewport": {
+        "left": 0,
+        "top": 0,
+        "width": 1194,
+        "height": 700
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 908,
+          "y": 556,
+          "width": 82,
+          "height": 64,
+          "right": 990,
+          "bottom": 620,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 998,
+          "y": 556,
+          "width": 82,
+          "height": 64,
+          "right": 1080,
+          "bottom": 620,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 1088,
+          "y": 556,
+          "width": 82,
+          "height": 64,
+          "right": 1170,
+          "bottom": 620,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 908,
+          "y": 628,
+          "width": 82,
+          "height": 48,
+          "right": 990,
+          "bottom": 676,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 998,
+          "y": 628,
+          "width": 82,
+          "height": 48,
+          "right": 1080,
+          "bottom": 676,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 1088,
+          "y": 628,
+          "width": 82,
+          "height": 48,
+          "right": 1170,
+          "bottom": 676,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 24,
+          "y": 548,
+          "width": 128,
+          "height": 128,
+          "right": 152,
+          "bottom": 676,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "split-view",
+      "viewport": {
+        "left": 0,
+        "top": 0,
+        "width": 507,
+        "height": 680
+      },
+      "controls": [
+        {
+          "id": "interact",
+          "x": 289,
+          "y": 538,
+          "width": 64,
+          "height": 64,
+          "right": 353,
+          "bottom": 602,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "ability",
+          "x": 359,
+          "y": 538,
+          "width": 64,
+          "height": 64,
+          "right": 423,
+          "bottom": 602,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "jump",
+          "x": 429,
+          "y": 538,
+          "width": 64,
+          "height": 64,
+          "right": 493,
+          "bottom": 602,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "power",
+          "x": 289,
+          "y": 608,
+          "width": 64,
+          "height": 48,
+          "right": 353,
+          "bottom": 656,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "skin",
+          "x": 359,
+          "y": 608,
+          "width": 64,
+          "height": 48,
+          "right": 423,
+          "bottom": 656,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "home",
+          "x": 429,
+          "y": 608,
+          "width": 64,
+          "height": 48,
+          "right": 493,
+          "bottom": 656,
+          "visible": true,
+          "hit": true
+        },
+        {
+          "id": "joystick",
+          "x": 14,
+          "y": 546,
+          "width": 110,
+          "height": 110,
+          "right": 124,
+          "bottom": 656,
+          "visible": true,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "name": "active touch drag beyond joystick followed by cancellation stops input"
+    },
+    {
+      "name": "all six action buttons accept touch taps"
+    }
+  ],
+  "errors": [],
+  "physicalIPadTested": false,
+  "cleanup": "All task-owned contexts and browser closed in finally; classroom server unchanged"
+}

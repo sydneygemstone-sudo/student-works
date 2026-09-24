@@ -1,0 +1,30 @@
+{
+  "scope": "Fresh archive runtime startup/browser smoke only; not a full quest or physical iPad acceptance.",
+  "checks": [
+    {
+      "name": "Bundled runtime UI rendering skyvale-hud1",
+      "passed": true,
+      "errors": [],
+      "external_network": "blocked",
+      "rendering": "Normal animation loop on test host; smoke test only, not physical iPad",
+      "canvas_count": 2
+    },
+    {
+      "name": "Bundled runtime UI rendering trio-opus-touch",
+      "passed": true,
+      "errors": [],
+      "external_network": "blocked",
+      "rendering": "Normal animation loop on test host; smoke test only, not physical iPad",
+      "canvas_count": 1
+    },
+    {
+      "name": "Historical Martin V1 screenshot",
+      "canvas_count": 0,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "physical_iPad": false,
+  "status": "PASS",
+  "cleanup": "Task-owned browser, local HTTP server and two test game servers closed; existing classroom services untouched."
+}

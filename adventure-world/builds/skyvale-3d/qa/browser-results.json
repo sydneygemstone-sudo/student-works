@@ -1,0 +1,13 @@
+{
+  "base": "http://127.0.0.1:18940",
+  "results": [
+    "Three separate browser contexts joined one world",
+    "Keyboard movement and release stop passed",
+    "Tablet layout and pointer cancellation passed",
+    "Refresh / rejoin passed"
+  ],
+  "errors": [],
+  "drawCalls": 54,
+  "cleanup": "browser closed in finally",
+  "physicalIPad": "NOT TESTED"
+}

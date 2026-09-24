@@ -1,0 +1,258 @@
+{
+  "started": "2026-09-24T13:59:26.081Z",
+  "scope": "HUB UI, bilingual content, responsive layout, local review isolation and local links only; not game completion or physical device acceptance.",
+  "checks": [
+    {
+      "page": "index",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-hub",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-comparison",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-development",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-costs",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-guide",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-parents",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-review",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-hub",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-comparison",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-development",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-costs",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-guide",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-parents",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-review",
+      "language": "zh-CN",
+      "desktop": "PASS"
+    },
+    {
+      "page": "index",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-hub",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-comparison",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-development",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-costs",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-guide",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-parents",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "martin-review",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-hub",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-comparison",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-development",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-costs",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-guide",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-parents",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "trio-review",
+      "language": "en",
+      "desktop": "PASS"
+    },
+    {
+      "page": "index",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "martin-hub",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-hub",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-development",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-costs",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-parents",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-review",
+      "width": 768,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "index",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "martin-hub",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-hub",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-development",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-costs",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-parents",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "page": "trio-review",
+      "width": 390,
+      "overflow": false,
+      "offenders": []
+    },
+    {
+      "name": "Feedback saved locally, separated by reviewer and export roundtrip",
+      "status": "PASS"
+    },
+    {
+      "name": "Language selector changes rendered page",
+      "status": "PASS"
+    },
+    {
+      "name": "Local page/source/image/runtime-package links",
+      "checked": 82,
+      "missing": []
+    }
+  ],
+  "errors": [],
+  "physicalIPad": false,
+  "status": "PASS",
+  "ended": "2026-09-24T13:59:35.374Z",
+  "cleanup": "Task-owned browser and static server closed; no shared browsers or classroom services used."
+}

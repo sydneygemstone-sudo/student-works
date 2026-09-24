@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/three.module.js",
+      "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/THREE-LICENSE.txt",
+      "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/game.js",
+      "sha256": "c6f9757c95234440b8bf71cdf84da249b7f03c2cec5183b523af4785289128ca"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/index.html",
+      "sha256": "5b27dbd605e997dc3e14f3165e201e10032775fd25bed0f4791df935b01fbaf4"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/ipad.css",
+      "sha256": "a5762eb1dd4cb1bf67a193b0a193c0dd2467fedb82081fab334fd9e288b483ce"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/style.css",
+      "sha256": "b3d19ff50bb02b7e32c3723805cfa339006cf9c4dae0023fdd61f4b93f283722"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/viewport.js",
+      "sha256": "5f6f55f360c28785f9ccfdf8d1bf212cb2f3d85dde6e5086ba0c1d8626904ac3"
+    },
+    {
+      "scope": "Skyvale actual final public files",
+      "path": "adventure-world/builds/skyvale-3d/public/shared.js",
+      "sha256": "8428db320d4eef9642c7190e7117e8259554e8c78213abd511aa1a02186af2b4"
+    },
+    {
+      "scope": "Opus actual final public files",
+      "path": "adventure-world/builds/trio-world-opus/public/index.html",
+      "sha256": "40260b774e9cc9eb4cfcebe4885bad8603a796077f245556e72944f0f567b559"
+    },
+    {
+      "scope": "Opus actual final public files",
+      "path": "adventure-world/builds/trio-world-opus/public/vendor/three.module.js",
+      "sha256": "0a3368c165eea773490aec7b77c22de70e3eac288503409256fdbf4d12578416"
+    },
+    {
+      "scope": "Original server unchanged",
+      "path": "adventure-world/builds/trio-world-opus/server.js",
+      "sha256": "1df56cc27914ed15291902abbd531187acbcb8467a9b9159697d7177777c52d4"
+    },
+    {
+      "scope": "Original server unchanged",
+      "path": "adventure-world/builds/skyvale-3d/server.mjs",
+      "sha256": "571da34f73dcb3924b93231993eb7e7095d692fed5c2cf4ed083624c97cc840a"
+    }
+  ],
+  "meaning": "Runtime source copied byte-for-byte. Only new metadata/QA documentation and the HUB/package wrapper were changed."
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "source_integrity_files": 12,
+  "complete_zip": {
+    "name": "classroom-20260924-complete.zip",
+    "bytes": 15753945,
+    "sha256": "0b45d0c301d588fd414121499dfb08134baf298a706914cb2fe732a32d2c27df",
+    "file_count": 196,
+    "zip_integrity": "PASS",
+    "all_manifest_hashes": "PASS"
+  },
+  "privacy_scan_new_public_text": "PASS",
+  "golden_R5_lock": "PASS",
+  "showcase_checks": 47,
+  "scope": "Archiving and display verification; not a physical iPad or complete quest acceptance."
+}

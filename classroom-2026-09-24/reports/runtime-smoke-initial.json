@@ -1,0 +1,18 @@
+{
+  "scope": "Fresh archive runtime startup/browser smoke only; not a full quest or physical iPad acceptance.",
+  "checks": [
+    {
+      "name": "Bundled runtime renders skyvale-hud1",
+      "passed": true,
+      "errors": [],
+      "external_network": "blocked",
+      "canvas_count": 2
+    }
+  ],
+  "errors": [
+    "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#go')\n    - locator resolved to <button id=\"go\">\u8fdb\u5165\u4e16\u754c \u25b6</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n\n"
+  ],
+  "physical_iPad": false,
+  "status": "FAIL",
+  "cleanup": "Task-owned browser, local HTTP server and two test game servers closed; existing classroom services untouched."
+}
