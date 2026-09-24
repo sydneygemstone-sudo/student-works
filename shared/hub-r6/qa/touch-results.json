@@ -1,0 +1,11 @@
+{
+  "scope": "Real Playwright touchscreen tap, not locator mouse click; emulator, not a physical iPad.",
+  "checks": [
+    "Touch-only start enters local world",
+    "jump native touch activates exactly once",
+    "ability native touch activates exactly once",
+    "interact native touch activates exactly once",
+    "Outer pause/resume responds to touch"
+  ],
+  "status": "PASS"
+}

@@ -4,7 +4,7 @@
  const editable='input,textarea,select,[contenteditable="true"]';
  const counts={nativeTouchDefaults:0,doubleClicks:0,nativeGestures:0};
  const el=e=>e.target instanceof Element?e.target:null;
- function gameplay(e){const t=el(e);return !!t&&!t.closest(editable)&&!!t.closest(owned);}
+ function gameplay(e){const t=el(e);return !!t&&!t.closest(editable)&&!t.closest('button,a')&&!!t.closest(owned);}
  function cancel(e,key){if(e.cancelable){e.preventDefault();counts[key]++;}}
  // Pointer handlers still receive their normal events; do not stop propagation.
  // Click-only menu/toolbar controls are excluded so a normal tap still activates once.
@@ -15,5 +15,5 @@
  for(const type of ['gesturestart','gesturechange'])document.addEventListener(type,e=>{
   if(gameplay(e))cancel(e,'nativeGestures');
  },{capture:true,passive:false});
- window.__classroomTouchGuard={version:'2026.09.23-r4',counts};
+ window.__classroomTouchGuard={version:'2026.09-r6-tap-safe',counts};
 })();

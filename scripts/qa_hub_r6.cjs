@@ -36,7 +36,7 @@ async function main(){
    await p.locator('#pause').click();await sleep(100);const a=await f.evaluate(()=>performance.now());await sleep(250);const b=await f.evaluate(()=>performance.now());check(id+' '+lang+' simulation clock paused',Math.abs(a-b)<5,{difference:b-a});await p.locator('#resume').click();await sleep(100);check(id+' '+lang+' resume',(await f.evaluate(()=>performance.now()))>b+30);
    await f.evaluate(()=>window.__R6Game?.save?.());const keyCount=await f.evaluate(()=>Object.keys(localStorage).filter(x=>x.startsWith('r6-')||x.includes('r6-v2')).length);check(id+' '+lang+' local checkpoint',keyCount>0,{keys:keyCount});
    if(lang==='zh-CN'){
-    await p.locator('#language').click();await p.waitForFunction(()=>window.__r6Shell.ready&&document.documentElement.lang==='en'&&document.getElementById('game').contentWindow.__r6Translate?.language==='en');f=await ready(p);await sleep(250);check(id+' language toolbar switches',(await f.locator('html').getAttribute('lang'))==='en');
+    await p.locator('#language').click();await p.waitForFunction(()=>window.__r6Shell.ready&&document.documentElement.lang==='en'&&document.getElementById('game').contentWindow.__r6Translate?.language==='en'&&document.getElementById('game').contentWindow.__r6Translate?.language==='en');f=await ready(p);await sleep(250);check(id+' language toolbar switches',(await f.locator('html').getAttribute('lang'))==='en');
     check(id+' language reload preserves a checkpoint',await f.evaluate(()=>Object.keys(localStorage).some(x=>x.startsWith('r6-')||x.includes('r6-v2'))));
    }
    check(id+' '+lang+' no runtime exceptions',errors.length===0,errors);

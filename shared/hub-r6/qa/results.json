@@ -1,6 +1,6 @@
 {
   "release": "2026.09-r6",
-  "started": "2026-09-24T15:56:35.332Z",
+  "started": "2026-09-24T16:02:30.069Z",
   "checks": [
     {
       "name": "martin-v2 zh-CN started with real canvas",
@@ -34,7 +34,7 @@
       "name": "martin-v2 zh-CN simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": -0.19999999999708962
+        "difference": -0.29999999998835847
       }
     },
     {
@@ -89,7 +89,7 @@
       "name": "martin-v2 en simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": 0.5
+        "difference": -0.20000000001164153
       }
     },
     {
@@ -140,7 +140,7 @@
       "name": "martin-v1 zh-CN simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": -0.40000000000873115
+        "difference": 0.20000000001164153
       }
     },
     {
@@ -195,7 +195,7 @@
       "name": "martin-v1 en simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": 0.40000000000873115
+        "difference": 0.40000000002328306
       }
     },
     {
@@ -246,7 +246,7 @@
       "name": "skyvale zh-CN simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": -0.10000000000582077
+        "difference": 0.29999999998835847
       }
     },
     {
@@ -301,7 +301,7 @@
       "name": "skyvale en simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": 0.39999999999417923
+        "difference": 0.40000000002328306
       }
     },
     {
@@ -352,7 +352,7 @@
       "name": "opus zh-CN simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": -0.7000000000116415
+        "difference": 0
       }
     },
     {
@@ -407,7 +407,7 @@
       "name": "opus en simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": -0.7000000000116415
+        "difference": 0.40000000002328306
       }
     },
     {
@@ -458,7 +458,7 @@
       "name": "aw-v1 zh-CN simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": 0.20000000001164153
+        "difference": 0
       }
     },
     {
@@ -513,7 +513,7 @@
       "name": "aw-v1 en simulation clock paused",
       "status": "PASS",
       "detail": {
-        "difference": 0.10000000000582077
+        "difference": 0
       }
     },
     {
@@ -986,6 +986,6 @@
   ],
   "physical_ipad": false,
   "scope": "Native R5-derived HUBs, consolidated budgets, direct browser solo, language, local saves, pause and navigation. Not a physical-device or full Martin boss campaign certification.",
-  "finished": "2026-09-24T15:59:32.109Z",
+  "finished": "2026-09-24T16:05:02.199Z",
   "status": "PASS"
 }
