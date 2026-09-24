@@ -22,19 +22,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Keep the introductory copy aligned with the teacher decision
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('scripts/hub-r6-final-presentation.py')
+          s=p.read_text()
+          anchor="  p['hero']=p['branches'][0]['image']\n"
+          intro=['从共同构想到多人联机，Joey、Mia、Chloe 的最新好评版由 Opus 制作。现在优先体验 Opus；Astra 保留对照，旧版、课堂讨论与学习记录完整归档。','From shared ideas to online play, the latest well-received build for Joey, Mia and Chloe was made with Opus. Start with Opus; Astra remains a comparison, and earlier builds, discussions and learning are preserved.']
+          line="  p['intro']="+json.dumps(intro,ensure_ascii=False)+"\n"
+          if line not in s:
+              assert anchor in s
+              s=s.replace(anchor,anchor+line,1)
+          s=s.replace('write(js,s)\n', 'write(js,s.replace("fetch(\'project.json?v=r6\')", "fetch(\'project.json?v=r6-final-1\')"))\n')
+          p.write_text(s)
+          PY
       - name: Apply the teacher's two final presentation changes
         run: |
           python3 scripts/hub-r6-final-presentation.py
           python3 scripts/verify_hub_standard.py
           node --check shared/hub-r6/studio.js
           git diff --exit-code -- classroom-2026-09-22 adventure-world/builds/trio-world-opus/cloudflare adventure-world/builds/trio-world-opus/public adventure-world/solo-trio/game adventure-world/solo-skyvale/game martins-monster-quest/v2
-      - name: Make project data use the new presentation cache key
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p=Path('shared/hub-r6/studio.js')
-          p.write_text(p.read_text().replace("fetch('project.json?v=r6')", "fetch('project.json?v=r6-final-1')"))
-          PY
       - name: Install isolated browser test tools
         run: |
           npm install --prefix /tmp/hub-final-qa playwright@1.58.2
@@ -55,7 +64,7 @@ jobs:
         run: |
           git config user.name 'Classroom publishing'
           git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
-          git add HUB-ENTRY.json README.md docs/hub-standard/LOCK.json docs/hub-standard/R6.json docs/hub-standard/R6-FINAL-PRESENTATION.md shared/hub-r6 adventure-world martins-monster-quest scripts/r6-assets/game-shell.js scripts/r6_finalize.py scripts/trio-online/build.py scripts/trio-online/room-client.js scripts/trio-online/review-app.js scripts/trio-online/hub-online.js
+          git add HUB-ENTRY.json README.md docs/hub-standard/LOCK.json docs/hub-standard/R6.json docs/hub-standard/R6-FINAL-PRESENTATION.md shared/hub-r6 adventure-world martins-monster-quest scripts/hub-r6-final-presentation.py scripts/r6-assets/game-shell.js scripts/r6_finalize.py scripts/trio-online/build.py scripts/trio-online/room-client.js scripts/trio-online/review-app.js scripts/trio-online/hub-online.js
           git diff --cached --quiet || git commit -m 'fix(hub): feature the Opus favourite and keep direct language buttons visible'
           git push origin HEAD:main
       - name: Prepare verified Pages files
