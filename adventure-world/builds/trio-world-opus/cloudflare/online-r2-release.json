@@ -1,9 +1,23 @@
 {
   "revision": "trio-online-r2-reviews-20260925",
-  "status": "BUILT_REQUIRES_DEPLOYMENT_READBACK",
-  "source_lan_git_blob": "0383acf33132227d69596b3ff2c7a0e5debecbe3",
+  "status": "LIVE_VERIFIED",
+  "source_lan_git_blob": "0383acf3313223227d69596b3ff2c7a0e5debecbe3",
+  "source_note": "Original LAN file is unchanged; its verified Git blob is recorded in the build assertion and QA evidence.",
   "max_players": 3,
   "digits": 6,
   "tasks": 14,
-  "original_namespace_preserved": true
+  "original_namespace_preserved": true,
+  "stable_r6_base_unchanged": true,
+  "solo_editions_preserved": true,
+  "game_url": "https://trio-world-opus.sydney-gemstone-games.workers.dev/",
+  "hub_url": "https://sydneygemstone-sudo.github.io/student-works/adventure-world/hub/",
+  "review_status_url": "https://sydneygemstone-sudo.github.io/student-works/adventure-world/hub/online-reviews.html",
+  "worker_deployment_id": "932ce9d8a8b3450aa3747784aeb9f618",
+  "worker_sha256": "143572c7dfee7ae5ee09f15564decfd35108cbd5b83e5dbb12cedd8cecfa987a",
+  "deployed_frontend_commit": "e017db1e6db037fa0ad92ff075c67d8f4ca2ee24",
+  "local_checks_passed": 43,
+  "live_checks_passed": 43,
+  "live_verified_utc": "2026-09-24T16:59:25.795Z",
+  "evidence": "QA-LIVE-R2.json",
+  "physical_ipad_acceptance": false
 }
