@@ -25,6 +25,7 @@ def apply(root=ROOT,packages=False):
   ranks={'opus-touch':0,'skyvale-hud1':1};p['branches'].sort(key=lambda b:(bool(b.get('legacy')),ranks.get(b['key'],10)))
   assert p['branches'][0]['key']=='opus-touch'
   p['hero']=p['branches'][0]['image']
+  p['intro']=["从共同构想到多人联机，Joey、Mia、Chloe 的最新好评版由 Opus 制作。现在优先体验 Opus；Astra 保留对照，旧版、课堂讨论与学习记录完整归档。", "From shared ideas to online play, the latest well-received build for Joey, Mia and Chloe was made with Opus. Start with Opus; Astra remains a comparison, and earlier builds, discussions and learning are preserved."]
   p['heroTitle']=['三人同乐世界<br><em>Opus · 课堂好评版</em>','Trio World<br><em>Opus · classroom favourite</em>']
   p['featured_play']={'branch':'opus-touch','tool':'Opus','url':'https://trio-world-opus.sydney-gemstone-games.workers.dev/','label':['试玩 Opus 好评版 · 联机','Play the Opus favourite · online'],'basis':'Teacher explicitly identified Opus as the latest well-received version; no numeric rating inferred.'}
   p['decision']=['教师确认：最新好评版由 Opus 制作，现作为首推版本。上方直接进入 Opus 联机版；单人试玩同样优先展示 Opus。Astra 保留对照，旧版另区归档，学习记录与动态测评继续保留。','Teacher confirmed: the latest well-received version was made with Opus, now the featured build. The main button opens Opus online, and Opus leads the solo previews too. Astra remains a comparison; older builds, learning records and live reviews are retained.']
@@ -67,7 +68,7 @@ function bindLanguageButton(){const button=document.getElementById('language');i
  if 'data-featured-solo'not in s:
   assert anchor in s
   s=s.replace(anchor,'${P.featured_play?`<a class="btn" data-featured-solo href="${gameLink(current[0])}">${t(\'Opus 单人试玩\',\'Opus solo preview\')} ↗</a>`:\'\'}'+anchor,1)
- write(js,s)
+ write(js,s.replace("fetch('project.json?v=r6')", "fetch('project.json?v=r6-final-1')"))
  css='''/* R6 final presentation: always visible, one click, destination language. */
 #nav #language,.reviewPage #language{position:fixed!important;top:max(12px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));z-index:10000;display:inline-flex!important;align-items:center;justify-content:center;min-width:100px;min-height:46px;padding:10px 18px;margin:0;border:1px solid #f0d8a8;border-radius:12px;background:#e4c486;color:#142a31;box-shadow:0 5px 22px #0005;font:800 16px/1.25 system-ui,-apple-system,'PingFang SC',sans-serif;letter-spacing:0;cursor:pointer;touch-action:manipulation;white-space:nowrap;transform:none!important;opacity:1!important;visibility:visible!important}
 #nav #language:hover,.reviewPage #language:hover{background:#f5dea9}
