@@ -1,0 +1,102 @@
+name: Final HUB presentation correction
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/hub-r6-final-presentation.py', 'scripts/qa-hub-r6-final.cjs', '.github/workflows/hub-final-presentation.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: hub-final-presentation
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply the teacher's two final presentation changes
+        run: |
+          python3 scripts/hub-r6-final-presentation.py
+          python3 scripts/verify_hub_standard.py
+          node --check shared/hub-r6/studio.js
+          git diff --exit-code -- classroom-2026-09-22 adventure-world/builds/trio-world-opus/cloudflare adventure-world/builds/trio-world-opus/public adventure-world/solo-trio/game adventure-world/solo-skyvale/game martins-monster-quest/v2
+      - name: Make project data use the new presentation cache key
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('shared/hub-r6/studio.js')
+          p.write_text(p.read_text().replace("fetch('project.json?v=r6')", "fetch('project.json?v=r6-final-1')"))
+          PY
+      - name: Install isolated browser test tools
+        run: |
+          npm install --prefix /tmp/hub-final-qa playwright@1.58.2
+          /tmp/hub-final-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify ordering, direct language buttons and retained feedback
+        env:
+          PLAYWRIGHT_PATH: /tmp/hub-final-qa/node_modules/playwright
+        run: node scripts/qa-hub-r6-final.cjs
+      - name: Update matching offline presentations
+        run: |
+          python3 - <<'PY'
+          import runpy
+          from pathlib import Path
+          m=runpy.run_path('scripts/hub-r6-final-presentation.py')
+          m['update_packages'](Path.cwd())
+          PY
+      - name: Commit verified presentation and specification
+        run: |
+          git config user.name 'Classroom publishing'
+          git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
+          git add HUB-ENTRY.json README.md docs/hub-standard/LOCK.json docs/hub-standard/R6.json docs/hub-standard/R6-FINAL-PRESENTATION.md shared/hub-r6 adventure-world martins-monster-quest scripts/r6-assets/game-shell.js scripts/r6_finalize.py scripts/trio-online/build.py scripts/trio-online/room-client.js scripts/trio-online/review-app.js scripts/trio-online/hub-online.js
+          git diff --cached --quiet || git commit -m 'fix(hub): feature the Opus favourite and keep direct language buttons visible'
+          git push origin HEAD:main
+      - name: Prepare verified Pages files
+        run: |
+          mkdir -p /tmp/hub-final-site
+          git archive HEAD | tar -x -C /tmp/hub-final-site
+          touch /tmp/hub-final-site/.nojekyll
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hub-final-local-qa
+          path: shared/hub-r6/qa-final-presentation/local/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/hub-final-site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the actual published HUB presentation
+        env:
+          PLAYWRIGHT_PATH: /tmp/hub-final-qa/node_modules/playwright
+          HUB_QA_BASE: https://sydneygemstone-sudo.github.io/student-works/
+        run: |
+          npm install --prefix /tmp/hub-final-qa playwright@1.58.2
+          /tmp/hub-final-qa/node_modules/.bin/playwright install --with-deps chromium
+          node scripts/qa-hub-r6-final.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hub-final-live-qa
+          path: shared/hub-r6/qa-final-presentation/live/
