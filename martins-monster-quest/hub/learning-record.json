@@ -1,0 +1,843 @@
+{
+  "id": "martin",
+  "name": "Martin",
+  "title": [
+    "怪兽冒险：从捕捉到选择",
+    "Monster Quest: capture, trade and choose"
+  ],
+  "heroTitle": [
+    "怪兽冒险<br><em>捕捉、交易与成长</em>",
+    "Monster Quest<br><em>Capture, trade and grow</em>"
+  ],
+  "intro": [
+    "不只是“抓到更多怪兽”。Martin 为自己的世界加入交易、培养和料理，让每次捕捉都产生不同的选择。",
+    "More than catching another monster: Martin adds trading, training and cooking, giving each capture a meaningful choice."
+  ],
+  "hero": "assets/martin-v2.png",
+  "theme": "space",
+  "budget": 50,
+  "people_names": [
+    "Martin"
+  ],
+  "cost": {
+    "budget_aud": 50,
+    "api_equivalent_aud": 22.45,
+    "range": [
+      11.81,
+      41.09
+    ],
+    "items": [
+      {
+        "title": [
+          "9/17 原版完整生产与迭代",
+          "17 Sep original production and iterations"
+        ],
+        "aud": 5,
+        "range": [
+          2,
+          10
+        ],
+        "note": [
+          "原始 2 AUD 是首个小样上限，随后补地图、选人、3D 与反馈；完整过程估 A$2–10，取 A$5。教师回忆使用 GLM，现有 Git/日志未独立确认模型。",
+          "The initial A$2 cap covered the first prototype; maps, selection and 3D followed. Full-history estimate A$2–10, central A$5. Teacher recalls GLM; Git/log evidence does not independently confirm the model."
+        ]
+      },
+      {
+        "title": [
+          "9/24 Wildbound V2",
+          "24 Sep Wildbound V2"
+        ],
+        "aud": 5.45,
+        "range": [
+          3.81,
+          7.09
+        ],
+        "note": [
+          "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+          "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+        ]
+      },
+      {
+        "title": [
+          "前轮归档、学习记录与展示",
+          "Previous recovery, learning record and showcase"
+        ],
+        "aud": 4,
+        "range": [
+          2,
+          8
+        ],
+        "note": [
+          "未计量主控的完整工作量分摊估算；不是零，也不是账单。",
+          "Allocated workload estimate for the unmetered controller, not zero or an invoice."
+        ]
+      },
+      {
+        "title": [
+          "R6 原生包装、双语与单机 QA",
+          "R6 native HUB, language and solo QA"
+        ],
+        "aud": 8,
+        "range": [
+          4,
+          16
+        ],
+        "note": [
+          "本轮制作和测试的工具等值预估；有供应商回执后可替换。",
+          "Tool-equivalent estimate for this production/test pass; replace with a provider receipt when available."
+        ]
+      }
+    ],
+    "total_tokens": 1580954,
+    "method": [
+      "所有条目采用工具/API 等值；历史值、用量折价和工作量估算分别注明，各阶段不重复累计。",
+      "Each tool/API-equivalent item states its historical, usage-based or workload-estimated basis. Stages are not counted twice."
+    ],
+    "rate_assumptions": {
+      "gpt-6-astra": {
+        "input": 10,
+        "cache_read": 1,
+        "cache_write": 12.5,
+        "output": 50,
+        "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+      },
+      "claude-opus-5": {
+        "input": 5,
+        "cache_read": 0.5,
+        "cache_write_5m": 6.25,
+        "cache_write_1h": 10,
+        "output": 25,
+        "source": "https://platform.claude.com/docs/en/models/opus-5/overview"
+      }
+    },
+    "fx_assumption": {
+      "date": "2026-09-22",
+      "usd_per_aud": 0.7123,
+      "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+    }
+  },
+  "human": {
+    "hours_range": [
+      31,
+      56
+    ],
+    "hours_mid": 43.5,
+    "aud_range": [
+      1966.64,
+      3552.64
+    ],
+    "aud_mid": 2759.64,
+    "scope": [
+      "按当前 V2 加本次 HUB 重建一次估算；不重复叠加 V1 历史投入。",
+      "Estimate one rebuild of current V2 plus this HUB, without adding the V1 history again."
+    ]
+  },
+  "human_tasks": [
+    {
+      "task": [
+        "需求与规则整理",
+        "Requirements and rules"
+      ],
+      "range": [
+        2,
+        4
+      ]
+    },
+    {
+      "task": [
+        "场景和角色",
+        "Scenes and characters"
+      ],
+      "range": [
+        6,
+        12
+      ]
+    },
+    {
+      "task": [
+        "战斗、交易与成长",
+        "Combat, economy and growth"
+      ],
+      "range": [
+        7,
+        12
+      ]
+    },
+    {
+      "task": [
+        "输入与存档",
+        "Input and saves"
+      ],
+      "range": [
+        3,
+        5
+      ]
+    },
+    {
+      "task": [
+        "测试和打包",
+        "Tests and packaging"
+      ],
+      "range": [
+        5,
+        8
+      ]
+    },
+    {
+      "task": [
+        "HUB 和学习记录",
+        "HUB and learning record"
+      ],
+      "range": [
+        4,
+        7
+      ]
+    },
+    {
+      "task": [
+        "本轮双语、单机适配与回归",
+        "This pass: bilingual, solo adaptation and regression"
+      ],
+      "range": [
+        4,
+        8
+      ]
+    }
+  ],
+  "efficiency": {
+    "stage": [
+      "9/24 新原型阶段",
+      "24 Sep new prototypes"
+    ],
+    "manual_hours_range": [
+      18,
+      30
+    ],
+    "manual_hours_mid": 24.0,
+    "manual_aud_mid": 1522.56,
+    "elapsed_seconds": 947,
+    "elapsed_display": "15m 47s",
+    "tool_cost_aud": 5.45,
+    "time_ratio_mid": 91.23548046462514,
+    "time_ratio_range": [
+      68.42661034846886,
+      114.04435058078143
+    ],
+    "cost_ratio_mid": 279.3688073394495,
+    "cost_ratio_range": [
+      209.52660550458717,
+      349.21100917431187
+    ],
+    "note": [
+      "只比较 9/24 新原型阶段，人工为规划估算，费用使用历史费率假设。并行窗口取联合跨度，不把并行时长相加；不是全项目成本节省。",
+      "Only the 24 Sep prototype stage is compared. Labour is estimated; tools use historical-rate assumptions. Parallel work uses a joint elapsed window, not summed durations; this is not total-project savings."
+    ]
+  },
+  "branches": [
+    {
+      "key": "martin-v2",
+      "name": [
+        "V2 · Wildbound",
+        "V2 · Wildbound"
+      ],
+      "tag": [
+        "最新 R6 · 单机双语",
+        "Latest R6 · solo bilingual"
+      ],
+      "tool": "Astra",
+      "release": [
+        "当前单机修订 R6",
+        "Current solo revision R6"
+      ],
+      "subtitle": [
+        "出售、购买、料理、培养进化和独立存档连接成可验证的循环。",
+        "Selling, buying, cooking, training/evolution and independent saves form a tested loop."
+      ],
+      "strength": [
+        "出售、购买、料理、培养进化和独立存档连接成可验证的循环。",
+        "Selling, buying, cooking, training/evolution and independent saves form a tested loop."
+      ],
+      "limit": [
+        "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+        "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+      ],
+      "detail": [
+        "原课堂版记录：英语界面；部分地图模板复用。完整三 Boss 通关、音效试听和真实 iPad 尚未完成。",
+        "Original classroom record: English UI and reused regional layouts. Full three-boss completion, audio listening and physical iPad remain unverified."
+      ],
+      "path": "../home-v2/",
+      "image": "assets/martin-v2.png",
+      "tokens": 1580954,
+      "aud": 5.45,
+      "legacy": false,
+      "status": "retained",
+      "scores": null
+    },
+    {
+      "key": "martin-v1",
+      "name": [
+        "V1 · 3D 捕捉与进化",
+        "V1 · 3D capture and evolution"
+      ],
+      "tag": [
+        "历史对照 · R6 单机包装",
+        "Historical comparison · R6 solo"
+      ],
+      "tool": "Historical / GLM recalled",
+      "release": [
+        "历史游戏 · 当前试玩适配",
+        "Historical game · current play adapter"
+      ],
+      "subtitle": [
+        "已有探索、捕捉、队伍战斗、进化和三地区结构。",
+        "Exploration, capture, team battles, evolution and three regions already exist."
+      ],
+      "strength": [
+        "已有探索、捕捉、队伍战斗、进化和三地区结构。",
+        "Exploration, capture, team battles, evolution and three regions already exist."
+      ],
+      "limit": [
+        "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+        "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+      ],
+      "detail": [
+        "原课堂版记录：本课仍认为画面、反馈和内容深度不够；旧文档的“Production Ready”不作为今天的完整验收结论。",
+        "Original classroom record: The lesson still identifies limited visual feedback and depth. Old “Production Ready” wording is not today’s acceptance verdict."
+      ],
+      "path": "../home-v1/",
+      "image": "assets/martin-v1.png",
+      "tokens": null,
+      "aud": 5,
+      "legacy": true,
+      "status": "retained",
+      "scores": null
+    }
+  ],
+  "learning": [
+    {
+      "title": [
+        "需求要说明用途",
+        "A requirement needs a purpose"
+      ],
+      "practice": [
+        "围绕 building、交易和食物，先问“它在游戏里用来做什么”。",
+        "The class questions what building, trading and food actually do."
+      ],
+      "knowledge": [
+        "范围控制：没有清晰用途的功能不自动进入本轮。",
+        "Scope control: a feature without a clear purpose is not automatically included."
+      ],
+      "expression": [
+        "“我希望玩家能……，因为……；这一轮先不做……”",
+        "“The player should be able to … because …; this revision excludes …”"
+      ],
+      "level": [
+        "有课堂讨论证据；不等于独立掌握",
+        "Discussion evidenced; independent mastery not established"
+      ]
+    },
+    {
+      "title": [
+        "把点子接成闭环",
+        "Connect ideas into a loop"
+      ],
+      "practice": [
+        "把抓怪与训练、买卖、料理、再狩猎连接起来。",
+        "Connect capture to training, trade, meals and further hunting."
+      ],
+      "knowledge": [
+        "资源输入、转换和结果：每个按钮都应改变可解释的状态。",
+        "Resources have inputs, transformations and outcomes; every action should change an explainable state."
+      ],
+      "expression": [
+        "“先做 A，得到 B，再用 B 做 C；最后回到更难的 A。”",
+        "“Do A to obtain B; use B for C, then return to a harder A.”"
+      ],
+      "level": [
+        "需求实践已出现",
+        "Observed requirements practice"
+      ]
+    },
+    {
+      "title": [
+        "安全的状态转换",
+        "Safe state transitions"
+      ],
+      "practice": [
+        "实现中把战斗、商店、探索分开；测试禁止倒下伙伴继续出场。",
+        "The implementation separates battle, shop and exploration and tests invalid fallen-partner selection."
+      ],
+      "knowledge": [
+        "状态机、实体身份与操作校验，防止异步动作串进错误阶段。",
+        "State machines, entity identity and validation prevent actions from leaking into the wrong phase."
+      ],
+      "expression": [
+        "“在什么状态允许？不满足条件时应该怎样拒绝？”",
+        "“In which state is this allowed? How should invalid input be rejected?”"
+      ],
+      "level": [
+        "从实际代码提炼的课后工程复盘，不冒称课堂已教完",
+        "Code-grounded retrospective, not claimed as fully taught in class"
+      ]
+    },
+    {
+      "title": [
+        "测试证据也会出错",
+        "Test evidence can fail too"
+      ],
+      "practice": [
+        "正常路径完成后，低血量夹具被存档覆盖，导致边界测试失败；更正夹具后重跑。",
+        "A low-HP fixture was overwritten by saving after the normal flow; correcting its setup enabled the boundary rerun."
+      ],
+      "knowledge": [
+        "区分产品缺陷、测试夹具问题和最终实机验收；失败不能直接删掉。",
+        "Distinguish product faults, fixture problems and final device acceptance; preserve failed evidence."
+      ],
+      "expression": [
+        "“我怎样测、预期什么、实际什么、这次证明了什么？”",
+        "“How did I test, what did I expect, what happened, and what does this prove?”"
+      ],
+      "level": [
+        "工程记录可核验；学生掌握程度待观察",
+        "Verifiable engineering record; learner mastery remains unassessed"
+      ]
+    }
+  ],
+  "questions": [
+    [
+      "你抓到一只新怪物后，有哪三种不同的决定？",
+      "What three choices can you make after a capture?"
+    ],
+    [
+      "为什么这一次不做建房？",
+      "Why did this revision leave building out?"
+    ],
+    [
+      "怎样证明卖掉的是你选中的那只怪物？",
+      "How can you prove the correct monster was sold?"
+    ]
+  ],
+  "requirements": [
+    [
+      [
+        "保留核心，明确增强",
+        "Keep the core, specify the improvement"
+      ],
+      [
+        "保留捕捉、成长、战斗和更强 Boss；扩大探索范围，增强造型、技能、音效与受击反馈。",
+        "Keep capture, growth, combat and stronger bosses; improve exploration, silhouettes, skills, sound and hit feedback."
+      ]
+    ],
+    [
+      [
+        "让怪兽成为不同用途的资源",
+        "Give monsters alternative uses"
+      ],
+      [
+        "捕获后可以留下培养、出售/交易，或转换为食物，再支持更强目标的狩猎。",
+        "A capture can be trained, sold/traded or converted into food to support tougher hunts."
+      ]
+    ],
+    [
+      [
+        "本轮不做建房",
+        "No building in this revision"
+      ],
+      [
+        "讨论过建房，但没有形成足够明确的用途；最终明确排除，不让一个新词无限扩张范围。",
+        "Building was discussed but lacked a clear purpose and was explicitly excluded."
+      ]
+    ],
+    [
+      [
+        "独立 V2，限时交付",
+        "Independent, timeboxed V2"
+      ],
+      [
+        "从明确需求重做，不覆盖 V1。十五分钟是开发约束，不是自动通过所有测试的证明。",
+        "Rebuild from the aligned brief without overwriting V1. A 15-minute target does not certify every test."
+      ]
+    ]
+  ],
+  "journey": [
+    {
+      "id": "source-0",
+      "date": "2026-09-17",
+      "title": [
+        "从战斗小样到 3D 世界",
+        "From battle prototype to 3D world"
+      ],
+      "summary": [
+        "历史日志记录地图、选人、可见怪物、3D 人物和稳定镜头的逐步补充。",
+        "Historical notes record requests for a map, trainer selection, visible monsters, 3D characters and steadier camera."
+      ],
+      "brief": [
+        "历史日志记录地图、选人、可见怪物、3D 人物和稳定镜头的逐步补充。",
+        "Historical notes record requests for a map, trainer selection, visible monsters, 3D characters and steadier camera."
+      ],
+      "tool": [
+        "原型→现场反馈→场景与镜头修改",
+        "Prototype → classroom feedback → scene and camera changes"
+      ],
+      "tech": [
+        "Three.js、输入与战斗界面；历史文档中的根因和实机声明未在本轮全部重验。",
+        "Three.js, input and battle UI; historical root-cause/device claims were not all reverified here."
+      ],
+      "result": [
+        "形成今天评测的 V1，保留历史而不把旧结论当新证据。",
+        "Established V1 for today’s comparison; historical claims remain separately labelled."
+      ],
+      "source": "M-HISTORY",
+      "status": "done"
+    },
+    {
+      "id": "source-1",
+      "date": "2026-09-24 · 16:46–17:09",
+      "title": [
+        "先评价，再说自己的特别之处",
+        "Review first, then define what makes it yours"
+      ],
+      "summary": [
+        "教师要求先说优点和具体问题，再解释区别于既有抓宠游戏的独特玩法；反复澄清交易、食物和建房的目的。",
+        "The teacher asks for strengths, concrete problems and a distinct idea, repeatedly clarifying the purpose of trading, food and building."
+      ],
+      "brief": [
+        "教师要求先说优点和具体问题，再解释区别于既有抓宠游戏的独特玩法；反复澄清交易、食物和建房的目的。",
+        "The teacher asks for strengths, concrete problems and a distinct idea, repeatedly clarifying the purpose of trading, food and building."
+      ],
+      "tool": [
+        "轮流交流→教师追问用途→AI 复述→确认不做项",
+        "Discussion → questions about purpose → AI restatement → explicit exclusions"
+      ],
+      "tech": [
+        "把抽象愿望转换为规则与闭环；这不是“所有项目都必须重做”的工程定律。",
+        "Translate broad wishes into rules and loops; this is not a rule that every project must be rebuilt."
+      ],
+      "result": [
+        "选择独立 V2；捕获物的多用途成为主线，不做建房。",
+        "Choose an independent V2 with alternative uses for captures and no building."
+      ],
+      "source": "M-CHAT",
+      "status": "done"
+    },
+    {
+      "id": "source-2",
+      "date": "2026-09-24 · 17:15–17:31",
+      "title": [
+        "V2 实现与正常流程验证",
+        "V2 implementation and normal-path checks"
+      ],
+      "summary": [
+        "交易、料理和成长必须真的改变怪兽、金币和状态，不是只有菜单。",
+        "Trading, cooking and growth must actually change monsters, coins and state, not just display menus."
+      ],
+      "brief": [
+        "交易、料理和成长必须真的改变怪兽、金币和状态，不是只有菜单。",
+        "Trading, cooking and growth must actually change monsters, coins and state, not just display menus."
+      ],
+      "tool": [
+        "新目录实现→语法检查→浏览器连贯操作→保留失败并修正测试夹具",
+        "New implementation → syntax → continuous browser actions → retain failure and correct the fixture"
+      ],
+      "tech": [
+        "明确状态机；独立实体 ID；经济校验；异步战斗标记；独立存档键。",
+        "Explicit state ownership, entity IDs, economy checks, asynchronous battle tokens and a separate save key."
+      ],
+      "result": [
+        "正常捕捉/买卖/料理/进化/存档已有记录；边界夹具重跑通过，原失败仍保留。",
+        "Capture, economy, meals, evolution and saves have recorded checks. Boundary rerun passed; the original failed run is retained."
+      ],
+      "source": "M-V2",
+      "status": "done"
+    },
+    {
+      "id": "source-3",
+      "date": "2026-09-24 · 课后回收",
+      "title": [
+        "归档与学习复盘",
+        "Archive and learning review"
+      ],
+      "summary": [
+        "把学生决定、实现默认值、脚本测试和待验收项分开。",
+        "Separate student decisions, implementation defaults, automated tests and open acceptance gates."
+      ],
+      "brief": [
+        "把学生决定、实现默认值、脚本测试和待验收项分开。",
+        "Separate student decisions, implementation defaults, automated tests and open acceptance gates."
+      ],
+      "tool": [
+        "双机核对→Git 版本核验→脱敏记录→HUB→发布读回",
+        "Cross-host inventory → Git verification → redacted records → HUB → live readback"
+      ],
+      "tech": [
+        "版本清单与文件指纹让下一次开发能够从证据恢复。",
+        "Version inventory and file hashes make the work recoverable."
+      ],
+      "result": [
+        "新旧版本并列、需求可追踪，未替学生打分或宣布通关。",
+        "Comparable versions and traceable requirements, without invented student scores or completion."
+      ],
+      "source": "ARCHIVE",
+      "status": "done"
+    },
+    {
+      "id": "r6",
+      "date": "R6 · 2026-09-25",
+      "title": [
+        "从 R5 原生组件升级到 R6 单机作品 HUB",
+        "Native R5 components upgraded to an R6 solo project HUB"
+      ],
+      "summary": [
+        "最新优先、旧版隔开、预算完整合并、保留学习记录。",
+        "Latest first, history separated, complete consolidated budget and learning retained."
+      ],
+      "brief": [
+        "每作品一个入口；每个保留版本可直接单人双语试玩。",
+        "One entrance per work; every exposed edition supports bilingual solo play."
+      ],
+      "tool": [
+        "读 R5 原生组件 → 分离传输和规则 → 双语/暂停/返回 → 浏览器验证 → GitHub",
+        "Read native R5 components → separate rules/transport → language/pause/return → browser checks → GitHub"
+      ],
+      "tech": [
+        "原游戏规则在浏览器运行，独立存档命名空间；暂停冻结逻辑时钟；继承 R5 渲染器组件。",
+        "Original rules run on-device with isolated saves; pause freezes the simulation clock; native R5 components are inherited."
+      ],
+      "result": [
+        "R6 待教师审阅；实体 iPad 完整体验仍需确认。",
+        "R6 awaits teacher review; complete physical-iPad play still needs confirmation."
+      ],
+      "source": "R6",
+      "status": "done"
+    }
+  ],
+  "decision": [
+    "主按钮进入 R6 单人试玩；中英切换、暂停、返回本作品 HUB 均在左栏。原始开发版本独立保留，历史预算与课堂学习已合并于本 HUB。",
+    "Primary buttons open R6 solo play; language, pause and return controls are on the left. Original builds remain preserved; historical budgets and learning are consolidated here."
+  ],
+  "route_title": [
+    "怪兽冒险：从捕捉到选择",
+    "Monster Quest: capture, trade and choose"
+  ],
+  "route_start": [
+    "上周需求与制作 → 9/24 试玩与新开发 → R6 双语单机与完整作品记录。",
+    "Earlier requirements/production → 24 Sep playtests/new builds → R6 bilingual solo and complete project records."
+  ],
+  "flow_lanes": [
+    {
+      "id": "r6",
+      "name": [
+        "V2 · Wildbound",
+        "V2 · Wildbound"
+      ],
+      "state": "retained",
+      "desc": [
+        "原课堂版 → 双语本机规则 → 当前单人试玩。",
+        "Classroom original → bilingual local rules → current solo play."
+      ]
+    },
+    {
+      "id": "r6",
+      "name": [
+        "V1 · 3D 捕捉与进化",
+        "V1 · 3D capture and evolution"
+      ],
+      "state": "retained",
+      "desc": [
+        "旧版保留作对照；从游戏直接回本 HUB。",
+        "Historical comparison; return directly to this HUB."
+      ]
+    }
+  ],
+  "next_title": [
+    "真实 iPad 长流程与教师最终确认",
+    "Full physical-iPad play and teacher sign-off"
+  ],
+  "next_scope": [
+    "分别体验当前单机版本，确认操作、任务和展示；多人原型的实机验收与最终取舍另外记录。",
+    "Review current solo controls, quests and presentation. Physical multiplayer testing and final branch selection remain separate."
+  ],
+  "snapshot_note": [
+    "原 V1/V2、HUD 修复前文件及 Opus 最早 Write 均在 Git 归档；当前可玩入口只打开本作品内的 R6 试玩，不再进入旧 HUB。",
+    "Original V1/V2, pre-HUD files and the earliest Opus Write remain in Git. Play entries open this project’s R6 preview, not an old HUB."
+  ],
+  "cost_note": [
+    "这是完整工具等值总估算：历史值、当前用量折价、未计量的前轮整理及本轮适配均已计入；不是实付发票。",
+    "A complete tool-equivalent estimate includes history, usage-based values and unmetered previous/current controller work; not a paid invoice."
+  ],
+  "metric_scope_note": [
+    "首页、版本卡与预算表共用同一账本；总额、区间和余额可核对。",
+    "Dashboard, build cards and the budget table use one ledger with a verifiable total, range and balance."
+  ],
+  "milestone_note": [
+    "六个数字交付阶段；第七关实机与教师确认仍开放。",
+    "Six digital-delivery gates; physical play and teacher sign-off remain open."
+  ],
+  "milestones": [
+    {
+      "name": [
+        "构想",
+        "Idea"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "Brief",
+        "Brief"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "原型",
+        "Prototype"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "版本评估",
+        "Review"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "家庭适配",
+        "Home build"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "验证与呈现",
+        "Test & present"
+      ],
+      "status": "complete"
+    },
+    {
+      "name": [
+        "实机与定稿",
+        "Final approval"
+      ],
+      "status": "pending"
+    }
+  ],
+  "milestone_evidence": [
+    [
+      "需求已记录",
+      "Recorded"
+    ],
+    [
+      "范围已明确",
+      "Aligned"
+    ],
+    [
+      "版本已保留",
+      "Preserved"
+    ],
+    [
+      "反馈已合并",
+      "Consolidated"
+    ],
+    [
+      "双语单机",
+      "Bilingual solo"
+    ],
+    [
+      "见 R6 验收",
+      "R6 checks"
+    ],
+    [
+      "待实机确认",
+      "Device check"
+    ]
+  ],
+  "progress_scope": [
+    "七个等权交付阶段",
+    "Seven equally weighted gates"
+  ],
+  "progress_next": [
+    "请用真实 iPad 复测完整任务链，再确认展示与版本选择。",
+    "Test the full quest on a physical iPad, then approve the presentation and version choice."
+  ],
+  "rate_note": [
+    "A$63.44/h 沿用 R5 历史规划参数，不是工资或新市场报价。",
+    "A$63.44/h is the R5 historical planning assumption, not wages or a new quote."
+  ],
+  "prototype_estimate_basis": [
+    "倍数仅比较 9/24 新原型阶段，不把全部历史人工除以一次短调用。",
+    "Ratios compare only the 24 Sep new-prototype stage, not all historical labour against a short call."
+  ],
+  "guide": [
+    "直接点版本卡即可单人玩。左栏提供 HUB、测评、语言、暂停、全屏和重开。各版本独立保存；语言切换读取本版本进度。Martin 战斗中请先结束战斗。无需游戏服务器。",
+    "Click a version card to play solo. The left rail has HUB, review, language, pause, fullscreen and restart. Editions save separately; language switching reads that edition’s progress. Finish Martin battles before changing language. No game server is required."
+  ],
+  "changes": [
+    [
+      [
+        "双语与单机",
+        "Bilingual solo"
+      ],
+      [
+        "传输层本机化，保留玩法规则；所有试玩有左栏和返回入口。",
+        "Transport is local while game rules remain; every preview has a utility rail and return control."
+      ]
+    ],
+    [
+      [
+        "合并历史与预算",
+        "Merged history and budget"
+      ],
+      [
+        "旧记录直接并入数据源，当前与历史版本分区展示。",
+        "Earlier records are imported into this data source; current and historical builds are separated."
+      ]
+    ]
+  ],
+  "runtime_release": "2026.09-r6",
+  "sources": [
+    {
+      "id": "M-HISTORY",
+      "label": [
+        "Martin V1 历史日志与源码",
+        "Martin V1 history and source"
+      ],
+      "note": [
+        "9/17 的历史声明保留；本次不把旧性能/实机宣称视为新验收。",
+        "Historical claims are preserved, not adopted as fresh device/performance certification."
+      ]
+    },
+    {
+      "id": "M-CHAT",
+      "label": [
+        "9/24《仓库审核总结》课堂记录",
+        "24 Sep classroom review conversation"
+      ],
+      "note": [
+        "来自当前会话可见片段与定向历史检索；非完整逐字转录。17:07–17:09 明确多用途闭环、不做建房。",
+        "Visible context and targeted historical retrieval, not a complete transcript; the loop and building exclusion were confirmed."
+      ]
+    },
+    {
+      "id": "M-V2",
+      "label": [
+        "V2 Spec、QA、Git 提交和执行可见记录",
+        "V2 spec, QA, Git and visible execution log"
+      ],
+      "note": [
+        "源码提交 9d62cf5；正常路径记录与 failed 首轮、passed 边界重跑分别保存。",
+        "Source commit 9d62cf5; normal-path evidence, failed first run and passed boundary rerun remain distinct."
+      ]
+    },
+    {
+      "id": "R6",
+      "label": "R6 native upgrade",
+      "note": [
+        "继承锁定 R5 原生渲染器和三个样式文件，来源指纹已记录。",
+        "Derived from the locked native R5 renderer and three stylesheets; source fingerprints are recorded."
+      ]
+    }
+  ]
+}

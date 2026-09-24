@@ -1,0 +1,24 @@
+{
+  "version": "4.0.0",
+  "presentation": "HUB R6",
+  "status": "REVIEW_READY_NOT_YET_APPROVED",
+  "base": "CLASSROOM-HUB-R5-20260923",
+  "source_fingerprints": {
+    "studio.js": "4a5232e41e05cb9d0bf1cecb778d1174b309370f90c2549fb576efaa22153743",
+    "studio.css": "10474d980a37cba22bf1b11b932569a2d1ec6ce61e12802f0e0cb475bf2718aa",
+    "studio-r3.css": "25eebf6889fab91f12bf57f6bea1a613eb4c6ef8bfedd9ea602522ae7e99dc42",
+    "studio-r5.css": "7852c1b590305cda2f0fe4607cb57520b1724fd87d0a3ac994368cdb1cd19fd4"
+  },
+  "scope": [
+    "martins-monster-quest",
+    "adventure-world"
+  ],
+  "requirements": [
+    "native R5 components",
+    "complete estimated budget",
+    "latest/history separation",
+    "bilingual games",
+    "browser solo",
+    "one HUB per work"
+  ]
+}

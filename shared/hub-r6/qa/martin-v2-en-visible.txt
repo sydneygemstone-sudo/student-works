@@ -1,0 +1,28 @@
+MONSTER QUEST
+WILDBOUND · V2
+◈ 110 · 8 orbs · 1 meals
+♪ Sound
+My team
+Trail map
+01 / EMERALD VALLEY
+Build a team. Defeat GigaGolem.
+
+Weaken wild monsters to 50% HP to guarantee capture. Trade spare catches for a stronger team.
+
+◈ MARKET
+✦ HEALING SPRING
+♨ TRAIL KITCHEN
+♧ HUNTING GLADE
+✧ RARE TRACKS
+⚑ GIGAGOLEM
+✦ SUPPLY CACHE
+Tap a landmark to walk there · explore at your own pace
+Interact · E
+▲
+◀
+▼
+▶
+
+WASD / arrows · E interact · or tap a destination
+
+● Auto-saved · V2

@@ -1,0 +1,97 @@
+{
+  "budget_aud": 50,
+  "api_equivalent_aud": 22.45,
+  "range": [
+    11.81,
+    41.09
+  ],
+  "items": [
+    {
+      "title": [
+        "9/17 原版完整生产与迭代",
+        "17 Sep original production and iterations"
+      ],
+      "aud": 5,
+      "range": [
+        2,
+        10
+      ],
+      "note": [
+        "原始 2 AUD 是首个小样上限，随后补地图、选人、3D 与反馈；完整过程估 A$2–10，取 A$5。教师回忆使用 GLM，现有 Git/日志未独立确认模型。",
+        "The initial A$2 cap covered the first prototype; maps, selection and 3D followed. Full-history estimate A$2–10, central A$5. Teacher recalls GLM; Git/log evidence does not independently confirm the model."
+      ]
+    },
+    {
+      "title": [
+        "9/24 Wildbound V2",
+        "24 Sep Wildbound V2"
+      ],
+      "aud": 5.45,
+      "range": [
+        3.81,
+        7.09
+      ],
+      "note": [
+        "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+        "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+      ]
+    },
+    {
+      "title": [
+        "前轮归档、学习记录与展示",
+        "Previous recovery, learning record and showcase"
+      ],
+      "aud": 4,
+      "range": [
+        2,
+        8
+      ],
+      "note": [
+        "未计量主控的完整工作量分摊估算；不是零，也不是账单。",
+        "Allocated workload estimate for the unmetered controller, not zero or an invoice."
+      ]
+    },
+    {
+      "title": [
+        "R6 原生包装、双语与单机 QA",
+        "R6 native HUB, language and solo QA"
+      ],
+      "aud": 8,
+      "range": [
+        4,
+        16
+      ],
+      "note": [
+        "本轮制作和测试的工具等值预估；有供应商回执后可替换。",
+        "Tool-equivalent estimate for this production/test pass; replace with a provider receipt when available."
+      ]
+    }
+  ],
+  "total_tokens": 1580954,
+  "method": [
+    "所有条目采用工具/API 等值；历史值、用量折价和工作量估算分别注明，各阶段不重复累计。",
+    "Each tool/API-equivalent item states its historical, usage-based or workload-estimated basis. Stages are not counted twice."
+  ],
+  "rate_assumptions": {
+    "gpt-6-astra": {
+      "input": 10,
+      "cache_read": 1,
+      "cache_write": 12.5,
+      "output": 50,
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+    },
+    "claude-opus-5": {
+      "input": 5,
+      "cache_read": 0.5,
+      "cache_write_5m": 6.25,
+      "cache_write_1h": 10,
+      "output": 25,
+      "source": "https://platform.claude.com/docs/en/models/opus-5/overview"
+    }
+  },
+  "fx_assumption": {
+    "date": "2026-09-22",
+    "usd_per_aud": 0.7123,
+    "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+  }
+}

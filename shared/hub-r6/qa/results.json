@@ -1,0 +1,991 @@
+{
+  "release": "2026.09-r6",
+  "started": "2026-09-24T15:48:54.851Z",
+  "checks": [
+    {
+      "name": "martin-v2 zh-CN started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 zh-CN rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "martin-v2 zh-CN iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 Chinese readable text",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 zh-CN no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "martin-v2 zh-CN direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 zh-CN simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": -0.40000000000873115
+      }
+    },
+    {
+      "name": "martin-v2 zh-CN resume",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 zh-CN local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "martin-v2 language toolbar switches",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 language reload preserves a checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 zh-CN no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "martin-v2 en started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 en rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "martin-v2 en iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 en no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "martin-v2 en direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 en simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": -0.29999999998835847
+      }
+    },
+    {
+      "name": "martin-v2 en resume",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v2 en local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "martin-v2 en no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "martin-v1 zh-CN started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 zh-CN rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "martin-v1 zh-CN iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 Chinese readable text",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 zh-CN no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "martin-v1 zh-CN direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 zh-CN simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 1
+      }
+    },
+    {
+      "name": "martin-v1 zh-CN resume",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 zh-CN local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "martin-v1 language toolbar switches",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 language reload preserves a checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 zh-CN no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "martin-v1 en started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 en rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "martin-v1 en iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 en no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "martin-v1 en direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 en simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": -0.5
+      }
+    },
+    {
+      "name": "martin-v1 en resume",
+      "status": "PASS"
+    },
+    {
+      "name": "martin-v1 en local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "martin-v1 en no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "skyvale zh-CN started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale zh-CN rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "skyvale zh-CN iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale Chinese readable text",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale zh-CN no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "skyvale zh-CN direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale zh-CN simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 0.09999999997671694
+      }
+    },
+    {
+      "name": "skyvale zh-CN resume",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale zh-CN local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 2
+      }
+    },
+    {
+      "name": "skyvale language toolbar switches",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale language reload preserves a checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale zh-CN no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "skyvale en started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale en rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "skyvale en iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale en no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "skyvale en direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale en simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 0.20000000001164153
+      }
+    },
+    {
+      "name": "skyvale en resume",
+      "status": "PASS"
+    },
+    {
+      "name": "skyvale en local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 2
+      }
+    },
+    {
+      "name": "skyvale en no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "opus zh-CN started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "opus zh-CN rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "opus zh-CN iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "opus Chinese readable text",
+      "status": "PASS"
+    },
+    {
+      "name": "opus zh-CN no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "opus zh-CN direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "opus zh-CN simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 0.10000000000582077
+      }
+    },
+    {
+      "name": "opus zh-CN resume",
+      "status": "PASS"
+    },
+    {
+      "name": "opus zh-CN local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 2
+      }
+    },
+    {
+      "name": "opus language toolbar switches",
+      "status": "PASS"
+    },
+    {
+      "name": "opus language reload preserves a checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "opus zh-CN no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "opus en started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "opus en rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "opus en iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "opus en no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "opus en direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "opus en simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": -0.10000000000582077
+      }
+    },
+    {
+      "name": "opus en resume",
+      "status": "PASS"
+    },
+    {
+      "name": "opus en local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 2
+      }
+    },
+    {
+      "name": "opus en no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "aw-v1 zh-CN started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 zh-CN rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "aw-v1 zh-CN iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 Chinese readable text",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 zh-CN no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "aw-v1 zh-CN direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 zh-CN simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 0.10000000000582077
+      }
+    },
+    {
+      "name": "aw-v1 zh-CN resume",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 zh-CN local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "aw-v1 language toolbar switches",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 language reload preserves a checkpoint",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 zh-CN no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "aw-v1 en started with real canvas",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 en rendered language",
+      "status": "REVIEW",
+      "remaining_chinese": []
+    },
+    {
+      "name": "aw-v1 en iframe locale",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 en no network game server",
+      "status": "PASS",
+      "detail": {
+        "websockets": []
+      }
+    },
+    {
+      "name": "aw-v1 en direct project return",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 en simulation clock paused",
+      "status": "PASS",
+      "detail": {
+        "difference": 0.3000000000174623
+      }
+    },
+    {
+      "name": "aw-v1 en resume",
+      "status": "PASS"
+    },
+    {
+      "name": "aw-v1 en local checkpoint",
+      "status": "PASS",
+      "detail": {
+        "keys": 1
+      }
+    },
+    {
+      "name": "aw-v1 en no runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "martin complete budget sum",
+      "status": "PASS",
+      "detail": {
+        "budget_aud": 50,
+        "api_equivalent_aud": 22.45,
+        "range": [
+          11.81,
+          41.09
+        ],
+        "items": [
+          {
+            "title": [
+              "9/17 原版完整生产与迭代",
+              "17 Sep original production and iterations"
+            ],
+            "aud": 5,
+            "range": [
+              2,
+              10
+            ],
+            "note": [
+              "原始 2 AUD 是首个小样上限，随后补地图、选人、3D 与反馈；完整过程估 A$2–10，取 A$5。教师回忆使用 GLM，现有 Git/日志未独立确认模型。",
+              "The initial A$2 cap covered the first prototype; maps, selection and 3D followed. Full-history estimate A$2–10, central A$5. Teacher recalls GLM; Git/log evidence does not independently confirm the model."
+            ]
+          },
+          {
+            "title": [
+              "9/24 Wildbound V2",
+              "24 Sep Wildbound V2"
+            ],
+            "aud": 5.45,
+            "range": [
+              3.81,
+              7.09
+            ],
+            "note": [
+              "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+              "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+            ]
+          },
+          {
+            "title": [
+              "前轮归档、学习记录与展示",
+              "Previous recovery, learning record and showcase"
+            ],
+            "aud": 4,
+            "range": [
+              2,
+              8
+            ],
+            "note": [
+              "未计量主控的完整工作量分摊估算；不是零，也不是账单。",
+              "Allocated workload estimate for the unmetered controller, not zero or an invoice."
+            ]
+          },
+          {
+            "title": [
+              "R6 原生包装、双语与单机 QA",
+              "R6 native HUB, language and solo QA"
+            ],
+            "aud": 8,
+            "range": [
+              4,
+              16
+            ],
+            "note": [
+              "本轮制作和测试的工具等值预估；有供应商回执后可替换。",
+              "Tool-equivalent estimate for this production/test pass; replace with a provider receipt when available."
+            ]
+          }
+        ],
+        "total_tokens": 1580954,
+        "method": [
+          "所有条目采用工具/API 等值；历史值、用量折价和工作量估算分别注明，各阶段不重复累计。",
+          "Each tool/API-equivalent item states its historical, usage-based or workload-estimated basis. Stages are not counted twice."
+        ],
+        "rate_assumptions": {
+          "gpt-6-astra": {
+            "input": 10,
+            "cache_read": 1,
+            "cache_write": 12.5,
+            "output": 50,
+            "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+          },
+          "claude-opus-5": {
+            "input": 5,
+            "cache_read": 0.5,
+            "cache_write_5m": 6.25,
+            "cache_write_1h": 10,
+            "output": 25,
+            "source": "https://platform.claude.com/docs/en/models/opus-5/overview"
+          }
+        },
+        "fx_assumption": {
+          "date": "2026-09-22",
+          "usd_per_aud": 0.7123,
+          "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+        }
+      }
+    },
+    {
+      "name": "martin no blank budget rows",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin current before historical",
+      "status": "PASS"
+    },
+    {
+      "name": "martin four R5 metric cards",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin guide zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin current before historical",
+      "status": "PASS"
+    },
+    {
+      "name": "martin four R5 metric cards",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin guide en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "martin HUB width 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "martin HUB width 768",
+      "status": "PASS"
+    },
+    {
+      "name": "martin HUB width 390",
+      "status": "PASS"
+    },
+    {
+      "name": "trio complete budget sum",
+      "status": "PASS",
+      "detail": {
+        "budget_aud": 150,
+        "api_equivalent_aud": 40.22,
+        "range": [
+          23.65,
+          65.79
+        ],
+        "items": [
+          {
+            "title": [
+              "9/17 原 Adventure World 完整制作",
+              "17 Sep original Adventure World production"
+            ],
+            "aud": 8,
+            "range": [
+              5,
+              12
+            ],
+            "note": [
+              "直接合并上周 HUB 的 A$8（A$5–12），覆盖实现、操作修订和主线复核；Git 5a1db9d → aac8dc3 → 392ed68。",
+              "Directly incorporates the earlier HUB A$8 estimate (A$5–12), covering implementation, controls and core review; Git 5a1db9d → aac8dc3 → 392ed68."
+            ]
+          },
+          {
+            "title": [
+              "9/23 上周作品 HUB 与预算整理",
+              "23 Sep earlier project HUB and budget"
+            ],
+            "aud": 3,
+            "range": [
+              1,
+              6
+            ],
+            "note": [
+              "旧账本 A$8 只覆盖 9/17 制作；另计前次 HUB 整理，避免漏项。",
+              "The old A$8 covers 17 Sep production only; prior HUB preparation is added separately, not double-counted."
+            ]
+          },
+          {
+            "title": [
+              "9/24 Astra 云间奇遇（含 HUD 修复）",
+              "24 Sep Astra Skyvale, including HUD repair"
+            ],
+            "aud": 7.3,
+            "range": [
+              5.11,
+              9.49
+            ],
+            "note": [
+              "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+              "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+            ]
+          },
+          {
+            "title": [
+              "9/24 Opus 三人同乐世界（含触屏修订）",
+              "24 Sep Opus Trio World, including touch revision"
+            ],
+            "aud": 7.92,
+            "range": [
+              5.54,
+              10.3
+            ],
+            "note": [
+              "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+              "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+            ]
+          },
+          {
+            "title": [
+              "前轮归档、课堂记录与展示",
+              "Previous archive, classroom records and showcase"
+            ],
+            "aud": 4,
+            "range": [
+              2,
+              8
+            ],
+            "note": [
+              "未计量主控的项目分摊工作量预估。",
+              "Project allocation for the unmetered controller pass."
+            ]
+          },
+          {
+            "title": [
+              "R6 两分支单机、双语、原生 HUB 与 QA",
+              "R6 two-branch solo, language, native HUB and QA"
+            ],
+            "aud": 10,
+            "range": [
+              5,
+              20
+            ],
+            "note": [
+              "覆盖本轮适配和测试预估；两分支都计入，没有把未选分支当零。",
+              "Covers the current adaptation/test estimate for both branches; unselected work is not treated as zero."
+            ]
+          }
+        ],
+        "total_tokens": 6652898,
+        "method": [
+          "所有条目采用工具/API 等值；历史值、用量折价和工作量估算分别注明，各阶段不重复累计。",
+          "Each tool/API-equivalent item states its historical, usage-based or workload-estimated basis. Stages are not counted twice."
+        ],
+        "rate_assumptions": {
+          "gpt-6-astra": {
+            "input": 10,
+            "cache_read": 1,
+            "cache_write": 12.5,
+            "output": 50,
+            "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+          },
+          "claude-opus-5": {
+            "input": 5,
+            "cache_read": 0.5,
+            "cache_write_5m": 6.25,
+            "cache_write_1h": 10,
+            "output": 25,
+            "source": "https://platform.claude.com/docs/en/models/opus-5/overview"
+          }
+        },
+        "fx_assumption": {
+          "date": "2026-09-22",
+          "usd_per_aud": 0.7123,
+          "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+        }
+      }
+    },
+    {
+      "name": "trio no blank budget rows",
+      "status": "PASS"
+    },
+    {
+      "name": "Prior Adventure World cost imported",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio current before historical",
+      "status": "PASS"
+    },
+    {
+      "name": "trio four R5 metric cards",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio guide zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review zh-CN native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio current before historical",
+      "status": "PASS"
+    },
+    {
+      "name": "trio four R5 metric cards",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio guide en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review en native layout",
+      "status": "PASS"
+    },
+    {
+      "name": "trio HUB width 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "trio HUB width 768",
+      "status": "PASS"
+    },
+    {
+      "name": "trio HUB width 390",
+      "status": "PASS"
+    },
+    {
+      "name": "Reviewer drafts are separate",
+      "status": "PASS"
+    },
+    {
+      "name": "Reviewer draft restored",
+      "status": "PASS"
+    },
+    {
+      "name": "Feedback JSON export",
+      "status": "PASS"
+    },
+    {
+      "name": "All local links and assets",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "No HUB runtime errors",
+      "status": "PASS",
+      "detail": []
+    }
+  ],
+  "failures": [],
+  "screens": [
+    "martin-v2-zh-CN.png",
+    "martin-v2-en.png",
+    "martin-v1-zh-CN.png",
+    "martin-v1-en.png",
+    "skyvale-zh-CN.png",
+    "skyvale-en.png",
+    "opus-zh-CN.png",
+    "opus-en.png",
+    "aw-v1-zh-CN.png",
+    "aw-v1-en.png",
+    "martin-hub-desktop.png",
+    "martin-hub-tablet.png",
+    "trio-hub-desktop.png",
+    "trio-hub-tablet.png"
+  ],
+  "physical_ipad": false,
+  "scope": "Native R5-derived HUBs, consolidated budgets, direct browser solo, language, local saves, pause and navigation. Not a physical-device or full Martin boss campaign certification.",
+  "finished": "2026-09-24T15:50:32.490Z",
+  "status": "PASS"
+}

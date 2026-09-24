@@ -1,0 +1,1362 @@
+{
+  "release": "2026.09-r6",
+  "classDate": "2026-09-24",
+  "projects": {
+    "trio": {
+      "id": "trio",
+      "name": "Joey · Mia · Chloe",
+      "title": [
+        "三人共创：同一个世界，一起玩",
+        "Three creators, one shared world"
+      ],
+      "heroTitle": [
+        "三片天地，一个家<br><em>现在，一个人也能探索</em>",
+        "Three zones, one home<br><em>Now ready to explore solo</em>"
+      ],
+      "intro": [
+        "从旧乐园的试玩出发，孩子们提出可复现的问题，再把想法对齐成大厅、乐园、野外和农场。两条 3D 分支都保留，不提前宣布谁获胜。",
+        "Start with the old park, describe reproducible problems, then align a lobby, park, wilderness and farm. Both 3D branches are retained for review; neither is declared a winner."
+      ],
+      "hero": "assets/skyvale-hud.png",
+      "theme": "forest",
+      "budget": 150,
+      "people_names": [
+        "Joey",
+        "Mia",
+        "Chloe"
+      ],
+      "cost": {
+        "budget_aud": 150,
+        "api_equivalent_aud": 40.22,
+        "range": [
+          23.65,
+          65.79
+        ],
+        "items": [
+          {
+            "title": [
+              "9/17 原 Adventure World 完整制作",
+              "17 Sep original Adventure World production"
+            ],
+            "aud": 8,
+            "range": [
+              5,
+              12
+            ],
+            "note": [
+              "直接合并上周 HUB 的 A$8（A$5–12），覆盖实现、操作修订和主线复核；Git 5a1db9d → aac8dc3 → 392ed68。",
+              "Directly incorporates the earlier HUB A$8 estimate (A$5–12), covering implementation, controls and core review; Git 5a1db9d → aac8dc3 → 392ed68."
+            ]
+          },
+          {
+            "title": [
+              "9/23 上周作品 HUB 与预算整理",
+              "23 Sep earlier project HUB and budget"
+            ],
+            "aud": 3,
+            "range": [
+              1,
+              6
+            ],
+            "note": [
+              "旧账本 A$8 只覆盖 9/17 制作；另计前次 HUB 整理，避免漏项。",
+              "The old A$8 covers 17 Sep production only; prior HUB preparation is added separately, not double-counted."
+            ]
+          },
+          {
+            "title": [
+              "9/24 Astra 云间奇遇（含 HUD 修复）",
+              "24 Sep Astra Skyvale, including HUD repair"
+            ],
+            "aud": 7.3,
+            "range": [
+              5.11,
+              9.49
+            ],
+            "note": [
+              "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+              "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+            ]
+          },
+          {
+            "title": [
+              "9/24 Opus 三人同乐世界（含触屏修订）",
+              "24 Sep Opus Trio World, including touch revision"
+            ],
+            "aud": 7.92,
+            "range": [
+              5.54,
+              10.3
+            ],
+            "note": [
+              "已回收用量 × 仓库历史费率/汇率；价格敏感性 ±30%，非实时账单。",
+              "Recovered usage × historical repository rates/FX; ±30% price sensitivity, not a live bill."
+            ]
+          },
+          {
+            "title": [
+              "前轮归档、课堂记录与展示",
+              "Previous archive, classroom records and showcase"
+            ],
+            "aud": 4,
+            "range": [
+              2,
+              8
+            ],
+            "note": [
+              "未计量主控的项目分摊工作量预估。",
+              "Project allocation for the unmetered controller pass."
+            ]
+          },
+          {
+            "title": [
+              "R6 两分支单机、双语、原生 HUB 与 QA",
+              "R6 two-branch solo, language, native HUB and QA"
+            ],
+            "aud": 10,
+            "range": [
+              5,
+              20
+            ],
+            "note": [
+              "覆盖本轮适配和测试预估；两分支都计入，没有把未选分支当零。",
+              "Covers the current adaptation/test estimate for both branches; unselected work is not treated as zero."
+            ]
+          }
+        ],
+        "total_tokens": 6652898,
+        "method": [
+          "所有条目采用工具/API 等值；历史值、用量折价和工作量估算分别注明，各阶段不重复累计。",
+          "Each tool/API-equivalent item states its historical, usage-based or workload-estimated basis. Stages are not counted twice."
+        ],
+        "rate_assumptions": {
+          "gpt-6-astra": {
+            "input": 10,
+            "cache_read": 1,
+            "cache_write": 12.5,
+            "output": 50,
+            "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+          },
+          "claude-opus-5": {
+            "input": 5,
+            "cache_read": 0.5,
+            "cache_write_5m": 6.25,
+            "cache_write_1h": 10,
+            "output": 25,
+            "source": "https://platform.claude.com/docs/en/models/opus-5/overview"
+          }
+        },
+        "fx_assumption": {
+          "date": "2026-09-22",
+          "usd_per_aud": 0.7123,
+          "source": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+        }
+      },
+      "human": {
+        "hours_range": [
+          46,
+          81
+        ],
+        "hours_mid": 63.5,
+        "aud_range": [
+          2918.24,
+          5138.64
+        ],
+        "aud_mid": 4028.44,
+        "scope": [
+          "估算重建一套具备当前共同范围的 3D 原型及 HUB；不把两种模型的历史工作机械相加。",
+          "Estimate one 3D prototype with the shared current scope plus HUB, not a mechanical sum of both model histories."
+        ]
+      },
+      "human_tasks": [
+        {
+          "task": [
+            "需求与任务链",
+            "Requirements and quest loop"
+          ],
+          "range": [
+            4,
+            7
+          ]
+        },
+        {
+          "task": [
+            "大厅、三区和角色",
+            "Lobby, zones and characters"
+          ],
+          "range": [
+            10,
+            18
+          ]
+        },
+        {
+          "task": [
+            "互动、资源和反馈",
+            "Interactions, resources and feedback"
+          ],
+          "range": [
+            8,
+            14
+          ]
+        },
+        {
+          "task": [
+            "共享状态与连接",
+            "Shared state and networking"
+          ],
+          "range": [
+            6,
+            10
+          ]
+        },
+        {
+          "task": [
+            "触屏与可视区",
+            "Touch and viewport"
+          ],
+          "range": [
+            4,
+            8
+          ]
+        },
+        {
+          "task": [
+            "测试、HUB 与打包",
+            "Tests, HUB and packaging"
+          ],
+          "range": [
+            6,
+            10
+          ]
+        },
+        {
+          "task": [
+            "本轮双语、单机适配与回归",
+            "This pass: bilingual, solo adaptation and regression"
+          ],
+          "range": [
+            8,
+            14
+          ]
+        }
+      ],
+      "efficiency": {
+        "stage": [
+          "9/24 新原型阶段",
+          "24 Sep new prototypes"
+        ],
+        "manual_hours_range": [
+          30,
+          50
+        ],
+        "manual_hours_mid": 40.0,
+        "manual_aud_mid": 2537.6,
+        "elapsed_seconds": 1560,
+        "elapsed_display": "26m 0s",
+        "tool_cost_aud": 15.22,
+        "time_ratio_mid": 92.3076923076923,
+        "time_ratio_range": [
+          69.23076923076923,
+          115.38461538461539
+        ],
+        "cost_ratio_mid": 166.72798948751642,
+        "cost_ratio_range": [
+          125.04599211563732,
+          208.40998685939556
+        ],
+        "note": [
+          "只比较 9/24 新原型阶段，人工为规划估算，费用使用历史费率假设。并行窗口取联合跨度，不把并行时长相加；不是全项目成本节省。",
+          "Only the 24 Sep prototype stage is compared. Labour is estimated; tools use historical-rate assumptions. Parallel work uses a joint elapsed window, not summed durations; this is not total-project savings."
+        ]
+      },
+      "branches": [
+        {
+          "key": "skyvale-hud1",
+          "name": [
+            "Astra · 云间奇遇单人版",
+            "Astra · Skyvale solo"
+          ],
+          "tag": [
+            "最新 R6 · 单机双语",
+            "Latest R6 · solo bilingual"
+          ],
+          "tool": "Astra",
+          "release": [
+            "当前单机修订 R6",
+            "Current solo revision R6"
+          ],
+          "subtitle": [
+            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
+            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
+          ],
+          "strength": [
+            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
+            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
+          ],
+          "limit": [
+            "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+            "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+          ],
+          "detail": [
+            "原课堂版记录：仍需真实三 iPad 修复后复测。房间存于内存；普通 Pages 无法运行它的 WebSocket 服务。",
+            "Original classroom record: Needs post-fix testing on three physical iPads. Room state is memory-only; ordinary Pages cannot host its WebSocket service."
+          ],
+          "path": "../solo-skyvale/",
+          "image": "assets/skyvale-hud.png",
+          "tokens": 2376325,
+          "aud": 7.3,
+          "legacy": false,
+          "status": "retained",
+          "scores": null
+        },
+        {
+          "key": "opus-touch",
+          "name": [
+            "Opus · 三人同乐世界单人版",
+            "Opus · Trio World solo"
+          ],
+          "tag": [
+            "最新 R6 · 单机双语",
+            "Latest R6 · solo bilingual"
+          ],
+          "tool": "Opus",
+          "release": [
+            "当前单机修订 R6",
+            "Current solo revision R6"
+          ],
+          "subtitle": [
+            "大厅与三区、三种能力、五套外观、天气、采集、喂养和五阶段小屋，完整保留在单人试玩中。",
+            "Lobby, three zones, powers, five appearances, weather, collection, feeding and the five-stage cabin are retained in solo play."
+          ],
+          "strength": [
+            "大厅与三区、三种能力、五套外观、天气、采集、喂养和五阶段小屋，完整保留在单人试玩中。",
+            "Lobby, three zones, powers, five appearances, weather, collection, feeding and the five-stage cabin are retained in solo play."
+          ],
+          "limit": [
+            "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+            "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+          ],
+          "detail": [
+            "原课堂版记录：原交付先漏了无键盘条件；仅有模拟触屏与两标签同步记录，不等于三 iPad 验收。",
+            "Original classroom record: Initial delivery omitted the no-keyboard constraint. Simulated touch and two-tab checks are not three-iPad acceptance."
+          ],
+          "path": "../solo-trio/",
+          "image": "assets/trio-opus.png",
+          "tokens": 4276573,
+          "aud": 7.92,
+          "legacy": false,
+          "status": "retained",
+          "scores": null
+        },
+        {
+          "key": "aw-v1",
+          "name": [
+            "Adventure World · 原单机",
+            "Adventure World · original solo"
+          ],
+          "tag": [
+            "历史对照 · R6 单机包装",
+            "Historical comparison · R6 solo"
+          ],
+          "tool": "Historical / GLM recalled",
+          "release": [
+            "历史游戏 · 当前试玩适配",
+            "Historical game · current play adapter"
+          ],
+          "subtitle": [
+            "孩子喜欢超能力、角色切换、声音反馈和喂狗/拾取。",
+            "Children liked powers, character switching, sound feedback, feeding the puppy and collecting."
+          ],
+          "strength": [
+            "孩子喜欢超能力、角色切换、声音反馈和喂狗/拾取。",
+            "Children liked powers, character switching, sound feedback, feeding the puppy and collecting."
+          ],
+          "limit": [
+            "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+            "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+          ],
+          "detail": [
+            "原课堂版记录：课堂报告摇杆粘住、双击缩放与夜间目标不清；本轮不冒称已修好原版。",
+            "Original classroom record: The class reported stuck joystick input, double-tap zoom and unclear night goals. This archive does not claim those old-build issues are fixed."
+          ],
+          "path": "../home-v1/",
+          "image": "assets/adventure-world.webp",
+          "tokens": null,
+          "aud": 8,
+          "legacy": true,
+          "status": "retained",
+          "scores": null
+        }
+      ],
+      "learning": [
+        {
+          "title": [
+            "先说证据，不只说“好玩/不好玩”",
+            "Give evidence, not just “good/bad”"
+          ],
+          "practice": [
+            "轮流说不同意见，举出喜欢的音效和互动，描述摇杆、缩放与夜游卡点。",
+            "Take turns with distinct feedback, naming sounds/interactions and joystick, zoom and night-goal problems."
+          ],
+          "knowledge": [
+            "用户测试关注完成目标的实际障碍，不只看功能数量。",
+            "Usability testing examines real obstacles to goals, not just feature counts."
+          ],
+          "expression": [
+            "“我在……做……，预期……，实际……；所以希望……”",
+            "“At … I did …; I expected … but saw …; therefore I suggest …”"
+          ],
+          "level": [
+            "有课堂实践证据",
+            "Observed classroom practice"
+          ]
+        },
+        {
+          "title": [
+            "把使用设备放进需求",
+            "Include the real device in the requirement"
+          ],
+          "practice": [
+            "从“做多人游戏”补充到“大家都用 iPad，没有键盘”。",
+            "Refine “multiplayer game” to “everyone uses an iPad with no keyboard”."
+          ],
+          "knowledge": [
+            "功能完整不等于可用；输入方式、可视区和多人条件属于验收条件。",
+            "Feature completeness is not usability; input, viewport and networking belong in acceptance criteria."
+          ],
+          "expression": [
+            "“谁用、在哪台设备、没有什么、必须完成什么动作。”",
+            "“Who uses it, on which device, without what, and which action must work.”"
+          ],
+          "level": [
+            "原始反馈可核验；补充发生在返工阶段",
+            "Verified feedback, added during rework"
+          ]
+        },
+        {
+          "title": [
+            "让 AI 复述，再授权",
+            "Ask the AI to restate before authorizing"
+          ],
+          "practice": [
+            "世界结构、三人同服、首版重点和不做项被复述后，教师给出开发指令。",
+            "The world, shared play, priorities and exclusions are restated before the teacher authorizes development."
+          ],
+          "knowledge": [
+            "需求对齐与版本范围：确认结果和边界，而非只确认模型听见了。",
+            "Alignment and scope: confirm the intended result and boundaries, not merely that the model heard you."
+          ],
+          "expression": [
+            "“请按你的理解复述：目标、场景、规则、不做项和怎样证明完成。”",
+            "“Restate the goal, scene, rules, exclusions and evidence of completion.”"
+          ],
+          "level": [
+            "课堂实际采用",
+            "Used in the lesson"
+          ]
+        },
+        {
+          "title": [
+            "聊天需要轮次和停顿",
+            "Conversation needs turns and pauses"
+          ],
+          "practice": [
+            "教师要求听清别人、避免重复，并给 AI 一个可以回应的停顿。",
+            "The teacher asks students to listen, avoid repetition and leave a pause for the AI to respond."
+          ],
+          "knowledge": [
+            "多人协作中的信息分工：一次讲清一个完整意图，减少重叠和漏听。",
+            "Collaborative communication: state one complete intention at a time to reduce overlap and omissions."
+          ],
+          "expression": [
+            "“我补充一个不同的点……说完了，请你复述。”",
+            "“I have one different point … that is all; please restate it.”"
+          ],
+          "level": [
+            "已练习；不推断每人已熟练掌握",
+            "Practised; individual mastery not inferred"
+          ]
+        },
+        {
+          "title": [
+            "单机、联机和展示托管是三件事",
+            "Solo play, networking and hosting differ"
+          ],
+          "practice": [
+            "旧版三人共创但各自单机；新版本需要服务端共享世界；GitHub 保存源码与展示。",
+            "The old co-created game is solo; new builds need a shared server; GitHub stores code and the showcase."
+          ],
+          "knowledge": [
+            "客户端负责交互/渲染，服务端负责共享状态；Pages 静态页面不等于 WebSocket 服务。",
+            "Clients handle input/rendering; the server handles shared state. A static Pages site is not a WebSocket server."
+          ],
+          "expression": [
+            "“这个状态只在我的设备上，还是大家共享？服务器关了会怎样？”",
+            "“Is this state local or shared? What happens if the server stops?”"
+          ],
+          "level": [
+            "课堂现象＋实现记录的工程复盘",
+            "Retrospective grounded in class experience and code"
+          ]
+        },
+        {
+          "title": [
+            "HUD 修复要验证边界",
+            "A HUD fix needs boundary checks"
+          ],
+          "practice": [
+            "以 Joey 的设备现象为起点，对比修复前后按钮是否处于可见区域并可命中。",
+            "Start with Joey’s report and compare whether controls are inside the visible area and hittable."
+          ],
+          "knowledge": [
+            "布局视口不一定等于实际可视区；浏览器工具栏、旋转和键盘都可能改变边界。",
+            "The layout viewport may differ from the visible viewport; browser bars, rotation and keyboards can change bounds."
+          ],
+          "expression": [
+            "“哪台设备、哪个方向、哪块控件、边界在哪里、修完后怎样复测？”",
+            "“Which device/orientation/control/boundary, and how will we retest the fix?”"
+          ],
+          "level": [
+            "教师现场命名；深入原理由代码与测试补充",
+            "Term introduced in class; deeper explanation comes from code/tests"
+          ]
+        }
+      ],
+      "questions": [
+        [
+          "三个人各开一个网页，为什么不一定是联机？",
+          "Why are three open webpages not necessarily multiplayer?"
+        ],
+        [
+          "请用“设备→动作→预期→实际”再报告一个问题。",
+          "Report one issue as device → action → expected → actual."
+        ],
+        [
+          "两版各有哪一点值得保留？你怎样验证，而不是凭模型名字决定？",
+          "What is worth keeping from each build, and how would you test it without judging by the model’s name?"
+        ]
+      ],
+      "requirements": [
+        [
+          [
+            "三个人真的在同一个世界",
+            "Three people in the same world"
+          ],
+          [
+            "不是三个设备各自单机；第三人称 3D、类似 Roblox 的可见同伴和共享结果。",
+            "Not three independent games: third-person 3D with visible peers and shared outcomes."
+          ]
+        ],
+        [
+          [
+            "大厅连接三种体验",
+            "A lobby links three experiences"
+          ],
+          [
+            "主题乐园保留超能力、换角色、声音；野外有果树、篝火和天气；农场喂动物、收产品、建小屋。",
+            "Powers, appearance changes and sound in the park; fruit, fire and weather outdoors; feeding, produce and a cabin on the farm."
+          ]
+        ],
+        [
+          [
+            "好看、好玩，而且会玩",
+            "Looks good, feels good, makes sense"
+          ],
+          [
+            "操作顺、不掉链子、任务指引清楚；首版不做灾难系统和自由抓取/编辑。",
+            "Smooth reliable controls and clear guidance; disasters and unrestricted grabbing/editing are deferred."
+          ]
+        ],
+        [
+          [
+            "大家都在用 iPad，没有键盘",
+            "Everyone is on iPad, without keyboards"
+          ],
+          [
+            "Opus 首版交付后再次明确这一条件；Joey 在蓝色 iPad 上具体报告底部 HUD 不完整。",
+            "The condition was reiterated after the Opus delivery. Joey specifically reported clipped bottom HUD controls on the blue iPad."
+          ]
+        ]
+      ],
+      "journey": [
+        {
+          "id": "old-0",
+          "date": "2026-09-10",
+          "title": [
+            "孩子们描述自己的乐园",
+            "The children imagine their park"
+          ],
+          "summary": [
+            "汇总水上乐园、动物园、小狗、飞行、隐形与夜间手电线索。未核实每项点子具体由谁提出，因此只记三人共创。",
+            "Waterpark, zoo, puppy, flight, invisibility and torch-lit night clues. Individual attribution is unverified, so these remain shared ideas."
+          ],
+          "brief": [
+            "汇总水上乐园、动物园、小狗、飞行、隐形与夜间手电线索。未核实每项点子具体由谁提出，因此只记三人共创。",
+            "Waterpark, zoo, puppy, flight, invisibility and torch-lit night clues. Individual attribution is unverified, so these remain shared ideas."
+          ],
+          "tool": [
+            "课堂交流 → 老师归纳 → 后续历史摘要；并非完整逐字稿。",
+            "Classroom discussion → teacher synthesis → later historical summary, not a verbatim transcript."
+          ],
+          "tech": [
+            "此节点是需求，不是代码已完成的证据。",
+            "This records requirements, not completed code."
+          ],
+          "result": [
+            "确定免费、温和探索的世界方向。",
+            "Established a free, gentle exploration world."
+          ],
+          "source": "S1",
+          "status": "done"
+        },
+        {
+          "id": "old-1",
+          "date": "2026-09-17",
+          "title": [
+            "把共创想法变成 Spec v1.0",
+            "Turn shared ideas into Spec v1.0"
+          ],
+          "summary": [
+            "三枚印章、三条线索、三种外观和星灯结局用于组织可玩闭环，是设计补充，不冒充孩子原话。",
+            "Three stamps, three clues, three avatar looks and a star-light finale organize a playable loop; these are design additions, not invented student quotes."
+          ],
+          "brief": [
+            "三枚印章、三条线索、三种外观和星灯结局用于组织可玩闭环，是设计补充，不冒充孩子原话。",
+            "Three stamps, three clues, three avatar looks and a star-light finale organize a playable loop; these are design additions, not invented student quotes."
+          ],
+          "tool": [
+            "整理要求 → 明确不做项 → 规格与验收条件。该次任务只制作 Spec。",
+            "Organize requirements → define exclusions → write specification and acceptance criteria. That task produced the spec only."
+          ],
+          "tech": [
+            "选择静态 Canvas 2D / 2.5D 浏览器游戏；单机、键盘和触屏、英语与简体中文。",
+            "Static Canvas 2D / 2.5D browser game; solo, keyboard/touch, English and Simplified Chinese."
+          ],
+          "result": [
+            "SPEC_READY 是编制时状态，不代表今天仍未开发。",
+            "SPEC_READY was the status at authoring time, not today’s implementation status."
+          ],
+          "source": "S1",
+          "status": "done"
+        },
+        {
+          "id": "old-2",
+          "date": "2026-09-17",
+          "title": [
+            "生成实际游戏与模块",
+            "Implement the playable game"
+          ],
+          "summary": [
+            "把乐园、活动和昼夜线索连接起来，不用页面按钮冒充游戏。",
+            "Connect park areas, activities and day/night clues into a game, rather than disconnected menu pages."
+          ],
+          "brief": [
+            "把乐园、活动和昼夜线索连接起来，不用页面按钮冒充游戏。",
+            "Connect park areas, activities and day/night clues into a game, rather than disconnected menu pages."
+          ],
+          "tool": [
+            "Git 记录全游戏、测试与素材实现。具体模型和逐请求 Token 回执尚未核实，不从提交作者猜测。",
+            "Git records the full game, tests and assets. Exact model and per-request token receipts are unverified; commit authors do not establish model identity."
+          ],
+          "tech": [
+            "JavaScript 模块分离状态、碰撞、任务、小狗、输入、存档、绘制和音效。",
+            "JavaScript modules separate state, collision, quests, puppy, input, saves, rendering and audio."
+          ],
+          "result": [
+            "实现提交 5a1db9d；后续测试与修订继续保留。",
+            "Implementation commit 5a1db9d, followed by reviews and refinements."
+          ],
+          "source": "S2",
+          "status": "done"
+        },
+        {
+          "id": "old-3",
+          "date": "2026-09-17",
+          "title": [
+            "点击移动与离线入口",
+            "Tap-to-move and the offline entry"
+          ],
+          "summary": [
+            "降低操作门槛：点地面移动、点击交互提示；补屏幕操作说明。",
+            "Lower the control barrier with ground taps, clickable interaction prompts and on-screen instructions."
+          ],
+          "brief": [
+            "降低操作门槛：点地面移动、点击交互提示；补屏幕操作说明。",
+            "Lower the control barrier with ground taps, clickable interaction prompts and on-screen instructions."
+          ],
+          "tool": [
+            "提交 aac8dc3 增加操作和 bundle；392ed68 整理仓库依赖，不是一套新游戏。",
+            "Commit aac8dc3 adds controls and a bundle; 392ed68 cleans repository dependencies, not a different game."
+          ],
+          "tech": [
+            "src/data → 构建脚本 → 单文件 bundle.js；运行时不依赖 Node 或在线模型。",
+            "src/data → build script → standalone bundle.js; the game does not require Node or an online model at runtime."
+          ],
+          "result": [
+            "已有游戏支持直接浏览器运行；核心任务方向未改变。",
+            "The existing game can run in the browser without changing the core quest direction."
+          ],
+          "source": "S3",
+          "status": "done"
+        },
+        {
+          "id": "old-4",
+          "date": "2026-09-17",
+          "title": [
+            "独立主线复核与三项跟进",
+            "Independent core review and three follow-ups"
+          ],
+          "summary": [
+            "通过真实输入完成滑梯、动物园、小狗、夜游线索和星灯结局。中文与触屏不能因核心通关而自动通过。",
+            "Real-input checks cover the slide, zoo, puppy, night clues and finale. A core pass does not automatically certify language or touch quality."
+          ],
+          "brief": [
+            "通过真实输入完成滑梯、动物园、小狗、夜游线索和星灯结局。中文与触屏不能因核心通关而自动通过。",
+            "Real-input checks cover the slide, zoo, puppy, night clues and finale. A core pass does not automatically certify language or touch quality."
+          ],
+          "tool": [
+            "记录中的 Chromium 主线无传送、无胜利状态注入；另有 WebKit 触屏冒烟和单元测试 10/10。",
+            "The recorded Chromium run used no teleport or injected victory state. Separate WebKit touch smoke checks and 10/10 unit tests are documented."
+          ],
+          "tech": [
+            "旧测试中的坐标夹具单列；增加真实路径证据，并验证 bundle 与源码一致。",
+            "Older coordinate fixtures remain a separate test category; real-route evidence and bundle/source consistency were added."
+          ],
+          "result": [
+            "PASS_CORE / ACCEPT_WITH_FOLLOWUPS；AW-01 中文、AW-02 触屏、AW-03 可重复主线仍有跟进。",
+            "PASS_CORE / ACCEPT_WITH_FOLLOWUPS, with AW-01 language, AW-02 touch and AW-03 reproducible-route follow-ups."
+          ],
+          "source": "S4",
+          "status": "done"
+        },
+        {
+          "id": "old-5",
+          "date": "2026-09-18—19",
+          "title": [
+            "区分文档回退与游戏版本",
+            "Separate documentation rollback from gameplay"
+          ],
+          "summary": [
+            "历史中出现文档归档及其回退，不能据此断言游戏重新开发或已经丢失。",
+            "The history contains a documentation archive and its revert; that does not establish a gameplay rebuild or loss."
+          ],
+          "brief": [
+            "历史中出现文档归档及其回退，不能据此断言游戏重新开发或已经丢失。",
+            "The history contains a documentation archive and its revert; that does not establish a gameplay rebuild or loss."
+          ],
+          "tool": [
+            "核对当前 Git HEAD、归档/回退提交与运行文件指纹。",
+            "Checked current Git HEAD, archive/revert commits and runtime file fingerprints."
+          ],
+          "tech": [
+            "当前源仓库 HEAD 为 90a9d48；公开试玩 bundle 的 Git blob 与该仓库一致。",
+            "Source HEAD is 90a9d48; the published playable bundle has the same Git blob as the source repository."
+          ],
+          "result": [
+            "继续使用已核验核心基线，不把较新的文档提交当作更高游戏版号。",
+            "Continue the reviewed core baseline; a newer documentation commit is not a higher gameplay release."
+          ],
+          "source": "S5",
+          "status": "done"
+        },
+        {
+          "id": "old-6",
+          "date": "2026-09-23",
+          "title": [
+            "R5 HUB 与独立测评记录",
+            "R5 HUB and individual playtest records"
+          ],
+          "summary": [
+            "接入老师锁定的 R5，呈现共创过程、预算、已知问题；让每位孩子从 HUB 试玩并写报告。",
+            "Apply the teacher-approved R5, showing shared ideas, budget and known issues; let each child play from the HUB and write a report."
+          ],
+          "brief": [
+            "接入老师锁定的 R5，呈现共创过程、预算、已知问题；让每位孩子从 HUB 试玩并写报告。",
+            "Apply the teacher-approved R5, showing shared ideas, budget and known issues; let each child play from the HUB and write a report."
+          ],
+          "tool": [
+            "读取 Git 与交接单 → 校验 R5 → 制作独立 HUB 和游戏入口 → 检查表单、布局与导出。",
+            "Read Git and handoff → verify R5 → create a separate HUB and game entry → check forms, layout and exports."
+          ],
+          "tech": [
+            "复用锁定的 R5 视觉样式；新增本机独立草稿、结构化报告与 ZIP 打包，不接入外部收费服务。",
+            "Reuse locked R5 styling; add separate local drafts, structured reports and ZIP packaging without an external paid service."
+          ],
+          "result": [
+            "原游戏 index 与 bundle 保留；新的 play 入口只加课堂工具栏和安全区。HUB 版本号不代表新玩法已实现。",
+            "Original index and bundle retained; the new play entry adds a classroom toolbar and safe areas. A HUB release is not a new gameplay feature."
+          ],
+          "source": "S6",
+          "status": "done"
+        },
+        {
+          "id": "old-7",
+          "date": "2026-09-24",
+          "title": [
+            "儿童实机测评 → 下一轮决定",
+            "Children’s device test → next decision"
+          ],
+          "summary": [
+            "Joey、Mia、Chloe 各填写自己的体验，提出一个功能并说明原因。未预填评价或成绩。",
+            "Joey, Mia and Chloe each record their experience and propose one feature with a reason. No reviews or scores are pre-filled."
+          ],
+          "brief": [
+            "Joey、Mia、Chloe 各填写自己的体验，提出一个功能并说明原因。未预填评价或成绩。",
+            "Joey, Mia and Chloe each record their experience and propose one feature with a reason. No reviews or scores are pre-filled."
+          ],
+          "tool": [
+            "试玩 → 保存报告 → 导出交给老师 → 老师核对，再确定修改范围。",
+            "Play → save a report → export it for the teacher → verify and choose a change."
+          ],
+          "tech": [
+            "本机报告不自动跨 iPad 同步；老师可导入各设备 JSON 汇总。未来功能不自动进入开发。",
+            "Reports do not automatically sync across iPads; the teacher can import their JSON files. Feature ideas do not automatically trigger development."
+          ],
+          "result": [
+            "计划中：真实 iPad、儿童反馈和最终版本仍待确认。",
+            "Planned: physical-iPad results, child feedback and the final build are not yet confirmed."
+          ],
+          "source": "S7",
+          "status": "done"
+        },
+        {
+          "id": "source-1",
+          "date": "2026-09-24 · 17:46–18:08",
+          "title": [
+            "先试玩，再逐个说不同意见",
+            "Play first, then contribute distinct feedback"
+          ],
+          "summary": [
+            "每人说不同的优点/问题，认真听前一个人；指出操作、位置和失败表现。课堂记录未有人完成旧版。",
+            "Each child contributes a distinct strength/problem, listens, and describes the action, location and failure. No completion was reported in that playtest."
+          ],
+          "brief": [
+            "每人说不同的优点/问题，认真听前一个人；指出操作、位置和失败表现。课堂记录未有人完成旧版。",
+            "Each child contributes a distinct strength/problem, listens, and describes the action, location and failure. No completion was reported in that playtest."
+          ],
+          "tool": [
+            "单机核验→儿童试玩→口头评测→AI 汇总",
+            "Solo audit → children play → spoken review → AI synthesis"
+          ],
+          "tech": [
+            "10/10 规则测试不等于儿童能够通关；夜间自动路径有失败，根因不能仅凭猜测。",
+            "10/10 rule tests do not prove children can finish. A night-route automation failed without establishing a definitive root cause."
+          ],
+          "result": [
+            "保留喜欢的能力/反馈，把触控和目标清晰度列为新版本核心。",
+            "Keep powers/feedback and make controls and clear goals priorities."
+          ],
+          "source": "T-CHAT",
+          "status": "done"
+        },
+        {
+          "id": "source-2",
+          "date": "2026-09-24 · 18:20–18:24",
+          "title": [
+            "同一份需求，两条独立实现",
+            "One aligned brief, two independent builds"
+          ],
+          "summary": [
+            "确认不是修旧版，而是从零做第三人称 3D 共享世界；复杂编辑与灾难后置。",
+            "Confirm a fresh shared third-person 3D world instead of patching the old game; defer editing and disasters."
+          ],
+          "brief": [
+            "确认不是修旧版，而是从零做第三人称 3D 共享世界；复杂编辑与灾难后置。",
+            "Confirm a fresh shared third-person 3D world instead of patching the old game; defer editing and disasters."
+          ],
+          "tool": [
+            "AI 复述→教师确认→分别交给 Astra / Opus 实现",
+            "AI restatement → teacher confirmation → independent Astra / Opus implementation"
+          ],
+          "tech": [
+            "共同需求与验收标准可一致，实现方式不必相同。",
+            "Requirements and acceptance can be shared without forcing identical implementations."
+          ],
+          "result": [
+            "版本并列保留，尚无最终淘汰或融合授权。",
+            "Retain both; no final rejection or merge decision is recorded."
+          ],
+          "source": "T-BRIEF",
+          "status": "done"
+        },
+        {
+          "id": "source-3",
+          "date": "2026-09-24 · 18:24–18:39",
+          "title": [
+            "Astra：云间奇遇与三端同步",
+            "Astra: Skyvale and three-client synchronization"
+          ],
+          "summary": [
+            "共享星环、采果、生火、动物产物、三步小屋与大厅庆祝。",
+            "Shared rings, fruit, fire, animal produce, a three-step cabin and lobby celebration."
+          ],
+          "brief": [
+            "共享星环、采果、生火、动物产物、三步小屋与大厅庆祝。",
+            "Shared rings, fruit, fire, animal produce, a three-step cabin and lobby celebration."
+          ],
+          "tool": [
+            "服务端→3D 场景→三条连接流程→独立浏览器→输入发送修复",
+            "Server → 3D scene → three-connection flow → independent browsers → input-transmission fix"
+          ],
+          "tech": [
+            "WebSocket 服务端推进世界；输入定时发送独立于渲染帧，避免慢帧导致移动不同步。",
+            "WebSocket server advances the world; timed input transmission is independent of rendering frames."
+          ],
+          "result": [
+            "网络主线与边界测试通过；真实 iPad 手感当时未验收。",
+            "Network flow/boundary tests passed; physical-iPad feel was not certified."
+          ],
+          "source": "T-SKY",
+          "status": "done"
+        },
+        {
+          "id": "source-4",
+          "date": "2026-09-24 · 18:24–18:45",
+          "title": [
+            "Opus：先桌面，再补无键盘触控",
+            "Opus: desktop first, then keyboard-free touch"
+          ],
+          "summary": [
+            "首次交付只有键鼠，教师明确“我们要用 ipad 玩，没有键盘”；随后加入浮动摇杆、手势视角和触屏按钮。",
+            "The first delivery only had keyboard/mouse. The teacher reiterated iPad/no keyboard; a floating joystick, camera gestures and touch buttons followed."
+          ],
+          "brief": [
+            "首次交付只有键鼠，教师明确“我们要用 ipad 玩，没有键盘”；随后加入浮动摇杆、手势视角和触屏按钮。",
+            "The first delivery only had keyboard/mouse. The teacher reiterated iPad/no keyboard; a floating joystick, camera gestures and touch buttons followed."
+          ],
+          "tool": [
+            "Node/Three.js/ws→双标签共享测试→触控补丁→横竖屏与名单避让",
+            "Node/Three.js/ws → two-tab shared tests → touch patch → orientation and roster spacing"
+          ],
+          "tech": [
+            "采集、喂养与建屋消息广播；前端输入适配不是联机服务本身。",
+            "Messages broadcast collection, feeding and building; adapting input is distinct from networking."
+          ],
+          "result": [
+            "当前触屏文件已回收；初次生成的桌面快照单独保存，明确未经最终 QA。",
+            "Current touch files recovered; the initial desktop write is separately preserved as pre-QA."
+          ],
+          "source": "T-OPUS",
+          "status": "done"
+        },
+        {
+          "id": "source-5",
+          "date": "2026-09-24 · 18:45–18:50",
+          "title": [
+            "Joey 报告 HUD 裁切，补丁有前后证据",
+            "Joey reports HUD clipping; before/after evidence"
+          ],
+          "summary": [
+            "Joey 先报身份和蓝色 iPad，再指出底部选项看不到；教师给这个现象命名为 HUD 显示不全。",
+            "Joey identifies himself and the blue iPad before reporting missing bottom controls; the teacher names the HUD problem."
+          ],
+          "brief": [
+            "Joey 先报身份和蓝色 iPad，再指出底部选项看不到；教师给这个现象命名为 HUD 显示不全。",
+            "Joey identifies himself and the blue iPad before reporting missing bottom controls; the teacher names the HUD problem."
+          ],
+          "tool": [
+            "保存修复前文件→复现可视区缩小→补丁→六尺寸/命中/触控取消测试→线上指纹",
+            "Save old files → reproduce reduced viewport → patch → six-size/hit/cancel tests → live fingerprints"
+          ],
+          "tech": [
+            "VisualViewport、safe-area、动态高度、16px 输入字号、旋转时释放输入。",
+            "VisualViewport, safe-area, dynamic height, 16px inputs and input release during rotation."
+          ],
+          "result": [
+            "修复文件与回归结果已落盘；模拟测试不代替孩子在原 iPad 上确认。",
+            "Patch files and regression evidence exist; simulations do not replace confirmation on the original iPad."
+          ],
+          "source": "T-HUD",
+          "status": "done"
+        },
+        {
+          "id": "r6",
+          "date": "R6 · 2026-09-25",
+          "title": [
+            "从 R5 原生组件升级到 R6 单机作品 HUB",
+            "Native R5 components upgraded to an R6 solo project HUB"
+          ],
+          "summary": [
+            "最新优先、旧版隔开、预算完整合并、保留学习记录。",
+            "Latest first, history separated, complete consolidated budget and learning retained."
+          ],
+          "brief": [
+            "每作品一个入口；每个保留版本可直接单人双语试玩。",
+            "One entrance per work; every exposed edition supports bilingual solo play."
+          ],
+          "tool": [
+            "读 R5 原生组件 → 分离传输和规则 → 双语/暂停/返回 → 浏览器验证 → GitHub",
+            "Read native R5 components → separate rules/transport → language/pause/return → browser checks → GitHub"
+          ],
+          "tech": [
+            "原游戏规则在浏览器运行，独立存档命名空间；暂停冻结逻辑时钟；继承 R5 渲染器组件。",
+            "Original rules run on-device with isolated saves; pause freezes the simulation clock; native R5 components are inherited."
+          ],
+          "result": [
+            "R6 待教师审阅；实体 iPad 完整体验仍需确认。",
+            "R6 awaits teacher review; complete physical-iPad play still needs confirmation."
+          ],
+          "source": "R6",
+          "status": "done"
+        }
+      ],
+      "decision": [
+        "主按钮进入 R6 单人试玩；中英切换、暂停、返回本作品 HUB 均在左栏。原始开发版本独立保留，历史预算与课堂学习已合并于本 HUB。",
+        "Primary buttons open R6 solo play; language, pause and return controls are on the left. Original builds remain preserved; historical budgets and learning are consolidated here."
+      ],
+      "route_title": [
+        "三人共创：同一个世界，一起玩",
+        "Three creators, one shared world"
+      ],
+      "route_start": [
+        "上周需求与制作 → 9/24 试玩与新开发 → R6 双语单机与完整作品记录。",
+        "Earlier requirements/production → 24 Sep playtests/new builds → R6 bilingual solo and complete project records."
+      ],
+      "flow_lanes": [
+        {
+          "id": "r6",
+          "name": [
+            "Astra · 云间奇遇单人版",
+            "Astra · Skyvale solo"
+          ],
+          "state": "retained",
+          "desc": [
+            "原课堂版 → 双语本机规则 → 当前单人试玩。",
+            "Classroom original → bilingual local rules → current solo play."
+          ]
+        },
+        {
+          "id": "r6",
+          "name": [
+            "Opus · 三人同乐世界单人版",
+            "Opus · Trio World solo"
+          ],
+          "state": "retained",
+          "desc": [
+            "原课堂版 → 双语本机规则 → 当前单人试玩。",
+            "Classroom original → bilingual local rules → current solo play."
+          ]
+        },
+        {
+          "id": "r6",
+          "name": [
+            "Adventure World · 原单机",
+            "Adventure World · original solo"
+          ],
+          "state": "retained",
+          "desc": [
+            "旧版保留作对照；从游戏直接回本 HUB。",
+            "Historical comparison; return directly to this HUB."
+          ]
+        }
+      ],
+      "next_title": [
+        "真实 iPad 长流程与教师最终确认",
+        "Full physical-iPad play and teacher sign-off"
+      ],
+      "next_scope": [
+        "分别体验当前单机版本，确认操作、任务和展示；多人原型的实机验收与最终取舍另外记录。",
+        "Review current solo controls, quests and presentation. Physical multiplayer testing and final branch selection remain separate."
+      ],
+      "snapshot_note": [
+        "原 V1/V2、HUD 修复前文件及 Opus 最早 Write 均在 Git 归档；当前可玩入口只打开本作品内的 R6 试玩，不再进入旧 HUB。",
+        "Original V1/V2, pre-HUD files and the earliest Opus Write remain in Git. Play entries open this project’s R6 preview, not an old HUB."
+      ],
+      "cost_note": [
+        "这是完整工具等值总估算：历史值、当前用量折价、未计量的前轮整理及本轮适配均已计入；不是实付发票。",
+        "A complete tool-equivalent estimate includes history, usage-based values and unmetered previous/current controller work; not a paid invoice."
+      ],
+      "metric_scope_note": [
+        "首页、版本卡与预算表共用同一账本；总额、区间和余额可核对。",
+        "Dashboard, build cards and the budget table use one ledger with a verifiable total, range and balance."
+      ],
+      "milestone_note": [
+        "六个数字交付阶段；第七关实机与教师确认仍开放。",
+        "Six digital-delivery gates; physical play and teacher sign-off remain open."
+      ],
+      "milestones": [
+        {
+          "name": [
+            "构想",
+            "Idea"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "Brief",
+            "Brief"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "原型",
+            "Prototype"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "版本评估",
+            "Review"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "家庭适配",
+            "Home build"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "验证与呈现",
+            "Test & present"
+          ],
+          "status": "complete"
+        },
+        {
+          "name": [
+            "实机与定稿",
+            "Final approval"
+          ],
+          "status": "pending"
+        }
+      ],
+      "milestone_evidence": [
+        [
+          "需求已记录",
+          "Recorded"
+        ],
+        [
+          "范围已明确",
+          "Aligned"
+        ],
+        [
+          "版本已保留",
+          "Preserved"
+        ],
+        [
+          "反馈已合并",
+          "Consolidated"
+        ],
+        [
+          "双语单机",
+          "Bilingual solo"
+        ],
+        [
+          "见 R6 验收",
+          "R6 checks"
+        ],
+        [
+          "待实机确认",
+          "Device check"
+        ]
+      ],
+      "progress_scope": [
+        "七个等权交付阶段",
+        "Seven equally weighted gates"
+      ],
+      "progress_next": [
+        "请用真实 iPad 复测完整任务链，再确认展示与版本选择。",
+        "Test the full quest on a physical iPad, then approve the presentation and version choice."
+      ],
+      "rate_note": [
+        "A$63.44/h 沿用 R5 历史规划参数，不是工资或新市场报价。",
+        "A$63.44/h is the R5 historical planning assumption, not wages or a new quote."
+      ],
+      "prototype_estimate_basis": [
+        "倍数仅比较 9/24 新原型阶段，不把全部历史人工除以一次短调用。",
+        "Ratios compare only the 24 Sep new-prototype stage, not all historical labour against a short call."
+      ],
+      "guide": [
+        "直接点版本卡即可单人玩。左栏提供 HUB、测评、语言、暂停、全屏和重开。各版本独立保存；语言切换读取本版本进度。Martin 战斗中请先结束战斗。无需游戏服务器。",
+        "Click a version card to play solo. The left rail has HUB, review, language, pause, fullscreen and restart. Editions save separately; language switching reads that edition’s progress. Finish Martin battles before changing language. No game server is required."
+      ],
+      "changes": [
+        [
+          [
+            "双语与单机",
+            "Bilingual solo"
+          ],
+          [
+            "传输层本机化，保留玩法规则；所有试玩有左栏和返回入口。",
+            "Transport is local while game rules remain; every preview has a utility rail and return control."
+          ]
+        ],
+        [
+          [
+            "合并历史与预算",
+            "Merged history and budget"
+          ],
+          [
+            "旧记录直接并入数据源，当前与历史版本分区展示。",
+            "Earlier records are imported into this data source; current and historical builds are separated."
+          ]
+        ]
+      ],
+      "runtime_release": "2026.09-r6",
+      "sources": [
+        {
+          "id": "T-HISTORY",
+          "label": [
+            "Adventure World 旧 HUB / Spec",
+            "Adventure World historical HUB/spec"
+          ],
+          "note": [
+            "共同署名，不分配未确认的个人点子。",
+            "Shared credit; no unverified individual attribution."
+          ]
+        },
+        {
+          "id": "T-CHAT",
+          "label": [
+            "9/24《单机测试与版本评估》",
+            "24 Sep solo test and version review"
+          ],
+          "note": [
+            "定向历史检索和当前可见片段；儿童评价为归纳，不是逐字稿。",
+            "Targeted retrieval and visible excerpts; child feedback is summarized, not verbatim."
+          ]
+        },
+        {
+          "id": "T-BRIEF",
+          "label": [
+            "两条执行会话中的同一授权 brief",
+            "Same authorized brief in both execution logs"
+          ],
+          "note": [
+            "两份本机可见用户消息均包含从零重做、三人同世界、三区和十五分钟限制。原文进私密档案。",
+            "Both visible user messages specify a new shared 3D world, three zones and a 15-minute constraint; originals are private."
+          ]
+        },
+        {
+          "id": "T-SKY",
+          "label": [
+            "云间奇遇源码与联机回执",
+            "Skyvale source and network evidence"
+          ],
+          "note": [
+            "三连接测试、浏览器测试和完整任务状态证据；不等同三名儿童通关。",
+            "Three-connection/browser/full-state evidence, not proof that three children completed it."
+          ]
+        },
+        {
+          "id": "T-HUD",
+          "label": [
+            "Joey 原始可见反馈与 HUD 修复记录",
+            "Joey’s visible report and HUD revision"
+          ],
+          "note": [
+            "18:45 反馈可直接核验；修复前3文件、补丁与六尺寸回归保留。",
+            "The 18:45 report is directly verifiable; three pre-fix files, patch and six-size regression are retained."
+          ]
+        },
+        {
+          "id": "T-OPUS",
+          "label": [
+            "Opus 课堂开发会话与本机源文件",
+            "Opus classroom execution log and source"
+          ],
+          "note": [
+            "可见用户/助手文字去除内部推理及工具输出后存私密仓库。初始 Write 快照和当前触屏版均有指纹。",
+            "Visible user/assistant messages are stored privately without reasoning/tool dumps. Initial Write and current touch sources are fingerprinted."
+          ]
+        },
+        {
+          "id": "S1",
+          "label": [
+            "9/10 共创摘要 + 9/17 Spec",
+            "10 Sep ideas + 17 Sep Spec"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/SPEC.md",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/SPEC.md"
+          ]
+        },
+        {
+          "id": "S2",
+          "label": [
+            "首个完整实现记录",
+            "Initial full implementation"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/adventure-world/commit/5a1db9d8fff3a7d1d962a8dbed7bb40bc2469284",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/adventure-world/commit/5a1db9d8fff3a7d1d962a8dbed7bb40bc2469284"
+          ]
+        },
+        {
+          "id": "S3",
+          "label": [
+            "点击移动与 bundle 提交",
+            "Tap controls and bundle commit"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/adventure-world/commit/aac8dc38af5bd0f101a26990caeaef3c94de6885",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/adventure-world/commit/aac8dc38af5bd0f101a26990caeaef3c94de6885"
+          ]
+        },
+        {
+          "id": "S4",
+          "label": [
+            "主线复核与下节课交接",
+            "Core review and classroom handoff"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/CLASSROOM_HANDOFF.md",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/CLASSROOM_HANDOFF.md"
+          ]
+        },
+        {
+          "id": "S5",
+          "label": [
+            "当前 Git 历史",
+            "Current Git history"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/adventure-world/commits/main/",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/adventure-world/commits/main/"
+          ]
+        },
+        {
+          "id": "S6",
+          "label": [
+            "已锁定 R5 标准与本轮授权",
+            "Locked R5 standard and this HUB task"
+          ],
+          "note": [
+            "上周资料已合并；原来源：https://github.com/sydneygemstone-sudo/student-works/blob/615065960701e10d8f3a8b96cc9c4b8c9dd41248/docs/hub-standard/HUB-STANDARD.md",
+            "Prior records imported; original source: https://github.com/sydneygemstone-sudo/student-works/blob/615065960701e10d8f3a8b96cc9c4b8c9dd41248/docs/hub-standard/HUB-STANDARD.md"
+          ]
+        },
+        {
+          "id": "S7",
+          "label": [
+            "教师课堂延续安排",
+            "Teacher’s continuation plan"
+          ],
+          "note": [
+            "上周资料已合并；原来源：None",
+            "Prior records imported; original source: None"
+          ]
+        },
+        {
+          "id": "R6",
+          "label": "R6 native upgrade",
+          "note": [
+            "继承锁定 R5 原生渲染器和三个样式文件，来源指纹已记录。",
+            "Derived from the locked native R5 renderer and three stylesheets; source fingerprints are recorded."
+          ]
+        }
+      ]
+    }
+  },
+  "native_R5": {
+    "studio.js": "4a5232e41e05cb9d0bf1cecb778d1174b309370f90c2549fb576efaa22153743",
+    "studio.css": "10474d980a37cba22bf1b11b932569a2d1ec6ce61e12802f0e0cb475bf2718aa",
+    "studio-r3.css": "25eebf6889fab91f12bf57f6bea1a613eb4c6ef8bfedd9ea602522ae7e99dc42",
+    "studio-r5.css": "7852c1b590305cda2f0fe4607cb57520b1724fd87d0a3ac994368cdb1cd19fd4"
+  }
+}

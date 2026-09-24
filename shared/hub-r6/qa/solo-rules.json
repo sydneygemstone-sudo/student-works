@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "Deterministic tests of shipped solo rules through original command handlers. Browser rendering and user input are tested separately. Opus inventory gating is client-side and is not proven by this rule-only test.",
+  "checks": [
+    "Distant interactions do not award a ring",
+    "One player can collect all three rings",
+    "One player completes fruit, campfire, three animals, three-stage cabin and celebration through original command handlers",
+    "Completed world persists in the solo save",
+    "Opus handlers deny duplicate collection, create animal produce and complete five cabin stages"
+  ]
+}
