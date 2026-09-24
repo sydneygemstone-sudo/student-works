@@ -2,7 +2,7 @@ name: HUB R6 build and verify
 on:
   push:
     branches: [main]
-    paths: ['scripts/build_hub_r6.py']
+    paths: ['scripts/build_hub_r6.py', 'scripts/r6_refine.py', '.github/workflows/hub-r6.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -18,12 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Build R6 from the approved R5 source
-        run: python3 scripts/build_hub_r6.py
+        run: |
+          python3 scripts/build_hub_r6.py
+          if [ -f scripts/r6_refine.py ]; then python3 scripts/r6_refine.py; fi
       - name: Install browser test tools outside published source
         run: |
           npm install --prefix /tmp/hub-r6-qa playwright@1.58.2
@@ -32,6 +34,9 @@ jobs:
         env:
           PLAYWRIGHT_PATH: /tmp/hub-r6-qa/node_modules/playwright
         run: node scripts/qa_hub_r6.cjs
+      - name: Finalize standalone project packages
+        run: |
+          if [ -f scripts/r6_refine.py ]; then python3 scripts/r6_refine.py --packages; fi
       - name: Save source and acceptance together
         run: |
           git config user.name 'Classroom HUB publishing'
