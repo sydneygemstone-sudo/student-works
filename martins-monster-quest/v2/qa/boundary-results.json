@@ -1,0 +1,27 @@
+{
+  "started": "2026-09-24T07:29:25.301Z",
+  "checks": [
+    {
+      "name": "Boundary fixture: cannot switch to fallen partner"
+    },
+    {
+      "name": "Boundary fixture: full defeat revives team without lost coins"
+    },
+    {
+      "name": "Portrait buttons and return usable"
+    },
+    {
+      "name": "Tablet viewport rendered (not real iPad)"
+    },
+    {
+      "name": "No browser JavaScript errors"
+    }
+  ],
+  "errors": [],
+  "notes": [
+    "Headless Chromium with software WebGL; not physical iPad or human acceptance."
+  ],
+  "status": "passed",
+  "ended": "2026-09-24T07:29:34.347Z",
+  "cleanup": "Task browser and HTTP server closed"
+}

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#123d38"><title>Martin’s Monster Quest V2 • Wildbound</title><link rel="stylesheet" href="style.css"><script src="vendor/three.min.js"></script></head>
+<body><canvas id="world" aria-label="3D adventure world"></canvas><div id="vignette"></div>
+<header id="hud" hidden><div class="brand">MONSTER QUEST <span>WILDBOUND · V2</span></div><div id="wallet"></div><button id="sound" title="Toggle sound">♪ Sound</button><button id="team">My team</button><button id="map">Trail map</button></header>
+<aside id="quest" hidden></aside><div id="labels"></div><div id="toast" role="status"></div><div id="floaters"></div>
+<section id="battle" hidden><div id="enemy-card" class="combat-card"></div><div id="ally-card" class="combat-card"></div><div id="battle-bottom"><div id="battle-log" aria-live="polite"></div><div id="commands"></div></div></section>
+<div id="explore" hidden><div id="nearby"></div><button id="interact" class="gold">Interact · E</button><div id="dpad" aria-label="Touch movement"><button data-dir="up" aria-label="Move up">▲</button><button data-dir="left" aria-label="Move left">◀</button><button data-dir="down" aria-label="Move down">▼</button><button data-dir="right" aria-label="Move right">▶</button></div><p class="help">WASD / arrows · E interact · or tap a destination</p></div>
+<main id="overlay"></main><div id="save-status" aria-live="polite"></div>
+<script src="game.js"></script></body></html>

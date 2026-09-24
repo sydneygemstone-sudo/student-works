@@ -1,0 +1,53 @@
+{
+  "started": "2026-09-24T07:27:22.931Z",
+  "checks": [
+    {
+      "name": "Story blocks keyboard movement"
+    },
+    {
+      "name": "Keyboard movement"
+    },
+    {
+      "name": "Touch direction + pointercancel stops movement (synthetic pointer)"
+    },
+    {
+      "name": "Real battle, damage, capture, battle movement lock",
+      "details": {
+        "captures": 1,
+        "sold": 0,
+        "cooked": 0,
+        "bought": 0,
+        "wins": 1,
+        "losses": 0
+      }
+    },
+    {
+      "name": "Second normal capture"
+    },
+    {
+      "name": "Confirmed sale changes coins and removes exact monster"
+    },
+    {
+      "name": "Purchase subtracts coins and adds playable monster"
+    },
+    {
+      "name": "Confirmed cooking consumes selected monster; meal actually consumed"
+    },
+    {
+      "name": "Normal earned coins fund training, evolution and trait"
+    },
+    {
+      "name": "Refresh preserves team, coins and progress"
+    }
+  ],
+  "errors": [
+    "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found."
+  ],
+  "notes": [
+    "Headless Chromium with software WebGL; not physical iPad or human acceptance."
+  ],
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: 'battle' == 'switch'\n    at C:\\GemstoneKingdom\\Prism\\ai-bounty-board\\games\\student-works-martin-v2\\martins-monster-quest\\v2\\qa\\playtest.cjs:21:359",
+  "ended": "2026-09-24T07:28:18.755Z",
+  "cleanup": "Task browser and HTTP server closed"
+}
