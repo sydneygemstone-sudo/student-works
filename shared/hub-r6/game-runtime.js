@@ -14,10 +14,8 @@ nativeInterval(()=>{if(paused)return;const now=performance.now();for(const[id,t]
 function pause(value){if(value===paused)return;if(value){pausedAt=realNow();paused=true;}else{offset+=realNow()-pausedAt;paused=false;}window.__R6Game?.save?.();document.dispatchEvent(new Event('r6-pause'));}
 window.addEventListener('message',e=>{if(e.source!==parent||e.origin!==location.origin)return;const x=e.data;if(x?.type==='r6-pause')pause(!!x.paused);if(x?.type==='r6-save')window.__R6Game?.save?.();});
 window.__r6Pause={set:pause,get paused(){return paused;}};
-const pairs=window.R6_STRINGS||[],ordered=[...pairs].sort((a,b)=>Math.max(b[0].length,b[1].length)-Math.max(a[0].length,a[1].length));
-const memo=new Map();function T(text){if(typeof text!=='string'||!text.trim())return text;const key=lang+'|'+text;if(memo.has(key))return memo.get(key);let out=text;
-for(const[zh,eng]of ordered){const from=en?zh:eng,to=en?eng:zh;if(!from||from===to)continue;if(en)out=out.split(from).join(to);else{const escaped=from.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const left=/^[A-Za-z]/.test(from)?'(?<![A-Za-z])':'',right=/[A-Za-z]$/.test(from)?'(?![A-Za-z])':'';out=out.replace(new RegExp(left+escaped+right,'g'),()=>to);}}
-if(memo.size>10000)memo.clear();memo.set(key,out);return out;}
+const table=new Map();for(const [zh,eng] of window.R6_STRINGS||[]){const from=en?zh:eng,to=en?eng:zh;if(from&&!table.has(from))table.set(from,to);}
+const sources=[...table.keys()].sort((a,b)=>b.length-a.length);const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const patterns=sources.map(s=>en?escape(s):(/^[A-Za-z]/.test(s)?'(?<![A-Za-z])':'')+escape(s)+(/[A-Za-z]$/.test(s)?'(?![A-Za-z])':''));const regex=new RegExp(patterns.join('|'),'g'),memo=new Map();function T(text){if(typeof text!=='string'||!text.trim())return text;if(memo.has(text))return memo.get(text);const result=text.replace(regex,hit=>table.get(hit));if(memo.size>10000)memo.clear();memo.set(text,result);return result;}
 window.R6_T=T;
 // Canvas labels and HUD text use the same dictionary. Do not translate object keys or gameplay IDs.
 for(const name of ['fillText','strokeText','measureText']){const old=CanvasRenderingContext2D.prototype[name];CanvasRenderingContext2D.prototype[name]=function(text,...rest){return old.call(this,T(String(text)),...rest);};}

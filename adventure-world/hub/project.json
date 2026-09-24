@@ -1350,7 +1350,692 @@
             "Derived from the locked native R5 renderer and three stylesheets; source fingerprints are recorded."
           ]
         }
-      ]
+      ],
+      "recorded_issues": [
+        [
+          "AW-TOUCH",
+          [
+            "原单机触控问题",
+            "Original solo controls"
+          ],
+          [
+            "摇杆出圈粘住、双击页面放大是课堂反馈；它们不能因为另一条 3D 分支改好而被标作旧版已修。",
+            "Stuck off-pad input and double-tap zoom are class reports; fixes in a separate 3D branch do not fix the old game."
+          ],
+          [
+            "旧版开放",
+            "Open on old build"
+          ]
+        ],
+        [
+          "AW-GUIDE",
+          [
+            "夜间不知道下一步",
+            "Unclear next step at night"
+          ],
+          [
+            "孩子报告任务不清、未完成；有自动夜间路径失败，具体根因未确认。",
+            "Children reported unclear goals and no completion; an automated night route also failed without a confirmed cause."
+          ],
+          [
+            "新 brief 已纳入；旧版未关闭",
+            "In the new brief; old issue open"
+          ]
+        ],
+        [
+          "SKY-HUD",
+          [
+            "Joey：底部 HUD 被裁切",
+            "Joey: clipped bottom HUD"
+          ],
+          [
+            "修复前文件和六组可视区回归保留；触摸拖出并取消后输入归零。还缺原设备修复后确认。",
+            "Pre-fix files and six viewport cases retained; off-pad touch cancellation resets input. Confirmation on the original device is missing."
+          ],
+          [
+            "补丁已落盘；实机待确认",
+            "Patched; physical confirmation pending"
+          ]
+        ],
+        [
+          "OPUS-INPUT",
+          [
+            "首版没有无键盘操作",
+            "First build lacked keyboard-free controls"
+          ],
+          [
+            "18:40 明确 iPad 条件，18:45 交付触屏补丁；不是原始桌面版本从一开始就满足要求。",
+            "The iPad constraint was reiterated at 18:40 and the touch patch delivered at 18:45; the original desktop build did not meet it."
+          ],
+          [
+            "触屏补丁保留，实机验收待定",
+            "Touch patch retained; device acceptance open"
+          ]
+        ]
+      ],
+      "historical_context": {
+        "project_id": "adventure-world",
+        "hub_release": "aw-hub-2026.09.23-r1",
+        "class_date": "2026-09-24",
+        "people": [
+          "Joey",
+          "Mia",
+          "Chloe"
+        ],
+        "standard": {
+          "id": "CLASSROOM-HUB-R5-20260923",
+          "version": "3.0.0",
+          "baseline": "f45d0750b78322937be17a6a6af743b2d5c08755",
+          "status": "APPROVED_LOCKED"
+        },
+        "game": {
+          "version": "1.0.0",
+          "tested_commit": "392ed683daeb5e15ab89194c4ad6d491ad526589",
+          "source_head": "90a9d487586ba8ead81c3d01cb8c1136d2246749",
+          "bundle_git_blob": "bff92ebc4601391ccaf18dd3ccb4642a96306fd8",
+          "status": "PASS_CORE / ACCEPT_WITH_FOLLOWUPS",
+          "model": null,
+          "tokens": null,
+          "bundle_sha256": "b1727ac3d4143f88e1da1672431856b2521f13220c4a51ff421c6798ce160e30"
+        },
+        "decision_mode": "decision_pending",
+        "budget": {
+          "currency": "AUD",
+          "approved": 150,
+          "recorded_api_equivalent": null,
+          "estimated_api_equivalent": 8,
+          "estimated_api_equivalent_range": [
+            5,
+            12
+          ],
+          "estimate_status": "ESTIMATED_FROM_ORIGINAL_SESSION_AND_GIT_TIMELINE",
+          "estimate_basis": [
+            "原 session 未找到可核验 Token/缓存/账单终值；按 9/17 的实际三段开发（完整实现→操作改进→浏览器主线复核）与约 17:55–20:31 的可观察墙钟跨度，保守估算工具 API 等值 A$5–12，以 A$8 作为预算看板中点。该数字不是账单，也不代表订阅额外扣款。",
+            "No auditable token/cache/billing totals were found in the original session. Based on the three observed 17 Sep development passes (full implementation → control refinement → browser mainline review) and the roughly 17:55–20:31 observable wall-clock span, tool API-equivalent cost is conservatively estimated at A$5–12, with A$8 used as the dashboard midpoint. This is not an invoice or an extra subscription charge."
+          ],
+          "subscription_extra_charge": null,
+          "cash_paid": null,
+          "teacher_hours": null,
+          "development_hours": null,
+          "tokens": null,
+          "rule_source": "R5 approved default A$50 per student; 3 co-creators",
+          "gaps": [
+            "原始 Token、缓存计数、具体执行模型计价与订阅边际现金支出仍缺失；A$8 是本轮按原 session + Git 时间线做的估算中点，不冒充实测。Git 提交间隔只是墙钟证据，不等于有效开发工时。",
+            "Raw token/cache counts, exact model pricing and marginal subscription cash charges remain unavailable. A$8 is an estimate midpoint derived from the original session plus Git timeline, not a measured charge. Commit intervals are wall-clock evidence, not active development hours."
+          ]
+        },
+        "labour": {
+          "rate": 63.44,
+          "rate_source": [
+            "沿用 R5 的历史规划参数 A$63.44/h，非市场新报价、实际工资或售卖价格。",
+            "Historical R5 planning assumption A$63.44/hour; not a new market quote, actual wage or sale value."
+          ],
+          "tasks": [
+            [
+              [
+                "需求整理与可玩路线设计",
+                "Requirements and playable route design"
+              ],
+              3,
+              5
+            ],
+            [
+              [
+                "乐园场景、人物与互动美术",
+                "Park, characters and interaction art"
+              ],
+              8,
+              14
+            ],
+            [
+              [
+                "昼夜任务、能力、小狗与胜利流程",
+                "Day/night quests, powers, puppy and finale"
+              ],
+              10,
+              18
+            ],
+            [
+              [
+                "键盘、触屏、暂停与本地存档",
+                "Keyboard, touch, pause and local save"
+              ],
+              4,
+              8
+            ],
+            [
+              [
+                "双语 HUB、版本记录与测评表",
+                "Bilingual HUB, version history and report form"
+              ],
+              6,
+              10
+            ],
+            [
+              [
+                "规则回归、适配检查与打包",
+                "Rule regression, layout checks and packaging"
+              ],
+              6,
+              12
+            ]
+          ]
+        },
+        "stages": [
+          [
+            [
+              "构想",
+              "Idea"
+            ],
+            "complete",
+            [
+              "9/10 课堂共创摘要",
+              "10 Sep classroom ideas"
+            ]
+          ],
+          [
+            [
+              "Brief",
+              "Brief"
+            ],
+            "complete",
+            [
+              "9/17 Spec v1.0",
+              "17 Sep Spec v1.0"
+            ]
+          ],
+          [
+            [
+              "原型",
+              "Prototype"
+            ],
+            "complete",
+            [
+              "已有可玩实现",
+              "Playable implementation exists"
+            ]
+          ],
+          [
+            [
+              "版本评估",
+              "Build review"
+            ],
+            "complete",
+            [
+              "真实输入主线：核心通过",
+              "Recorded real-input core pass"
+            ]
+          ],
+          [
+            [
+              "家庭适配",
+              "Home adaptation"
+            ],
+            "active",
+            [
+              "中文与触屏仍需收尾",
+              "Language/touch follow-ups remain"
+            ]
+          ],
+          [
+            [
+              "验证与呈现",
+              "Verify & present"
+            ],
+            "pending",
+            [
+              "HUB 已备；游戏跟进未闭环",
+              "HUB prepared; game follow-ups open"
+            ]
+          ],
+          [
+            [
+              "实机与定稿",
+              "Device & sign-off"
+            ],
+            "pending",
+            [
+              "待明天儿童实机测评",
+              "Awaiting children on real devices"
+            ]
+          ]
+        ],
+        "requirements": [
+          [
+            [
+              "免费、彩色、好玩的乐园",
+              "A colourful park, free for everyone"
+            ],
+            [
+              "水上乐园、游客与食物；免费游玩不是金币收费系统。",
+              "Water slides, visitors and food. Free play, not a paid-entry or coin-grind system."
+            ]
+          ],
+          [
+            [
+              "动物与小狗伙伴",
+              "Animals and a puppy companion"
+            ],
+            [
+              "观察动物，与小狗互动；不加入战斗、宠物饥饿或失去宠物。",
+              "Observe animals and befriend the puppy; no combat, pet hunger or pet loss."
+            ]
+          ],
+          [
+            [
+              "白天游玩，晚上探险",
+              "Daytime play, gentle night adventure"
+            ],
+            [
+              "飞行、隐形、免费手电与夜间线索；保留温和探索方向。",
+              "Flight, invisibility, a free torch and night clues; keep the exploration gentle."
+            ]
+          ],
+          [
+            [
+              "先体验，再决定一个改动",
+              "Try it, then choose one improvement"
+            ],
+            [
+              "三人共创、各设备单机；明天每人提出一个功能，先测评而不是临场重建。",
+              "Co-designed by three children; each device plays solo. One feature idea per child, with playtesting before rebuilding."
+            ]
+          ]
+        ],
+        "journey": [
+          {
+            "date": "2026-09-10",
+            "title": [
+              "孩子们描述自己的乐园",
+              "The children imagine their park"
+            ],
+            "brief": [
+              "汇总水上乐园、动物园、小狗、飞行、隐形与夜间手电线索。未核实每项点子具体由谁提出，因此只记三人共创。",
+              "Waterpark, zoo, puppy, flight, invisibility and torch-lit night clues. Individual attribution is unverified, so these remain shared ideas."
+            ],
+            "tools": [
+              "课堂交流 → 老师归纳 → 后续历史摘要；并非完整逐字稿。",
+              "Classroom discussion → teacher synthesis → later historical summary, not a verbatim transcript."
+            ],
+            "tech": [
+              "此节点是需求，不是代码已完成的证据。",
+              "This records requirements, not completed code."
+            ],
+            "result": [
+              "确定免费、温和探索的世界方向。",
+              "Established a free, gentle exploration world."
+            ],
+            "source": "S1",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-17",
+            "title": [
+              "把共创想法变成 Spec v1.0",
+              "Turn shared ideas into Spec v1.0"
+            ],
+            "brief": [
+              "三枚印章、三条线索、三种外观和星灯结局用于组织可玩闭环，是设计补充，不冒充孩子原话。",
+              "Three stamps, three clues, three avatar looks and a star-light finale organize a playable loop; these are design additions, not invented student quotes."
+            ],
+            "tools": [
+              "整理要求 → 明确不做项 → 规格与验收条件。该次任务只制作 Spec。",
+              "Organize requirements → define exclusions → write specification and acceptance criteria. That task produced the spec only."
+            ],
+            "tech": [
+              "选择静态 Canvas 2D / 2.5D 浏览器游戏；单机、键盘和触屏、英语与简体中文。",
+              "Static Canvas 2D / 2.5D browser game; solo, keyboard/touch, English and Simplified Chinese."
+            ],
+            "result": [
+              "SPEC_READY 是编制时状态，不代表今天仍未开发。",
+              "SPEC_READY was the status at authoring time, not today’s implementation status."
+            ],
+            "source": "S1",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-17",
+            "title": [
+              "生成实际游戏与模块",
+              "Implement the playable game"
+            ],
+            "brief": [
+              "把乐园、活动和昼夜线索连接起来，不用页面按钮冒充游戏。",
+              "Connect park areas, activities and day/night clues into a game, rather than disconnected menu pages."
+            ],
+            "tools": [
+              "Git 记录全游戏、测试与素材实现。具体模型和逐请求 Token 回执尚未核实，不从提交作者猜测。",
+              "Git records the full game, tests and assets. Exact model and per-request token receipts are unverified; commit authors do not establish model identity."
+            ],
+            "tech": [
+              "JavaScript 模块分离状态、碰撞、任务、小狗、输入、存档、绘制和音效。",
+              "JavaScript modules separate state, collision, quests, puppy, input, saves, rendering and audio."
+            ],
+            "result": [
+              "实现提交 5a1db9d；后续测试与修订继续保留。",
+              "Implementation commit 5a1db9d, followed by reviews and refinements."
+            ],
+            "source": "S2",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-17",
+            "title": [
+              "点击移动与离线入口",
+              "Tap-to-move and the offline entry"
+            ],
+            "brief": [
+              "降低操作门槛：点地面移动、点击交互提示；补屏幕操作说明。",
+              "Lower the control barrier with ground taps, clickable interaction prompts and on-screen instructions."
+            ],
+            "tools": [
+              "提交 aac8dc3 增加操作和 bundle；392ed68 整理仓库依赖，不是一套新游戏。",
+              "Commit aac8dc3 adds controls and a bundle; 392ed68 cleans repository dependencies, not a different game."
+            ],
+            "tech": [
+              "src/data → 构建脚本 → 单文件 bundle.js；运行时不依赖 Node 或在线模型。",
+              "src/data → build script → standalone bundle.js; the game does not require Node or an online model at runtime."
+            ],
+            "result": [
+              "已有游戏支持直接浏览器运行；核心任务方向未改变。",
+              "The existing game can run in the browser without changing the core quest direction."
+            ],
+            "source": "S3",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-17",
+            "title": [
+              "独立主线复核与三项跟进",
+              "Independent core review and three follow-ups"
+            ],
+            "brief": [
+              "通过真实输入完成滑梯、动物园、小狗、夜游线索和星灯结局。中文与触屏不能因核心通关而自动通过。",
+              "Real-input checks cover the slide, zoo, puppy, night clues and finale. A core pass does not automatically certify language or touch quality."
+            ],
+            "tools": [
+              "记录中的 Chromium 主线无传送、无胜利状态注入；另有 WebKit 触屏冒烟和单元测试 10/10。",
+              "The recorded Chromium run used no teleport or injected victory state. Separate WebKit touch smoke checks and 10/10 unit tests are documented."
+            ],
+            "tech": [
+              "旧测试中的坐标夹具单列；增加真实路径证据，并验证 bundle 与源码一致。",
+              "Older coordinate fixtures remain a separate test category; real-route evidence and bundle/source consistency were added."
+            ],
+            "result": [
+              "PASS_CORE / ACCEPT_WITH_FOLLOWUPS；AW-01 中文、AW-02 触屏、AW-03 可重复主线仍有跟进。",
+              "PASS_CORE / ACCEPT_WITH_FOLLOWUPS, with AW-01 language, AW-02 touch and AW-03 reproducible-route follow-ups."
+            ],
+            "source": "S4",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-18—19",
+            "title": [
+              "区分文档回退与游戏版本",
+              "Separate documentation rollback from gameplay"
+            ],
+            "brief": [
+              "历史中出现文档归档及其回退，不能据此断言游戏重新开发或已经丢失。",
+              "The history contains a documentation archive and its revert; that does not establish a gameplay rebuild or loss."
+            ],
+            "tools": [
+              "核对当前 Git HEAD、归档/回退提交与运行文件指纹。",
+              "Checked current Git HEAD, archive/revert commits and runtime file fingerprints."
+            ],
+            "tech": [
+              "当前源仓库 HEAD 为 90a9d48；公开试玩 bundle 的 Git blob 与该仓库一致。",
+              "Source HEAD is 90a9d48; the published playable bundle has the same Git blob as the source repository."
+            ],
+            "result": [
+              "继续使用已核验核心基线，不把较新的文档提交当作更高游戏版号。",
+              "Continue the reviewed core baseline; a newer documentation commit is not a higher gameplay release."
+            ],
+            "source": "S5",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-23",
+            "title": [
+              "R5 HUB 与独立测评记录",
+              "R5 HUB and individual playtest records"
+            ],
+            "brief": [
+              "接入老师锁定的 R5，呈现共创过程、预算、已知问题；让每位孩子从 HUB 试玩并写报告。",
+              "Apply the teacher-approved R5, showing shared ideas, budget and known issues; let each child play from the HUB and write a report."
+            ],
+            "tools": [
+              "读取 Git 与交接单 → 校验 R5 → 制作独立 HUB 和游戏入口 → 检查表单、布局与导出。",
+              "Read Git and handoff → verify R5 → create a separate HUB and game entry → check forms, layout and exports."
+            ],
+            "tech": [
+              "复用锁定的 R5 视觉样式；新增本机独立草稿、结构化报告与 ZIP 打包，不接入外部收费服务。",
+              "Reuse locked R5 styling; add separate local drafts, structured reports and ZIP packaging without an external paid service."
+            ],
+            "result": [
+              "原游戏 index 与 bundle 保留；新的 play 入口只加课堂工具栏和安全区。HUB 版本号不代表新玩法已实现。",
+              "Original index and bundle retained; the new play entry adds a classroom toolbar and safe areas. A HUB release is not a new gameplay feature."
+            ],
+            "source": "S6",
+            "status": "done"
+          },
+          {
+            "date": "2026-09-24",
+            "title": [
+              "儿童实机测评 → 下一轮决定",
+              "Children’s device test → next decision"
+            ],
+            "brief": [
+              "Joey、Mia、Chloe 各填写自己的体验，提出一个功能并说明原因。未预填评价或成绩。",
+              "Joey, Mia and Chloe each record their experience and propose one feature with a reason. No reviews or scores are pre-filled."
+            ],
+            "tools": [
+              "试玩 → 保存报告 → 导出交给老师 → 老师核对，再确定修改范围。",
+              "Play → save a report → export it for the teacher → verify and choose a change."
+            ],
+            "tech": [
+              "本机报告不自动跨 iPad 同步；老师可导入各设备 JSON 汇总。未来功能不自动进入开发。",
+              "Reports do not automatically sync across iPads; the teacher can import their JSON files. Feature ideas do not automatically trigger development."
+            ],
+            "result": [
+              "计划中：真实 iPad、儿童反馈和最终版本仍待确认。",
+              "Planned: physical-iPad results, child feedback and the final build are not yet confirmed."
+            ],
+            "source": "S7",
+            "status": "planned"
+          }
+        ],
+        "sources": [
+          [
+            "S1",
+            [
+              "9/10 共创摘要 + 9/17 Spec",
+              "10 Sep ideas + 17 Sep Spec"
+            ],
+            "https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/SPEC.md"
+          ],
+          [
+            "S2",
+            [
+              "首个完整实现记录",
+              "Initial full implementation"
+            ],
+            "https://github.com/sydneygemstone-sudo/adventure-world/commit/5a1db9d8fff3a7d1d962a8dbed7bb40bc2469284"
+          ],
+          [
+            "S3",
+            [
+              "点击移动与 bundle 提交",
+              "Tap controls and bundle commit"
+            ],
+            "https://github.com/sydneygemstone-sudo/adventure-world/commit/aac8dc38af5bd0f101a26990caeaef3c94de6885"
+          ],
+          [
+            "S4",
+            [
+              "主线复核与下节课交接",
+              "Core review and classroom handoff"
+            ],
+            "https://github.com/sydneygemstone-sudo/adventure-world/blob/90a9d487586ba8ead81c3d01cb8c1136d2246749/CLASSROOM_HANDOFF.md"
+          ],
+          [
+            "S5",
+            [
+              "当前 Git 历史",
+              "Current Git history"
+            ],
+            "https://github.com/sydneygemstone-sudo/adventure-world/commits/main/"
+          ],
+          [
+            "S6",
+            [
+              "已锁定 R5 标准与本轮授权",
+              "Locked R5 standard and this HUB task"
+            ],
+            "https://github.com/sydneygemstone-sudo/student-works/blob/615065960701e10d8f3a8b96cc9c4b8c9dd41248/docs/hub-standard/HUB-STANDARD.md"
+          ],
+          [
+            "S7",
+            [
+              "教师课堂延续安排",
+              "Teacher’s continuation plan"
+            ],
+            null
+          ]
+        ],
+        "issues": [
+          [
+            "AW-01",
+            "P2",
+            [
+              "中文提示覆盖不完整",
+              "Incomplete Chinese coverage"
+            ],
+            [
+              "已确认旧版胜利统计及部分任务/能力提示仍为英文。本轮不把它标为已修复。",
+              "The old victory summary and some quest/power prompts remain English. This HUB task does not mark them fixed."
+            ],
+            "open"
+          ],
+          [
+            "AW-02",
+            "P2",
+            [
+              "触屏安全区与实体 iPad",
+              "Touch safe areas and real iPad"
+            ],
+            [
+              "新入口分开左工具栏、摇杆、技能和底部说明；实体 Safari、多指操作及长时间体验仍待测评。",
+              "The new entry separates toolbar, joystick, skills and hints. Physical Safari, multi-touch and sustained play still require review."
+            ],
+            "follow_up"
+          ],
+          [
+            "AW-03",
+            "P2",
+            [
+              "可重复的真实输入主线",
+              "Repeatable real-input mainline"
+            ],
+            [
+              "历史完整主线已记录；旧注入场景测试不能替代正常输入回归。保留后续自动化跟进，不宣称本轮再次全程通关。",
+              "A historical full route is documented. Injected scenarios cannot replace real-input regression. Follow-up automation remains; this task does not claim a fresh full playthrough."
+            ],
+            "follow_up"
+          ]
+        ],
+        "tests": [
+          [
+            [
+              "规则测试",
+              "Rule tests"
+            ],
+            [
+              "历史 10/10；本轮再执行 10/10",
+              "Historical 10/10; current rerun 10/10"
+            ],
+            [
+              "原始 Node 单元测试；独立于浏览器验收",
+              "Original Node unit tests; separate from browser acceptance"
+            ]
+          ],
+          [
+            [
+              "真实输入完整主线",
+              "Real-input full mainline"
+            ],
+            [
+              "历史核心通过；不是本轮重测",
+              "Historical core pass; not a new rerun"
+            ],
+            [
+              "Chromium · 无传送/胜利注入",
+              "Chromium · no teleport/injected victory"
+            ]
+          ],
+          [
+            [
+              "WebKit 触屏模拟",
+              "WebKit touch simulation"
+            ],
+            [
+              "历史基础冒烟；不是实体 iPad",
+              "Historical smoke test; not physical iPad"
+            ],
+            [
+              "横竖屏启动/飞行，不代表全部触控通过",
+              "Orientation launch/flight, not full touch certification"
+            ]
+          ],
+          [
+            [
+              "本轮 HUB / 游戏入口",
+              "Current HUB / game entry"
+            ],
+            [
+              "隔离内容夹具检查；线上另行读回",
+              "Isolated content-fixture checks; online readback separate"
+            ],
+            [
+              "布局、表单逻辑、版本与导出；非实体 Safari",
+              "Layout, form logic, versions and exports; not physical Safari"
+            ]
+          ],
+          [
+            [
+              "实体 iPad",
+              "Physical iPad"
+            ],
+            [
+              "待测试",
+              "Not yet tested"
+            ],
+            [
+              "不能自动继承模板验收",
+              "Does not inherit template approval"
+            ]
+          ],
+          [
+            [
+              "儿童实际试玩",
+              "Children’s playtest"
+            ],
+            [
+              "待 9/24 上课填写",
+              "Awaiting the 24 Sep lesson"
+            ],
+            [
+              "空白报告不是完成记录",
+              "Blank reports are not completed reviews"
+            ]
+          ]
+        ],
+        "asset_hashes": {
+          "studio.css": "10474d980a37cba22bf1b11b932569a2d1ec6ce61e12802f0e0cb475bf2718aa",
+          "studio-r3.css": "25eebf6889fab91f12bf57f6bea1a613eb4c6ef8bfedd9ea602522ae7e99dc42",
+          "studio-r5.css": "7852c1b590305cda2f0fe4607cb57520b1724fd87d0a3ac994368cdb1cd19fd4",
+          "touch-guard.js": "5410eb2dbafe553ed4ad10638fd42a72397fdd37310324f97b8e9bfeabe93660"
+        }
+      }
     }
   },
   "native_R5": {

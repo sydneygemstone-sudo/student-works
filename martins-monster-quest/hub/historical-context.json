@@ -1,0 +1,106 @@
+{
+  "origin": "Original V1 source and DEVLOG.md",
+  "classroom_requirements": [
+    {
+      "id": "M-01",
+      "title": [
+        "保留核心，明确增强",
+        "Keep the core, specify the improvement"
+      ],
+      "detail": [
+        "保留捕捉、成长、战斗和更强 Boss；扩大探索范围，增强造型、技能、音效与受击反馈。",
+        "Keep capture, growth, combat and stronger bosses; improve exploration, silhouettes, skills, sound and hit feedback."
+      ],
+      "owner": [
+        "课堂需求归纳",
+        "Classroom synthesis"
+      ],
+      "check": [
+        "试玩时能指出具体增强发生在什么动作和画面。",
+        "Point to the exact action and visual that improved."
+      ]
+    },
+    {
+      "id": "M-02",
+      "title": [
+        "让怪兽成为不同用途的资源",
+        "Give monsters alternative uses"
+      ],
+      "detail": [
+        "捕获后可以留下培养、出售/交易，或转换为食物，再支持更强目标的狩猎。",
+        "A capture can be trained, sold/traded or converted into food to support tougher hunts."
+      ],
+      "owner": [
+        "Martin 的方向，教师协助闭环",
+        "Martin’s direction, structured with teacher support"
+      ],
+      "check": [
+        "完成一次捕捉→出售→买入，再完成一次料理与实际使用。",
+        "Complete capture → sale → purchase, then cook and actually use a meal."
+      ]
+    },
+    {
+      "id": "M-03",
+      "title": [
+        "本轮不做建房",
+        "No building in this revision"
+      ],
+      "detail": [
+        "讨论过建房，但没有形成足够明确的用途；最终明确排除，不让一个新词无限扩张范围。",
+        "Building was discussed but lacked a clear purpose and was explicitly excluded."
+      ],
+      "owner": [
+        "教师确认的范围决定",
+        "Teacher-confirmed scope"
+      ],
+      "check": [
+        "不把旧场景中的小屋误认作新增建造系统。",
+        "Do not mistake a decorative hut for a new building mechanic."
+      ]
+    },
+    {
+      "id": "M-04",
+      "title": [
+        "独立 V2，限时交付",
+        "Independent, timeboxed V2"
+      ],
+      "detail": [
+        "从明确需求重做，不覆盖 V1。十五分钟是开发约束，不是自动通过所有测试的证明。",
+        "Rebuild from the aligned brief without overwriting V1. A 15-minute target does not certify every test."
+      ],
+      "owner": [
+        "教师授权",
+        "Teacher authorization"
+      ],
+      "check": [
+        "新旧入口、存档键与版本来源可分别核对。",
+        "Verify distinct entry points, save keys and source versions."
+      ]
+    }
+  ],
+  "historical_snapshot": {
+    "id": "martin-v1",
+    "name": [
+      "V1 · 3D 捕捉与进化",
+      "V1 · 3D capture and evolution"
+    ],
+    "path": "../martins-monster-quest/",
+    "image": "assets/martin-v1.png",
+    "status": [
+      "历史基线 · 对照保留",
+      "Historical comparison"
+    ],
+    "strength": [
+      "已有探索、捕捉、队伍战斗、进化和三地区结构。",
+      "Exploration, capture, team battles, evolution and three regions already exist."
+    ],
+    "limit": [
+      "本课仍认为画面、反馈和内容深度不够；旧文档的“Production Ready”不作为今天的完整验收结论。",
+      "The lesson still identifies limited visual feedback and depth. Old “Production Ready” wording is not today’s acceptance verdict."
+    ],
+    "source": "M-HISTORY",
+    "tokens": null,
+    "cost_aud": null,
+    "score": null
+  }
+}

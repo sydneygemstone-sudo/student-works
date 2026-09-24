@@ -1,21 +1,21 @@
 SKYVALE✦
-SkyvaleAdventure · Solo adventure
+Skyvale · Solo adventure
 Solo · saved locally
 ♫
 ⛶
-OUR ADVENTURE / Shared adventure
+OUR ADVENTURE
 01 / Fly through the rings · 0/3
 
 Follow the gold marker. Activate Flight, approach a ring, then Interact.
 
 ☆ Park　 ☆ Camp　 ☆ Farm
-ISLAND MAP☀ SUNNY
+ISLAND MAP☂ RAIN
 🔵 Solo Explorer · You
 Welcome to Skyvale! Follow the gold marker to the park
 ✦ Follow the golden beacon · 32 m
-CENTRAL PLAZA
+The Commons
 🍎 0　 🧺 0
-MOVE
+Move
 ✦ Interact
 E
 ✧ Flight
