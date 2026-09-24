@@ -16,7 +16,7 @@
   "artifacts_sha256": {
     "docs/hub-standard/HUB-STANDARD.md": "d970904df9925ccb77a49a632c7ef20741f8feb0d6f98841065d47180d4ce58e",
     "docs/hub-standard/SKILL.md": "bae6bec5f063dc4993603058726d907370dbd5abf4ed68ba5a11a9c25c65c641",
-    "HUB-ENTRY.json": "e2295130acdd18652600a9cfa5e0a185287ca23940e10754e20ebee379629ec6",
+    "HUB-ENTRY.json": "a2fe35215989d8ed9ec8fed25ef160f4a6cecc6b8354ed9fe16e0a52d028f5b0",
     "AGENTS.md": "46b769646d1faeb9e4d0da7379bb9fd2171423b2572aafe0c4c56d2217707762",
     "CLAUDE.md": "452aeca4a25e2bc7efbbaa8e99458c60f99c1e569c5a301d4876f6f9ad8f5fbb",
     "scripts/verify_hub_standard.py": "41a183f2c7faf88190235e1dc944f237ee4072b9bb77b6851ecb0662bc364000",
@@ -100,5 +100,8 @@
     "classroom-2026-09-22/touch-guard.js": "5410eb2dbafe553ed4ad10638fd42a72397fdd37310324f97b8e9bfeabe93660"
   },
   "change_control": "A new explicit teacher approval, new version and renewed fingerprints are required; no automatic lock refresh.",
-  "enforcement_scope": "Preflight/CI detects drift; no claim of admin-proof protection or blocking the separate Pages pipeline."
+  "enforcement_scope": "Preflight/CI detects drift; no claim of admin-proof protection or blocking the separate Pages pipeline.",
+  "presentation_overlay_sha256": {
+    "docs/hub-standard/R6-FINAL-PRESENTATION.md": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7"
+  }
 }

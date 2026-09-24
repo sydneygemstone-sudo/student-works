@@ -1,7 +1,7 @@
 {
-  "version": "4.0.0",
-  "presentation": "HUB R6",
-  "status": "REVIEW_READY_NOT_YET_APPROVED",
+  "version": "4.0.1",
+  "presentation": "HUB R6.1",
+  "status": "APPROVED_BASE_WITH_REQUESTED_FINAL_CORRECTIONS",
   "base": "CLASSROOM-HUB-R5-20260923",
   "source_fingerprints": {
     "studio.js": "4a5232e41e05cb9d0bf1cecb778d1174b309370f90c2549fb576efaa22153743",
@@ -20,5 +20,14 @@
     "bilingual games",
     "browser solo",
     "one HUB per work"
-  ]
+  ],
+  "presentation_amendment": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+  "language_control": {
+    "type": "button",
+    "always_visible": true,
+    "zh-CN_label": "English",
+    "en_label": "中文",
+    "dropdown": false
+  },
+  "featured_trio_branch": "opus-touch"
 }

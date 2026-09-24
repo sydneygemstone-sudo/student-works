@@ -10,14 +10,14 @@
         "Three creators, one shared world"
       ],
       "heroTitle": [
-        "三片天地，一个家<br><em>现在，一个人也能探索</em>",
-        "Three zones, one home<br><em>Now ready to explore solo</em>"
+        "三人同乐世界<br><em>Opus · 课堂好评版</em>",
+        "Trio World<br><em>Opus · classroom favourite</em>"
       ],
       "intro": [
         "从旧乐园的试玩出发，孩子们提出可复现的问题，再把想法对齐成大厅、乐园、野外和农场。两条 3D 分支都保留，不提前宣布谁获胜。",
         "Start with the old park, describe reproducible problems, then align a lobby, park, wilderness and farm. Both 3D branches are retained for review; neither is declared a winner."
       ],
-      "hero": "assets/skyvale-hud.png",
+      "hero": "assets/trio-opus.png",
       "theme": "forest",
       "budget": 150,
       "people_names": [
@@ -287,53 +287,14 @@
       },
       "branches": [
         {
-          "key": "skyvale-hud1",
-          "name": [
-            "Astra · 云间奇遇单人版",
-            "Astra · Skyvale solo"
-          ],
-          "tag": [
-            "最新 R6 · 单机双语",
-            "Latest R6 · solo bilingual"
-          ],
-          "tool": "Astra",
-          "release": [
-            "当前单机修订 R6",
-            "Current solo revision R6"
-          ],
-          "subtitle": [
-            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
-            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
-          ],
-          "strength": [
-            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
-            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
-          ],
-          "limit": [
-            "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
-            "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
-          ],
-          "detail": [
-            "原课堂版记录：仍需真实三 iPad 修复后复测。房间存于内存；普通 Pages 无法运行它的 WebSocket 服务。",
-            "Original classroom record: Needs post-fix testing on three physical iPads. Room state is memory-only; ordinary Pages cannot host its WebSocket service."
-          ],
-          "path": "../solo-skyvale/",
-          "image": "assets/skyvale-hud.png",
-          "tokens": 2376325,
-          "aud": 7.3,
-          "legacy": false,
-          "status": "retained",
-          "scores": null
-        },
-        {
           "key": "opus-touch",
           "name": [
             "Opus · 三人同乐世界单人版",
             "Opus · Trio World solo"
           ],
           "tag": [
-            "最新 R6 · 单机双语",
-            "Latest R6 · solo bilingual"
+            "首推 · Opus 好评版",
+            "Featured · Opus favourite"
           ],
           "tool": "Opus",
           "release": [
@@ -360,6 +321,46 @@
           "image": "assets/trio-opus.png",
           "tokens": 4276573,
           "aud": 7.92,
+          "legacy": false,
+          "status": "retained",
+          "scores": null,
+          "recommendation": "teacher_confirmed_favourite"
+        },
+        {
+          "key": "skyvale-hud1",
+          "name": [
+            "Astra · 云间奇遇单人版",
+            "Astra · Skyvale solo"
+          ],
+          "tag": [
+            "对照保留 · Astra",
+            "Retained comparison · Astra"
+          ],
+          "tool": "Astra",
+          "release": [
+            "当前单机修订 R6",
+            "Current solo revision R6"
+          ],
+          "subtitle": [
+            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
+            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
+          ],
+          "strength": [
+            "星环、采果、生火、喂动物与建屋由浏览器本机规则驱动，保留 HUD 修复和任务指引。",
+            "Rings, fruit, fire, feeding and cabin building run locally, retaining HUD repairs and quest guidance."
+          ],
+          "limit": [
+            "本版本保留原玩法；旧问题与原测试不抹去。浏览器适配检查不等于实体 iPad 全流程验收。",
+            "Original gameplay retained; historical issues/tests remain. Browser adaptation checks are not full physical-iPad acceptance."
+          ],
+          "detail": [
+            "原课堂版记录：仍需真实三 iPad 修复后复测。房间存于内存；普通 Pages 无法运行它的 WebSocket 服务。",
+            "Original classroom record: Needs post-fix testing on three physical iPads. Room state is memory-only; ordinary Pages cannot host its WebSocket service."
+          ],
+          "path": "../solo-skyvale/",
+          "image": "assets/skyvale-hud.png",
+          "tokens": 2376325,
+          "aud": 7.3,
           "legacy": false,
           "status": "retained",
           "scores": null
@@ -1047,8 +1048,8 @@
         }
       ],
       "decision": [
-        "主按钮进入 R6 单人试玩；中英切换、暂停、返回本作品 HUB 均在左栏。原始开发版本独立保留，历史预算与课堂学习已合并于本 HUB。",
-        "Primary buttons open R6 solo play; language, pause and return controls are on the left. Original builds remain preserved; historical budgets and learning are consolidated here."
+        "教师确认：最新好评版由 Opus 制作，现作为首推版本。上方直接进入 Opus 联机版；单人试玩同样优先展示 Opus。Astra 保留对照，旧版另区归档，学习记录与动态测评继续保留。",
+        "Teacher confirmed: the latest well-received version was made with Opus, now the featured build. The main button opens Opus online, and Opus leads the solo previews too. Astra remains a comparison; older builds, learning records and live reviews are retained."
       ],
       "route_title": [
         "三人共创：同一个世界，一起玩",
@@ -1062,8 +1063,8 @@
         {
           "id": "r6",
           "name": [
-            "Astra · 云间奇遇单人版",
-            "Astra · Skyvale solo"
+            "Opus · 三人同乐世界单人版",
+            "Opus · Trio World solo"
           ],
           "state": "retained",
           "desc": [
@@ -1074,8 +1075,8 @@
         {
           "id": "r6",
           "name": [
-            "Opus · 三人同乐世界单人版",
-            "Opus · Trio World solo"
+            "Astra · 云间奇遇单人版",
+            "Astra · Skyvale solo"
           ],
           "state": "retained",
           "desc": [
@@ -1097,12 +1098,12 @@
         }
       ],
       "next_title": [
-        "真实 iPad 长流程与教师最终确认",
-        "Full physical-iPad play and teacher sign-off"
+        "Opus 主版本的后续体验与改进",
+        "Further playtesting and improvements to the featured Opus build"
       ],
       "next_scope": [
-        "分别体验当前单机版本，确认操作、任务和展示；多人原型的实机验收与最终取舍另外记录。",
-        "Review current solo controls, quests and presentation. Physical multiplayer testing and final branch selection remain separate."
+        "以教师确认的 Opus 好评版为主入口；继续收集实际试玩与通关测评。Astra 的独立成果保留，不把首推决定改写成删除其他版本。",
+        "Use the teacher-confirmed Opus favourite as the main entry, and continue collecting playtests and completion reviews. Astra is retained; featuring Opus does not authorize deleting another version."
       ],
       "snapshot_note": [
         "原 V1/V2、HUD 修复前文件及 Opus 最早 Write 均在 Git 归档；当前可玩入口只打开本作品内的 R6 试玩，不再进入旧 HUB。",
@@ -1405,6 +1406,17 @@
           "note": [
             "见当前项目 cloudflare/ONLINE-R2.md 与独立验收回执。",
             "See cloudflare/ONLINE-R2.md and its dedicated acceptance report."
+          ]
+        },
+        {
+          "id": "TEACHER-FINAL-R6",
+          "label": [
+            "教师最终呈现纠正",
+            "Teacher’s final presentation correction"
+          ],
+          "note": [
+            "最新好评版是 Opus，不是 Astra；Opus 置顶。语言按钮始终可见，显示切换目标语言。",
+            "The latest well-received build is Opus, not Astra; show Opus first. Keep a visible button labelled with the destination language."
           ]
         }
       ],
@@ -2101,6 +2113,16 @@
         "task_count": 14,
         "review_entry": "online-reviews.html",
         "access": "Room-scoped view capability; review text is not public GitHub content"
+      },
+      "featured_play": {
+        "branch": "opus-touch",
+        "tool": "Opus",
+        "url": "https://trio-world-opus.sydney-gemstone-games.workers.dev/",
+        "label": [
+          "试玩 Opus 好评版 · 联机",
+          "Play the Opus favourite · online"
+        ],
+        "basis": "Teacher explicitly identified Opus as the latest well-received version; no numeric rating inferred."
       }
     }
   },

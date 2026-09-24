@@ -1,3 +1,6 @@
+<!-- R6_FINAL_PRESENTATION_20260925 -->
+**当前 HUB 呈现补充 / Current presentation amendment:** [R6.1：Opus 首推与常驻语言按钮](docs/hub-standard/R6-FINAL-PRESENTATION.md)。此补充由 `HUB-ENTRY.json.presentation_overlay` 定位，优先约束当前 R6；下方 R5 锁仍用于保护原始基准。
+
 # 学员作品 · Student Works
 
 ## 已批准的 HUB 唯一基准

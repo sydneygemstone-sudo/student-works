@@ -9,7 +9,7 @@ export class NetworkRoom {
   document.getElementById('newRoom').onclick=()=>this.create();document.getElementById('copyRoom').onclick=()=>this.copyInvite();
   document.getElementById('onlineReview').onclick=()=>this.openReview();document.getElementById('onlineStatus').onclick=()=>this.openStatus();
   document.getElementById('onlineLanguage').onclick=()=>{const u=new URL(location.href);u.searchParams.set('lang',this.en?'zh-CN':'en');location.href=u.href;};
-  document.getElementById('onlineLanguage').textContent=this.en?'中文':'EN';
+  document.getElementById('onlineLanguage').textContent=this.en?'中文':'English';
   this.paint();
   addEventListener('pagehide',()=>{this.terminal=true;clearInterval(this.heartbeat);clearTimeout(this.retryTimer);this.ws?.close(1000,'LEAVING');});
   addEventListener('message',e=>{const f=document.querySelector('#trioReviewOverlay iframe');if(e.origin===location.origin&&e.source===f?.contentWindow&&e.data?.type==='trio-review-saved'){this.send({t:'checkpoint'});document.getElementById('onlineReview').textContent=this.t('查看我的测评','My submitted review');}});

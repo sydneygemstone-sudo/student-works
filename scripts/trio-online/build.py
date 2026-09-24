@@ -99,3 +99,8 @@ for name in ['project.json','learning-record.json']:
  dump(H/name,d)
 dump(C/'online-r2-release.json',{'revision':'trio-online-r2-reviews-20260925','status':'BUILT_REQUIRES_DEPLOYMENT_READBACK','source_lan_git_blob':blob,'max_players':3,'digits':6,'tasks':14,'original_namespace_preserved':True})
 print('Built scoped Trio online R2: six digits, 3 players, 14 tasks, private cloud reviews. R6 base and Martin untouched.')
+
+# R6_FINAL_PRESENTATION_20260925: apply teacher-approved presentation after generation.
+if (R/'scripts/hub-r6-final-presentation.py').exists():
+ import runpy
+ runpy.run_path(str(R/'scripts/hub-r6-final-presentation.py'))['apply'](R,packages=False)

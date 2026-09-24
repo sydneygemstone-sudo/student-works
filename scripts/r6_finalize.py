@@ -35,3 +35,8 @@ put(p,s[:where]+addon+s[where:])
 # Candidate standards remain unapproved until the teacher reviews them.
 p=R/'docs/hub-standard/HUB-R6-REQUEST.json';x=json.loads(get(p));x['status']='IMPLEMENTED_AWAITING_TEACHER_REVIEW';x['canonical_hubs']=['martins-monster-quest/hub/','adventure-world/hub/'];dump(p,x)
 print('History fully imported, classroom issue tracking retained, single-pass bilingual rendering ready.')
+
+# R6_FINAL_PRESENTATION_20260925: apply teacher-approved presentation after generation.
+if (R/'scripts/hub-r6-final-presentation.py').exists():
+ import runpy
+ runpy.run_path(str(R/'scripts/hub-r6-final-presentation.py'))['apply'](R,packages=False)

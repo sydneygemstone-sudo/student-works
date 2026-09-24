@@ -1,0 +1,603 @@
+{
+  "revision": "R6.1-final-presentation",
+  "scope": "Presentation-only verification. No room creation, gameplay writes, Worker deployment, or student review access.",
+  "live": false,
+  "checks": [
+    {
+      "name": "adventure-world/hub/index.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/index.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/index.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/index.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/index.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/index.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/comparison.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/comparison.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/comparison.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/comparison.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/comparison.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/comparison.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/development.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/development.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/development.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/development.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/development.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/development.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/costs.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/costs.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/costs.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/costs.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/costs.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/costs.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/guide.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/guide.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/guide.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/guide.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/guide.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/guide.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/parents.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/parents.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/parents.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/parents.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/parents.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/parents.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/review.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/review.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/review.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "adventure-world/hub/review.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/review.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/review.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/index.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/comparison.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/development.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/costs.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/guide.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/parents.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html uses a button, never a language dropdown",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html Chinese offers English",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html button stays in the viewport after scrolling",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html one tap switches to English and offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html preserves query and hash",
+      "status": "PASS"
+    },
+    {
+      "name": "martins-monster-quest/hub/review.html keyboard switching works",
+      "status": "PASS"
+    },
+    {
+      "name": "Opus is the first current version",
+      "status": "PASS"
+    },
+    {
+      "name": "Hero image matches the Opus source",
+      "status": "PASS"
+    },
+    {
+      "name": "Hero clearly identifies the favourite as Opus",
+      "status": "PASS"
+    },
+    {
+      "name": "Primary hero play enters the deployed Opus online game",
+      "status": "PASS"
+    },
+    {
+      "name": "Opus solo remains directly accessible",
+      "status": "PASS"
+    },
+    {
+      "name": "Astra remains available separately",
+      "status": "PASS"
+    },
+    {
+      "name": "History remains in a separate lower section",
+      "status": "PASS"
+    },
+    {
+      "name": "Stable R6 metrics remain",
+      "status": "PASS"
+    },
+    {
+      "name": "Multiplayer and room review entry preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "Persistent language button at 768px",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "No horizontal overflow at 768px",
+      "status": "PASS"
+    },
+    {
+      "name": "Persistent language button at 390px",
+      "status": "PASS",
+      "detail": {
+        "fixed": true,
+        "inside": true,
+        "visible": true,
+        "text": "English"
+      }
+    },
+    {
+      "name": "No horizontal overflow at 390px",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsaved feedback and selected reviewer survive the language switch",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/online-reviews.html keeps a fixed English button",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/hub/online-reviews.html English offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/builds/trio-world-opus/online/review.html keeps a fixed English button",
+      "status": "PASS"
+    },
+    {
+      "name": "adventure-world/builds/trio-world-opus/online/review.html English offers 中文",
+      "status": "PASS"
+    },
+    {
+      "name": "No runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    }
+  ],
+  "failures": [],
+  "status": "PASS",
+  "completedAt": "2026-09-24T17:27:48.621Z"
+}
