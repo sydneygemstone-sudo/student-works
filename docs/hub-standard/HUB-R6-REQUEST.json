@@ -1,0 +1,15 @@
+{
+  "revision": "r6",
+  "status": "IN_PROGRESS_NOT_YET_ACCEPTED",
+  "base_standard": "CLASSROOM-HUB-R5-20260923",
+  "projects": ["martins-monster-quest", "adventure-world"],
+  "requirements": [
+    "Use the actual approved R5 layout and renderer as the R6 baseline; preserve added classroom learning records.",
+    "Merge historical and current project costs into one full estimated budget with itemized assumptions; recover GLM clues where available.",
+    "Latest playable versions first; historical builds separated and every game has a return-to-project-HUB control.",
+    "English and Simplified Chinese throughout HUBs and all exposed games, including the latest trio branches.",
+    "Every retained branch has a directly playable browser solo edition, not only a multiplayer deployment ZIP.",
+    "One canonical HUB per work; no date-based aggregate HUB as the delivery entrance."
+  ],
+  "preservation": "Do not delete original classroom versions or change the locked R5 golden artifacts."
+}
