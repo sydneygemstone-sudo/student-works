@@ -1,0 +1,29 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  spike["Log: early 2D spike"]:::archive
+  explore["Add map / selection / exploration"]:::repair
+  three["Major rebuild: 2D → 3D"]:::repair
+  camera["Repair battle/camera<br/>then expand evolution/bosses"]:::repair
+  v1["V1 historical baseline"]:::archive
+  new["New brief → independent V2"]:::version
+  firstqa["Normal-path checks<br/>later combined test failure"]:::repair
+  fixqa["Fixture timing + exposure fix<br/>boundary rerun passed"]:::repair
+  current["R6 V2 solo candidate"]:::main
+  spike -->|"Complete adventure requirements"| explore
+  explore -->|"Dimension/presentation rebuild"| three
+  three -->|"Classroom feedback"| camera
+  camera -->|"Historical baseline"| v1
+  v1 -.->|"Not source inheritance"| new
+  new -->|"Implement, then test"| firstqa
+  firstqa -->|"Fail → fix → rerun"| fixqa
+  fixqa -->|"R6 presentation/input adaptation"| current
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 0 stroke:#dca275,stroke-width:2.5px
+  linkStyle 1 stroke:#dca275,stroke-width:2.5px
+  linkStyle 2 stroke:#dca275,stroke-width:2.5px
+  linkStyle 6 stroke:#dca275,stroke-width:2.5px

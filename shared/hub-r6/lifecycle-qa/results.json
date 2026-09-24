@@ -1,0 +1,533 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "mode": "isolated-presentation",
+  "started": "2026-09-24T18:00:07.636Z",
+  "checks": [
+    {
+      "name": "martin phase counts and ordering",
+      "status": "PASS"
+    },
+    {
+      "name": "martin phase1 is 85.7%, overall is 28.6%",
+      "status": "PASS"
+    },
+    {
+      "name": "martin no arbitrary unequal phase weights",
+      "status": "PASS"
+    },
+    {
+      "name": "martin asset scope includes story guide music effects voice",
+      "status": "PASS"
+    },
+    {
+      "name": "martin AI scoring arithmetic and rationale",
+      "status": "PASS"
+    },
+    {
+      "name": "martin lineage unique typed evidence edges",
+      "status": "PASS"
+    },
+    {
+      "name": "martin lineage zh Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "martin lineage en Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "martin major-repairs unique typed evidence edges",
+      "status": "PASS"
+    },
+    {
+      "name": "martin major-repairs zh Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "martin major-repairs en Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "Martin independent rebuild is not source inheritance",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "martin metrics retained",
+      "status": "PASS"
+    },
+    {
+      "name": "martin current AI rating visible",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin AI evidence detail for every rated edition",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "martin index two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "martin metrics retained",
+      "status": "PASS"
+    },
+    {
+      "name": "martin current AI rating visible",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "martin development two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin comparison en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin AI evidence detail for every rated edition",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin costs en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin parents en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "martin review en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "martin total page fits 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "martin language remains on screen after scroll 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "martin total page fits 768",
+      "status": "PASS"
+    },
+    {
+      "name": "martin language remains on screen after scroll 768",
+      "status": "PASS"
+    },
+    {
+      "name": "martin total page fits 390",
+      "status": "PASS"
+    },
+    {
+      "name": "martin language remains on screen after scroll 390",
+      "status": "PASS"
+    },
+    {
+      "name": "trio phase counts and ordering",
+      "status": "PASS"
+    },
+    {
+      "name": "trio phase1 is 85.7%, overall is 28.6%",
+      "status": "PASS"
+    },
+    {
+      "name": "trio no arbitrary unequal phase weights",
+      "status": "PASS"
+    },
+    {
+      "name": "trio asset scope includes story guide music effects voice",
+      "status": "PASS"
+    },
+    {
+      "name": "trio AI scoring arithmetic and rationale",
+      "status": "PASS"
+    },
+    {
+      "name": "trio lineage unique typed evidence edges",
+      "status": "PASS"
+    },
+    {
+      "name": "trio lineage zh Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "trio lineage en Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "trio major-repairs unique typed evidence edges",
+      "status": "PASS"
+    },
+    {
+      "name": "trio major-repairs zh Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "trio major-repairs en Mermaid render",
+      "status": "PASS"
+    },
+    {
+      "name": "Trio has both divergences and review-only convergence",
+      "status": "PASS"
+    },
+    {
+      "name": "No invented Astra-to-Opus source merge",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "trio metrics retained",
+      "status": "PASS"
+    },
+    {
+      "name": "trio current AI rating visible",
+      "status": "PASS"
+    },
+    {
+      "name": "Opus first and multiplayer extension retained",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual Opus cloud URL retained",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio AI evidence detail for every rated edition",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review zh-CN readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review zh-CN persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "trio index two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "trio metrics retained",
+      "status": "PASS"
+    },
+    {
+      "name": "trio current AI rating visible",
+      "status": "PASS"
+    },
+    {
+      "name": "Opus first and multiplayer extension retained",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual Opus cloud URL retained",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development three phase bars",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development truthful overall",
+      "status": "PASS"
+    },
+    {
+      "name": "trio development two graph sources",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio comparison en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio AI evidence detail for every rated edition",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio costs en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio parents en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review en readable and no placeholder scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "trio review en persistent target language button",
+      "status": "PASS"
+    },
+    {
+      "name": "trio total page fits 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "trio language remains on screen after scroll 1024",
+      "status": "PASS"
+    },
+    {
+      "name": "trio total page fits 768",
+      "status": "PASS"
+    },
+    {
+      "name": "trio language remains on screen after scroll 768",
+      "status": "PASS"
+    },
+    {
+      "name": "trio total page fits 390",
+      "status": "PASS"
+    },
+    {
+      "name": "trio language remains on screen after scroll 390",
+      "status": "PASS"
+    },
+    {
+      "name": "Language switch preserves unsaved feedback and reviewer",
+      "status": "PASS"
+    },
+    {
+      "name": "Switch preserves current hash",
+      "status": "PASS"
+    },
+    {
+      "name": "Dynamic room review entry still present",
+      "status": "PASS"
+    },
+    {
+      "name": "All rendered local evidence/diagram/asset links exist",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "No new browser runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    }
+  ],
+  "failures": [],
+  "scope": "Lifecycle calculations, evidence-led AI rating presentation, generated Mermaid topology, localization, layout and retained form input. No new gameplay or cloud-service acceptance is claimed.",
+  "status": "PASS",
+  "finished": "2026-09-24T18:00:14.740Z"
+}

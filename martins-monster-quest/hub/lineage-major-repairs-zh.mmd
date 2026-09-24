@@ -1,0 +1,29 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  spike["日志：早期 2D 小样"]:::archive
+  explore["补地图 / 选人 / 探索"]:::repair
+  three["大修：2D → 3D"]:::repair
+  camera["修战斗显示与镜头<br/>再扩进化 / Boss"]:::repair
+  v1["V1 历史基线"]:::archive
+  new["新 Brief → 独立 V2"]:::version
+  firstqa["正常路径检查<br/>组合测试后段失败"]:::repair
+  fixqa["夹具时机修正 + 曝光修正<br/>边界重跑通过"]:::repair
+  current["R6 V2 单机候选"]:::main
+  spike -->|"补足冒险需求"| explore
+  explore -->|"维度与画面大修"| three
+  three -->|"现场反馈驱动"| camera
+  camera -->|"形成历史基线"| v1
+  v1 -.->|"不是源码继承"| new
+  new -->|"实现后验证"| firstqa
+  firstqa -->|"失败 → 修正 → 重跑"| fixqa
+  fixqa -->|"R6 展示/操作适配"| current
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 0 stroke:#dca275,stroke-width:2.5px
+  linkStyle 1 stroke:#dca275,stroke-width:2.5px
+  linkStyle 2 stroke:#dca275,stroke-width:2.5px
+  linkStyle 6 stroke:#dca275,stroke-width:2.5px

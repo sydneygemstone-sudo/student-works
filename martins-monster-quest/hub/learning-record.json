@@ -271,7 +271,8 @@
       "aud": 5.45,
       "legacy": false,
       "status": "retained",
-      "scores": null
+      "scores": null,
+      "ai_review_id": "martin-v2"
     },
     {
       "key": "martin-v1",
@@ -310,7 +311,8 @@
       "aud": 5,
       "legacy": true,
       "status": "retained",
-      "scores": null
+      "scores": null,
+      "ai_review_id": "martin-v1"
     }
   ],
   "learning": [
@@ -670,97 +672,97 @@
     "Dashboard, build cards and the budget table use one ledger with a verifiable total, range and balance."
   ],
   "milestone_note": [
-    "六个数字交付阶段；第七关实机与教师确认仍开放。",
-    "Six digital-delivery gates; physical play and teacher sign-off remain open."
+    "6/7只属于第一阶段MVP；三阶段总进度28.6%，按等权里程碑完成率计算。",
+    "6/7 belongs only to MVP phase 1; three-phase overall progress is 28.6% on an equal-phase milestone basis."
   ],
   "milestones": [
     {
       "name": [
-        "构想",
-        "Idea"
+        "需求与不做项对齐",
+        "Align requirements and exclusions"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "Brief",
-        "Brief"
+        "核心规则与玩法闭环",
+        "Define rules and the gameplay loop"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "原型",
-        "Prototype"
+        "可操作 MVP 原型",
+        "Build an operable MVP"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "版本评估",
-        "Review"
+        "分支评审与主线收敛",
+        "Review branches and choose a mainline"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "家庭适配",
-        "Home build"
+        "试玩入口与操作适配",
+        "Adapt play entry and controls"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "验证与呈现",
-        "Test & present"
+        "自动回归、缺陷与证据归档",
+        "Automated regression and evidence"
       ],
       "status": "complete"
     },
     {
       "name": [
-        "实机与定稿",
-        "Final approval"
+        "最终正常流程测试 → MVP 定稿",
+        "Final normal-path test → MVP freeze"
       ],
       "status": "pending"
     }
   ],
   "milestone_evidence": [
     [
-      "需求已记录",
-      "Recorded"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "范围已明确",
-      "Aligned"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "版本已保留",
-      "Preserved"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "反馈已合并",
-      "Consolidated"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "双语单机",
-      "Bilingual solo"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "见 R6 验收",
-      "R6 checks"
+      "已有证据",
+      "Evidenced"
     ],
     [
-      "待实机确认",
-      "Device check"
+      "最终测试待完成",
+      "Final test pending"
     ]
   ],
   "progress_scope": [
-    "七个等权交付阶段",
-    "Seven equally weighted gates"
+    "阶段一：MVP核心玩法，不是整个产品",
+    "Phase 1 MVP gameplay, not the entire product"
   ],
   "progress_next": [
-    "请用真实 iPad 复测完整任务链，再确认展示与版本选择。",
-    "Test the full quest on a physical iPad, then approve the presentation and version choice."
+    "从新存档正常走完三地区与最终双阶段Boss；验证交易/料理/倒下切换/恢复和真实设备触控。",
+    "Complete all three regions and the final two-phase boss from a fresh save; verify trade/meals/fallen switches/recovery and physical touch."
   ],
   "rate_note": [
     "A$63.44/h 沿用 R5 历史规划参数，不是工资或新市场报价。",
@@ -837,6 +839,17 @@
       "note": [
         "继承锁定 R5 原生渲染器和三个样式文件，来源指纹已记录。",
         "Derived from the locked native R5 renderer and three stylesheets; source fingerprints are recorded."
+      ]
+    },
+    {
+      "id": "LIFECYCLE",
+      "label": [
+        "三阶段、版本关系与AI理据评分",
+        "Lifecycle, lineage and AI reasoned ratings"
+      ],
+      "note": [
+        "来自用户本轮明确要求与当前源码/测试记录；AI分值为判断，不是自动测试事实。",
+        "From this revision’s explicit user requirements and source/test records; AI scores are judgments, not automated-test facts."
       ]
     }
   ],
@@ -977,5 +990,1602 @@
       "cost_aud": null,
       "score": null
     }
-  }
+  },
+  "lifecycle": {
+    "revision": "hub-r6-lifecycle-20260925",
+    "current_phase": "mvp",
+    "overall_basis": "three_phase_equal_weight_gate_index",
+    "overall_label": [
+      "三阶段总进度 · 里程碑口径",
+      "Overall progress · three-phase milestone index"
+    ],
+    "formula": [
+      "总进度 = (MVP完成率 + 资产完成率 + 发布运营准备完成率) ÷ 3。三个阶段等权；每阶段内部只数已完成的验收项。不表示工时、花费或日历时间占比。",
+      "Overall = (MVP gate completion + asset gate completion + release/operations readiness completion) / 3. Phases have equal weight; only completed gates count within a phase. This is not labour, spending or elapsed-time percentage."
+    ],
+    "not_authorized_for_execution": true,
+    "phases": [
+      {
+        "id": "mvp",
+        "name": [
+          "MVP 核心玩法定稿",
+          "MVP core-gameplay freeze"
+        ],
+        "weight": 0.3333333333333333,
+        "state": "active",
+        "goal": [
+          "先把核心玩法真正做通、选定主线并验证稳定。",
+          "Make the core loop work, select the mainline and verify it."
+        ],
+        "exit": [
+          "最终测试通过，固定 MVP 基线。",
+          "Pass the final test and freeze the MVP baseline."
+        ],
+        "gates": [
+          {
+            "id": "m1",
+            "title": [
+              "需求与不做项对齐",
+              "Align requirements and exclusions"
+            ],
+            "deliverable": [
+              "核心目标、设备、用户和本轮范围已记录。",
+              "Record core goals, devices, users and scope."
+            ],
+            "status": "complete",
+            "evidence": [
+              "M-SPEC"
+            ]
+          },
+          {
+            "id": "m2",
+            "title": [
+              "核心规则与玩法闭环",
+              "Define rules and the gameplay loop"
+            ],
+            "deliverable": [
+              "可验证的资源、任务、完成条件和失败路径。",
+              "Verifiable resources, tasks, completion conditions and failure paths."
+            ],
+            "status": "complete",
+            "evidence": [
+              "M-SPEC"
+            ]
+          },
+          {
+            "id": "m3",
+            "title": [
+              "可操作 MVP 原型",
+              "Build an operable MVP"
+            ],
+            "deliverable": [
+              "核心动作真实改变游戏状态，不是只有菜单。",
+              "Core actions change state rather than only displaying menus."
+            ],
+            "status": "complete",
+            "evidence": [
+              "M-QA"
+            ]
+          },
+          {
+            "id": "m4",
+            "title": [
+              "分支评审与主线收敛",
+              "Review branches and choose a mainline"
+            ],
+            "deliverable": [
+              "明确当前主线与对照版本；选择不冒充源码合并。",
+              "Identify mainline and comparisons; selection is not source merging."
+            ],
+            "status": "complete",
+            "evidence": [
+              "M-SPEC",
+              "M-QA"
+            ]
+          },
+          {
+            "id": "m5",
+            "title": [
+              "试玩入口与操作适配",
+              "Adapt play entry and controls"
+            ],
+            "deliverable": [
+              "双语、单机、返回与本机保存；需要时加联机测试入口。",
+              "Language, solo, return and saves; an online test entry where needed."
+            ],
+            "status": "complete",
+            "evidence": [
+              "R6-QA"
+            ]
+          },
+          {
+            "id": "m6",
+            "title": [
+              "自动回归、缺陷与证据归档",
+              "Automated regression and evidence"
+            ],
+            "deliverable": [
+              "已执行的测试、失败记录和修复来源可读回。",
+              "Executed checks, failures and repair provenance can be retrieved."
+            ],
+            "status": "complete",
+            "evidence": [
+              "M-QA",
+              "R6-QA"
+            ]
+          },
+          {
+            "id": "m7",
+            "title": [
+              "最终正常流程测试 → MVP 定稿",
+              "Final normal-path test → MVP freeze"
+            ],
+            "deliverable": [
+              "真实设备完整通关、关键边界与恢复测试；确认后固定核心范围，不再任意扩展。",
+              "Full physical-device normal flow, key boundaries and recovery; then freeze core scope."
+            ],
+            "status": "pending",
+            "evidence": []
+          }
+        ],
+        "completed_gates": 6,
+        "total_gates": 7,
+        "completion_percent": 85.71428571428571
+      },
+      {
+        "id": "assets",
+        "name": [
+          "完整资产与视听呈现",
+          "Complete assets and audiovisual experience"
+        ],
+        "weight": 0.3333333333333333,
+        "state": "planned",
+        "depends_on": "mvp",
+        "goal": [
+          "补足故事与引导，强化视觉，把音乐、音效和配音制作成完整资产。",
+          "Complete story/guidance, strengthen visuals and produce full music, sound and voice assets."
+        ],
+        "exit": [
+          "完整资产包与故事体验集成验收通过。",
+          "Pass integrated full-asset and story-experience acceptance."
+        ],
+        "gates": [
+          {
+            "id": "a1",
+            "title": [
+              "完整故事线",
+              "Complete storyline"
+            ],
+            "deliverable": [
+              "世界设定、角色动机、章节、冲突、结局与任务逻辑补足。",
+              "Complete world, motives, chapters, conflict, ending and quest logic."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a2",
+            "title": [
+              "完整引导与可理解性",
+              "Complete guidance and comprehension"
+            ],
+            "deliverable": [
+              "新手教学、目标提示、失败/返回引导及双语文案成套验证。",
+              "Validate onboarding, objectives, failure/recovery guidance and bilingual copy."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a3",
+            "title": [
+              "资产规格与清单",
+              "Asset specification and inventory"
+            ],
+            "deliverable": [
+              "锁定风格、格式、性能预算、文件命名、版本和授权来源。",
+              "Define style, formats, performance budgets, naming, versions and provenance."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a4",
+            "title": [
+              "视觉资产与动画特效",
+              "Visual assets, animation and effects"
+            ],
+            "deliverable": [
+              "角色、场景、界面、道具、动画、技能与反馈资产完整替换/强化。",
+              "Complete characters, environments, UI, props, animation, skills and feedback assets."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a5",
+            "title": [
+              "音乐资产",
+              "Music assets"
+            ],
+            "deliverable": [
+              "场景/情绪/战斗/结局音乐、循环与混音，形成可复用资产。",
+              "Produce reusable scene, mood, combat and ending music, loops and mixes."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a6",
+            "title": [
+              "音效资产",
+              "Sound-effect assets"
+            ],
+            "deliverable": [
+              "动作、交互、环境、能力和 UI 提示音齐备，控制响度与触发逻辑。",
+              "Complete action, interaction, ambient, ability and UI sounds, loudness and triggers."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a7",
+            "title": [
+              "配音与角色声音",
+              "Voice and character audio"
+            ],
+            "deliverable": [
+              "旁白/角色/引导台词、授权、双语发音和字幕，对话音频资产化。",
+              "Assetize narration, dialogue and guidance with consent, bilingual pronunciation and subtitles."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "a8",
+            "title": [
+              "视听集成与整体验收",
+              "Integrated audiovisual acceptance"
+            ],
+            "deliverable": [
+              "全量资产装配、故事体验、音量可控、加载性能与多端回归。",
+              "Integrate all assets, story experience, audio controls, loading performance and device regression."
+            ],
+            "status": "planned",
+            "evidence": []
+          }
+        ],
+        "completed_gates": 0,
+        "total_gates": 8,
+        "completion_percent": 0.0
+      },
+      {
+        "id": "release",
+        "name": [
+          "平台发布、销售与长期运营",
+          "Platform release, sales and long-term operations"
+        ],
+        "weight": 0.3333333333333333,
+        "state": "planned",
+        "depends_on": "assets",
+        "goal": [
+          "从作品变为能发布、交付、支持与持续运营的产品。",
+          "Turn the work into a product that can launch, deliver, support and operate."
+        ],
+        "exit": [
+          "完成正式发布并建立持续服务能力；运营本身不以100%表示永远结束。",
+          "Launch and establish continuing service capability; 100% readiness does not end ongoing operations."
+        ],
+        "gates": [
+          {
+            "id": "r1",
+            "title": [
+              "发行与商业方案",
+              "Release and commercial plan"
+            ],
+            "deliverable": [
+              "选择实际平台、目标受众、销售/免费模式和服务边界。",
+              "Choose platforms, audiences, paid/free model and service scope."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "r2",
+            "title": [
+              "授权、隐私与平台要求",
+              "Rights, privacy and platform requirements"
+            ],
+            "deliverable": [
+              "核对资产许可、商店规则、儿童数据、隐私告知与删除机制。",
+              "Verify asset rights, store requirements, children’s data, notices and deletion mechanisms."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "r3",
+            "title": [
+              "发行构建与兼容验收",
+              "Release builds and compatibility"
+            ],
+            "deliverable": [
+              "发行包、安装/升级、设备兼容、稳定性、安全与恢复检查。",
+              "Test release packages, installation/upgrades, compatibility, stability, security and recovery."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "r4",
+            "title": [
+              "商店与宣传素材",
+              "Store and marketing material"
+            ],
+            "deliverable": [
+              "商品页、图文/视频、价格、帮助说明与支持入口完成。",
+              "Complete listing, screenshots/video, pricing, help and support entry."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "r5",
+            "title": [
+              "正式平台销售发布",
+              "Production platform/sales launch"
+            ],
+            "deliverable": [
+              "完成平台发布与购买/访问/交付路径验证，而非只有测试网址。",
+              "Launch and verify purchase/access/delivery paths, not only a test URL."
+            ],
+            "status": "planned",
+            "evidence": []
+          },
+          {
+            "id": "r6",
+            "title": [
+              "长期服务运营准备",
+              "Long-term service readiness"
+            ],
+            "deliverable": [
+              "监控、成本、备份恢复、客服、内容更新和事故处理可执行；之后按运行指标持续管理。",
+              "Make monitoring, costs, backup/recovery, support, updates and incident handling operational; then track ongoing service metrics."
+            ],
+            "status": "planned",
+            "evidence": []
+          }
+        ],
+        "completed_gates": 0,
+        "total_gates": 6,
+        "completion_percent": 0.0
+      }
+    ],
+    "coverage_note": [
+      "已有 3D、程序化声音、任务提示和公网试玩是 MVP 的原型资产与技术验证；第二、三阶段尚无成套验收，因此暂计0%，不是声称现有资产完全不存在。",
+      "Existing 3D, procedural sound, prompts and public play are MVP assets/technical proofs. Phases 2/3 have no complete accepted delivery gates yet, so count 0%; this does not mean no assets exist."
+    ],
+    "phase1_final_tests": [
+      "从新存档正常走完三地区与最终双阶段Boss；验证交易/料理/倒下切换/恢复和真实设备触控。",
+      "Complete all three regions and the final two-phase boss from a fresh save; verify trade/meals/fallen switches/recovery and physical touch."
+    ],
+    "overall_percent": 28.57142857142857
+  },
+  "ai_reviews": {
+    "revision": "hub-r6-lifecycle-20260925",
+    "assessed_on": "2026-09-25",
+    "reviewer_type": "AI",
+    "scope": "MVP",
+    "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+    "formula": "stars = sum(earned points) / 20; round to one decimal",
+    "rubric": [
+      {
+        "id": "loop",
+        "name": [
+          "核心玩法与需求对齐",
+          "Core loop and requirements"
+        ],
+        "max": 30
+      },
+      {
+        "id": "usability",
+        "name": [
+          "可玩性、输入与引导",
+          "Playability, controls and guidance"
+        ],
+        "max": 25
+      },
+      {
+        "id": "reliability",
+        "name": [
+          "稳定性与测试证据",
+          "Reliability and test evidence"
+        ],
+        "max": 20
+      },
+      {
+        "id": "presentation",
+        "name": [
+          "MVP 视听反馈与一致性",
+          "MVP audiovisual feedback and coherence"
+        ],
+        "max": 15
+      },
+      {
+        "id": "recoverability",
+        "name": [
+          "版本可追溯与可交付性",
+          "Traceability and recoverability"
+        ],
+        "max": 10
+      }
+    ],
+    "reviews": [
+      {
+        "id": "martin-v2",
+        "name": [
+          "Wildbound V2 · 当前 R6 单机版",
+          "Wildbound V2 · current R6 solo"
+        ],
+        "reviewer_type": "AI",
+        "reviewer": "ChatGPT",
+        "review_kind": "authored_evidence_based_judgment",
+        "scope": "MVP",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "points": [
+          27,
+          20,
+          16,
+          10,
+          8
+        ],
+        "reasons": [
+          [
+            "捕捉、买卖、料理、训练和进化已经连成可验证循环；完整三 Boss 战役尚未闭环。",
+            "Capture, trade, meals, training and evolution form a checked loop; the complete three-boss campaign is still unverified."
+          ],
+          [
+            "已有键盘、模拟触控、地图互动和状态切换检查；真实 iPad 长流程及难度手感仍需最终测试。",
+            "Keyboard, simulated touch, landmarks and state transitions have evidence; real-iPad sustained play and balance need a final test."
+          ],
+          [
+            "正常流程、存档及边界重跑有记录；原组合测试失败仍保留，不将修正夹具后的结果夸成全通关。",
+            "Normal flow, saves and a boundary rerun are recorded; the failed combined run remains and is not rewritten as full completion."
+          ],
+          [
+            "有独立 3D 世界、技能反馈与曝光修订；故事深度、正式美术、配乐音效和配音仍属第二阶段。",
+            "3D exploration, skill feedback and exposure fixes exist; deeper story and production art/music/sound/voice belong to phase 2."
+          ],
+          [
+            "V1/V2 与存档分开、源码和测试可回溯；当前只是可交付 MVP 候选，不是商业成品。",
+            "V1/V2 and saves are isolated with traceable source/tests; this is an MVP candidate, not a commercial product."
+          ]
+        ],
+        "total": 81,
+        "stars": 4.1,
+        "strength": [
+          "抓怪之后有明确的资源选择与成长循环。",
+          "Captures create meaningful resource choices and growth."
+        ],
+        "risk": [
+          "最终两阶段 Boss、完整三 Boss 通关、实际设备长时体验未验证。",
+          "The final two-phase boss, full campaign and sustained physical-device play remain unverified."
+        ],
+        "next_test": [
+          "从全新存档走完正常战役，验证交易/料理边界、失败恢复和结局。",
+          "Complete the normal campaign from a fresh save, including economy/meal boundaries, defeat recovery and the ending."
+        ],
+        "evidence": [
+          "M-SPEC",
+          "M-QA",
+          "R6-QA"
+        ],
+        "final_device_acceptance": false
+      },
+      {
+        "id": "martin-v1",
+        "name": [
+          "Martin V1 · 历史对照的 R6 试玩",
+          "Martin V1 · R6-wrapped historical comparison"
+        ],
+        "reviewer_type": "AI",
+        "reviewer": "ChatGPT",
+        "review_kind": "authored_evidence_based_judgment",
+        "scope": "MVP",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "points": [
+          23,
+          14,
+          11,
+          9,
+          6
+        ],
+        "reasons": [
+          [
+            "探索、捕捉、战斗与进化已成形；此前反馈认为深度与反馈不足，才有独立 V2。",
+            "Exploration, capture, combat and evolution exist; feedback about depth and feedback motivated the independent V2."
+          ],
+          [
+            "历史中多次修复战斗显示、触屏和镜头；R6 包装不自动证明原玩法问题全部解决。",
+            "Battle visibility, touch and camera required repeated fixes; the R6 wrapper does not certify every historical gameplay issue."
+          ],
+          [
+            "保留了历史日志及当前启动/包装检查，但历史自述不能替代同一版本完整回归。",
+            "Historical logs and current startup/wrapper checks exist; old claims do not replace full regression on the same build."
+          ],
+          [
+            "2D 升为 3D、随行伙伴与镜头改善是实质迭代；资产精修与声画统一尚未完成。",
+            "The 2D-to-3D shift, followers and camera improvements are substantial, but full audiovisual polish is unfinished."
+          ],
+          [
+            "源码保留可对照；早期细分节点多为日志阶段，而非都能独立恢复的发行版。",
+            "Source is retained; some early nodes are documented steps rather than independently recoverable releases."
+          ]
+        ],
+        "total": 63,
+        "stars": 3.2,
+        "strength": [
+          "适合作为需求迭代与大修的历史样本。",
+          "Useful as a historical example of requirements iteration and major repair."
+        ],
+        "risk": [
+          "旧日志的完成宣称与当时缺陷不能当作当前全量通过。",
+          "Historical completion claims and defects are not current full acceptance."
+        ],
+        "next_test": [
+          "以相同动作回归旧问题，用它对照 V2，不再默认为主线。",
+          "Reproduce the old issues consistently to compare with V2; do not treat it as the mainline."
+        ],
+        "evidence": [
+          "M-HISTORY",
+          "M-QA",
+          "R6-QA"
+        ],
+        "final_device_acceptance": false
+      }
+    ],
+    "sources": {
+      "M-HISTORY": {
+        "path": "martins-monster-quest/DEVLOG.md",
+        "title": [
+          "Martin 历史开发日志",
+          "Martin historical development log"
+        ],
+        "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+      },
+      "M-SPEC": {
+        "path": "martins-monster-quest/v2/SPEC.md",
+        "title": [
+          "Wildbound V2 范围与规则",
+          "Wildbound V2 scope and rules"
+        ],
+        "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+      },
+      "M-QA": {
+        "path": "martins-monster-quest/v2/QA.md",
+        "title": [
+          "V2 正常流程、夹具失败与边界重跑",
+          "V2 normal flow, fixture failure and boundary rerun"
+        ],
+        "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+      },
+      "AW-HISTORY": {
+        "path": "adventure-world/hub/historical-context.json",
+        "title": [
+          "已合并的 Adventure World 历史资料",
+          "Consolidated Adventure World history"
+        ],
+        "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+      },
+      "SKY-QA": {
+        "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+        "title": [
+          "Skyvale 三连接与浏览器验证",
+          "Skyvale three-client and browser checks"
+        ],
+        "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+      },
+      "SKY-HUD": {
+        "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+        "title": [
+          "Skyvale HUD 修复前后记录",
+          "Skyvale before/after HUD repair"
+        ],
+        "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+      },
+      "OPUS-HISTORY": {
+        "path": "adventure-world/builds/trio-world-opus/README.md",
+        "title": [
+          "Opus 桌面初稿与触屏修订来源",
+          "Opus desktop-first and touch revision provenance"
+        ],
+        "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+      },
+      "OPUS-FIRST": {
+        "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+        "title": [
+          "首次 Write 快照，不是最终桌面发行版",
+          "Initial Write snapshot, not a final desktop release"
+        ],
+        "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+      },
+      "R6-QA": {
+        "path": "shared/hub-r6/qa/results.json",
+        "title": [
+          "R6 双语、单机、暂停与展示检查",
+          "R6 language, solo, pause and presentation checks"
+        ],
+        "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+      },
+      "R6-TOUCH": {
+        "path": "shared/hub-r6/qa/touch-results.json",
+        "title": [
+          "R6 触屏事件验证",
+          "R6 touch-event checks"
+        ],
+        "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+      },
+      "CLOUD-R1": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+        "title": [
+          "Opus 首轮云端联机回执",
+          "Opus first cloud multiplayer evidence"
+        ],
+        "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+      },
+      "CLOUD-R2": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+        "title": [
+          "六位房间、14任务与测评真实部署验收",
+          "Live six-digit rooms, 14 tasks and reviews acceptance"
+        ],
+        "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+      },
+      "CLOUD-GUIDE": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+        "title": [
+          "联机规则、保存与访问边界",
+          "Multiplayer, persistence and access boundaries"
+        ],
+        "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+      },
+      "SELECTION": {
+        "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+        "title": [
+          "已确认 Opus 首推与语言常驻规则",
+          "Confirmed Opus preference and persistent language controls"
+        ],
+        "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+      }
+    }
+  },
+  "version_lineage": {
+    "revision": "hub-r6-lifecycle-20260925",
+    "edge_types": {
+      "derive": [
+        "源码适配/继续实现",
+        "Source adaptation/continuation"
+      ],
+      "requirements": [
+        "复用需求，不继承旧源码",
+        "Requirements reuse, not old source"
+      ],
+      "repair": [
+        "同分支大修与回归",
+        "Major in-branch repair/regression"
+      ],
+      "review": [
+        "输入评审，不是合并代码",
+        "Review input, not a code merge"
+      ],
+      "select": [
+        "选择主线",
+        "Mainline selection"
+      ],
+      "retain": [
+        "保留对照",
+        "Retained comparison"
+      ],
+      "future": [
+        "尚未完成",
+        "Not yet completed"
+      ]
+    },
+    "graphs": [
+      {
+        "id": "lineage",
+        "title": [
+          "Martin：历史基线 → 独立重做 → 当前主线",
+          "Martin: historical baseline → independent rebuild → current mainline"
+        ],
+        "nodes": [
+          {
+            "id": "old",
+            "title": [
+              "V1 · 3D 历史基线",
+              "V1 · 3D historical baseline"
+            ],
+            "state": "archive",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "早期2D原型、3D大修和镜头修订详见大修图；不是每一步都存在独立源码快照。",
+              "Early 2D/3D/camera steps are detailed below; not every step has an independent source snapshot."
+            ]
+          },
+          {
+            "id": "brief",
+            "title": [
+              "9/24 新需求\n交易 / 料理 / 培养",
+              "24 Sep new brief\ntrade / meals / training"
+            ],
+            "state": "decision",
+            "evidence": [
+              "M-SPEC"
+            ],
+            "detail": [
+              "沿用抓宠方向，明确不做建房；形成独立V2范围。",
+              "Keep the capture concept, exclude building and define independent V2 scope."
+            ]
+          },
+          {
+            "id": "v2",
+            "title": [
+              "Wildbound V2\n独立新实现",
+              "Wildbound V2\nindependent implementation"
+            ],
+            "state": "version",
+            "evidence": [
+              "M-SPEC"
+            ],
+            "detail": [
+              "不把V1作为必须继承的代码基础，不覆盖旧存档。",
+              "Do not require the V1 codebase or overwrite old saves."
+            ]
+          },
+          {
+            "id": "v2fixed",
+            "title": [
+              "V2 修正与回归\n夹具 / 曝光 / 边界",
+              "V2 fixes and regression\nfixture / exposure / boundaries"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-QA"
+            ],
+            "detail": [
+              "正常流程后修正测试夹具与曝光，保留首轮失败证据。",
+              "Correct fixtures/exposure after normal-path checks and preserve failed evidence."
+            ]
+          },
+          {
+            "id": "oldsolo",
+            "title": [
+              "V1 · R6 历史试玩",
+              "V1 · R6 historical preview"
+            ],
+            "state": "archive",
+            "evidence": [
+              "R6-QA"
+            ],
+            "detail": [
+              "保留对照入口，不意味着旧问题全部修复。",
+              "Retained comparison entry, not certification that old issues are solved."
+            ]
+          },
+          {
+            "id": "v2solo",
+            "title": [
+              "V2 · R6 当前单机",
+              "V2 · R6 current solo"
+            ],
+            "state": "version",
+            "evidence": [
+              "R6-QA"
+            ],
+            "detail": [
+              "双语、暂停、返回和独立保存包装。",
+              "Language, pause, return and isolated saves."
+            ]
+          },
+          {
+            "id": "choice",
+            "title": [
+              "评审收敛\nV2 主线 / V1 对照",
+              "Review convergence\nV2 mainline / V1 comparison"
+            ],
+            "state": "decision",
+            "evidence": [
+              "M-SPEC",
+              "M-QA"
+            ],
+            "detail": [
+              "是主线选择，不是V1与V2源码合并。",
+              "Mainline selection, not a V1/V2 source merge."
+            ]
+          },
+          {
+            "id": "focus",
+            "title": [
+              "当前 MVP 候选\nWildbound V2",
+              "Current MVP candidate\nWildbound V2"
+            ],
+            "state": "main",
+            "evidence": [
+              "M-SPEC",
+              "R6-QA"
+            ],
+            "detail": [
+              "下一步只做最终正常流程测试，先完成第一阶段。",
+              "Next is the final normal-path test to complete phase 1."
+            ]
+          },
+          {
+            "id": "freeze",
+            "title": [
+              "待最终测试\nMVP 基线定稿",
+              "Final test pending\nfreeze MVP baseline"
+            ],
+            "state": "pending",
+            "evidence": [],
+            "detail": [
+              "未完成，不能画为已收口发布。",
+              "Pending, not shown as completed release."
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "source": "old",
+            "target": "brief",
+            "type": "requirements",
+            "label": [
+              "吸收反馈，重新定范围",
+              "Feedback → new scope"
+            ],
+            "reason": [
+              "继承需求背景，不主张源码继承。",
+              "Requirements context only, not source inheritance."
+            ],
+            "evidence": [
+              "M-HISTORY",
+              "M-SPEC"
+            ]
+          },
+          {
+            "source": "brief",
+            "target": "v2",
+            "type": "requirements",
+            "label": [
+              "独立重做",
+              "Independent rebuild"
+            ],
+            "reason": [
+              "需求驱动新实现，不覆盖旧版。",
+              "New implementation from requirements; preserve V1."
+            ],
+            "evidence": [
+              "M-SPEC"
+            ]
+          },
+          {
+            "source": "v2",
+            "target": "v2fixed",
+            "type": "repair",
+            "label": [
+              "修正并回归",
+              "Fix and regress"
+            ],
+            "reason": [
+              "区分夹具失败、画面曝光与游戏逻辑结论。",
+              "Separate fixture failures, exposure and gameplay evidence."
+            ],
+            "evidence": [
+              "M-QA"
+            ]
+          },
+          {
+            "source": "old",
+            "target": "oldsolo",
+            "type": "derive",
+            "label": [
+              "历史单机包装",
+              "Historical solo wrapper"
+            ],
+            "reason": [
+              "只保留可访问对照。",
+              "Keep an accessible comparison."
+            ],
+            "evidence": [
+              "R6-QA"
+            ]
+          },
+          {
+            "source": "v2fixed",
+            "target": "v2solo",
+            "type": "derive",
+            "label": [
+              "R6 单机适配",
+              "R6 solo adaptation"
+            ],
+            "reason": [
+              "包装语言、输入与独立存档。",
+              "Wrap language, input and independent saves."
+            ],
+            "evidence": [
+              "R6-QA"
+            ]
+          },
+          {
+            "source": "oldsolo",
+            "target": "choice",
+            "type": "review",
+            "label": [
+              "对照输入",
+              "Comparison evidence"
+            ],
+            "reason": [
+              "不是将旧版代码合入新版本。",
+              "Not merging old source into the new version."
+            ],
+            "evidence": [
+              "M-HISTORY",
+              "R6-QA"
+            ]
+          },
+          {
+            "source": "v2solo",
+            "target": "choice",
+            "type": "review",
+            "label": [
+              "候选评审",
+              "Candidate review"
+            ],
+            "reason": [
+              "依据需求与已执行测试。",
+              "Based on requirements and executed checks."
+            ],
+            "evidence": [
+              "M-QA",
+              "R6-QA"
+            ]
+          },
+          {
+            "source": "choice",
+            "target": "focus",
+            "type": "select",
+            "label": [
+              "保留 V2 为主线",
+              "Select V2 mainline"
+            ],
+            "reason": [
+              "继续既有独立V2方向。",
+              "Continue the existing independent V2 direction."
+            ],
+            "evidence": [
+              "M-SPEC"
+            ]
+          },
+          {
+            "source": "focus",
+            "target": "freeze",
+            "type": "future",
+            "label": [
+              "最终测试后才定稿",
+              "Freeze only after final test"
+            ],
+            "reason": [
+              "当前6/7，不是全产品完成86%。",
+              "Currently 6/7 of phase 1, not 86% of the entire product."
+            ],
+            "evidence": [
+              "M-QA"
+            ]
+          }
+        ],
+        "summary": [
+          "先从旧版反馈重新形成需求，再独立重做 V2；V1 只保留对照。两个版本在评审处收敛，不发生源码合并。",
+          "Feedback produces a new brief and independent V2; V1 stays for comparison. Convergence is a review decision, not source merging."
+        ],
+        "direction": "TB"
+      },
+      {
+        "id": "major-repairs",
+        "title": [
+          "Martin：必须保留的大修路径",
+          "Martin: major repair paths that must remain visible"
+        ],
+        "nodes": [
+          {
+            "id": "spike",
+            "title": [
+              "日志：早期 2D 小样",
+              "Log: early 2D spike"
+            ],
+            "state": "archive",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "日志记录，未承诺独立恢复包。",
+              "Documented step, not a promised independent package."
+            ]
+          },
+          {
+            "id": "explore",
+            "title": [
+              "补地图 / 选人 / 探索",
+              "Add map / selection / exploration"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "从只有战斗小样扩成可移动冒险。",
+              "Expand the battle spike into an explorable adventure."
+            ]
+          },
+          {
+            "id": "three",
+            "title": [
+              "大修：2D → 3D",
+              "Major rebuild: 2D → 3D"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "加入可见人物、随行伙伴和立体场景。",
+              "Add visible trainers, followers and 3D scenes."
+            ]
+          },
+          {
+            "id": "camera",
+            "title": [
+              "修战斗显示与镜头\n再扩进化 / Boss",
+              "Repair battle/camera\nthen expand evolution/bosses"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "旧日志声称的根因和实机结果不是本轮重新证明的事实。",
+              "Historical cause/device claims are not newly re-proven here."
+            ]
+          },
+          {
+            "id": "v1",
+            "title": [
+              "V1 历史基线",
+              "V1 historical baseline"
+            ],
+            "state": "archive",
+            "evidence": [
+              "M-HISTORY"
+            ],
+            "detail": [
+              "作为历史对照冻结。",
+              "Retained as historical comparison."
+            ]
+          },
+          {
+            "id": "new",
+            "title": [
+              "新 Brief → 独立 V2",
+              "New brief → independent V2"
+            ],
+            "state": "version",
+            "evidence": [
+              "M-SPEC"
+            ],
+            "detail": [
+              "不同于在V1上继续补丁。",
+              "Different from continuing patches on V1."
+            ]
+          },
+          {
+            "id": "firstqa",
+            "title": [
+              "正常路径检查\n组合测试后段失败",
+              "Normal-path checks\nlater combined test failure"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-QA"
+            ],
+            "detail": [
+              "低血量夹具被自动保存覆盖；不是所有验证都通过。",
+              "Low-HP fixture overwritten by saving; not every check passed."
+            ]
+          },
+          {
+            "id": "fixqa",
+            "title": [
+              "夹具时机修正 + 曝光修正\n边界重跑通过",
+              "Fixture timing + exposure fix\nboundary rerun passed"
+            ],
+            "state": "repair",
+            "evidence": [
+              "M-QA"
+            ],
+            "detail": [
+              "失败证据保留；没有凭夹具测试宣布完整三Boss通关。",
+              "Retain failure evidence; no full three-boss claim from fixture checks."
+            ]
+          },
+          {
+            "id": "current",
+            "title": [
+              "R6 V2 单机候选",
+              "R6 V2 solo candidate"
+            ],
+            "state": "main",
+            "evidence": [
+              "R6-QA"
+            ],
+            "detail": [
+              "包装检查与核心最终测试分开。",
+              "Wrapper checks remain separate from final gameplay acceptance."
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "source": "spike",
+            "target": "explore",
+            "type": "repair",
+            "label": [
+              "补足冒险需求",
+              "Complete adventure requirements"
+            ],
+            "reason": [
+              "历史日志的第一次范围深化。",
+              "First scope expansion in historical logs."
+            ],
+            "evidence": [
+              "M-HISTORY"
+            ]
+          },
+          {
+            "source": "explore",
+            "target": "three",
+            "type": "repair",
+            "label": [
+              "维度与画面大修",
+              "Dimension/presentation rebuild"
+            ],
+            "reason": [
+              "2D升级为3D。",
+              "2D upgraded to 3D."
+            ],
+            "evidence": [
+              "M-HISTORY"
+            ]
+          },
+          {
+            "source": "three",
+            "target": "camera",
+            "type": "repair",
+            "label": [
+              "现场反馈驱动",
+              "Classroom feedback"
+            ],
+            "reason": [
+              "战斗不可见与镜头不适先修，再扩内容。",
+              "Repair visibility/camera before expanding content."
+            ],
+            "evidence": [
+              "M-HISTORY"
+            ]
+          },
+          {
+            "source": "camera",
+            "target": "v1",
+            "type": "derive",
+            "label": [
+              "形成历史基线",
+              "Historical baseline"
+            ],
+            "reason": [
+              "保留旧成果和问题记录。",
+              "Retain work and issues."
+            ],
+            "evidence": [
+              "M-HISTORY"
+            ]
+          },
+          {
+            "source": "v1",
+            "target": "new",
+            "type": "requirements",
+            "label": [
+              "不是源码继承",
+              "Not source inheritance"
+            ],
+            "reason": [
+              "新需求驱动独立重做。",
+              "Independent rebuild from requirements."
+            ],
+            "evidence": [
+              "M-SPEC"
+            ]
+          },
+          {
+            "source": "new",
+            "target": "firstqa",
+            "type": "derive",
+            "label": [
+              "实现后验证",
+              "Implement, then test"
+            ],
+            "reason": [
+              "正常路径与边界分开。",
+              "Separate normal and boundary paths."
+            ],
+            "evidence": [
+              "M-QA"
+            ]
+          },
+          {
+            "source": "firstqa",
+            "target": "fixqa",
+            "type": "repair",
+            "label": [
+              "失败 → 修正 → 重跑",
+              "Fail → fix → rerun"
+            ],
+            "reason": [
+              "不能删除失败或夸大重跑范围。",
+              "Do not erase failure or overstate rerun scope."
+            ],
+            "evidence": [
+              "M-QA"
+            ]
+          },
+          {
+            "source": "fixqa",
+            "target": "current",
+            "type": "derive",
+            "label": [
+              "R6 展示/操作适配",
+              "R6 presentation/input adaptation"
+            ],
+            "reason": [
+              "最终全流程仍待完成。",
+              "Final end-to-end test remains open."
+            ],
+            "evidence": [
+              "R6-QA"
+            ]
+          }
+        ],
+        "summary": [
+          "旧版大修是历史事实记录；V2 重做与后续测试修正是不同层次的变化，不能画成一次无风险直线升级。",
+          "Historical major rebuilds, independent V2 and later test corrections are different changes, not one risk-free linear upgrade."
+        ],
+        "direction": "TB"
+      }
+    ],
+    "no_merge_statement": [
+      "评审收敛与源码合并是不同关系；本档案没有证据支持 Astra→Opus 或 V1→V2 的源码融合，因此不会画出该合并。",
+      "Review convergence and source merging are different. No evidence supports an Astra→Opus or V1→V2 source merge, so none is drawn."
+    ],
+    "sources": {
+      "M-HISTORY": {
+        "path": "martins-monster-quest/DEVLOG.md",
+        "title": [
+          "Martin 历史开发日志",
+          "Martin historical development log"
+        ],
+        "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+      },
+      "M-SPEC": {
+        "path": "martins-monster-quest/v2/SPEC.md",
+        "title": [
+          "Wildbound V2 范围与规则",
+          "Wildbound V2 scope and rules"
+        ],
+        "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+      },
+      "M-QA": {
+        "path": "martins-monster-quest/v2/QA.md",
+        "title": [
+          "V2 正常流程、夹具失败与边界重跑",
+          "V2 normal flow, fixture failure and boundary rerun"
+        ],
+        "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+      },
+      "AW-HISTORY": {
+        "path": "adventure-world/hub/historical-context.json",
+        "title": [
+          "已合并的 Adventure World 历史资料",
+          "Consolidated Adventure World history"
+        ],
+        "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+      },
+      "SKY-QA": {
+        "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+        "title": [
+          "Skyvale 三连接与浏览器验证",
+          "Skyvale three-client and browser checks"
+        ],
+        "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+      },
+      "SKY-HUD": {
+        "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+        "title": [
+          "Skyvale HUD 修复前后记录",
+          "Skyvale before/after HUD repair"
+        ],
+        "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+      },
+      "OPUS-HISTORY": {
+        "path": "adventure-world/builds/trio-world-opus/README.md",
+        "title": [
+          "Opus 桌面初稿与触屏修订来源",
+          "Opus desktop-first and touch revision provenance"
+        ],
+        "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+      },
+      "OPUS-FIRST": {
+        "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+        "title": [
+          "首次 Write 快照，不是最终桌面发行版",
+          "Initial Write snapshot, not a final desktop release"
+        ],
+        "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+      },
+      "R6-QA": {
+        "path": "shared/hub-r6/qa/results.json",
+        "title": [
+          "R6 双语、单机、暂停与展示检查",
+          "R6 language, solo, pause and presentation checks"
+        ],
+        "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+      },
+      "R6-TOUCH": {
+        "path": "shared/hub-r6/qa/touch-results.json",
+        "title": [
+          "R6 触屏事件验证",
+          "R6 touch-event checks"
+        ],
+        "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+      },
+      "CLOUD-R1": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+        "title": [
+          "Opus 首轮云端联机回执",
+          "Opus first cloud multiplayer evidence"
+        ],
+        "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+      },
+      "CLOUD-R2": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+        "title": [
+          "六位房间、14任务与测评真实部署验收",
+          "Live six-digit rooms, 14 tasks and reviews acceptance"
+        ],
+        "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+      },
+      "CLOUD-GUIDE": {
+        "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+        "title": [
+          "联机规则、保存与访问边界",
+          "Multiplayer, persistence and access boundaries"
+        ],
+        "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+      },
+      "SELECTION": {
+        "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+        "title": [
+          "已确认 Opus 首推与语言常驻规则",
+          "Confirmed Opus preference and persistent language controls"
+        ],
+        "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+        "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+        "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+      }
+    }
+  },
+  "governance_sources": {
+    "M-HISTORY": {
+      "path": "martins-monster-quest/DEVLOG.md",
+      "title": [
+        "Martin 历史开发日志",
+        "Martin historical development log"
+      ],
+      "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+    },
+    "M-SPEC": {
+      "path": "martins-monster-quest/v2/SPEC.md",
+      "title": [
+        "Wildbound V2 范围与规则",
+        "Wildbound V2 scope and rules"
+      ],
+      "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+    },
+    "M-QA": {
+      "path": "martins-monster-quest/v2/QA.md",
+      "title": [
+        "V2 正常流程、夹具失败与边界重跑",
+        "V2 normal flow, fixture failure and boundary rerun"
+      ],
+      "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+    },
+    "AW-HISTORY": {
+      "path": "adventure-world/hub/historical-context.json",
+      "title": [
+        "已合并的 Adventure World 历史资料",
+        "Consolidated Adventure World history"
+      ],
+      "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+    },
+    "SKY-QA": {
+      "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+      "title": [
+        "Skyvale 三连接与浏览器验证",
+        "Skyvale three-client and browser checks"
+      ],
+      "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+    },
+    "SKY-HUD": {
+      "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+      "title": [
+        "Skyvale HUD 修复前后记录",
+        "Skyvale before/after HUD repair"
+      ],
+      "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+    },
+    "OPUS-HISTORY": {
+      "path": "adventure-world/builds/trio-world-opus/README.md",
+      "title": [
+        "Opus 桌面初稿与触屏修订来源",
+        "Opus desktop-first and touch revision provenance"
+      ],
+      "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+    },
+    "OPUS-FIRST": {
+      "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+      "title": [
+        "首次 Write 快照，不是最终桌面发行版",
+        "Initial Write snapshot, not a final desktop release"
+      ],
+      "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+    },
+    "R6-QA": {
+      "path": "shared/hub-r6/qa/results.json",
+      "title": [
+        "R6 双语、单机、暂停与展示检查",
+        "R6 language, solo, pause and presentation checks"
+      ],
+      "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+    },
+    "R6-TOUCH": {
+      "path": "shared/hub-r6/qa/touch-results.json",
+      "title": [
+        "R6 触屏事件验证",
+        "R6 touch-event checks"
+      ],
+      "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+    },
+    "CLOUD-R1": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+      "title": [
+        "Opus 首轮云端联机回执",
+        "Opus first cloud multiplayer evidence"
+      ],
+      "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+    },
+    "CLOUD-R2": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+      "title": [
+        "六位房间、14任务与测评真实部署验收",
+        "Live six-digit rooms, 14 tasks and reviews acceptance"
+      ],
+      "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+    },
+    "CLOUD-GUIDE": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+      "title": [
+        "联机规则、保存与访问边界",
+        "Multiplayer, persistence and access boundaries"
+      ],
+      "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+    },
+    "SELECTION": {
+      "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+      "title": [
+        "已确认 Opus 首推与语言常驻规则",
+        "Confirmed Opus preference and persistent language controls"
+      ],
+      "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+    }
+  },
+  "presentation_revision": "hub-r6-lifecycle-20260925"
 }

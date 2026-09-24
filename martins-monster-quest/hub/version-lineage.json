@@ -1,0 +1,758 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "edge_types": {
+    "derive": [
+      "源码适配/继续实现",
+      "Source adaptation/continuation"
+    ],
+    "requirements": [
+      "复用需求，不继承旧源码",
+      "Requirements reuse, not old source"
+    ],
+    "repair": [
+      "同分支大修与回归",
+      "Major in-branch repair/regression"
+    ],
+    "review": [
+      "输入评审，不是合并代码",
+      "Review input, not a code merge"
+    ],
+    "select": [
+      "选择主线",
+      "Mainline selection"
+    ],
+    "retain": [
+      "保留对照",
+      "Retained comparison"
+    ],
+    "future": [
+      "尚未完成",
+      "Not yet completed"
+    ]
+  },
+  "graphs": [
+    {
+      "id": "lineage",
+      "title": [
+        "Martin：历史基线 → 独立重做 → 当前主线",
+        "Martin: historical baseline → independent rebuild → current mainline"
+      ],
+      "nodes": [
+        {
+          "id": "old",
+          "title": [
+            "V1 · 3D 历史基线",
+            "V1 · 3D historical baseline"
+          ],
+          "state": "archive",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "早期2D原型、3D大修和镜头修订详见大修图；不是每一步都存在独立源码快照。",
+            "Early 2D/3D/camera steps are detailed below; not every step has an independent source snapshot."
+          ]
+        },
+        {
+          "id": "brief",
+          "title": [
+            "9/24 新需求\n交易 / 料理 / 培养",
+            "24 Sep new brief\ntrade / meals / training"
+          ],
+          "state": "decision",
+          "evidence": [
+            "M-SPEC"
+          ],
+          "detail": [
+            "沿用抓宠方向，明确不做建房；形成独立V2范围。",
+            "Keep the capture concept, exclude building and define independent V2 scope."
+          ]
+        },
+        {
+          "id": "v2",
+          "title": [
+            "Wildbound V2\n独立新实现",
+            "Wildbound V2\nindependent implementation"
+          ],
+          "state": "version",
+          "evidence": [
+            "M-SPEC"
+          ],
+          "detail": [
+            "不把V1作为必须继承的代码基础，不覆盖旧存档。",
+            "Do not require the V1 codebase or overwrite old saves."
+          ]
+        },
+        {
+          "id": "v2fixed",
+          "title": [
+            "V2 修正与回归\n夹具 / 曝光 / 边界",
+            "V2 fixes and regression\nfixture / exposure / boundaries"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-QA"
+          ],
+          "detail": [
+            "正常流程后修正测试夹具与曝光，保留首轮失败证据。",
+            "Correct fixtures/exposure after normal-path checks and preserve failed evidence."
+          ]
+        },
+        {
+          "id": "oldsolo",
+          "title": [
+            "V1 · R6 历史试玩",
+            "V1 · R6 historical preview"
+          ],
+          "state": "archive",
+          "evidence": [
+            "R6-QA"
+          ],
+          "detail": [
+            "保留对照入口，不意味着旧问题全部修复。",
+            "Retained comparison entry, not certification that old issues are solved."
+          ]
+        },
+        {
+          "id": "v2solo",
+          "title": [
+            "V2 · R6 当前单机",
+            "V2 · R6 current solo"
+          ],
+          "state": "version",
+          "evidence": [
+            "R6-QA"
+          ],
+          "detail": [
+            "双语、暂停、返回和独立保存包装。",
+            "Language, pause, return and isolated saves."
+          ]
+        },
+        {
+          "id": "choice",
+          "title": [
+            "评审收敛\nV2 主线 / V1 对照",
+            "Review convergence\nV2 mainline / V1 comparison"
+          ],
+          "state": "decision",
+          "evidence": [
+            "M-SPEC",
+            "M-QA"
+          ],
+          "detail": [
+            "是主线选择，不是V1与V2源码合并。",
+            "Mainline selection, not a V1/V2 source merge."
+          ]
+        },
+        {
+          "id": "focus",
+          "title": [
+            "当前 MVP 候选\nWildbound V2",
+            "Current MVP candidate\nWildbound V2"
+          ],
+          "state": "main",
+          "evidence": [
+            "M-SPEC",
+            "R6-QA"
+          ],
+          "detail": [
+            "下一步只做最终正常流程测试，先完成第一阶段。",
+            "Next is the final normal-path test to complete phase 1."
+          ]
+        },
+        {
+          "id": "freeze",
+          "title": [
+            "待最终测试\nMVP 基线定稿",
+            "Final test pending\nfreeze MVP baseline"
+          ],
+          "state": "pending",
+          "evidence": [],
+          "detail": [
+            "未完成，不能画为已收口发布。",
+            "Pending, not shown as completed release."
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "old",
+          "target": "brief",
+          "type": "requirements",
+          "label": [
+            "吸收反馈，重新定范围",
+            "Feedback → new scope"
+          ],
+          "reason": [
+            "继承需求背景，不主张源码继承。",
+            "Requirements context only, not source inheritance."
+          ],
+          "evidence": [
+            "M-HISTORY",
+            "M-SPEC"
+          ]
+        },
+        {
+          "source": "brief",
+          "target": "v2",
+          "type": "requirements",
+          "label": [
+            "独立重做",
+            "Independent rebuild"
+          ],
+          "reason": [
+            "需求驱动新实现，不覆盖旧版。",
+            "New implementation from requirements; preserve V1."
+          ],
+          "evidence": [
+            "M-SPEC"
+          ]
+        },
+        {
+          "source": "v2",
+          "target": "v2fixed",
+          "type": "repair",
+          "label": [
+            "修正并回归",
+            "Fix and regress"
+          ],
+          "reason": [
+            "区分夹具失败、画面曝光与游戏逻辑结论。",
+            "Separate fixture failures, exposure and gameplay evidence."
+          ],
+          "evidence": [
+            "M-QA"
+          ]
+        },
+        {
+          "source": "old",
+          "target": "oldsolo",
+          "type": "derive",
+          "label": [
+            "历史单机包装",
+            "Historical solo wrapper"
+          ],
+          "reason": [
+            "只保留可访问对照。",
+            "Keep an accessible comparison."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "v2fixed",
+          "target": "v2solo",
+          "type": "derive",
+          "label": [
+            "R6 单机适配",
+            "R6 solo adaptation"
+          ],
+          "reason": [
+            "包装语言、输入与独立存档。",
+            "Wrap language, input and independent saves."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "oldsolo",
+          "target": "choice",
+          "type": "review",
+          "label": [
+            "对照输入",
+            "Comparison evidence"
+          ],
+          "reason": [
+            "不是将旧版代码合入新版本。",
+            "Not merging old source into the new version."
+          ],
+          "evidence": [
+            "M-HISTORY",
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "v2solo",
+          "target": "choice",
+          "type": "review",
+          "label": [
+            "候选评审",
+            "Candidate review"
+          ],
+          "reason": [
+            "依据需求与已执行测试。",
+            "Based on requirements and executed checks."
+          ],
+          "evidence": [
+            "M-QA",
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "choice",
+          "target": "focus",
+          "type": "select",
+          "label": [
+            "保留 V2 为主线",
+            "Select V2 mainline"
+          ],
+          "reason": [
+            "继续既有独立V2方向。",
+            "Continue the existing independent V2 direction."
+          ],
+          "evidence": [
+            "M-SPEC"
+          ]
+        },
+        {
+          "source": "focus",
+          "target": "freeze",
+          "type": "future",
+          "label": [
+            "最终测试后才定稿",
+            "Freeze only after final test"
+          ],
+          "reason": [
+            "当前6/7，不是全产品完成86%。",
+            "Currently 6/7 of phase 1, not 86% of the entire product."
+          ],
+          "evidence": [
+            "M-QA"
+          ]
+        }
+      ],
+      "summary": [
+        "先从旧版反馈重新形成需求，再独立重做 V2；V1 只保留对照。两个版本在评审处收敛，不发生源码合并。",
+        "Feedback produces a new brief and independent V2; V1 stays for comparison. Convergence is a review decision, not source merging."
+      ],
+      "direction": "TB"
+    },
+    {
+      "id": "major-repairs",
+      "title": [
+        "Martin：必须保留的大修路径",
+        "Martin: major repair paths that must remain visible"
+      ],
+      "nodes": [
+        {
+          "id": "spike",
+          "title": [
+            "日志：早期 2D 小样",
+            "Log: early 2D spike"
+          ],
+          "state": "archive",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "日志记录，未承诺独立恢复包。",
+            "Documented step, not a promised independent package."
+          ]
+        },
+        {
+          "id": "explore",
+          "title": [
+            "补地图 / 选人 / 探索",
+            "Add map / selection / exploration"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "从只有战斗小样扩成可移动冒险。",
+            "Expand the battle spike into an explorable adventure."
+          ]
+        },
+        {
+          "id": "three",
+          "title": [
+            "大修：2D → 3D",
+            "Major rebuild: 2D → 3D"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "加入可见人物、随行伙伴和立体场景。",
+            "Add visible trainers, followers and 3D scenes."
+          ]
+        },
+        {
+          "id": "camera",
+          "title": [
+            "修战斗显示与镜头\n再扩进化 / Boss",
+            "Repair battle/camera\nthen expand evolution/bosses"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "旧日志声称的根因和实机结果不是本轮重新证明的事实。",
+            "Historical cause/device claims are not newly re-proven here."
+          ]
+        },
+        {
+          "id": "v1",
+          "title": [
+            "V1 历史基线",
+            "V1 historical baseline"
+          ],
+          "state": "archive",
+          "evidence": [
+            "M-HISTORY"
+          ],
+          "detail": [
+            "作为历史对照冻结。",
+            "Retained as historical comparison."
+          ]
+        },
+        {
+          "id": "new",
+          "title": [
+            "新 Brief → 独立 V2",
+            "New brief → independent V2"
+          ],
+          "state": "version",
+          "evidence": [
+            "M-SPEC"
+          ],
+          "detail": [
+            "不同于在V1上继续补丁。",
+            "Different from continuing patches on V1."
+          ]
+        },
+        {
+          "id": "firstqa",
+          "title": [
+            "正常路径检查\n组合测试后段失败",
+            "Normal-path checks\nlater combined test failure"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-QA"
+          ],
+          "detail": [
+            "低血量夹具被自动保存覆盖；不是所有验证都通过。",
+            "Low-HP fixture overwritten by saving; not every check passed."
+          ]
+        },
+        {
+          "id": "fixqa",
+          "title": [
+            "夹具时机修正 + 曝光修正\n边界重跑通过",
+            "Fixture timing + exposure fix\nboundary rerun passed"
+          ],
+          "state": "repair",
+          "evidence": [
+            "M-QA"
+          ],
+          "detail": [
+            "失败证据保留；没有凭夹具测试宣布完整三Boss通关。",
+            "Retain failure evidence; no full three-boss claim from fixture checks."
+          ]
+        },
+        {
+          "id": "current",
+          "title": [
+            "R6 V2 单机候选",
+            "R6 V2 solo candidate"
+          ],
+          "state": "main",
+          "evidence": [
+            "R6-QA"
+          ],
+          "detail": [
+            "包装检查与核心最终测试分开。",
+            "Wrapper checks remain separate from final gameplay acceptance."
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "spike",
+          "target": "explore",
+          "type": "repair",
+          "label": [
+            "补足冒险需求",
+            "Complete adventure requirements"
+          ],
+          "reason": [
+            "历史日志的第一次范围深化。",
+            "First scope expansion in historical logs."
+          ],
+          "evidence": [
+            "M-HISTORY"
+          ]
+        },
+        {
+          "source": "explore",
+          "target": "three",
+          "type": "repair",
+          "label": [
+            "维度与画面大修",
+            "Dimension/presentation rebuild"
+          ],
+          "reason": [
+            "2D升级为3D。",
+            "2D upgraded to 3D."
+          ],
+          "evidence": [
+            "M-HISTORY"
+          ]
+        },
+        {
+          "source": "three",
+          "target": "camera",
+          "type": "repair",
+          "label": [
+            "现场反馈驱动",
+            "Classroom feedback"
+          ],
+          "reason": [
+            "战斗不可见与镜头不适先修，再扩内容。",
+            "Repair visibility/camera before expanding content."
+          ],
+          "evidence": [
+            "M-HISTORY"
+          ]
+        },
+        {
+          "source": "camera",
+          "target": "v1",
+          "type": "derive",
+          "label": [
+            "形成历史基线",
+            "Historical baseline"
+          ],
+          "reason": [
+            "保留旧成果和问题记录。",
+            "Retain work and issues."
+          ],
+          "evidence": [
+            "M-HISTORY"
+          ]
+        },
+        {
+          "source": "v1",
+          "target": "new",
+          "type": "requirements",
+          "label": [
+            "不是源码继承",
+            "Not source inheritance"
+          ],
+          "reason": [
+            "新需求驱动独立重做。",
+            "Independent rebuild from requirements."
+          ],
+          "evidence": [
+            "M-SPEC"
+          ]
+        },
+        {
+          "source": "new",
+          "target": "firstqa",
+          "type": "derive",
+          "label": [
+            "实现后验证",
+            "Implement, then test"
+          ],
+          "reason": [
+            "正常路径与边界分开。",
+            "Separate normal and boundary paths."
+          ],
+          "evidence": [
+            "M-QA"
+          ]
+        },
+        {
+          "source": "firstqa",
+          "target": "fixqa",
+          "type": "repair",
+          "label": [
+            "失败 → 修正 → 重跑",
+            "Fail → fix → rerun"
+          ],
+          "reason": [
+            "不能删除失败或夸大重跑范围。",
+            "Do not erase failure or overstate rerun scope."
+          ],
+          "evidence": [
+            "M-QA"
+          ]
+        },
+        {
+          "source": "fixqa",
+          "target": "current",
+          "type": "derive",
+          "label": [
+            "R6 展示/操作适配",
+            "R6 presentation/input adaptation"
+          ],
+          "reason": [
+            "最终全流程仍待完成。",
+            "Final end-to-end test remains open."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        }
+      ],
+      "summary": [
+        "旧版大修是历史事实记录；V2 重做与后续测试修正是不同层次的变化，不能画成一次无风险直线升级。",
+        "Historical major rebuilds, independent V2 and later test corrections are different changes, not one risk-free linear upgrade."
+      ],
+      "direction": "TB"
+    }
+  ],
+  "no_merge_statement": [
+    "评审收敛与源码合并是不同关系；本档案没有证据支持 Astra→Opus 或 V1→V2 的源码融合，因此不会画出该合并。",
+    "Review convergence and source merging are different. No evidence supports an Astra→Opus or V1→V2 source merge, so none is drawn."
+  ],
+  "sources": {
+    "M-HISTORY": {
+      "path": "martins-monster-quest/DEVLOG.md",
+      "title": [
+        "Martin 历史开发日志",
+        "Martin historical development log"
+      ],
+      "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+    },
+    "M-SPEC": {
+      "path": "martins-monster-quest/v2/SPEC.md",
+      "title": [
+        "Wildbound V2 范围与规则",
+        "Wildbound V2 scope and rules"
+      ],
+      "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+    },
+    "M-QA": {
+      "path": "martins-monster-quest/v2/QA.md",
+      "title": [
+        "V2 正常流程、夹具失败与边界重跑",
+        "V2 normal flow, fixture failure and boundary rerun"
+      ],
+      "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+    },
+    "AW-HISTORY": {
+      "path": "adventure-world/hub/historical-context.json",
+      "title": [
+        "已合并的 Adventure World 历史资料",
+        "Consolidated Adventure World history"
+      ],
+      "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+    },
+    "SKY-QA": {
+      "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+      "title": [
+        "Skyvale 三连接与浏览器验证",
+        "Skyvale three-client and browser checks"
+      ],
+      "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+    },
+    "SKY-HUD": {
+      "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+      "title": [
+        "Skyvale HUD 修复前后记录",
+        "Skyvale before/after HUD repair"
+      ],
+      "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+    },
+    "OPUS-HISTORY": {
+      "path": "adventure-world/builds/trio-world-opus/README.md",
+      "title": [
+        "Opus 桌面初稿与触屏修订来源",
+        "Opus desktop-first and touch revision provenance"
+      ],
+      "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+    },
+    "OPUS-FIRST": {
+      "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+      "title": [
+        "首次 Write 快照，不是最终桌面发行版",
+        "Initial Write snapshot, not a final desktop release"
+      ],
+      "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+    },
+    "R6-QA": {
+      "path": "shared/hub-r6/qa/results.json",
+      "title": [
+        "R6 双语、单机、暂停与展示检查",
+        "R6 language, solo, pause and presentation checks"
+      ],
+      "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+    },
+    "R6-TOUCH": {
+      "path": "shared/hub-r6/qa/touch-results.json",
+      "title": [
+        "R6 触屏事件验证",
+        "R6 touch-event checks"
+      ],
+      "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+    },
+    "CLOUD-R1": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+      "title": [
+        "Opus 首轮云端联机回执",
+        "Opus first cloud multiplayer evidence"
+      ],
+      "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+    },
+    "CLOUD-R2": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+      "title": [
+        "六位房间、14任务与测评真实部署验收",
+        "Live six-digit rooms, 14 tasks and reviews acceptance"
+      ],
+      "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+    },
+    "CLOUD-GUIDE": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+      "title": [
+        "联机规则、保存与访问边界",
+        "Multiplayer, persistence and access boundaries"
+      ],
+      "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+    },
+    "SELECTION": {
+      "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+      "title": [
+        "已确认 Opus 首推与语言常驻规则",
+        "Confirmed Opus preference and persistent language controls"
+      ],
+      "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+    }
+  }
+}

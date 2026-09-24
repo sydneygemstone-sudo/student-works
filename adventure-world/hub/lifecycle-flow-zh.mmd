@@ -1,0 +1,19 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  p0["01 MVP核心玩法<br/>6/7 · 85.7%"]:::main
+  p1["最终正常流程测试<br/>通过后冻结MVP"]:::pending
+  p2["02 完整资产与视听呈现<br/>0/8 · 尚未成套验收"]:::pending
+  p3["资产集成验收通过"]:::pending
+  p4["03 平台销售发布与运营准备<br/>0/6 · 尚未正式发布"]:::pending
+  p5["持续运营<br/>监控 / 支持 / 更新"]:::pending
+  p0 -.->|"通过后进入下一步"| p1
+  p1 -.->|"通过后进入下一步"| p2
+  p2 -.->|"通过后进入下一步"| p3
+  p3 -.->|"通过后进入下一步"| p4
+  p4 -.->|"通过后进入下一步"| p5
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4

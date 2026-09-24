@@ -16,5 +16,15 @@
     "metadata": "docs/hub-standard/R6.json",
     "implementation": "scripts/hub-r6-final-presentation.py",
     "precedence": "Required for current and new R6 HUBs; overlays presentation only. Preserve and verify the archived R5 base."
+  },
+  "lifecycle_overlay": {
+    "revision": "hub-r6-lifecycle-20260925",
+    "standard": "docs/hub-standard/R6-LIFECYCLE-AND-AI-REVIEW.md",
+    "scope": [
+      "martins-monster-quest/hub/",
+      "adventure-world/hub/"
+    ],
+    "preflight": "python3 scripts/hub-lifecycle/build.py; node scripts/hub-lifecycle/qa.cjs",
+    "no_fallback": "Do not restore single-stage total progress, placeholder human star grading or untyped merge arrows."
   }
 }

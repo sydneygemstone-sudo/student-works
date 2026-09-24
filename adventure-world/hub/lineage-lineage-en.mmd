@@ -1,0 +1,39 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  old["Adventure World<br/>original solo baseline"]:::archive
+  brief{"One new brief<br/>3D / zones / shared world"}:::decision
+  astra["Astra · Skyvale<br/>independent network build"]:::version
+  astraFixed["Astra input/batching fixes<br/>then iPad HUD repair"]:::repair
+  astraSolo["Astra · R6 solo<br/>retained comparison"]:::archive
+  opus["Opus · first desktop Write<br/>not a final delivery snapshot"]:::version
+  opusTouch["Opus adds iPad touch<br/>classroom branch"]:::repair
+  opusSolo["Opus · R6 solo preview"]:::version
+  cloud1["Opus · Cloud R1<br/>Worker + rooms"]:::version
+  cloud2["Opus · Cloud R2<br/>6 digits / 14 tasks / reviews"]:::version
+  review{"Review / selection node<br/>comparison, not code merge"}:::decision
+  main["Current mainline: Opus<br/>online first + solo entry"]:::main
+  gate["Final normal-path test<br/>then freeze MVP"]:::pending
+  old -.->|"Learn from old feedback"| brief
+  brief -.->|"Independent build A"| astra
+  brief -.->|"Independent build B"| opus
+  astra -->|"Repair and regress"| astraFixed
+  astraFixed -->|"R6 solo adaptation"| astraSolo
+  opus -->|"Add keyboard-free input"| opusTouch
+  opusTouch -->|"Fork: browser solo"| opusSolo
+  opusTouch -->|"Fork: cloud multiplayer"| cloud1
+  cloud1 -->|"Protocol/storage/completion revision"| cloud2
+  astraSolo -.->|"Comparison input"| review
+  opusSolo -.->|"Solo candidate evidence"| review
+  cloud2 -.->|"Online candidate evidence"| review
+  review ==>|"Converge by selecting Opus"| main
+  main -.->|"Final gate pending"| gate
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 3 stroke:#dca275,stroke-width:2.5px
+  linkStyle 5 stroke:#dca275,stroke-width:2.5px
+  linkStyle 8 stroke:#dca275,stroke-width:2.5px
+  linkStyle 12 stroke:#90d1a6,stroke-width:3.5px

@@ -1,0 +1,35 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+  "protected_file_count": 190,
+  "protected_game_files_unchanged": true,
+  "phase1": {
+    "completed": 6,
+    "total": 7,
+    "percent": 85.71428571428571
+  },
+  "assets": {
+    "completed": 0,
+    "total": 8
+  },
+  "release": {
+    "completed": 0,
+    "total": 6
+  },
+  "overall_percent": 28.571428571428573,
+  "diagrams": [
+    "martins-monster-quest/hub/lineage-lineage-zh.mmd",
+    "martins-monster-quest/hub/lineage-lineage-en.mmd",
+    "martins-monster-quest/hub/lineage-major-repairs-zh.mmd",
+    "martins-monster-quest/hub/lineage-major-repairs-en.mmd",
+    "martins-monster-quest/hub/lifecycle-flow-zh.mmd",
+    "martins-monster-quest/hub/lifecycle-flow-en.mmd",
+    "adventure-world/hub/lineage-lineage-zh.mmd",
+    "adventure-world/hub/lineage-lineage-en.mmd",
+    "adventure-world/hub/lineage-major-repairs-zh.mmd",
+    "adventure-world/hub/lineage-major-repairs-en.mmd",
+    "adventure-world/hub/lifecycle-flow-zh.mmd",
+    "adventure-world/hub/lifecycle-flow-en.mmd"
+  ],
+  "scope": "Only HUB presentation, lifecycle/review/lineage data and specification; no gameplay, server, budgets or stored review mutations."
+}

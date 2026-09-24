@@ -1,0 +1,19 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  p0["01 MVP core gameplay<br/>6/7 · 85.7%"]:::main
+  p1["Final normal-path test<br/>freeze MVP only after pass"]:::pending
+  p2["02 Full assets and audiovisuals<br/>0/8 · no complete acceptance"]:::pending
+  p3["Pass integrated asset acceptance"]:::pending
+  p4["03 Platform sales and operations readiness<br/>0/6 · no commercial release"]:::pending
+  p5["Ongoing operation<br/>monitoring / support / updates"]:::pending
+  p0 -.->|"Proceed only after acceptance"| p1
+  p1 -.->|"Proceed only after acceptance"| p2
+  p2 -.->|"Proceed only after acceptance"| p3
+  p3 -.->|"Proceed only after acceptance"| p4
+  p4 -.->|"Proceed only after acceptance"| p5
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4

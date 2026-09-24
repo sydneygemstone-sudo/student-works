@@ -1,0 +1,39 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  old["Adventure World<br/>旧单机基线"]:::archive
+  brief{"同一新 Brief<br/>3D / 三区 / 共享世界"}:::decision
+  astra["Astra · Skyvale<br/>独立联机实现"]:::version
+  astraFixed["Astra 修输入发送 / 批处理<br/>再修 iPad HUD"]:::repair
+  astraSolo["Astra · R6 单机<br/>保留对照"]:::archive
+  opus["Opus · 首次桌面 Write<br/>不是最终交付快照"]:::version
+  opusTouch["Opus 补 iPad 触屏<br/>当前课堂分支"]:::repair
+  opusSolo["Opus · R6 单人试玩"]:::version
+  cloud1["Opus · Cloud R1<br/>Worker + 房间"]:::version
+  cloud2["Opus · Cloud R2<br/>6位码 / 14任务 / 测评"]:::version
+  review{"评审 / 取舍节点<br/>比较而非代码合并"}:::decision
+  main["当前主线：Opus<br/>联机首推 + 单人入口"]:::main
+  gate["最终正常流程测试<br/>通过后冻结 MVP"]:::pending
+  old -.->|"吸收旧版反馈"| brief
+  brief -.->|"同 Brief 独立实现 A"| astra
+  brief -.->|"同 Brief 独立实现 B"| opus
+  astra -->|"大修并回归"| astraFixed
+  astraFixed -->|"R6 单机适配"| astraSolo
+  opus -->|"补无键盘条件"| opusTouch
+  opusTouch -->|"分支：浏览器单机"| opusSolo
+  opusTouch -->|"分支：云端联机"| cloud1
+  cloud1 -->|"协议/存储/通关大修"| cloud2
+  astraSolo -.->|"对照输入"| review
+  opusSolo -.->|"单机候选证据"| review
+  cloud2 -.->|"联机候选证据"| review
+  review ==>|"选择收敛：Opus"| main
+  main -.->|"最后一项待完成"| gate
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 3 stroke:#dca275,stroke-width:2.5px
+  linkStyle 5 stroke:#dca275,stroke-width:2.5px
+  linkStyle 8 stroke:#dca275,stroke-width:2.5px
+  linkStyle 12 stroke:#90d1a6,stroke-width:3.5px

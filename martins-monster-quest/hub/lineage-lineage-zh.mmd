@@ -1,0 +1,28 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  old["V1 · 3D 历史基线"]:::archive
+  brief{"9/24 新需求<br/>交易 / 料理 / 培养"}:::decision
+  v2["Wildbound V2<br/>独立新实现"]:::version
+  v2fixed["V2 修正与回归<br/>夹具 / 曝光 / 边界"]:::repair
+  oldsolo["V1 · R6 历史试玩"]:::archive
+  v2solo["V2 · R6 当前单机"]:::version
+  choice{"评审收敛<br/>V2 主线 / V1 对照"}:::decision
+  focus["当前 MVP 候选<br/>Wildbound V2"]:::main
+  freeze["待最终测试<br/>MVP 基线定稿"]:::pending
+  old -.->|"吸收反馈，重新定范围"| brief
+  brief -.->|"独立重做"| v2
+  v2 -->|"修正并回归"| v2fixed
+  old -->|"历史单机包装"| oldsolo
+  v2fixed -->|"R6 单机适配"| v2solo
+  oldsolo -.->|"对照输入"| choice
+  v2solo -.->|"候选评审"| choice
+  choice ==>|"保留 V2 为主线"| focus
+  focus -.->|"最终测试后才定稿"| freeze
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 2 stroke:#dca275,stroke-width:2.5px
+  linkStyle 7 stroke:#90d1a6,stroke-width:3.5px

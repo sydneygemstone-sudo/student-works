@@ -1,0 +1,439 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "assessed_on": "2026-09-25",
+  "reviewer_type": "AI",
+  "scope": "MVP",
+  "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+  "formula": "stars = sum(earned points) / 20; round to one decimal",
+  "rubric": [
+    {
+      "id": "loop",
+      "name": [
+        "核心玩法与需求对齐",
+        "Core loop and requirements"
+      ],
+      "max": 30
+    },
+    {
+      "id": "usability",
+      "name": [
+        "可玩性、输入与引导",
+        "Playability, controls and guidance"
+      ],
+      "max": 25
+    },
+    {
+      "id": "reliability",
+      "name": [
+        "稳定性与测试证据",
+        "Reliability and test evidence"
+      ],
+      "max": 20
+    },
+    {
+      "id": "presentation",
+      "name": [
+        "MVP 视听反馈与一致性",
+        "MVP audiovisual feedback and coherence"
+      ],
+      "max": 15
+    },
+    {
+      "id": "recoverability",
+      "name": [
+        "版本可追溯与可交付性",
+        "Traceability and recoverability"
+      ],
+      "max": 10
+    }
+  ],
+  "reviews": [
+    {
+      "id": "opus-online",
+      "name": [
+        "Opus · 当前六位房间联机版",
+        "Opus · current six-digit-room online edition"
+      ],
+      "reviewer_type": "AI",
+      "reviewer": "ChatGPT",
+      "review_kind": "authored_evidence_based_judgment",
+      "scope": "MVP",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "points": [
+        28,
+        22,
+        18,
+        11,
+        8
+      ],
+      "reasons": [
+        [
+          "保留三区与能力玩法，并把第14项改为真实庆祝完成事件；个人任务和共享小屋能形成闭环。",
+          "Zones and powers remain, with a real task-14 celebration; personal quests and the shared cabin close the loop."
+        ],
+        [
+          "有触屏操作、清晰房间上限、自动测评及恢复身份；换设备恢复与新手长流程仍有边界。",
+          "Touch controls, room limits, automatic review and identity resume exist; cross-device recovery and sustained onboarding retain limits."
+        ],
+        [
+          "独立与线上验收覆盖三人、满员拒绝、14任务、持久化和动态测评；移动是协议模拟，不冒称实机通关。",
+          "Isolated/live checks cover three players, capacity, 14 tasks, persistence and live reviews; movement was protocol-simulated, not a physical-device playthrough."
+        ],
+        [
+          "世界、天气与即时反馈支持 MVP 体验；正式故事、美术、音乐音效和配音资产还未完整制作。",
+          "World, weather and feedback support the MVP; production story, art, music, sound and voice assets are still incomplete."
+        ],
+        [
+          "源码、部署与测评依据可追踪，原分支保留；隐私、平台上架和长期服务能力尚未完成第三阶段。",
+          "Source, deployment and review evidence are traceable and originals retained; platform, privacy and long-term operations still need phase 3."
+        ]
+      ],
+      "total": 87,
+      "stars": 4.4,
+      "strength": [
+        "当前最完整的玩法→联机→通关→反馈链路，作为首推主线。",
+        "The most complete current play→multiplayer→completion→feedback loop; featured mainline."
+      ],
+      "risk": [
+        "真实三台 iPad/跨家庭网络长测未完成；并非商业发布就绪。",
+        "Sustained three-iPad/cross-home play is not complete; this is not commercial release readiness."
+      ],
+      "next_test": [
+        "三台真实设备从新房间通关、断线重入、提交与查看测评，冻结 MVP 范围。",
+        "Complete a fresh room on three physical devices, reconnect, submit/read reviews, then freeze MVP scope."
+      ],
+      "evidence": [
+        "CLOUD-R1",
+        "CLOUD-R2",
+        "CLOUD-GUIDE",
+        "SELECTION"
+      ],
+      "final_device_acceptance": false
+    },
+    {
+      "id": "opus-touch",
+      "name": [
+        "Opus · 当前 R6 单机版",
+        "Opus · current R6 solo edition"
+      ],
+      "reviewer_type": "AI",
+      "reviewer": "ChatGPT",
+      "review_kind": "authored_evidence_based_judgment",
+      "scope": "MVP",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "points": [
+        28,
+        21,
+        16,
+        11,
+        8
+      ],
+      "reasons": [
+        [
+          "保留大厅、三区、三能力、采集喂养和五阶段小屋；与联机版同源但状态在本机。",
+          "Preserves lobby, zones, powers, collection, feeding and the five-stage cabin; same lineage as online, local state."
+        ],
+        [
+          "首稿遗漏无键盘条件，随后补触屏；R6 单机的双语、暂停和返回都已验证。",
+          "The initial build missed keyboard-free input; touch followed, with R6 language/pause/return checks."
+        ],
+        [
+          "单机规则与启动、存档检查有证据；不能套用云端43项回执来替代本版完整实机验收。",
+          "Local rules, startup and saves have evidence; the cloud edition’s 43 checks do not certify this edition’s complete device play."
+        ],
+        [
+          "能力、天气、外观和建屋反馈较完整；现有表现仍是程序化 MVP，而非完整资产成品。",
+          "Powers, weather, skins and cabin feedback are developed, but remain procedural MVP presentation rather than a full asset production."
+        ],
+        [
+          "无需游戏服务器，独立存档和运行包便于恢复；仍需要最终正常流程回归。",
+          "No game server, isolated saves and runtime archive aid recovery; the final normal-path test remains."
+        ]
+      ],
+      "total": 84,
+      "stars": 4.2,
+      "strength": [
+        "直接单人体验原 Opus 主线，是联机版之外的保留入口。",
+        "Direct solo access to the Opus core, retained alongside multiplayer."
+      ],
+      "risk": [
+        "单机与联机是两个运行分支，测试结论不能混用。",
+        "Solo and online are distinct runtime branches; their test conclusions must not be mixed."
+      ],
+      "next_test": [
+        "真实 iPad 上正常完成任务链，并验证语言切换与刷新恢复。",
+        "Complete the normal task chain on iPad and verify language switching and reload recovery."
+      ],
+      "evidence": [
+        "OPUS-HISTORY",
+        "R6-QA",
+        "SELECTION"
+      ],
+      "final_device_acceptance": false
+    },
+    {
+      "id": "skyvale-hud1",
+      "name": [
+        "Astra · Skyvale R6 单机对照",
+        "Astra · Skyvale R6 solo comparison"
+      ],
+      "reviewer_type": "AI",
+      "reviewer": "ChatGPT",
+      "review_kind": "authored_evidence_based_judgment",
+      "scope": "MVP",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "points": [
+        26,
+        20,
+        17,
+        10,
+        8
+      ],
+      "reasons": [
+        [
+          "星环、采果、篝火、动物、小屋和庆祝形成合作规则闭环，单机保留原规则。",
+          "Rings, fruit, campfire, animals, cabin and celebration form a loop preserved in solo."
+        ],
+        [
+          "独立发送输入、触屏取消与 HUD 可视区修复提升可用性；完整实机体验仍待测。",
+          "Independent input transmission, touch cancellation and viewport repairs improve usability; full device experience remains open."
+        ],
+        [
+          "三连接流程和 HUD 回归证据较明确；原房间内存存储与当前单机存储不能混为云存档。",
+          "Three-client and HUD regression evidence is explicit; original memory rooms and current solo saves are not cloud persistence."
+        ],
+        [
+          "统一岛屿、任务路标与反馈可理解，但正式视听资产与完整故事仍需第二阶段。",
+          "The island, markers and feedback are understandable; production audiovisual assets and story need phase 2."
+        ],
+        [
+          "修复前文件与修复后回执、R6 试玩均保留；不是首推商业版本。",
+          "Pre/post-fix files, reports and R6 play are retained; it is not the featured commercial version."
+        ]
+      ],
+      "total": 81,
+      "stars": 4.1,
+      "strength": [
+        "适合对照任务引导与 HUD 修复方法，不删除已有成果。",
+        "Useful comparison for quest guidance and HUD repair; preserved rather than discarded."
+      ],
+      "risk": [
+        "没有证据表明其代码已经融合进 Opus；保留对照不等于合并。",
+        "No evidence its code was merged into Opus; retention is not a merge."
+      ],
+      "next_test": [
+        "以与 Opus 相同的设备/任务条件比较，不按模型名称排名。",
+        "Compare under the same device/task conditions as Opus, not by model name."
+      ],
+      "evidence": [
+        "SKY-QA",
+        "SKY-HUD",
+        "R6-QA",
+        "SELECTION"
+      ],
+      "final_device_acceptance": false
+    },
+    {
+      "id": "aw-v1",
+      "name": [
+        "Adventure World · 历史单机",
+        "Adventure World · historical solo"
+      ],
+      "reviewer_type": "AI",
+      "reviewer": "ChatGPT",
+      "review_kind": "authored_evidence_based_judgment",
+      "scope": "MVP",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "points": [
+        22,
+        14,
+        11,
+        9,
+        6
+      ],
+      "reasons": [
+        [
+          "白天印章、夜间线索与能力机制已成形，但课堂实际目标可理解性与通关存在缺口。",
+          "Day stamps, night clues and powers exist, with classroom gaps in goal clarity and completion."
+        ],
+        [
+          "保留孩子喜欢的能力和互动；旧触控粘住、缩放和夜间引导问题不能因新分支上线而消失。",
+          "Retains liked powers/interactions; old sticky controls, zoom and night guidance are not fixed by another branch going live."
+        ],
+        [
+          "旧规则测试和浏览器完整流程结果不同；自动夜间路径失败仍须保留。",
+          "Old rule tests and browser flow results differ; failed automated night progression remains evidence."
+        ],
+        [
+          "昼夜探索和反馈是可用原型，但表现与故事张力有限。",
+          "Day/night exploration and feedback make a usable prototype, with limited presentation and story depth."
+        ],
+        [
+          "历史需求、预算、源代码已经合并归档；当前只保留对照，不冒充最新主线。",
+          "Historical requirements, budget and source are consolidated; retained as comparison, not the latest mainline."
+        ]
+      ],
+      "total": 62,
+      "stars": 3.1,
+      "strength": [
+        "记录三人共同创意如何落成第一版。",
+        "Shows how shared ideas became the first build."
+      ],
+      "risk": [
+        "旧版夜间流程与触控问题仍需单独看证据。",
+        "Historical night-flow and touch issues need their own evidence."
+      ],
+      "next_test": [
+        "保留真实失败记录用于对照，无需为历史样本再扩展范围。",
+        "Keep genuine failed evidence for comparison without expanding the historical build."
+      ],
+      "evidence": [
+        "AW-HISTORY",
+        "R6-QA"
+      ],
+      "final_device_acceptance": false
+    }
+  ],
+  "sources": {
+    "M-HISTORY": {
+      "path": "martins-monster-quest/DEVLOG.md",
+      "title": [
+        "Martin 历史开发日志",
+        "Martin historical development log"
+      ],
+      "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+    },
+    "M-SPEC": {
+      "path": "martins-monster-quest/v2/SPEC.md",
+      "title": [
+        "Wildbound V2 范围与规则",
+        "Wildbound V2 scope and rules"
+      ],
+      "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+    },
+    "M-QA": {
+      "path": "martins-monster-quest/v2/QA.md",
+      "title": [
+        "V2 正常流程、夹具失败与边界重跑",
+        "V2 normal flow, fixture failure and boundary rerun"
+      ],
+      "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+    },
+    "AW-HISTORY": {
+      "path": "adventure-world/hub/historical-context.json",
+      "title": [
+        "已合并的 Adventure World 历史资料",
+        "Consolidated Adventure World history"
+      ],
+      "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+    },
+    "SKY-QA": {
+      "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+      "title": [
+        "Skyvale 三连接与浏览器验证",
+        "Skyvale three-client and browser checks"
+      ],
+      "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+    },
+    "SKY-HUD": {
+      "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+      "title": [
+        "Skyvale HUD 修复前后记录",
+        "Skyvale before/after HUD repair"
+      ],
+      "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+    },
+    "OPUS-HISTORY": {
+      "path": "adventure-world/builds/trio-world-opus/README.md",
+      "title": [
+        "Opus 桌面初稿与触屏修订来源",
+        "Opus desktop-first and touch revision provenance"
+      ],
+      "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+    },
+    "OPUS-FIRST": {
+      "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+      "title": [
+        "首次 Write 快照，不是最终桌面发行版",
+        "Initial Write snapshot, not a final desktop release"
+      ],
+      "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+    },
+    "R6-QA": {
+      "path": "shared/hub-r6/qa/results.json",
+      "title": [
+        "R6 双语、单机、暂停与展示检查",
+        "R6 language, solo, pause and presentation checks"
+      ],
+      "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+    },
+    "R6-TOUCH": {
+      "path": "shared/hub-r6/qa/touch-results.json",
+      "title": [
+        "R6 触屏事件验证",
+        "R6 touch-event checks"
+      ],
+      "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+    },
+    "CLOUD-R1": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+      "title": [
+        "Opus 首轮云端联机回执",
+        "Opus first cloud multiplayer evidence"
+      ],
+      "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+    },
+    "CLOUD-R2": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+      "title": [
+        "六位房间、14任务与测评真实部署验收",
+        "Live six-digit rooms, 14 tasks and reviews acceptance"
+      ],
+      "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+    },
+    "CLOUD-GUIDE": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+      "title": [
+        "联机规则、保存与访问边界",
+        "Multiplayer, persistence and access boundaries"
+      ],
+      "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+    },
+    "SELECTION": {
+      "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+      "title": [
+        "已确认 Opus 首推与语言常驻规则",
+        "Confirmed Opus preference and persistent language controls"
+      ],
+      "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+    }
+  }
+}

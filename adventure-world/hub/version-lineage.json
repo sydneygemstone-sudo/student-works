@@ -1,0 +1,882 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "edge_types": {
+    "derive": [
+      "源码适配/继续实现",
+      "Source adaptation/continuation"
+    ],
+    "requirements": [
+      "复用需求，不继承旧源码",
+      "Requirements reuse, not old source"
+    ],
+    "repair": [
+      "同分支大修与回归",
+      "Major in-branch repair/regression"
+    ],
+    "review": [
+      "输入评审，不是合并代码",
+      "Review input, not a code merge"
+    ],
+    "select": [
+      "选择主线",
+      "Mainline selection"
+    ],
+    "retain": [
+      "保留对照",
+      "Retained comparison"
+    ],
+    "future": [
+      "尚未完成",
+      "Not yet completed"
+    ]
+  },
+  "graphs": [
+    {
+      "id": "lineage",
+      "title": [
+        "三人组：同一 Brief 发散 → 两分支演进 → Opus 主线收敛",
+        "Trio: shared brief → parallel evolution → Opus mainline convergence"
+      ],
+      "nodes": [
+        {
+          "id": "old",
+          "title": [
+            "Adventure World\n旧单机基线",
+            "Adventure World\noriginal solo baseline"
+          ],
+          "state": "archive",
+          "evidence": [
+            "AW-HISTORY"
+          ],
+          "detail": [
+            "旧玩法与预算保留；不是新版联机源码。",
+            "Retain gameplay history and budget; not new multiplayer source."
+          ]
+        },
+        {
+          "id": "brief",
+          "title": [
+            "同一新 Brief\n3D / 三区 / 共享世界",
+            "One new brief\n3D / zones / shared world"
+          ],
+          "state": "decision",
+          "evidence": [
+            "OPUS-HISTORY",
+            "SKY-QA"
+          ],
+          "detail": [
+            "从头做两条实现，不把多开单机当联机。",
+            "Two fresh implementations; multiple solo tabs are not multiplayer."
+          ]
+        },
+        {
+          "id": "astra",
+          "title": [
+            "Astra · Skyvale\n独立联机实现",
+            "Astra · Skyvale\nindependent network build"
+          ],
+          "state": "version",
+          "evidence": [
+            "SKY-QA"
+          ],
+          "detail": [
+            "独立服务端和三阶段建屋任务链。",
+            "Independent server and three-stage cabin loop."
+          ]
+        },
+        {
+          "id": "astraFixed",
+          "title": [
+            "Astra 修输入发送 / 批处理\n再修 iPad HUD",
+            "Astra input/batching fixes\nthen iPad HUD repair"
+          ],
+          "state": "repair",
+          "evidence": [
+            "SKY-QA",
+            "SKY-HUD"
+          ],
+          "detail": [
+            "模拟回归有证据，仍不等于实机完成。",
+            "Simulated regressions are evidenced, not full device completion."
+          ]
+        },
+        {
+          "id": "astraSolo",
+          "title": [
+            "Astra · R6 单机\n保留对照",
+            "Astra · R6 solo\nretained comparison"
+          ],
+          "state": "archive",
+          "evidence": [
+            "R6-QA"
+          ],
+          "detail": [
+            "同规则本机运行；没有合入Opus。",
+            "Local execution of its rules; not merged into Opus."
+          ]
+        },
+        {
+          "id": "opus",
+          "title": [
+            "Opus · 首次桌面 Write\n不是最终交付快照",
+            "Opus · first desktop Write\nnot a final delivery snapshot"
+          ],
+          "state": "version",
+          "evidence": [
+            "OPUS-FIRST"
+          ],
+          "detail": [
+            "初始生成在QA与触屏修正之前。",
+            "Initial generation precedes QA and touch repair."
+          ]
+        },
+        {
+          "id": "opusTouch",
+          "title": [
+            "Opus 补 iPad 触屏\n当前课堂分支",
+            "Opus adds iPad touch\nclassroom branch"
+          ],
+          "state": "repair",
+          "evidence": [
+            "OPUS-HISTORY"
+          ],
+          "detail": [
+            "补上无键盘操作条件。",
+            "Add the previously missed keyboard-free condition."
+          ]
+        },
+        {
+          "id": "opusSolo",
+          "title": [
+            "Opus · R6 单人试玩",
+            "Opus · R6 solo preview"
+          ],
+          "state": "version",
+          "evidence": [
+            "R6-QA"
+          ],
+          "detail": [
+            "独立本机规则和存档分支。",
+            "Independent local rules/save branch."
+          ]
+        },
+        {
+          "id": "cloud1",
+          "title": [
+            "Opus · Cloud R1\nWorker + 房间",
+            "Opus · Cloud R1\nWorker + rooms"
+          ],
+          "state": "version",
+          "evidence": [
+            "CLOUD-R1"
+          ],
+          "detail": [
+            "从LAN服务适配为云端持久化房间。",
+            "Adapt the LAN service to cloud rooms."
+          ]
+        },
+        {
+          "id": "cloud2",
+          "title": [
+            "Opus · Cloud R2\n6位码 / 14任务 / 测评",
+            "Opus · Cloud R2\n6 digits / 14 tasks / reviews"
+          ],
+          "state": "version",
+          "evidence": [
+            "CLOUD-R2"
+          ],
+          "detail": [
+            "保留旧协议，新增个人任务、通关测评与动态状态。",
+            "Retain legacy protocol, add personal progress, completion review and live status."
+          ]
+        },
+        {
+          "id": "review",
+          "title": [
+            "评审 / 取舍节点\n比较而非代码合并",
+            "Review / selection node\ncomparison, not code merge"
+          ],
+          "state": "decision",
+          "evidence": [
+            "SELECTION"
+          ],
+          "detail": [
+            "用户确认Opus首推；本轮AI质量评分另列，不能把选择当评分来源。",
+            "User confirmed Opus preference; AI quality ratings are separately reasoned, not derived from preference."
+          ]
+        },
+        {
+          "id": "main",
+          "title": [
+            "当前主线：Opus\n联机首推 + 单人入口",
+            "Current mainline: Opus\nonline first + solo entry"
+          ],
+          "state": "main",
+          "evidence": [
+            "SELECTION"
+          ],
+          "detail": [
+            "Astra保留对照，旧单机仍在历史区。",
+            "Astra stays comparison; old solo remains in the historical area."
+          ]
+        },
+        {
+          "id": "gate",
+          "title": [
+            "最终正常流程测试\n通过后冻结 MVP",
+            "Final normal-path test\nthen freeze MVP"
+          ],
+          "state": "pending",
+          "evidence": [],
+          "detail": [
+            "第一阶段6/7；未完成完整资产与商业发布。",
+            "Phase 1 is 6/7; full assets/commercial release are not finished."
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "old",
+          "target": "brief",
+          "type": "requirements",
+          "label": [
+            "吸收旧版反馈",
+            "Learn from old feedback"
+          ],
+          "reason": [
+            "复用需求而非从旧Canvas代码继续拼。",
+            "Requirements reuse, not continuation of the old Canvas code."
+          ],
+          "evidence": [
+            "AW-HISTORY",
+            "OPUS-HISTORY"
+          ]
+        },
+        {
+          "source": "brief",
+          "target": "astra",
+          "type": "requirements",
+          "label": [
+            "同 Brief 独立实现 A",
+            "Independent build A"
+          ],
+          "reason": [
+            "发散为Astra分支。",
+            "Diverge into Astra."
+          ],
+          "evidence": [
+            "SKY-QA"
+          ]
+        },
+        {
+          "source": "brief",
+          "target": "opus",
+          "type": "requirements",
+          "label": [
+            "同 Brief 独立实现 B",
+            "Independent build B"
+          ],
+          "reason": [
+            "发散为Opus分支。",
+            "Diverge into Opus."
+          ],
+          "evidence": [
+            "OPUS-HISTORY"
+          ]
+        },
+        {
+          "source": "astra",
+          "target": "astraFixed",
+          "type": "repair",
+          "label": [
+            "大修并回归",
+            "Repair and regress"
+          ],
+          "reason": [
+            "低帧输入与HUD问题在本分支修。",
+            "Repair low-frame input/HUD in this branch."
+          ],
+          "evidence": [
+            "SKY-QA",
+            "SKY-HUD"
+          ]
+        },
+        {
+          "source": "astraFixed",
+          "target": "astraSolo",
+          "type": "derive",
+          "label": [
+            "R6 单机适配",
+            "R6 solo adaptation"
+          ],
+          "reason": [
+            "规则本机化；非Opus合并。",
+            "Local rules; not an Opus merge."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "opus",
+          "target": "opusTouch",
+          "type": "repair",
+          "label": [
+            "补无键盘条件",
+            "Add keyboard-free input"
+          ],
+          "reason": [
+            "桌面初稿到触屏修订。",
+            "Desktop initial write to touch revision."
+          ],
+          "evidence": [
+            "OPUS-HISTORY"
+          ]
+        },
+        {
+          "source": "opusTouch",
+          "target": "opusSolo",
+          "type": "derive",
+          "label": [
+            "分支：浏览器单机",
+            "Fork: browser solo"
+          ],
+          "reason": [
+            "本机规则与单独存档。",
+            "Local rules and separate saves."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "opusTouch",
+          "target": "cloud1",
+          "type": "derive",
+          "label": [
+            "分支：云端联机",
+            "Fork: cloud multiplayer"
+          ],
+          "reason": [
+            "保留玩法，迁移同步服务。",
+            "Preserve gameplay, adapt synchronization."
+          ],
+          "evidence": [
+            "CLOUD-R1"
+          ]
+        },
+        {
+          "source": "cloud1",
+          "target": "cloud2",
+          "type": "repair",
+          "label": [
+            "协议/存储/通关大修",
+            "Protocol/storage/completion revision"
+          ],
+          "reason": [
+            "不是仅更换展示网址。",
+            "More than changing a display URL."
+          ],
+          "evidence": [
+            "CLOUD-R2"
+          ]
+        },
+        {
+          "source": "astraSolo",
+          "target": "review",
+          "type": "review",
+          "label": [
+            "对照输入",
+            "Comparison input"
+          ],
+          "reason": [
+            "虚线评审箭头不表示合并代码。",
+            "Dashed review input does not mean merged source."
+          ],
+          "evidence": [
+            "SELECTION"
+          ]
+        },
+        {
+          "source": "opusSolo",
+          "target": "review",
+          "type": "review",
+          "label": [
+            "单机候选证据",
+            "Solo candidate evidence"
+          ],
+          "reason": [
+            "与云端测试范围分开。",
+            "Scope separate from cloud checks."
+          ],
+          "evidence": [
+            "R6-QA"
+          ]
+        },
+        {
+          "source": "cloud2",
+          "target": "review",
+          "type": "review",
+          "label": [
+            "联机候选证据",
+            "Online candidate evidence"
+          ],
+          "reason": [
+            "已部署不等于商业发行完成。",
+            "Deployment is not commercial release completion."
+          ],
+          "evidence": [
+            "CLOUD-R2"
+          ]
+        },
+        {
+          "source": "review",
+          "target": "main",
+          "type": "select",
+          "label": [
+            "选择收敛：Opus",
+            "Converge by selecting Opus"
+          ],
+          "reason": [
+            "没有证据证明Astra源码已合入。",
+            "No evidence Astra source was merged."
+          ],
+          "evidence": [
+            "SELECTION"
+          ]
+        },
+        {
+          "source": "main",
+          "target": "gate",
+          "type": "future",
+          "label": [
+            "最后一项待完成",
+            "Final gate pending"
+          ],
+          "reason": [
+            "真实设备正常路径和恢复测试后冻结。",
+            "Freeze after real-device normal-flow and recovery checks."
+          ],
+          "evidence": [
+            "CLOUD-R2"
+          ]
+        }
+      ],
+      "summary": [
+        "两次发散：同 Brief → Astra / Opus；Opus 触屏分支 → 单机 / 云端。收敛发生在主线选择，不是把两家代码画成已融合。",
+        "Two divergences: shared brief → Astra/Opus; Opus touch → solo/cloud. Convergence is mainline selection, not a claimed cross-model code merge."
+      ],
+      "direction": "TB"
+    },
+    {
+      "id": "major-repairs",
+      "title": [
+        "三人组：两条大修路径与各自验证",
+        "Trio: major repair paths and their own evidence"
+      ],
+      "nodes": [
+        {
+          "id": "asky",
+          "title": [
+            "Astra：三上下文移动失败",
+            "Astra: movement failure in three contexts"
+          ],
+          "state": "repair",
+          "evidence": [
+            "SKY-QA"
+          ],
+          "detail": [
+            "软件渲染多上下文中出现移动问题。",
+            "Movement issue under multiple software-rendered contexts."
+          ]
+        },
+        {
+          "id": "afix",
+          "title": [
+            "独立70ms输入发送\n场景材质批处理",
+            "Independent 70ms input\nscene/material batching"
+          ],
+          "state": "repair",
+          "evidence": [
+            "SKY-QA"
+          ],
+          "detail": [
+            "发送不再依赖每帧渲染。",
+            "Input sending no longer depends on render frames."
+          ]
+        },
+        {
+          "id": "ahud",
+          "title": [
+            "Joey 报底部 HUD 裁切",
+            "Joey reports clipped bottom HUD"
+          ],
+          "state": "repair",
+          "evidence": [
+            "SKY-HUD"
+          ],
+          "detail": [
+            "这是具体可复现的设备现象。",
+            "A concrete device observation to reproduce."
+          ]
+        },
+        {
+          "id": "adone",
+          "title": [
+            "可视区/安全区/取消输入\nHUD 回归与前后文件",
+            "Viewport/safe-area/cancel\nHUD regression and snapshots"
+          ],
+          "state": "archive",
+          "evidence": [
+            "SKY-HUD"
+          ],
+          "detail": [
+            "六尺寸等回归不代表真实iPad最终通关。",
+            "Viewport regression is not final physical-iPad completion."
+          ]
+        },
+        {
+          "id": "odesk",
+          "title": [
+            "Opus：首稿只有键鼠",
+            "Opus: initial keyboard/mouse build"
+          ],
+          "state": "repair",
+          "evidence": [
+            "OPUS-HISTORY",
+            "OPUS-FIRST"
+          ],
+          "detail": [
+            "不能将初始Write冒称完整桌面交付。",
+            "Do not call the first Write a final desktop release."
+          ]
+        },
+        {
+          "id": "otouch",
+          "title": [
+            "摇杆 / 视角手势 / 触屏按钮",
+            "Joystick / camera gesture / touch buttons"
+          ],
+          "state": "repair",
+          "evidence": [
+            "OPUS-HISTORY"
+          ],
+          "detail": [
+            "补齐iPad无键盘条件。",
+            "Add iPad keyboard-free input."
+          ]
+        },
+        {
+          "id": "ocloud",
+          "title": [
+            "LAN → Worker / Durable Objects",
+            "LAN → Worker / Durable Objects"
+          ],
+          "state": "repair",
+          "evidence": [
+            "CLOUD-R1"
+          ],
+          "detail": [
+            "保留原LAN源码与房间协议适配记录。",
+            "Preserve LAN source and protocol adaptation history."
+          ]
+        },
+        {
+          "id": "or2",
+          "title": [
+            "R2：6位邀请码\n个人进度 + 14任务 + 云测评",
+            "R2: six-digit invitations\npersonal progress + 14 tasks + reviews"
+          ],
+          "state": "repair",
+          "evidence": [
+            "CLOUD-R2"
+          ],
+          "detail": [
+            "服务端验证、可重入身份、提交幂等和访问边界。",
+            "Server validation, resume identity, idempotency and access scope."
+          ]
+        },
+        {
+          "id": "olive",
+          "title": [
+            "隔离测试 + 真实部署回归\n保留43项回执",
+            "Isolated + live regression\nretain the 43-check record"
+          ],
+          "state": "main",
+          "evidence": [
+            "CLOUD-R2"
+          ],
+          "detail": [
+            "移动态由协议模拟；不可标作真实三iPad长测。",
+            "Protocol-simulated movement, not sustained three-iPad testing."
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "asky",
+          "target": "afix",
+          "type": "repair",
+          "label": [
+            "失败 → 修改 → 重跑",
+            "Fail → fix → rerun"
+          ],
+          "reason": [
+            "保留失败与最终检查范围。",
+            "Keep the failure and final check scope."
+          ],
+          "evidence": [
+            "SKY-QA"
+          ]
+        },
+        {
+          "source": "afix",
+          "target": "ahud",
+          "type": "derive",
+          "label": [
+            "随后收到 HUD 反馈",
+            "Subsequent HUD feedback"
+          ],
+          "reason": [
+            "独立于之前输入发送问题。",
+            "Separate from prior input sending."
+          ],
+          "evidence": [
+            "SKY-HUD"
+          ]
+        },
+        {
+          "source": "ahud",
+          "target": "adone",
+          "type": "repair",
+          "label": [
+            "快照 → 修复 → 回归",
+            "Snapshot → repair → regress"
+          ],
+          "reason": [
+            "旧文件不覆盖，结论不跨版本套用。",
+            "Preserve old files; do not transfer conclusions across versions."
+          ],
+          "evidence": [
+            "SKY-HUD"
+          ]
+        },
+        {
+          "source": "odesk",
+          "target": "otouch",
+          "type": "repair",
+          "label": [
+            "需求遗漏返工",
+            "Rework a missed requirement"
+          ],
+          "reason": [
+            "触屏能力在后续补上。",
+            "Touch arrived in the subsequent revision."
+          ],
+          "evidence": [
+            "OPUS-HISTORY"
+          ]
+        },
+        {
+          "source": "otouch",
+          "target": "ocloud",
+          "type": "derive",
+          "label": [
+            "同步服务迁移",
+            "Migrate synchronization"
+          ],
+          "reason": [
+            "迁到云端，不再依赖老师电脑。",
+            "Move to cloud, independent of the teacher’s machine."
+          ],
+          "evidence": [
+            "CLOUD-R1"
+          ]
+        },
+        {
+          "source": "ocloud",
+          "target": "or2",
+          "type": "repair",
+          "label": [
+            "联机协议与状态大修",
+            "Protocol/state revision"
+          ],
+          "reason": [
+            "保留旧房间兼容路径，新增通关反馈闭环。",
+            "Preserve legacy room compatibility and add completion feedback."
+          ],
+          "evidence": [
+            "CLOUD-R2"
+          ]
+        },
+        {
+          "source": "or2",
+          "target": "olive",
+          "type": "derive",
+          "label": [
+            "测试并上线读回",
+            "Test and read back deployment"
+          ],
+          "reason": [
+            "只证明该回执覆盖的条件。",
+            "Proves only the receipt’s stated scope."
+          ],
+          "evidence": [
+            "CLOUD-R2"
+          ]
+        }
+      ],
+      "summary": [
+        "Astra 与 Opus 的修复各自沿自己的分支发生。没有跨分支箭头，避免把一版修复冒认成另一版已修。",
+        "Repairs stay on their own Astra/Opus branches. No cross-branch repair arrows imply that fixing one automatically fixes the other."
+      ],
+      "direction": "TB"
+    }
+  ],
+  "no_merge_statement": [
+    "评审收敛与源码合并是不同关系；本档案没有证据支持 Astra→Opus 或 V1→V2 的源码融合，因此不会画出该合并。",
+    "Review convergence and source merging are different. No evidence supports an Astra→Opus or V1→V2 source merge, so none is drawn."
+  ],
+  "sources": {
+    "M-HISTORY": {
+      "path": "martins-monster-quest/DEVLOG.md",
+      "title": [
+        "Martin 历史开发日志",
+        "Martin historical development log"
+      ],
+      "sha256": "3e4266a8a9d7d1a30a6ae0d3bdda97194719c45771c042c18a87456024f9b21d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/DEVLOG.md"
+    },
+    "M-SPEC": {
+      "path": "martins-monster-quest/v2/SPEC.md",
+      "title": [
+        "Wildbound V2 范围与规则",
+        "Wildbound V2 scope and rules"
+      ],
+      "sha256": "f67eda172ae15f63679d2c4eeb67b84f3cd3816bda9f51d28b30111594b34d8f",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/SPEC.md"
+    },
+    "M-QA": {
+      "path": "martins-monster-quest/v2/QA.md",
+      "title": [
+        "V2 正常流程、夹具失败与边界重跑",
+        "V2 normal flow, fixture failure and boundary rerun"
+      ],
+      "sha256": "6eea2d1da66b1dd37ffb2c0c9c19caba2aeed5c762d5677e82502930025afe5b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/martins-monster-quest/v2/QA.md"
+    },
+    "AW-HISTORY": {
+      "path": "adventure-world/hub/historical-context.json",
+      "title": [
+        "已合并的 Adventure World 历史资料",
+        "Consolidated Adventure World history"
+      ],
+      "sha256": "2dca1c7d5f5b4d2ced36db30ba99b0b0c4d9c5bf5927abbabc28954a74be2bc8",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/hub/historical-context.json"
+    },
+    "SKY-QA": {
+      "path": "adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md",
+      "title": [
+        "Skyvale 三连接与浏览器验证",
+        "Skyvale three-client and browser checks"
+      ],
+      "sha256": "016e558dd05dbfc67b6a59899cdf818d87999b6f09a842efe1e5aa65ba661ca1",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/QA-DELIVERY.md"
+    },
+    "SKY-HUD": {
+      "path": "adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md",
+      "title": [
+        "Skyvale HUD 修复前后记录",
+        "Skyvale before/after HUD repair"
+      ],
+      "sha256": "967025aed00c31d687bdbb9503cee1357e45d2b43e6573577c18f984700bc4e5",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/skyvale-3d/development/IPAD-HUD-FIX.md"
+    },
+    "OPUS-HISTORY": {
+      "path": "adventure-world/builds/trio-world-opus/README.md",
+      "title": [
+        "Opus 桌面初稿与触屏修订来源",
+        "Opus desktop-first and touch revision provenance"
+      ],
+      "sha256": "d848bca7f3a9131546a6910caaaa897e8b853429928ca6ac60954897482d3a4d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/README.md"
+    },
+    "OPUS-FIRST": {
+      "path": "adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json",
+      "title": [
+        "首次 Write 快照，不是最终桌面发行版",
+        "Initial Write snapshot, not a final desktop release"
+      ],
+      "sha256": "81c791d8e25d2c8c0baf963bef310d6ad865c2a60d04edf04533d75451222a1d",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/development/initial-write/RECOVERY.json"
+    },
+    "R6-QA": {
+      "path": "shared/hub-r6/qa/results.json",
+      "title": [
+        "R6 双语、单机、暂停与展示检查",
+        "R6 language, solo, pause and presentation checks"
+      ],
+      "sha256": "e88642f784017404da6ab32f71efb92fdaa23c38f9c9a522ad1da59493117158",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/results.json"
+    },
+    "R6-TOUCH": {
+      "path": "shared/hub-r6/qa/touch-results.json",
+      "title": [
+        "R6 触屏事件验证",
+        "R6 touch-event checks"
+      ],
+      "sha256": "d8b81e452fbb7e52246572fb5e16b24dc6d94474c84b7be41efc33254c311943",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/shared/hub-r6/qa/touch-results.json"
+    },
+    "CLOUD-R1": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json",
+      "title": [
+        "Opus 首轮云端联机回执",
+        "Opus first cloud multiplayer evidence"
+      ],
+      "sha256": "66578b31770f03dbc1b41ac20d5dbab63a0c8d304e3cb828249fc578aff4ed6b",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-REPORT.json"
+    },
+    "CLOUD-R2": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json",
+      "title": [
+        "六位房间、14任务与测评真实部署验收",
+        "Live six-digit rooms, 14 tasks and reviews acceptance"
+      ],
+      "sha256": "acc936530a25670a4f12eb1e5b8517c584a7d0faade967489258cfb898d1ba12",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/QA-LIVE-R2.json"
+    },
+    "CLOUD-GUIDE": {
+      "path": "adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md",
+      "title": [
+        "联机规则、保存与访问边界",
+        "Multiplayer, persistence and access boundaries"
+      ],
+      "sha256": "636b806188bd51d302f4f3f49c6cc22b1838e298f1f1cafc2dc29e6b56ab7369",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/adventure-world/builds/trio-world-opus/cloudflare/ONLINE-R2.md"
+    },
+    "SELECTION": {
+      "path": "docs/hub-standard/R6-FINAL-PRESENTATION.md",
+      "title": [
+        "已确认 Opus 首推与语言常驻规则",
+        "Confirmed Opus preference and persistent language controls"
+      ],
+      "sha256": "592a05b5c872715b58f3d828d7f39b26e689eb52e5353660ce6c2f27f00249a7",
+      "source_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+      "href": "https://github.com/sydneygemstone-sudo/student-works/blob/a18e698073fecac2f6a70b07f5783771073f690e/docs/hub-standard/R6-FINAL-PRESENTATION.md"
+    }
+  }
+}

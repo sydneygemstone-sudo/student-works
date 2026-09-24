@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "renderer": "@mermaid-js/mermaid-cli",
+  "diagrams": [
+    {
+      "source": "martins-monster-quest/hub/lineage-lineage-zh.mmd",
+      "svg": "martins-monster-quest/hub/lineage-lineage-zh.svg",
+      "viewBox": "0 0 461.5484619140625 1377.815673828125",
+      "bytes": 35501,
+      "status": "PASS"
+    },
+    {
+      "source": "martins-monster-quest/hub/lineage-lineage-en.mmd",
+      "svg": "martins-monster-quest/hub/lineage-lineage-en.svg",
+      "viewBox": "0 0 555.5660400390625 1528.940673828125",
+      "bytes": 38643,
+      "status": "PASS"
+    },
+    {
+      "source": "martins-monster-quest/hub/lineage-major-repairs-zh.mmd",
+      "svg": "martins-monster-quest/hub/lineage-major-repairs-zh.svg",
+      "viewBox": "0 0 246.3125 1173.199951171875",
+      "bytes": 32285,
+      "status": "PASS"
+    },
+    {
+      "source": "martins-monster-quest/hub/lineage-major-repairs-en.mmd",
+      "svg": "martins-monster-quest/hub/lineage-major-repairs-en.svg",
+      "viewBox": "0 0 280.140625 1311.800048828125",
+      "bytes": 35508,
+      "status": "PASS"
+    },
+    {
+      "source": "martins-monster-quest/hub/lifecycle-flow-zh.mmd",
+      "svg": "martins-monster-quest/hub/lifecycle-flow-zh.svg",
+      "viewBox": "0 0 278 828.7999877929688",
+      "bytes": 25912,
+      "status": "PASS"
+    },
+    {
+      "source": "martins-monster-quest/hub/lifecycle-flow-en.mmd",
+      "svg": "martins-monster-quest/hub/lifecycle-flow-en.svg",
+      "viewBox": "0 0 261.341796875 1046.60009765625",
+      "bytes": 30660,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lineage-lineage-zh.mmd",
+      "svg": "adventure-world/hub/lineage-lineage-zh.svg",
+      "viewBox": "0 0 749.0185546875 1606.984375",
+      "bytes": 46897,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lineage-lineage-en.mmd",
+      "svg": "adventure-world/hub/lineage-lineage-en.svg",
+      "viewBox": "0 0 786.0537109375 1823.2781982421875",
+      "bytes": 51741,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lineage-major-repairs-zh.mmd",
+      "svg": "adventure-world/hub/lineage-major-repairs-zh.svg",
+      "viewBox": "0 0 561.4375 720.5999755859375",
+      "bytes": 32833,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lineage-major-repairs-en.mmd",
+      "svg": "adventure-world/hub/lineage-major-repairs-en.svg",
+      "viewBox": "0 0 567.7412109375 819.6000366210938",
+      "bytes": 36597,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lifecycle-flow-zh.mmd",
+      "svg": "adventure-world/hub/lifecycle-flow-zh.svg",
+      "viewBox": "0 0 278 828.7999877929688",
+      "bytes": 25912,
+      "status": "PASS"
+    },
+    {
+      "source": "adventure-world/hub/lifecycle-flow-en.mmd",
+      "svg": "adventure-world/hub/lifecycle-flow-en.svg",
+      "viewBox": "0 0 261.341796875 1046.60009765625",
+      "bytes": 30660,
+      "status": "PASS"
+    }
+  ]
+}

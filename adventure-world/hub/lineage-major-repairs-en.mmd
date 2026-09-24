@@ -1,0 +1,28 @@
+%% hub-r6-lifecycle-20260925
+flowchart TB
+  asky["Astra: movement failure in three contexts"]:::repair
+  afix["Independent 70ms input<br/>scene/material batching"]:::repair
+  ahud["Joey reports clipped bottom HUD"]:::repair
+  adone["Viewport/safe-area/cancel<br/>HUD regression and snapshots"]:::archive
+  odesk["Opus: initial keyboard/mouse build"]:::repair
+  otouch["Joystick / camera gesture / touch buttons"]:::repair
+  ocloud["LAN → Worker / Durable Objects"]:::repair
+  or2["R2: six-digit invitations<br/>personal progress + 14 tasks + reviews"]:::repair
+  olive["Isolated + live regression<br/>retain the 43-check record"]:::main
+  asky -->|"Fail → fix → rerun"| afix
+  afix -->|"Subsequent HUD feedback"| ahud
+  ahud -->|"Snapshot → repair → regress"| adone
+  odesk -->|"Rework a missed requirement"| otouch
+  otouch -->|"Migrate synchronization"| ocloud
+  ocloud -->|"Protocol/state revision"| or2
+  or2 -->|"Test and read back deployment"| olive
+  classDef version fill:#173c46,stroke:#88aaa2,color:#f6ecd3,stroke-width:1.5px
+  classDef archive fill:#273944,stroke:#80949d,color:#d8dfd9,stroke-width:1px
+  classDef repair fill:#493b31,stroke:#dc9e6e,color:#ffebd6,stroke-width:2px
+  classDef decision fill:#454630,stroke:#d2c27a,color:#fff1b6,stroke-width:2px
+  classDef main fill:#184c41,stroke:#95d4a9,color:#edffec,stroke-width:3px
+  classDef pending fill:#23313b,stroke:#839298,color:#d1d9d4,stroke-dasharray:6 4
+  linkStyle 0 stroke:#dca275,stroke-width:2.5px
+  linkStyle 2 stroke:#dca275,stroke-width:2.5px
+  linkStyle 3 stroke:#dca275,stroke-width:2.5px
+  linkStyle 5 stroke:#dca275,stroke-width:2.5px
