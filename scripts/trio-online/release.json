@@ -1,1 +1,12 @@
-{"revision":"trio-online-r2-reviews-20260925","publish":false}
+{
+  "revision": "trio-online-r2-reviews-20260925",
+  "publish": true,
+  "isolated_qa_run": 36029607792,
+  "isolated_checks_passed": 43,
+  "worker_deployment_id": "932ce9d8a8b3450aa3747784aeb9f618",
+  "worker_sha256": "143572c7dfee7ae5ee09f15564decfd35108cbd5b83e5dbb12cedd8cecfa987a",
+  "legacy_module_sha256": "7a86c658dac7785fba7f10c3147889c02c2228444eadac2d091ce5532f8fcba5",
+  "review_schema_sha256": "a7482cf3a9165c1ad621de8c3921c19ec850846876ca788efd427cc07ce97438",
+  "binding_preserved": "ROOMS / TrioRoom",
+  "live_frontend_verification": "Required after Pages deployment"
+}
