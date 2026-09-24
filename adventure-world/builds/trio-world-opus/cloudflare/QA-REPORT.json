@@ -1,0 +1,57 @@
+{
+  "revision": "opus-cloud-r1-20260925",
+  "date_local": "2026-09-25",
+  "timezone": "Australia/Sydney",
+  "status": "DEPLOYED_PLAYTEST_PARTIAL_QA",
+  "full_acceptance": false,
+  "deployment": {
+    "method": "Cloudflare connector API; no CLI credential used for deployment",
+    "worker": "trio-world-opus",
+    "endpoint": "https://trio-world-opus.sydney-gemstone-games.workers.dev",
+    "entry": "https://sydneygemstone-sudo.github.io/student-works/adventure-world/builds/trio-world-opus/online/",
+    "deployment_id": "234b7572035b432e8fe96a8cdf3ee617",
+    "deployed_utc": "2026-09-24T15:22:47.306108Z",
+    "storage": "SQLite-backed Durable Object: TrioRoom",
+    "workers_dev_enabled": true,
+    "paid_subscription_created": false,
+    "account_billing_details_verified": false
+  },
+  "source": {
+    "repository": "sydneygemstone-sudo/student-works",
+    "original_html_blob": "0383acf33132227d69596b3ff2c7a0e5debecbe3",
+    "worker_source_commit": "0153085ed2329c63d9b9f5eb63b781531545c955",
+    "online_loader_commit": "ec48bb77fce5f158bda7f476ce649917fd26fe15",
+    "original_lan_files_modified": false,
+    "classroom_hub_modified": false,
+    "canonical_release": "GitHub cloudflare/worker.mjs and online/; earlier uncommitted local drafts are not this release"
+  },
+  "passed_observations": [
+    "Live /health loaded in a Cloudflare browser and reported the expected revision and maxPlayers=3.",
+    "Online page loaded the pinned original HTML, passed its Git blob guard, and created a Three.js r169 canvas.",
+    "Three real browser WebSocket clients joined one random room; initial rosters were 0, 1 and 2 other players.",
+    "Existing clients received join events.",
+    "A fourth connection received ROOM_FULL.",
+    "A position sent by one client was observed by another.",
+    "Skin changes and room chat were received by another client.",
+    "Two clients requested the same fruit; exactly one got it and the other was denied.",
+    "Shared house progress was received by another client.",
+    "In an isolated feeding retest, the feed patch arrived at 790 ms and produce at 2289 ms; a later joining client saw the same produce in its snapshot."
+  ],
+  "not_passed_or_not_completed": [
+    "The first combined protocol run timed out waiting 8 seconds for produce, after passing its earlier multiplayer checks. This remains an unresolved observation, not silently converted to a pass.",
+    "The initial browser test URL was subsequently confirmed to redirect into the classroom HUB; an inert qa.html was added to avoid that interference. The redirect is a potential test-environment factor, not proof that it explains every timeout.",
+    "Further full browser-regression and UI-click instrumentation calls returned Cloudflare Browser Rendering error 6002 (timeout).",
+    "Room isolation, rejoin slot release, reconnect snapshot, 20-second resource respawn, weather and campfire expiry, and all-players-away persistence have implementation paths but did not complete the combined acceptance run.",
+    "Three simultaneously running full graphical game clients were not verified.",
+    "Physical iPads, Safari touch controls, and connections from three independent home networks were not tested."
+  ],
+  "operating_boundaries": {
+    "maximum_players_per_room": 3,
+    "room_access": "96-bit random invite code; anyone holding the invite can join until full; not verified membership authentication",
+    "public_lobby": false,
+    "free_text_chat": "Inherited room chat; no moderation service added. Share invites privately and use nicknames.",
+    "world_retention_implementation": "Shared world retained; seven days after a room becomes empty, its storage is scheduled for deletion. Full retention acceptance is pending.",
+    "personal_progress": "Inventory and personal quest progress remain client-memory state; refreshing is not a persistent personal save.",
+    "scope": "Family/classroom playtest, not an unrestricted public game launch"
+  }
+}
