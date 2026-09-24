@@ -1,0 +1,37 @@
+name: Trio online isolated QA
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/trio-online/**', '.github/workflows/trio-online-review-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: trio-online-qa
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build project-local files
+        run: python3 scripts/trio-online/build.py
+      - name: Install test packages in isolated directory
+        run: |
+          npm install --prefix /tmp/trio-online-qa miniflare@4 playwright@1.58.2 ws@8
+          /tmp/trio-online-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Test synthetic rooms and reviews locally
+        run: node scripts/trio-online/qa.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trio-online-r2-source-and-qa
+          path: |
+            scripts/trio-online/
+            adventure-world/builds/trio-world-opus/cloudflare/
+            adventure-world/builds/trio-world-opus/online/
+            adventure-world/hub/
