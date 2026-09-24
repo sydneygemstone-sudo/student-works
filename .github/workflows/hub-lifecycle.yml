@@ -22,6 +22,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Retain inspected diagram sizing and compact overview in source
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/hub-lifecycle/style.css');s=p.read_text()
+          if 'LIFECYCLE_INTRINSIC_SVG_SIZE' not in s:
+              s+='\n/* LIFECYCLE_INTRINSIC_SVG_SIZE: preserve 18px diagram labels; scroll instead of squashing or stretching. */\n.mermaid-diagram{width:auto;min-width:0;max-width:none;height:auto;margin:0 auto}.graph-scroll{max-height:1900px}\n'
+          p.write_text(s)
+          p=Path('scripts/hub-lifecycle/ui.js');s=p.read_text().replace("${p.state==='active'?'open':''}","${p.state==='active'&&Q==='development'?'open':''}")
+          s=s.replace('<div class="graph-scroll" role="region"','<p class="fine">${t(\'手机可横向滑动图；也可打开大图或展开逐条箭头说明。\',\'On a phone, scroll the diagram sideways, open it full size or expand the edge-by-edge explanation.\')}</p><div class="graph-scroll" role="region"') if '手机可横向滑动图' not in s else s
+          p.write_text(s)
+          PY
       - name: Build the user-defined lifecycle and evidence-led presentation
         run: |
           python3 scripts/hub-lifecycle/build.py
@@ -43,7 +55,7 @@ jobs:
         run: |
           git config user.name 'Classroom HUB publishing'
           git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
-          git add HUB-ENTRY.json docs/hub-standard/R6-LIFECYCLE-AND-AI-REVIEW.md shared/hub-r6/studio.js shared/hub-r6/lifecycle.css shared/hub-r6/lifecycle-qa adventure-world/hub martins-monster-quest/hub adventure-world/downloads/r6-latest.zip martins-monster-quest/downloads/r6-latest.zip
+          git add HUB-ENTRY.json docs/hub-standard/R6-LIFECYCLE-AND-AI-REVIEW.md shared/hub-r6/studio.js shared/hub-r6/lifecycle.css shared/hub-r6/lifecycle-qa adventure-world/hub martins-monster-quest/hub adventure-world/downloads/r6-latest.zip martins-monster-quest/downloads/r6-latest.zip scripts/hub-lifecycle/ui.js scripts/hub-lifecycle/style.css
           git diff --cached --quiet || git commit -m 'fix(hub): AI reasoned stars, true branch lineage and three-phase product progress'
           git push origin HEAD:main
       - name: Prepare verified static site
