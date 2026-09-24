@@ -1,0 +1,92 @@
+name: HUB lifecycle and AI review correction
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/hub-lifecycle/data.py', 'scripts/hub-lifecycle/build.py', 'scripts/hub-lifecycle/ui.js', 'scripts/hub-lifecycle/style.css', 'scripts/hub-lifecycle/render.cjs', 'scripts/hub-lifecycle/qa.cjs', '.github/workflows/hub-lifecycle.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: hub-lifecycle-correction
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build the user-defined lifecycle and evidence-led presentation
+        run: |
+          python3 scripts/hub-lifecycle/build.py
+          node --check shared/hub-r6/studio.js
+          git diff --exit-code -- classroom-2026-09-22 adventure-world/builds adventure-world/solo-trio adventure-world/solo-skyvale adventure-world/home-v1 martins-monster-quest/v2 martins-monster-quest/home-v1 martins-monster-quest/home-v2
+      - name: Install isolated diagram and browser tools
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+        run: |
+          npm install --prefix /tmp/hub-lifecycle playwright@1.58.2 @mermaid-js/mermaid-cli@11.17.0
+          /tmp/hub-lifecycle/node_modules/.bin/playwright install --with-deps chromium
+      - name: Render the exact Mermaid node and edge ledgers
+        run: node scripts/hub-lifecycle/render.cjs
+      - name: Verify progress, AI rationale, lineage, language and feedback
+        run: node scripts/hub-lifecycle/qa.cjs
+      - name: Update the standalone HUB presentations
+        run: python3 scripts/hub-lifecycle/build.py --packages
+      - name: Commit verified presentation and specification only
+        run: |
+          git config user.name 'Classroom HUB publishing'
+          git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
+          git add HUB-ENTRY.json docs/hub-standard/R6-LIFECYCLE-AND-AI-REVIEW.md shared/hub-r6/studio.js shared/hub-r6/lifecycle.css shared/hub-r6/lifecycle-qa adventure-world/hub martins-monster-quest/hub adventure-world/downloads/r6-latest.zip martins-monster-quest/downloads/r6-latest.zip
+          git diff --cached --quiet || git commit -m 'fix(hub): AI reasoned stars, true branch lineage and three-phase product progress'
+          git push origin HEAD:main
+      - name: Prepare verified static site
+        run: |
+          mkdir -p /tmp/hub-lifecycle-site
+          git archive HEAD | tar -x -C /tmp/hub-lifecycle-site
+          touch /tmp/hub-lifecycle-site/.nojekyll
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hub-lifecycle-local-evidence
+          path: |
+            shared/hub-r6/lifecycle-qa/
+            adventure-world/hub/*lineage*
+            martins-monster-quest/hub/*lineage*
+            adventure-world/hub/lifecycle*
+            martins-monster-quest/hub/lifecycle*
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/hub-lifecycle-site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the actual published pages
+        run: |
+          npm install --prefix /tmp/hub-lifecycle playwright@1.58.2
+          /tmp/hub-lifecycle/node_modules/.bin/playwright install --with-deps chromium
+          node scripts/hub-lifecycle/qa.cjs --live
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hub-lifecycle-live-evidence
+          path: shared/hub-r6/lifecycle-qa/
