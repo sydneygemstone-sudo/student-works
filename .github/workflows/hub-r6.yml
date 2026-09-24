@@ -2,7 +2,7 @@ name: HUB R6 build and verify
 on:
   push:
     branches: [main]
-    paths: ['scripts/build_hub_r6.py', 'scripts/r6_refine.py', 'scripts/r6_runtime_fixes.py', '.github/workflows/hub-r6.yml']
+    paths: ['scripts/build_hub_r6.py', 'scripts/r6_refine.py', 'scripts/r6_runtime_fixes.py', 'scripts/r6_finalize.py', '.github/workflows/hub-r6.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -27,6 +27,7 @@ jobs:
           python3 scripts/build_hub_r6.py
           python3 scripts/r6_refine.py
           python3 scripts/r6_runtime_fixes.py
+          python3 scripts/r6_finalize.py
       - name: Install browser test tools outside published source
         run: |
           npm install --prefix /tmp/hub-r6-qa playwright@1.58.2
@@ -41,7 +42,7 @@ jobs:
         run: |
           git config user.name 'Classroom HUB publishing'
           git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
-          git add martins-monster-quest adventure-world shared/hub-r6 docs/hub-standard/R6.json index.html classroom-2026-09-24
+          git add martins-monster-quest adventure-world shared/hub-r6 docs/hub-standard/R6.json docs/hub-standard/HUB-R6-REQUEST.json scripts/qa_hub_r6.cjs index.html classroom-2026-09-24
           git diff --cached --quiet || git commit -m 'feat(hub-r6): native R5 layout, complete budgets, bilingual solo games and project-only entries'
           git push origin HEAD:main
       - name: Prepare the static deployment
@@ -61,6 +62,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -68,3 +70,10 @@ jobs:
       - name: Publish verified project HUBs
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Read back project entrances and current acceptance
+        run: |
+          for route in martins-monster-quest/hub/ adventure-world/hub/ shared/hub-r6/qa/results.json; do
+            curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 10 "https://sydneygemstone-sudo.github.io/student-works/$route?verify=${{ github.run_id }}" -o /tmp/live-check
+            test -s /tmp/live-check
+          done
+          python3 -c "import json; x=json.load(open('/tmp/live-check')); assert x['status']=='PASS'; print(x['release'],x['status'],len(x['checks']))"
