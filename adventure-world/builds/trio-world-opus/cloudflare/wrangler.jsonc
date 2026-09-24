@@ -1,0 +1,12 @@
+{
+  "name": "trio-world-opus",
+  "main": "worker.mjs",
+  "compatibility_date": "2025-04-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "durable_objects": {
+    "bindings": [{"name": "ROOMS", "class_name": "TrioRoom"}]
+  },
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["TrioRoom"]}],
+  "observability": {"enabled": false}
+}
