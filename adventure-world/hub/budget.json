@@ -1,9 +1,9 @@
 {
   "budget_aud": 150,
-  "api_equivalent_aud": 40.22,
+  "api_equivalent_aud": 48.22,
   "range": [
-    23.65,
-    65.79
+    27.65,
+    81.79
   ],
   "items": [
     {
@@ -94,6 +94,22 @@
       "note": [
         "覆盖本轮适配和测试预估；两分支都计入，没有把未选分支当零。",
         "Covers the current adaptation/test estimate for both branches; unselected work is not treated as zero."
+      ]
+    },
+    {
+      "id": "online-r2-reviews",
+      "title": [
+        "六位数字联机、任务保存与通关测评",
+        "Six-digit rooms, saved progress and completion reviews"
+      ],
+      "aud": 8,
+      "range": [
+        4,
+        16
+      ],
+      "note": [
+        "本轮追加制作与测试的工具等值规划估算；不是供应商实付，也不把持续云运行费用算零。",
+        "Incremental tool-equivalent planning estimate for this implementation and tests, not a paid bill; ongoing hosting is not assumed to cost zero."
       ]
     }
   ],

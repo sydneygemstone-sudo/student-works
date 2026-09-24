@@ -1,0 +1,9 @@
+{
+  "revision": "trio-online-r2-reviews-20260925",
+  "status": "BUILT_REQUIRES_DEPLOYMENT_READBACK",
+  "source_lan_git_blob": "0383acf33132227d69596b3ff2c7a0e5debecbe3",
+  "max_players": 3,
+  "digits": 6,
+  "tasks": 14,
+  "original_namespace_preserved": true
+}

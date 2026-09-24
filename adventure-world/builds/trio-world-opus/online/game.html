@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Trio World · 六位数字联机与通关测评</title><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><script src="../../../../shared/hub-r6/strings.js"></script><script src="online-strings.js"></script><script src="translate.js"></script><link rel="stylesheet" href="online.css">
+<style>
+  :root { --panel: rgba(20,28,48,.72); --line: rgba(255,255,255,.14); --gold:#ffd66b; --ok:#7ee08a; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; height:100%; overflow:hidden; background:#87ceeb; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color:#fff; user-select:none; }
+  canvas { display:block; }
+  .panel { background: var(--panel); border:1px solid var(--line); border-radius:14px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  #start { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#6ec6ff 0%,#9be7a0 60%,#ffe29a 100%); z-index:50; }
+  #start .card { width:min(460px,92vw); padding:28px; text-align:center; background:rgba(255,255,255,.92); color:#223; border-radius:22px; box-shadow:0 20px 60px rgba(0,0,0,.2); }
+  #start h1 { margin:0 0 6px; font-size:34px; letter-spacing:2px; }
+  #start p { margin:0 0 18px; color:#556; }
+  #start input { width:100%; font-size:20px; padding:12px 14px; border-radius:12px; border:2px solid #cfd8ea; outline:none; text-align:center; }
+  #start input:focus { border-color:#4a90e2; }
+  .skins { display:flex; gap:8px; justify-content:center; margin:16px 0; flex-wrap:wrap; }
+  .skins button { font-size:15px; padding:8px 10px; border-radius:12px; border:2px solid #dde; background:#fff; cursor:pointer; }
+  .skins button.on { border-color:#4a90e2; background:#e8f2ff; }
+  #go { width:100%; font-size:22px; padding:14px; border:0; border-radius:14px; background:#ff7a59; color:#fff; font-weight:700; cursor:pointer; box-shadow:0 6px 0 #d85b3c; }
+  #go:active { transform:translateY(3px); box-shadow:0 3px 0 #d85b3c; }
+  .keys { margin-top:16px; font-size:13px; color:#667; line-height:1.8; }
+  kbd { background:#eef; border:1px solid #ccd; border-bottom-width:2px; border-radius:5px; padding:0 6px; font-family:inherit; color:#334; }
+  #hud { position:fixed; inset:0; pointer-events:none; display:none; }
+  #zone { position:absolute; left:16px; top:14px; padding:10px 16px; font-size:18px; font-weight:700; }
+  #zone small { display:block; font-weight:400; font-size:13px; opacity:.85; }
+  #online { position:absolute; left:16px; top:86px; padding:8px 14px; font-size:13px; line-height:1.7; }
+  #quest { position:absolute; right:16px; top:14px; width:300px; padding:14px 16px; }
+  #quest h3 { margin:0 0 8px; font-size:15px; color:var(--gold); display:flex; justify-content:space-between; }
+  #qnow { font-size:18px; font-weight:700; line-height:1.4; }
+  #qhint { font-size:13px; opacity:.85; margin-top:4px; }
+  #qdist { margin-top:8px; font-size:14px; color:var(--gold); }
+  #qlist { margin-top:10px; border-top:1px solid var(--line); padding-top:8px; font-size:12.5px; line-height:1.75; max-height:180px; overflow:hidden; }
+  #qlist .done { color:var(--ok); opacity:.8; } #qlist .cur { color:#fff; font-weight:700; } #qlist .todo { opacity:.45; }
+  #inv { position:absolute; left:50%; bottom:16px; transform:translateX(-50%); display:flex; gap:8px; padding:8px 10px; }
+  .chip { min-width:56px; text-align:center; padding:6px 8px; border-radius:10px; background:rgba(255,255,255,.1); font-size:18px; }
+  .chip b { font-size:14px; margin-left:4px; }
+  #powers { position:absolute; left:16px; bottom:16px; display:flex; gap:8px; }
+  .pw { width:74px; padding:8px 4px; text-align:center; font-size:12px; position:relative; overflow:hidden; }
+  .pw .ic { font-size:24px; display:block; } .pw .k { position:absolute; left:6px; top:4px; font-size:11px; opacity:.8; }
+  .pw .cd { position:absolute; left:0; right:0; bottom:0; background:rgba(0,0,0,.55); height:0; }
+  #prompt { position:absolute; left:50%; top:60%; transform:translateX(-50%); padding:10px 18px; font-size:18px; font-weight:700; display:none; }
+  #prompt kbd { font-size:18px; }
+  #toast { position:absolute; left:50%; top:18%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .t { padding:10px 20px; font-size:20px; font-weight:700; animation: pop .35s ease-out; }
+  @keyframes pop { from { transform:scale(.6); opacity:0 } to { transform:scale(1); opacity:1 } }
+  #banner { position:absolute; left:50%; top:10px; transform:translateX(-50%); padding:8px 18px; background:#e0524a; border-radius:10px; display:none; font-weight:700; }
+  #help { position:absolute; right:16px; bottom:16px; padding:8px 12px; font-size:12px; line-height:1.8; opacity:.9; }
+  #chatlog { position:absolute; left:16px; bottom:120px; width:320px; font-size:14px; line-height:1.6; text-shadow:0 1px 2px #000; }
+  #chatin { position:absolute; left:16px; bottom:96px; width:320px; font-size:16px; padding:6px 10px; border-radius:8px; border:0; display:none; pointer-events:auto; }
+  #fade { position:fixed; inset:0; background:#fff; opacity:0; pointer-events:none; transition:opacity .25s; z-index:40; }
+  /* ---------- 触屏（iPad） ---------- */
+  html,body { touch-action:none; -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent; -webkit-user-select:none; }
+  canvas { touch-action:none; }
+  #joyzone { position:fixed; left:0; top:0; bottom:0; width:45%; z-index:5; display:none; touch-action:none; }
+  #joybase { position:absolute; width:140px; height:140px; margin:-70px 0 0 -70px; border-radius:50%; background:rgba(255,255,255,.18); border:3px solid rgba(255,255,255,.6); left:120px; top:calc(100% - 140px); opacity:.6; pointer-events:none; }
+  #joyknob { position:absolute; left:50%; top:50%; width:64px; height:64px; margin:-32px 0 0 -32px; border-radius:50%; background:rgba(255,255,255,.9); box-shadow:0 4px 12px rgba(0,0,0,.25); }
+  #joytip { position:absolute; left:-20px; right:-20px; top:100%; margin-top:4px; text-align:center; font-size:14px; font-weight:700; text-shadow:0 1px 3px #000; }
+  .tbtn { position:absolute; pointer-events:auto; touch-action:none; border-radius:50%; display:none; align-items:center; justify-content:center; flex-direction:column; font-weight:800; color:#fff; border:3px solid rgba(255,255,255,.75); box-shadow:0 6px 16px rgba(0,0,0,.25); }
+  #bJump { right:28px; bottom:28px; width:112px; height:112px; background:rgba(74,144,226,.88); font-size:38px; }
+  #bAct { right:158px; bottom:40px; width:120px; height:120px; background:rgba(255,122,89,.94); font-size:36px; animation:pulse 1s infinite; }
+  .tbtn small { font-size:14px; line-height:1.15; max-width:104px; text-align:center; }
+  @keyframes pulse { 50% { transform:scale(1.07); } }
+  #tools { position:absolute; right:16px; bottom:252px; display:none; gap:10px; pointer-events:auto; }
+  #tools button { width:60px; height:60px; border-radius:14px; font-size:28px; border:1px solid var(--line); background:var(--panel); color:#fff; touch-action:manipulation; }
+  body.touch #powers { left:auto; right:16px; bottom:160px; }
+  body.touch .pw { pointer-events:auto; touch-action:none; }
+  body.touch #inv { left:16px; top:205px; bottom:auto; transform:none; flex-direction:column; gap:6px; }
+  body.touch .chip { font-size:16px; min-width:64px; padding:4px 6px; }
+  body.touch #help { display:none; }
+  body.touch #prompt { top:auto; bottom:200px; }
+  body.touch #chatlog { left:50%; transform:translateX(-50%); bottom:96px; width:380px; text-align:center; }
+  body.touch #chatin { left:50%; transform:translateX(-50%); bottom:40px; width:380px; font-size:18px; }
+  body.touch.playing #joyzone { display:block; }
+  body.touch .tbtn, body.touch #tools { display:flex; }
+  @media (max-width: 760px) { #quest { width:220px; } #help, #chatlog { display:none; } }
+</style>
+</head>
+<body><nav id="onlineTools"><span id="roomMini"></span><button id="onlineReview">通关测评</button><button id="onlineStatus">测评状态</button><button id="onlineLanguage">EN</button></nav>
+<div id="start"><div class="card">
+  <h1>🌈 三人同乐世界</h1>
+  <p>大厅 · 主题乐园 · 野外生存区 · 快乐农场</p>
+  <input id="name" maxlength="12" placeholder="游戏昵称" autocomplete="off"><label for="room">六位数字房间邀请码</label><input id="room" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" placeholder="输入六位数字，或创建新房间"><div class="roomActions"><button id="newRoom" type="button">创建新房间</button><button id="copyRoom" type="button">复制游戏邀请</button></div><p id="cloudStatus" role="status">每个房间最多3名玩家。只把房间码发给认识的伙伴。刷新后在原浏览器恢复自己的身份与任务。</p>
+  <div class="skins" id="skinPick"></div>
+  <button id="go">加入房间，一起玩 ▶</button>
+  <div class="keys" id="keys"><kbd>W A S D</kbd> 走路 · <kbd>鼠标拖动</kbd> 转视角 · <kbd>空格</kbd> 跳（可二段跳）<br><kbd>Shift</kbd> 跑 · <kbd>E</kbd> 互动 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 超能力 · <kbd>C</kbd> 换角色 · <kbd>T</kbd> 聊天</div>
+</div></div>
+
+<div id="joyzone"><div id="joybase"><div id="joyknob"></div><div id="joytip">👈 按住拖动走路</div></div></div>
+<div id="hud">
+  <div id="zone" class="panel">中央大厅<small>☀️ 晴天</small></div>
+  <div id="online" class="panel"></div>
+  <div id="quest" class="panel"><h3><span>📜 任务指引</span><span id="qnum"></span></h3><div id="qnow"></div><div id="qhint"></div><div id="qdist"></div><div id="qlist"></div></div>
+  <div id="powers">
+    <div class="pw panel" id="pw1"><span class="k">1</span><span class="ic">🚀</span>超级跳<div class="cd"></div></div>
+    <div class="pw panel" id="pw2"><span class="k">2</span><span class="ic">⚡</span>闪电冲刺<div class="cd"></div></div>
+    <div class="pw panel" id="pw3"><span class="k">3</span><span class="ic">🕊️</span>飞行<div class="cd"></div></div>
+  </div>
+  <div id="inv" class="panel"></div>
+  <div id="prompt" class="panel"></div>
+  <div id="toast"></div>
+  <div id="banner">⚠️ 连接断开，正在重连…</div>
+  <div id="chatlog"></div>
+  <input id="chatin" maxlength="60" placeholder="说点什么，回车发送">
+  <div class="tbtn" id="bAct">✋<small id="bActTxt"></small></div>
+  <div class="tbtn" id="bJump">⤒<small>跳</small></div>
+  <div id="tools"><button id="tSkin">🎭</button><button id="tCam">📷</button><button id="tChat">💬</button></div>
+  <div id="help" class="panel"><kbd>WASD</kbd>走 <kbd>空格</kbd>跳 <kbd>Shift</kbd>跑 <kbd>E</kbd>互动<br><kbd>1/2/3</kbd>超能力 <kbd>C</kbd>换角色 <kbd>T</kbd>聊天 <kbd>滚轮</kbd>缩放</div>
+</div>
+<div id="fade"></div>
+
+<script type="module">
+import * as THREE from '../public/vendor/three.module.js';
+import {NetworkRoom} from './room-client.js';
+
+// ================= 基础 =================
+const $ = (id) => document.getElementById(id);
+const QS = new URLSearchParams(location.search);
+const IS_TOUCH = QS.get('touch') === '1' || (QS.get('touch') !== '0' && (navigator.maxTouchPoints > 1 || matchMedia('(pointer: coarse)').matches));
+const K = (keyText, touchText) => IS_TOUCH ? touchText : keyText;
+if (IS_TOUCH) { document.body.classList.add('touch'); $('keys').innerHTML = '👈 左手在屏幕左边拖动：走路<br>👉 右手在屏幕右边拖动：转视角<br>⤒ 跳（可二段跳）· ✋ 互动 · 🚀⚡🕊️ 超能力<br>🎭 换角色 · 📷 视角远近 · 💬 聊天 · <b>建议横屏</b>'; }
+const SKINS = [
+  { name: '蓝色小勇士', body: 0x4a90e2, head: 0xffd9b3, leg: 0x2c3e70, extra: 'helmet' },
+  { name: '忍者', body: 0x2a2a35, head: 0x2a2a35, leg: 0x1a1a22, extra: 'band' },
+  { name: '宇航员', body: 0xf2f2f2, head: 0xf2f2f2, leg: 0xdddddd, extra: 'visor' },
+  { name: '小熊', body: 0xa0703f, head: 0xa0703f, leg: 0x7a5230, extra: 'bear' },
+  { name: '粉粉兔', body: 0xffb3d1, head: 0xfff0f6, leg: 0xff8fbf, extra: 'bunny' },
+];
+let mySkin = 0;
+try { mySkin = Math.max(0, Math.min(4, Math.floor(+(localStorage.getItem('tw_skin') || 0)) || 0)); $('name').value = localStorage.getItem('tw_name') || ''; } catch {}
+SKINS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.onclick = () => { mySkin = i; renderSkinPick(); }; $('skinPick').appendChild(b); });
+function renderSkinPick() { [...$('skinPick').children].forEach((b, i) => b.classList.toggle('on', i === mySkin)); }
+renderSkinPick();
+const ROOM=new NetworkRoom();
+
+// ================= 声音（零资源，Web Audio 合成） =================
+let AC = null;
+function tone(f, d = 0.12, type = 'sine', v = 0.15, f2 = null, delay = 0) {
+  if (!AC) return; const t = AC.currentTime + delay;
+  const o = AC.createOscillator(), g = AC.createGain(); o.type = type; o.frequency.setValueAtTime(f, t);
+  if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
+  g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + d);
+  o.connect(g).connect(AC.destination); o.start(t); o.stop(t + d + 0.02);
+}
+function noise(d = 0.3, v = 0.2, lp = 1200) {
+  if (!AC) return; const n = AC.sampleRate * d, buf = AC.createBuffer(1, n, AC.sampleRate), a = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) a[i] = (Math.random() * 2 - 1) * (1 - i / n);
+  const s = AC.createBufferSource(), f = AC.createBiquadFilter(), g = AC.createGain(); f.type = 'lowpass'; f.frequency.value = lp; g.gain.value = v;
+  s.buffer = buf; s.connect(f).connect(g).connect(AC.destination); s.start();
+}
+const SFX = {
+  jump: () => tone(420, .12, 'square', .06, 720),
+  djump: () => tone(620, .14, 'square', .06, 1100),
+  pick: () => { tone(880, .08, 'triangle', .15); tone(1320, .12, 'triangle', .12, null, .07); },
+  star: () => [988, 1319, 1568, 1976].forEach((f, i) => tone(f, .12, 'triangle', .12, null, i * .06)),
+  power: () => { tone(200, .4, 'sawtooth', .08, 1200); noise(.3, .08, 3000); },
+  dash: () => noise(.35, .18, 2500),
+  fly: () => tone(300, .6, 'sine', .12, 900),
+  fire: () => { noise(.8, .25, 800); tone(120, .5, 'sawtooth', .05, 60); },
+  moo: () => tone(160, .6, 'sawtooth', .08, 110),
+  cluck: () => { tone(900, .05, 'square', .06, 600); tone(900, .05, 'square', .06, 600, .1); },
+  baa: () => tone(420, .45, 'sawtooth', .06, 380),
+  build: () => { noise(.08, .3, 600); noise(.08, .3, 600); setTimeout(() => noise(.08, .3, 600), 150); },
+  quest: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .18, 'triangle', .14, null, i * .1)),
+  portal: () => tone(300, .5, 'sine', .15, 1500),
+  deny: () => tone(220, .18, 'square', .06, 160),
+  pad: () => tone(200, .35, 'sine', .15, 900),
+  chat: () => tone(1200, .06, 'sine', .08),
+};
+
+// ================= 渲染器 / 场景 =================
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, IS_TOUCH ? 1.5 : 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xbfe3ff, 60, 220);
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 600);
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+
+const hemi = new THREE.HemisphereLight(0xdff1ff, 0x6a8f4e, 0.9); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xfff3dd, 2.2); sun.position.set(40, 70, 30); sun.castShadow = true;
+sun.shadow.mapSize.set(IS_TOUCH ? 1024 : 2048, IS_TOUCH ? 1024 : 2048); Object.assign(sun.shadow.camera, { left: -45, right: 45, top: 45, bottom: -45, near: 1, far: 200 }); sun.shadow.bias = -0.0005;
+scene.add(sun, sun.target);
+
+// 渐变天空
+const skyU = { top: { value: new THREE.Color(0x4aa3ff) }, bot: { value: new THREE.Color(0xdff3ff) } };
+const sky = new THREE.Mesh(new THREE.SphereGeometry(400, 32, 16), new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false, uniforms: skyU,
+  vertexShader: 'varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+  fragmentShader: 'uniform vec3 top; uniform vec3 bot; varying vec3 vP; void main(){ float h = clamp(normalize(vP).y*1.6+0.1,0.0,1.0); gl_FragColor = vec4(mix(bot,top,h),1.0); }' }));
+scene.add(sky);
+
+const M = {}; // 材质缓存
+function mat(c, o = {}) { const k = c + JSON.stringify(o); return M[k] || (M[k] = new THREE.MeshStandardMaterial({ color: c, roughness: .85, flatShading: true, ...o })); }
+function mesh(geo, c, x = 0, y = 0, z = 0, o) { const m = new THREE.Mesh(geo, typeof c === 'number' ? mat(c, o) : c); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; return m; }
+function label(text, { bg = 'rgba(20,28,48,.8)', fg = '#fff', size = 48, scale = 1 } = {}) {
+  const c = document.createElement('canvas'), g = c.getContext('2d'); g.font = `bold ${size}px -apple-system, "PingFang SC", sans-serif`;
+  const w = Math.ceil(g.measureText(text).width) + size; c.width = w; c.height = size * 1.6;
+  g.font = `bold ${size}px -apple-system, "PingFang SC", sans-serif`; g.fillStyle = bg; const r = size * .5;
+  if (g.roundRect) { g.beginPath(); g.roundRect(0, 0, w, c.height, r); g.fill(); } else g.fillRect(0, 0, w, c.height); g.fillStyle = fg; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, c.height / 2 + 2);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, depthWrite: false, fog: false })); s.scale.set(w / c.height * scale, scale, 1); return s;
+}
+
+// ================= 世界布局 =================
+const ZONES = [
+  { key: 'hub', name: '🏛️ 中央大厅', c: new THREE.Vector3(0, 0, 0), r: 24 },
+  { key: 'park', name: '🎡 主题乐园', c: new THREE.Vector3(0, 0, -85), r: 34 },
+  { key: 'wild', name: '🌲 野外生存区', c: new THREE.Vector3(-85, 0, 0), r: 34 },
+  { key: 'farm', name: '🐮 快乐农场', c: new THREE.Vector3(85, 0, 0), r: 34 },
+];
+const colliders = []; // {x,z,r}
+const ground = mesh(new THREE.CircleGeometry(160, 64), 0x7cc36b); ground.rotation.x = -Math.PI / 2; ground.castShadow = false; scene.add(ground);
+function disc(x, z, r, c, y = 0.02) { const d = mesh(new THREE.CircleGeometry(r, 48), c, x, y, z); d.rotation.x = -Math.PI / 2; d.castShadow = false; scene.add(d); return d; }
+function path(x1, z1, x2, z2, w = 6) { const dx = x2 - x1, dz = z2 - z1, L = Math.hypot(dx, dz); const p = mesh(new THREE.BoxGeometry(w, .06, L), 0xe8d9b0, (x1 + x2) / 2, .03, (z1 + z2) / 2); p.rotation.y = Math.atan2(dx, dz); p.castShadow = false; scene.add(p); }
+path(0, -20, 0, -55); path(-20, 0, -55, 0); path(20, 0, 55, 0);
+disc(0, 0, 24, 0xe9e2d0); disc(0, 0, 21, 0xf5efe0, .03);
+disc(0, -85, 34, 0xa6e3a1); disc(-85, 0, 34, 0x5f9e4f); disc(85, 0, 34, 0xb5d77a);
+
+// 大厅：喷泉 + 路牌 + 传送门
+const fountain = new THREE.Group(); scene.add(fountain);
+fountain.add(mesh(new THREE.CylinderGeometry(5, 5.4, 1, 24), 0xcfd8e3, 0, .5, 0));
+const water = mesh(new THREE.CylinderGeometry(4.5, 4.5, .2, 24), 0x5ec8ff, 0, 1, 0, { roughness: .1, metalness: .1, transparent: true, opacity: .85 }); fountain.add(water);
+fountain.add(mesh(new THREE.CylinderGeometry(.6, .9, 3.5, 12), 0xcfd8e3, 0, 2.5, 0));
+fountain.add(mesh(new THREE.SphereGeometry(1.1, 16, 12), 0x5ec8ff, 0, 4.4, 0, { roughness: .1, transparent: true, opacity: .8 }));
+colliders.push({ x: 0, z: 0, r: 5.6 });
+const hubSign = label('🏛️ 中央大厅 · 三人同乐世界', { scale: 2.2 }); hubSign.position.set(0, 8, 0); scene.add(hubSign);
+
+const portals = [];
+function portal(x, z, color, text, dest, face) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = face;
+  const ring = mesh(new THREE.TorusGeometry(2.6, .35, 12, 32), color, 0, 2.9, 0, { emissive: color, emissiveIntensity: .6 });
+  const inner = new THREE.Mesh(new THREE.CircleGeometry(2.4, 32), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: .35, side: THREE.DoubleSide })); inner.position.y = 2.9;
+  g.add(ring, inner); const l = label(text, { scale: 1.3 }); l.position.y = 6.4; g.add(l); scene.add(g);
+  portals.push({ pos: new THREE.Vector3(x, 0, z), dest, inner, ring });
+}
+portal(0, -19, 0xff6fb5, '传送 → 🎡 主题乐园', new THREE.Vector3(0, 0, -60), 0);
+portal(-19, 0, 0x3ecf6e, '传送 → 🌲 野外生存区', new THREE.Vector3(-60, 0, 0), Math.PI / 2);
+portal(19, 0, 0xffb238, '传送 → 🐮 快乐农场', new THREE.Vector3(60, 0, 0), Math.PI / 2);
+portal(0, -56, 0x7fb2ff, '回到 🏛️ 大厅', new THREE.Vector3(0, 0, -14), 0);
+portal(-56, 0, 0x7fb2ff, '回到 🏛️ 大厅', new THREE.Vector3(-14, 0, 0), Math.PI / 2);
+portal(56, 0, 0x7fb2ff, '回到 🏛️ 大厅', new THREE.Vector3(14, 0, 0), Math.PI / 2);
+
+function arch(x, z, rotY, color, text) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rotY;
+  g.add(mesh(new THREE.BoxGeometry(.8, 6, .8), color, -4, 3, 0), mesh(new THREE.BoxGeometry(.8, 6, .8), color, 4, 3, 0), mesh(new THREE.BoxGeometry(9.6, 1, 1), color, 0, 6.2, 0));
+  const l = label(text, { scale: 1.8 }); l.position.y = 7.8; g.add(l); scene.add(g);
+  colliders.push({ x: x + Math.cos(rotY) * -4, z: z - Math.sin(rotY) * -4, r: .7 }, { x: x + Math.cos(rotY) * 4, z: z - Math.sin(rotY) * 4, r: .7 });
+}
+arch(0, -50, 0, 0xff6fb5, '🎡 主题乐园'); arch(-50, 0, Math.PI / 2, 0x3ecf6e, '🌲 野外生存区'); arch(50, 0, Math.PI / 2, 0xffb238, '🐮 快乐农场');
+
+// 装饰树
+function tree(x, z, s = 1, leaf = 0x3f9e4a, collide = true) {
+  const g = new THREE.Group(); g.position.set(x, 0, z); g.scale.setScalar(s);
+  g.add(mesh(new THREE.CylinderGeometry(.35, .5, 2.4, 7), 0x8a5a35, 0, 1.2, 0));
+  g.add(mesh(new THREE.IcosahedronGeometry(1.9, 0), leaf, 0, 3.6, 0), mesh(new THREE.IcosahedronGeometry(1.4, 0), leaf, .6, 4.8, .3));
+  scene.add(g); if (collide) colliders.push({ x, z, r: .7 * s }); return g;
+}
+function rng(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+const R = rng(42);
+for (let i = 0; i < 70; i++) { const a = R() * Math.PI * 2, d = 128 + R() * 25; tree(Math.cos(a) * d, Math.sin(a) * d, 1.2 + R() * 1.2, [0x3f9e4a, 0x4fae5a, 0x2f8a40][i % 3], false); }
+for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2 + .3; const x = Math.cos(a) * 30, z = Math.sin(a) * 30; if (Math.abs(x) > 5 && Math.abs(z) > 5) tree(x, z, 1, 0x5cb85c); }
+
+// 云
+const clouds = [];
+for (let i = 0; i < 14; i++) { const g = new THREE.Group(); for (let j = 0; j < 4; j++) g.add(mesh(new THREE.IcosahedronGeometry(3 + R() * 3, 1), 0xffffff, j * 4 - 6, R() * 2, R() * 3, { emissive: 0xffffff, emissiveIntensity: .25 })); g.position.set(R() * 300 - 150, 45 + R() * 20, R() * 300 - 150); g.children.forEach(c => c.castShadow = false); scene.add(g); clouds.push(g); }
+
+// ---------- 主题乐园 ----------
+const PK = ZONES[1].c;
+const wheel = new THREE.Group(); wheel.position.set(PK.x + 14, 13, PK.z - 14); scene.add(wheel);
+const wheelSpin = new THREE.Group(); wheel.add(wheelSpin);
+wheelSpin.add(mesh(new THREE.TorusGeometry(10, .35, 8, 48), 0xff5e7e));
+const cabins = [];
+for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; const sp = mesh(new THREE.BoxGeometry(.25, 10, .25), 0xffffff); sp.rotation.z = a; wheelSpin.add(sp);
+  const cab = mesh(new THREE.BoxGeometry(1.8, 1.6, 1.6), [0xffd166, 0x06d6a0, 0x118ab2, 0xef476f, 0x9b5de5][i % 5]); cab.position.set(Math.cos(a) * 10, Math.sin(a) * 10, 0); wheelSpin.add(cab); cabins.push(cab); }
+scene.add(mesh(new THREE.BoxGeometry(.8, 14, .8), 0xdddddd, PK.x + 11, 6.5, PK.z - 14), mesh(new THREE.BoxGeometry(.8, 14, .8), 0xdddddd, PK.x + 17, 6.5, PK.z - 14));
+colliders.push({ x: PK.x + 11, z: PK.z - 14, r: 1 }, { x: PK.x + 17, z: PK.z - 14, r: 1 });
+const carousel = new THREE.Group(); carousel.position.set(PK.x - 14, 0, PK.z - 6); scene.add(carousel);
+carousel.add(mesh(new THREE.CylinderGeometry(6, 6, .5, 24), 0xffe0f0, 0, .25, 0), mesh(new THREE.ConeGeometry(6.5, 2.5, 24), 0xff6fb5, 0, 5.8, 0), mesh(new THREE.CylinderGeometry(.4, .4, 4.5, 8), 0xffd166, 0, 2.5, 0));
+for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; carousel.add(mesh(new THREE.CylinderGeometry(.08, .08, 4.3, 6), 0xffd166, Math.cos(a) * 4.5, 2.5, Math.sin(a) * 4.5), mesh(new THREE.BoxGeometry(.6, .8, 1.6), [0xffffff, 0x9b5de5, 0x06d6a0][i % 3], Math.cos(a) * 4.5, 1.6, Math.sin(a) * 4.5)); }
+colliders.push({ x: PK.x - 14, z: PK.z - 6, r: 6.2 });
+const pads = [];
+[[PK.x - 4, PK.z + 8], [PK.x + 6, PK.z + 2], [PK.x - 2, PK.z - 20], [PK.x + 20, PK.z + 8]].forEach(([x, z]) => { const p = mesh(new THREE.CylinderGeometry(1.6, 1.8, .4, 20), 0x00e5ff, x, .2, z, { emissive: 0x00e5ff, emissiveIntensity: .7 }); scene.add(p); pads.push(p); });
+const padSign = label('💠 蹦床：踩上去飞起来', { scale: 1 }); padSign.position.set(PK.x - 4, 3, PK.z + 8); scene.add(padSign);
+for (let i = 0; i < 16; i++) { const b = mesh(new THREE.SphereGeometry(.7, 12, 10), [0xff5e7e, 0xffd166, 0x06d6a0, 0x9b5de5][i % 4], PK.x + (R() - .5) * 50, 6 + R() * 8, PK.z + (R() - .5) * 50, { roughness: .3 }); b.userData.base = b.position.y; b.userData.ph = R() * 6; scene.add(b); clouds.push(b); }
+const STAR_POS = [[-6, 1.5, 12], [8, 1.5, 14], [-18, 1.5, 10], [0, 9, 8], [6, 12, 2], [18, 1.5, -2], [-2, 14, -20], [14, 18, -14]];
+const stars = {};
+const starGeo = new THREE.OctahedronGeometry(.7, 0);
+STAR_POS.forEach(([x, y, z], i) => { const s = mesh(starGeo, 0xffd700, PK.x + x, y, PK.z + z, { emissive: 0xffb000, emissiveIntensity: .9, metalness: .3, roughness: .3 }); scene.add(s); stars['s' + i] = s; });
+
+// ---------- 野外生存区 ----------
+const WD = ZONES[2].c;
+const fruits = {}, woods = {};
+const FRUIT_TREES = [[-12, -10], [10, -12], [-14, 12], [12, 10]];
+FRUIT_TREES.forEach(([x, z], ti) => { tree(WD.x + x, WD.z + z, 1.5, 0x2f8a40); for (let j = 0; j < 3; j++) { const a = j / 3 * Math.PI * 2 + ti; const f = mesh(new THREE.SphereGeometry(.45, 12, 10), [0xe53935, 0xffa726, 0xe53935][j], WD.x + x + Math.cos(a) * 2.2, 4.2 + (j % 2) * .8, WD.z + z + Math.sin(a) * 2.2, { roughness: .4 }); scene.add(f); fruits['f' + (ti * 3 + j)] = f; } });
+for (let i = 0; i < 18; i++) { const a = R() * Math.PI * 2, d = 18 + R() * 14; tree(WD.x + Math.cos(a) * d, WD.z + Math.sin(a) * d, 1 + R() * .7, 0x2a7a38); }
+for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2 + .2, d = 7 + (i % 3) * 3; const w = mesh(new THREE.CylinderGeometry(.3, .3, 2, 8), 0x8d5a2b, WD.x + Math.cos(a) * d, .3, WD.z + Math.sin(a) * d); w.rotation.z = Math.PI / 2; w.rotation.y = a; scene.add(w); woods['w' + i] = w; }
+for (let i = 0; i < 10; i++) { const a = R() * Math.PI * 2, d = 10 + R() * 20; scene.add(mesh(new THREE.DodecahedronGeometry(.6 + R() * 1.2, 0), 0x9aa0a6, WD.x + Math.cos(a) * d, .4, WD.z + Math.sin(a) * d)); }
+const fireG = new THREE.Group(); fireG.position.set(WD.x, 0, WD.z); scene.add(fireG);
+for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; fireG.add(mesh(new THREE.DodecahedronGeometry(.45, 0), 0x777777, Math.cos(a) * 1.4, .3, Math.sin(a) * 1.4)); }
+for (let i = 0; i < 3; i++) { const l = mesh(new THREE.CylinderGeometry(.18, .18, 2, 6), 0x5d3a1a, 0, .35, 0); l.rotation.z = Math.PI / 2; l.rotation.y = i * 1.05; fireG.add(l); }
+const flames = []; for (let i = 0; i < 3; i++) { const f = new THREE.Mesh(new THREE.ConeGeometry(.6 - i * .15, 1.8 - i * .3, 8), new THREE.MeshBasicMaterial({ color: [0xff5a1f, 0xffa31a, 0xffe066][i], transparent: true, opacity: .9 })); f.position.y = 1.1; fireG.add(f); flames.push(f); }
+const fireLight = new THREE.PointLight(0xff8a3d, 0, 18, 1.5); fireLight.position.y = 2; fireG.add(fireLight);
+colliders.push({ x: WD.x, z: WD.z, r: 1.8 });
+const wildSign = label('🌲 摘果子 · 捡木头 · 点篝火', { scale: 1.3 }); wildSign.position.set(WD.x + 26, 4, WD.z - 6); scene.add(wildSign);
+
+// ---------- 农场 ----------
+const FM = ZONES[3].c;
+for (let i = -3; i <= 3; i++) { scene.add(mesh(new THREE.BoxGeometry(.3, 1.2, .3), 0xf5f0e6, FM.x - 2 + i * 4, .6, FM.z - 22)); scene.add(mesh(new THREE.BoxGeometry(.3, 1.2, .3), 0xf5f0e6, FM.x - 2 + i * 4, .6, FM.z + 22)); }
+scene.add(mesh(new THREE.BoxGeometry(24, .2, .15), 0xf5f0e6, FM.x - 2, 1, FM.z - 22), mesh(new THREE.BoxGeometry(24, .2, .15), 0xf5f0e6, FM.x - 2, 1, FM.z + 22));
+for (let r = 0; r < 5; r++) for (let c = 0; c < 8; c++) { scene.add(mesh(new THREE.BoxGeometry(1.2, .3, 1.2), 0x8b5a2b, FM.x + 14 + c * 1.8, .15, FM.z - 16 + r * 2.4)); scene.add(mesh(new THREE.ConeGeometry(.35, 1, 5), r % 2 ? 0xffc107 : 0x66bb6a, FM.x + 14 + c * 1.8, .8, FM.z - 16 + r * 2.4)); }
+const barn = new THREE.Group(); barn.position.set(FM.x + 20, 0, FM.z + 14); scene.add(barn);
+barn.add(mesh(new THREE.BoxGeometry(8, 5, 7), 0xc0392b, 0, 2.5, 0), mesh(new THREE.ConeGeometry(6.2, 3, 4), 0x7b241c, 0, 6.5, 0), mesh(new THREE.BoxGeometry(3, 3.2, .2), 0xf5f0e6, -0.001, 1.6, -3.55));
+barn.children[1].rotation.y = Math.PI / 4; colliders.push({ x: FM.x + 20, z: FM.z + 14, r: 5 });
+const feedBin = mesh(new THREE.CylinderGeometry(1, 1.1, 1.4, 12), 0xd4a017, FM.x - 6, .7, FM.z - 4); scene.add(feedBin); colliders.push({ x: FM.x - 6, z: FM.z - 4, r: 1.2 });
+const feedLabel = label(K('🌾 饲料桶（按 E 拿饲料）', '🌾 饲料桶（靠近点 ✋ 拿饲料）'), { scale: .9 }); feedLabel.position.set(FM.x - 6, 2.6, FM.z - 4); scene.add(feedLabel);
+// 小屋工地：5 个阶段
+const HS = new THREE.Vector3(FM.x - 4, 0, FM.z + 12);
+const houseParts = [];
+const hp = (m) => { m.visible = false; scene.add(m); houseParts.push(m); return m; };
+hp(mesh(new THREE.BoxGeometry(7, .4, 6), 0x9c7a54, HS.x, .2, HS.z));
+hp(new THREE.Group()); [[-3.2, -2.7], [3.2, -2.7], [-3.2, 2.7], [3.2, 2.7]].forEach(([x, z]) => houseParts[1].add(mesh(new THREE.BoxGeometry(.5, 3.4, .5), 0x6d4c2f, HS.x + x, 2, HS.z + z)));
+hp(new THREE.Group()); houseParts[2].add(mesh(new THREE.BoxGeometry(7, 3, .3), 0xd9a066, HS.x, 1.9, HS.z + 2.8), mesh(new THREE.BoxGeometry(.3, 3, 6), 0xd9a066, HS.x - 3.4, 1.9, HS.z), mesh(new THREE.BoxGeometry(.3, 3, 6), 0xd9a066, HS.x + 3.4, 1.9, HS.z));
+hp(new THREE.Group()); houseParts[3].add(mesh(new THREE.BoxGeometry(2.4, 3, .3), 0xd9a066, HS.x - 2.3, 1.9, HS.z - 2.8), mesh(new THREE.BoxGeometry(2.4, 3, .3), 0xd9a066, HS.x + 2.3, 1.9, HS.z - 2.8), mesh(new THREE.BoxGeometry(2.2, .8, .3), 0xd9a066, HS.x, 3, HS.z - 2.8));
+hp(new THREE.Group()); { const roof = mesh(new THREE.ConeGeometry(5.6, 2.8, 4), 0xe0584a, HS.x, 4.8, HS.z); roof.rotation.y = Math.PI / 4; houseParts[4].add(roof, mesh(new THREE.BoxGeometry(.8, 1.6, .8), 0x888888, HS.x + 1.8, 5.2, HS.z + 1)); }
+const siteSign = mesh(new THREE.BoxGeometry(1.8, 1.2, .15), 0xf5e6c8, HS.x, 1.6, HS.z - 5); scene.add(siteSign, mesh(new THREE.BoxGeometry(.15, 1.6, .15), 0x6d4c2f, HS.x, .8, HS.z - 5));
+let houseLabel = null;
+function setHouseLabel(n) { if (houseLabel) scene.remove(houseLabel); houseLabel = label(n >= 5 ? '🏠 我们的小屋（完成！）' : `🔨 小屋工地 ${n}/5（带木头${K('按 E', '点 ✋')}）`, { scale: 1 }); houseLabel.position.set(HS.x, 7, HS.z); scene.add(houseLabel); }
+setHouseLabel(0);
+
+// 动物：位置由时间决定，三个人看到的一样，不需要额外同步
+const ANIMALS = [];
+function animal(id, kind, hx, hz) {
+  const g = new THREE.Group(); const white = 0xffffff;
+  if (kind === 'cow') { g.add(mesh(new THREE.BoxGeometry(1.4, 1.1, 2.2), white, 0, 1.2, 0), mesh(new THREE.BoxGeometry(1, .9, .9), white, 0, 1.6, 1.4), mesh(new THREE.BoxGeometry(.6, .4, .3), 0xffb6c1, 0, 1.4, 1.9)); g.add(mesh(new THREE.BoxGeometry(.8, .6, .9), 0x222222, .31, 1.4, -.3)); for (const [x, z] of [[-.5, -.8], [.5, -.8], [-.5, .8], [.5, .8]]) g.add(mesh(new THREE.BoxGeometry(.3, .7, .3), 0x333333, x, .35, z)); }
+  if (kind === 'chicken') { g.add(mesh(new THREE.SphereGeometry(.45, 10, 8), white, 0, .6, 0), mesh(new THREE.SphereGeometry(.28, 10, 8), white, 0, 1.05, .3), mesh(new THREE.ConeGeometry(.1, .25, 4), 0xffa000, 0, 1.02, .6), mesh(new THREE.BoxGeometry(.08, .2, .25), 0xe53935, 0, 1.35, .3)); g.children[2].rotation.x = Math.PI / 2; }
+  if (kind === 'sheep') { g.add(mesh(new THREE.IcosahedronGeometry(.9, 1), 0xf4f4f4, 0, 1.1, 0), mesh(new THREE.BoxGeometry(.5, .55, .6), 0x333333, 0, 1.3, .9)); for (const [x, z] of [[-.4, -.4], [.4, -.4], [-.4, .4], [.4, .4]]) g.add(mesh(new THREE.BoxGeometry(.2, .6, .2), 0x333333, x, .3, z)); }
+  scene.add(g); const heart = label('❤️', { bg: 'rgba(0,0,0,0)', scale: .9 }); heart.visible = false; g.add(heart); heart.position.y = 2.6;
+  ANIMALS.push({ id, kind, g, hx, hz, seed: ANIMALS.length * 1.7 + 1, heart });
+}
+animal('a0', 'cow', FM.x + 2, FM.z - 10); animal('a1', 'cow', FM.x - 10, FM.z + 2);
+animal('a2', 'chicken', FM.x + 6, FM.z + 4); animal('a3', 'chicken', FM.x + 2, FM.z + 6); animal('a4', 'chicken', FM.x + 8, FM.z - 2);
+animal('a5', 'sheep', FM.x - 12, FM.z - 12); animal('a6', 'sheep', FM.x - 2, FM.z - 16);
+const PRODUCE = { cow: ['🥛', 0xffffff, '牛奶'], chicken: ['🥚', 0xfff3d6, '鸡蛋'], sheep: ['🧶', 0xf4c2ff, '羊毛'] };
+const produceMeshes = {}; // pid -> mesh
+const produceKinds = {};
+
+// ================= 角色 =================
+function makeChar(skin) {
+  const s = SKINS[skin]; const g = new THREE.Group(); const P = {};
+  P.legL = mesh(new THREE.BoxGeometry(.32, .7, .34), s.leg, -.2, .35, 0); P.legR = mesh(new THREE.BoxGeometry(.32, .7, .34), s.leg, .2, .35, 0);
+  [P.legL, P.legR].forEach(l => { l.geometry = l.geometry.clone(); l.geometry.translate(0, -.35, 0); l.position.y = .7; });
+  P.body = mesh(new THREE.CapsuleGeometry(.38, .45, 4, 10), s.body, 0, 1.12, 0);
+  P.armL = mesh(new THREE.BoxGeometry(.22, .62, .24), s.body, -.55, 1.3, 0); P.armR = mesh(new THREE.BoxGeometry(.22, .62, .24), s.body, .55, 1.3, 0);
+  [P.armL, P.armR].forEach(a => { a.geometry = a.geometry.clone(); a.geometry.translate(0, -.28, 0); a.position.y = 1.45; });
+  P.head = mesh(new THREE.SphereGeometry(.42, 16, 12), s.head, 0, 1.85, 0, { flatShading: false });
+  const eyeC = s.extra === 'band' ? 0xffffff : 0x222222;
+  const e1 = mesh(new THREE.SphereGeometry(.06, 8, 6), eyeC, -.14, 1.9, .38), e2 = mesh(new THREE.SphereGeometry(.06, 8, 6), eyeC, .14, 1.9, .38);
+  g.add(P.legL, P.legR, P.body, P.armL, P.armR, P.head, e1, e2);
+  if (s.extra === 'helmet') g.add(mesh(new THREE.SphereGeometry(.45, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), 0x2d6cc0, 0, 1.95, 0));
+  if (s.extra === 'band') { g.add(mesh(new THREE.CylinderGeometry(.44, .44, .12, 16), 0xe53935, 0, 1.95, 0)); }
+  if (s.extra === 'visor') { g.add(mesh(new THREE.SphereGeometry(.34, 16, 10, -1, 2, 1.1, 1), 0x223355, 0, 1.85, .1, { roughness: .1, metalness: .6 }), mesh(new THREE.BoxGeometry(.6, .7, .3), 0xff8c42, 0, 1.2, -.45)); e1.visible = e2.visible = false; }
+  if (s.extra === 'bear') g.add(mesh(new THREE.SphereGeometry(.15, 8, 6), s.body, -.3, 2.2, 0), mesh(new THREE.SphereGeometry(.15, 8, 6), s.body, .3, 2.2, 0), mesh(new THREE.SphereGeometry(.14, 8, 6), 0xe8c9a0, 0, 1.78, .38));
+  if (s.extra === 'bunny') g.add(mesh(new THREE.CapsuleGeometry(.09, .5, 3, 6), 0xfff0f6, -.15, 2.45, 0), mesh(new THREE.CapsuleGeometry(.09, .5, 3, 6), 0xfff0f6, .15, 2.45, 0));
+  return { g, P };
+}
+function animateChar(c, anim, t, speed = 1) {
+  const P = c.P; let sw = 0;
+  if (anim === 1) sw = Math.sin(t * 9) * .6; if (anim === 2) sw = Math.sin(t * 14) * .9;
+  if (anim === 3) { P.legL.rotation.x = -.5; P.legR.rotation.x = .3; P.armL.rotation.x = P.armR.rotation.x = -2.6; return; }
+  if (anim === 4) { P.legL.rotation.x = P.legR.rotation.x = .4; P.armL.rotation.z = 1.4; P.armR.rotation.z = -1.4; P.armL.rotation.x = P.armR.rotation.x = 0; return; }
+  P.armL.rotation.z = P.armR.rotation.z = 0;
+  P.legL.rotation.x = sw; P.legR.rotation.x = -sw; P.armL.rotation.x = -sw * .8; P.armR.rotation.x = sw * .8;
+  P.head.position.y = 1.85 + (anim ? Math.abs(Math.sin(t * 9)) * .05 : Math.sin(t * 2) * .02);
+}
+
+// ================= 本地玩家 =================
+const me = { pos: new THREE.Vector3(0, 0, 8), vel: new THREE.Vector3(), ry: Math.PI, onGround: true, jumps: 0, anim: 0, char: null, name: '', id: 0 };
+const meRoot = new THREE.Group(); scene.add(meRoot);
+function setMyChar() { if (me.char) meRoot.remove(me.char.g); me.char = makeChar(mySkin); meRoot.add(me.char.g); if (me.tag) meRoot.add(me.tag); }
+const inv = { fruit: 0, wood: 0, feed: 0, star: 0, milk: 0, egg: 0, wool: 0 };
+const INV_UI = [['fruit', '🍎'], ['wood', '🪵'], ['feed', '🌾'], ['star', '⭐'], ['milk', '🥛'], ['egg', '🥚'], ['wool', '🧶']];
+function renderInv() { $('inv').innerHTML = INV_UI.map(([k, e]) => `<div class="chip">${e}<b>${inv[k]}</b></div>`).join(''); }
+renderInv();
+
+// ================= 远端玩家 =================
+const others = new Map(); // id -> {root, char, tag, target, ry, anim, name, skin}
+function addOther(p) {
+  if (others.has(p.id)) removeOther(p.id);
+  const root = new THREE.Group(); const char = makeChar(p.skin | 0); root.add(char.g);
+  const tag = label(p.name, { bg: 'rgba(40,120,255,.85)', scale: .55 }); tag.position.y = 2.75; root.add(tag);
+  root.position.set(p.x || 0, p.y || 0, p.z || 0); scene.add(root);
+  others.set(p.id, { root, char, tag, target: root.position.clone(), ry: p.ry || 0, anim: 0, name: p.name, skin: p.skin | 0, bubble: null });
+  renderOnline();
+}
+function removeOther(id) { const o = others.get(id); if (!o) return; scene.remove(o.root); others.delete(id); renderOnline(); }
+function renderOnline() { $('online').dataset.connected=String(connected); $('online').innerHTML = `👥 在线 ${others.size + 1} 人<br>🟢 ${esc(me.name)}（你）` + [...others.values()].map(o => `<br>🔵 ${esc(o.name)}`).join(''); if (IS_TOUCH) $('inv').style.top = ($('online').offsetTop + $('online').offsetHeight + 10) + 'px'; }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function bubble(root, text, old) { if (old) root.remove(old); const b = label(text, { bg: 'rgba(255,255,255,.95)', fg: '#223', scale: .5 }); b.position.y = 3.4; root.add(b); setTimeout(() => root.remove(b), 5000); return b; }
+
+// ================= 共享世界状态 =================
+const world = { fruits: {}, wood: {}, stars: {}, campfire: false, fedAnimals: {}, produce: {}, house: 0, weather: 'sunny' };
+let serverOffset = 0;
+function applyWorld(p){if(p._init){for(const k of ['fruits','wood','stars','fedAnimals'])world[k]={};for(const id of Object.keys(produceMeshes))if(!p.produce||!p.produce[id]){scene.remove(produceMeshes[id]);delete produceMeshes[id];delete produceKinds[id];}world.produce={};}
+  for (const k of ['fruits', 'wood', 'stars']) if (p[k]) Object.assign(world[k], p[k]);
+  if (p.fedAnimals) Object.assign(world.fedAnimals, p.fedAnimals);
+  if (p.produce) for (const [id, v] of Object.entries(p.produce)) {
+    if (v) { world.produce[id] = v; produceKinds[id] = v.k; if (!produceMeshes[id]) { const pr = PRODUCE[v.k]; const m = mesh(new THREE.SphereGeometry(.35, 12, 10), pr[1], v.x, .5, v.z, { emissive: pr[1], emissiveIntensity: .3 }); const l = label(pr[0], { bg: 'rgba(0,0,0,0)', scale: .8 }); l.position.y = .9; m.add(l); scene.add(m); produceMeshes[id] = m; } }
+    else { delete world.produce[id]; if (produceMeshes[id]) { scene.remove(produceMeshes[id]); delete produceMeshes[id]; } }
+  }
+  if ('campfire' in p) world.campfire = p.campfire;
+  if ('house' in p) { world.house = p.house; houseParts.forEach((m, i) => m.visible = i < world.house); setHouseLabel(world.house); if (p.house && !p._init) SFX.build(); }
+  if (p.weather) { world.weather = p.weather; if (!p._init) toast(WEATHER[p.weather].msg); }
+  for (const [id, m] of Object.entries(fruits)) m.visible = world.fruits[id] !== false;
+  for (const [id, m] of Object.entries(woods)) m.visible = world.wood[id] !== false;
+  for (const [id, m] of Object.entries(stars)) m.visible = world.stars[id] !== false;
+}
+const WEATHER = {
+  sunny: { top: 0x4aa3ff, bot: 0xdff3ff, fog: 0xbfe3ff, sun: 2.2, hemi: .9, rain: 0, icon: '☀️ 晴天', msg: '☀️ 天晴了' },
+  cloudy: { top: 0x8aa0b8, bot: 0xd5dde6, fog: 0xc5ced8, sun: 1.2, hemi: .8, rain: 0, icon: '☁️ 多云', msg: '☁️ 云飘过来了' },
+  rain: { top: 0x55657a, bot: 0x98a4b3, fog: 0x8e9aa8, sun: .5, hemi: .6, rain: 1, icon: '🌧️ 下雨', msg: '🌧️ 下雨啦！去篝火边取暖吧' },
+  sunset: { top: 0x6a5acd, bot: 0xffb07a, fog: 0xf0b890, sun: 1.5, hemi: .7, rain: 0, icon: '🌇 黄昏', msg: '🌇 太阳快下山了' },
+};
+// 雨
+const RAIN_N = 1500; const rainGeo = new THREE.BufferGeometry(); const rainArr = new Float32Array(RAIN_N * 3);
+for (let i = 0; i < RAIN_N; i++) { rainArr[i * 3] = (Math.random() - .5) * 80; rainArr[i * 3 + 1] = Math.random() * 40; rainArr[i * 3 + 2] = (Math.random() - .5) * 80; }
+rainGeo.setAttribute('position', new THREE.BufferAttribute(rainArr, 3));
+const rain = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0xaaccff, size: .15, transparent: true, opacity: 0 })); scene.add(rain);
+
+// ================= 粒子特效 =================
+const bursts = [];
+const burstGeo = new THREE.BoxGeometry(.18, .18, .18);
+function burst(pos, colors = [0xffd166, 0xff5e7e, 0x06d6a0, 0x118ab2], n = 18, speed = 6) {
+  for (let i = 0; i < n; i++) { const m = new THREE.Mesh(burstGeo, new THREE.MeshBasicMaterial({ color: colors[i % colors.length] })); m.position.copy(pos); scene.add(m);
+    bursts.push({ m, v: new THREE.Vector3((Math.random() - .5) * speed, Math.random() * speed + 2, (Math.random() - .5) * speed), life: 1 }); }
+}
+const rings = [];
+function ring(pos, color = 0x00e5ff) { const m = new THREE.Mesh(new THREE.TorusGeometry(.5, .08, 6, 24), new THREE.MeshBasicMaterial({ color, transparent: true })); m.rotation.x = Math.PI / 2; m.position.copy(pos).setY(pos.y + .2); scene.add(m); rings.push({ m, life: 1 }); }
+
+// ================= 任务 =================
+const Q = { zone: 'hub', power1: 0, power2: 0, power3: 0, stars: 0, fruits: 0, wood: 0, fire: 0, fed: 0, produce: 0, build: 0, fountain: 0 };
+const nearestOf = (obj, ok) => { let best = null, bd = 1e9; for (const [id, m] of Object.entries(obj)) { if (!ok(id, m)) continue; const d = m.getWorldPosition(new THREE.Vector3()).distanceTo(me.pos); if (d < bd) { bd = d; best = m.getWorldPosition(new THREE.Vector3()); } } return best; };
+const STEPS = [
+  { t: '走到大厅中央的喷泉', h: K('用 W A S D 走路，拖动鼠标转视角', '左手在屏幕左边拖动走路，右手在右边拖动转视角'), done: () => Q.fountain, at: () => new THREE.Vector3(0, 0, 0) },
+  { t: '穿过粉色传送门，去🎡主题乐园', h: '喷泉北边的粉色圆环，走进去就传送', done: () => Q.zone === 'park', at: () => new THREE.Vector3(0, 0, -19) },
+  { t: K('按 1 试试🚀超级跳', '点右边的 🚀 试试超级跳'), h: K('所有超能力都有冷却，看左下角', '按钮变暗表示正在冷却'), done: () => Q.power1, at: () => null },
+  { t: K('按 3 飞起来🕊️（按住空格上升）', '点 🕊️ 飞起来（按住 ⤒ 往上飞）'), h: '飞行 6 秒，可以去拿高处的星星', done: () => Q.power3, at: () => null },
+  { t: '收集 3 颗⭐星星', h: '碰到就收集；高处的用蹦床或超能力', done: () => Q.stars >= 3, at: () => nearestOf(stars, (id) => world.stars[id] !== false), cnt: () => `${Math.min(Q.stars, 3)}/3` },
+  { t: '回大厅，走绿色传送门去🌲生存区', h: '乐园入口有蓝色传送门可回大厅', done: () => Q.zone === 'wild', at: () => Q.zone === 'hub' ? new THREE.Vector3(-19, 0, 0) : new THREE.Vector3(0, 0, -56) },
+  { t: '摘 3 个🍎果子', h: K('走到果树下按 E', '走到果树下，点 ✋ 按钮'), done: () => Q.fruits >= 3, at: () => nearestOf(fruits, (id) => world.fruits[id] !== false), cnt: () => `${Math.min(Q.fruits, 3)}/3` },
+  { t: '捡 2 根🪵木头', h: K('地上的木头，靠近按 E', '地上的木头，靠近点 ✋'), done: () => Q.wood >= 2, at: () => nearestOf(woods, (id) => world.wood[id] !== false), cnt: () => `${Math.min(Q.wood, 2)}/2` },
+  { t: '点燃🔥篝火', h: K('带 2 根木头到中间的石圈按 E（朋友点过了就一起烤火）', '带 2 根木头到中间石圈点 ✋（朋友点过了就一起烤火）'), done: () => Q.fire, at: () => new THREE.Vector3(WD.x, 0, WD.z) },
+  { t: '回大厅，走橙色传送门去🐮农场', h: '生存区东边有蓝色传送门回大厅', done: () => Q.zone === 'farm', at: () => Q.zone === 'hub' ? new THREE.Vector3(19, 0, 0) : new THREE.Vector3(-56, 0, 0) },
+  { t: '在🌾饲料桶拿饲料，喂 2 只动物', h: K('靠近奶牛、小鸡、绵羊按 E 喂食', '靠近奶牛、小鸡、绵羊点 ✋ 喂食'), done: () => Q.fed >= 2, at: () => inv.feed ? nearestAnimal() : feedBin.position.clone(), cnt: () => `${Math.min(Q.fed, 2)}/2` },
+  { t: '收集 2 个农产品🥚🥛🧶', h: K('喂过的动物会留下礼物，按 E 捡起', '喂过的动物会留下礼物，点 ✋ 捡起'), done: () => Q.produce >= 2, at: () => { let b = null, bd = 1e9; for (const m of Object.values(produceMeshes)) { const d = m.position.distanceTo(me.pos); if (d < bd) { bd = d; b = m.position.clone(); } } return b || nearestAnimal(); }, cnt: () => `${Math.min(Q.produce, 2)}/2` },
+  { t: '一起盖🏠小屋（每次 1 根木头）', h: '木头不够就回生存区捡；三个人一起盖更快', done: () => world.house >= 5, at: () => HS.clone(), cnt: () => `${world.house}/5` },
+  { t: '回到大厅喷泉庆祝 🎉', h: '回到喷泉旁，按互动完成第14个任务，然后填写完整测评表。', done: () => Q.celebrate, at: () => new THREE.Vector3(0,0,0) },
+];
+function nearestAnimal() { let b = null, bd = 1e9; for (const a of ANIMALS) { const d = a.g.position.distanceTo(me.pos); if (d < bd) { bd = d; b = a.g.position.clone(); } } return b; }
+let qi = 0;
+function renderQuest() {
+  const s = STEPS[Math.min(qi,STEPS.length-1)];
+  $('qnum').textContent = `${qi}/${STEPS.length}`;
+  if(qi===14){$('qnow').textContent='14个任务全部完成！';$('qhint').textContent='完整测评表已解锁；也可以继续自由探索。';$('qlist').textContent='✓ 14/14';return;}
+  $('qnow').textContent = s.t + (s.cnt ? `  ${s.cnt()}` : ''); $('qhint').textContent = s.h;
+  const from = Math.max(0, qi - 2);
+  $('qlist').innerHTML = STEPS.slice(from, from + 7).map((st, j) => { const i = from + j; return `<div class="${i < qi ? 'done' : i === qi ? 'cur' : 'todo'}">${i < qi ? '✅' : i === qi ? '👉' : '⬜'} ${st.t}</div>`; }).join('');
+}
+function checkQuest(){ renderQuest(); }
+function applyPersonal(x,restore=false){
+ const previous=qi;qi=Math.max(0,Math.min(14,x.completed));Object.assign(Q,x.stats);Object.assign(inv,x.inventory);
+ if(restore&&x.position){me.pos.set(x.position.x,x.position.y,x.position.z);me.vel.set(0,0,0);me.name=x.name;}
+ renderInv();renderQuest();
+ if(qi>previous){SFX.quest();toast(qi===14?'14个任务全部完成！':('任务完成：'+qi+'/14'));}
+}
+
+// 目标光柱
+const beacon = new THREE.Group(); scene.add(beacon);
+const beam = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, 60, 16, 1, true), new THREE.MeshBasicMaterial({ color: 0xffe066, transparent: true, opacity: .28, depthWrite: false, side: THREE.DoubleSide, fog: false })); beam.position.y = 30; beacon.add(beam);
+const arrow = mesh(new THREE.ConeGeometry(.7, 1.4, 4), 0xffd000, 0, 4, 0, { emissive: 0xffb000, emissiveIntensity: 1 }); arrow.rotation.x = Math.PI; beacon.add(arrow);
+
+// ================= UI：提示 =================
+function toast(text, ms = 2600) { const d = document.createElement('div'); d.className = 't panel'; d.textContent = text; $('toast').appendChild(d); setTimeout(() => d.remove(), ms); while ($('toast').children.length > 3) $('toast').firstChild.remove(); }
+function chatLine(name, text) { const d = document.createElement('div'); d.innerHTML = `<b>${esc(name)}</b>：${esc(text)}`; $('chatlog').appendChild(d); setTimeout(() => d.remove(), 12000); while ($('chatlog').children.length > (IS_TOUCH ? 4 : 6)) $('chatlog').firstChild.remove(); }
+
+// ================= 网络 =================
+let connected=false;
+function connect(){ROOM.connect(me.name,mySkin,{
+ connection:(ok,note)=>{connected=ok;$('banner').style.display=ok?'none':'block';if(note)$('banner').textContent=note;},
+ clearPlayers:()=>{for(const id of [...others.keys()])removeOther(id);renderOnline();},
+ message:m=>{switch(m.t){
+  case 'init':me.id=m.id;serverOffset=(m.now||Date.now())-Date.now();m.players.forEach(addOther);applyWorld({...m.world,_init:true});applyPersonal(m.personal,true);renderOnline();break;
+  case 'personal':applyPersonal(m.personal);break;
+  case 'join':addOther(m);toast('👋 '+m.name+' 加入了世界');renderOnline();break;
+  case 'leave':removeOther(m.id);renderOnline();break;
+  case 'pos':for(const[id,x,y,z,ry,anim]of m.list){if(id===me.id)continue;const o=others.get(id);if(o){o.target.set(x,y,z);o.ry=ry;o.anim=anim;}}break;
+  case 'skin':{const o=others.get(m.id);if(o){o.root.remove(o.char.g);o.char=makeChar(m.skin);o.root.add(o.char.g);o.skin=m.skin;}}break;
+  case 'fx':{const o=others.get(m.id);if(o){const p=o.root.position.clone();if(m.kind==='p1'||m.kind==='p3')burst(p.setY(1),[0xff6fb5,0xffffff]);else if(m.kind==='p2')ring(p,0xffd000);else if(m.kind==='tp')burst(p.setY(1.5));}}break;
+  case 'world':applyWorld(m.patch);break;
+  case 'got':onGot(m.kind,m.id);break;
+  case 'deny':SFX.deny();break;
+  case 'toast':toast(m.text);break;
+  case 'chat':chatLine(m.name,m.text);SFX.chat();break;
+ }} });}
+function net(msg){if(!connected)return false;if(msg.t!=='pos'&&started)ROOM.send({t:'pos',x:+me.pos.x.toFixed(2),y:+me.pos.y.toFixed(2),z:+me.pos.z.toFixed(2),ry:+me.ry.toFixed(2),anim:me.anim});return ROOM.send(msg);}
+Object.defineProperty(window,'__TRIO_QA__',{value:()=>({connected,id:me.id,others:others.size,completed:qi,position:{x:me.pos.x,y:me.pos.y,z:me.pos.z},world:JSON.parse(JSON.stringify(world)),reviewOpen:!!window.__trioReviewOpen})});
+const pending = new Set();
+function take(kind, id) { const k = kind + id; if (pending.has(k)) return; pending.add(k); setTimeout(() => pending.delete(k), 1500); net({ t: 'take', kind, id }); }
+function onGot(kind, id) {
+  const p = me.pos.clone().setY(1.5);
+  if (kind === 'fruits') { inv.fruit++; Q.fruits++; SFX.pick(); burst(p, [0xe53935, 0xffa726]); toast('🍎 +1 果子'); }
+  if (kind === 'wood') { inv.wood++; Q.wood++; SFX.pick(); burst(p, [0x8d5a2b, 0xc49a6c]); toast('🪵 +1 木头'); }
+  if (kind === 'stars') { inv.star++; Q.stars++; SFX.star(); burst(p, [0xffd700, 0xffffff], 26, 8); toast('⭐ +1 星星'); }
+  if (kind === 'produce') { const k = produceKinds[id]; const key = { cow: 'milk', chicken: 'egg', sheep: 'wool' }[k] || 'egg'; inv[key]++; Q.produce++; SFX.pick(); burst(p); toast(`${PRODUCE[k]?.[0] || '🎁'} +1 ${PRODUCE[k]?.[2] || ''}`); }
+  renderInv(); checkQuest();
+}
+
+// ================= 输入 =================
+const keys = {};
+let yaw = 0, pitch = .35, dist = 9, dragging = false, lx = 0, ly = 0, started = false, chatting = false;
+addEventListener('keydown', (e) => {
+  if (!started) return;
+  if (chatting) { if (e.key === 'Enter') { const v = $('chatin').value.trim(); if (v) net({ t: 'chat', text: v }); $('chatin').value = ''; $('chatin').style.display = 'none'; chatting = false; $('chatin').blur(); } if (e.key === 'Escape') { $('chatin').style.display = 'none'; chatting = false; $('chatin').blur(); } return; }
+  const k = e.key.toLowerCase(); keys[k] = true; if (e.code === 'Space') { keys[' '] = true; e.preventDefault(); if (!e.repeat) jump(); }
+  if (e.repeat) return;
+  if (k === 'e') interact();
+  if (k === '1') power(1); if (k === '2') power(2); if (k === '3') power(3);
+  if (k === 'c') switchSkin();
+  if (k === 't' || e.key === 'Enter') { e.preventDefault(); chatting = true; $('chatin').style.display = 'block'; setTimeout(() => $('chatin').focus(), 0); }
+});
+addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false; if (e.code === 'Space') keys[' '] = false; });
+addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
+let camPid = null;
+renderer.domElement.addEventListener('pointerdown', (e) => { if (camPid !== null) return; camPid = e.pointerId; dragging = true; lx = e.clientX; ly = e.clientY; });
+const camEnd = (e) => { if (e.pointerId === camPid) { camPid = null; dragging = false; } };
+addEventListener('pointerup', camEnd); addEventListener('pointercancel', camEnd);
+addEventListener('pointermove', (e) => { if (!dragging || e.pointerId !== camPid) return; const sens = IS_TOUCH ? 1.4 : 1; yaw -= (e.clientX - lx) * .006 * sens; pitch = Math.min(1.2, Math.max(-.1, pitch + (e.clientY - ly) * .005 * sens)); lx = e.clientX; ly = e.clientY; });
+addEventListener('wheel', (e) => { dist = Math.min(18, Math.max(4, dist + e.deltaY * .01)); }, { passive: true });
+renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());
+
+// ================= 触屏操作（iPad） =================
+function switchSkin() { mySkin = (mySkin + 1) % SKINS.length; setMyChar(); net({ t: 'skin', skin: mySkin }); burst(me.pos.clone().setY(1.5)); SFX.power(); toast('🎭 换成了 ' + SKINS[mySkin].name); try { localStorage.setItem('tw_skin', mySkin); } catch {} }
+const joy = { id: null, ox: 0, oy: 0, x: 0, y: 0, mag: 0 }; const JR = 60;
+function joyPlace(x, y) { $('joybase').style.left = x + 'px'; $('joybase').style.top = y + 'px'; }
+$('joyzone').addEventListener('pointerdown', (e) => { e.preventDefault(); if (joy.id !== null) return; joy.id = e.pointerId; joy.ox = e.clientX; joy.oy = e.clientY; try { $('joyzone').setPointerCapture(e.pointerId); } catch {} joyPlace(e.clientX, e.clientY); $('joybase').style.opacity = 1; $('joytip').style.display = 'none'; });
+$('joyzone').addEventListener('pointermove', (e) => {
+  if (e.pointerId !== joy.id) return; let dx = e.clientX - joy.ox, dy = e.clientY - joy.oy, d = Math.hypot(dx, dy);
+  if (d > JR * 1.5) { joy.ox = e.clientX - dx / d * JR * 1.5; joy.oy = e.clientY - dy / d * JR * 1.5; joyPlace(joy.ox, joy.oy); dx = e.clientX - joy.ox; dy = e.clientY - joy.oy; d = Math.hypot(dx, dy); }
+  const k = d > JR ? JR / d : 1; joy.x = dx * k / JR; joy.y = -dy * k / JR; joy.mag = Math.min(1, d / JR);
+  $('joyknob').style.transform = `translate(${dx * k}px, ${dy * k}px)`;
+});
+const joyEnd = (e) => { if (e.pointerId !== joy.id) return; joy.id = null; joy.x = joy.y = joy.mag = 0; $('joyknob').style.transform = ''; $('joybase').style.opacity = ''; $('joybase').style.left = ''; $('joybase').style.top = ''; };
+$('joyzone').addEventListener('pointerup', joyEnd); $('joyzone').addEventListener('pointercancel', joyEnd);
+function holdBtn(el, down, up) {
+  el.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); try { el.setPointerCapture(e.pointerId); } catch {} if (started) down(); });
+  const u = () => { if (up) up(); }; el.addEventListener('pointerup', u); el.addEventListener('pointercancel', u);
+}
+holdBtn($('bJump'), () => { keys[' '] = true; jump(); $('bJump').style.transform = 'scale(.9)'; }, () => { keys[' '] = false; $('bJump').style.transform = ''; });
+holdBtn($('bAct'), () => interact());
+[1, 2, 3].forEach(n => holdBtn($('pw' + n), () => power(n)));
+holdBtn($('tSkin'), switchSkin);
+holdBtn($('tCam'), () => { dist = dist < 7 ? 10 : dist < 12 ? 15 : 6; toast('📷 视角：' + (dist < 7 ? '近' : dist < 12 ? '中' : '远'), 1000); });
+$('tChat').addEventListener('click', () => { if (!started) return; chatting = true; $('chatin').style.display = 'block'; $('chatin').focus(); });
+$('chatin').addEventListener('blur', () => setTimeout(() => { if (chatting) { chatting = false; $('chatin').style.display = 'none'; } }, 150));
+addEventListener('trio-review-open',()=>{for(const k in keys)keys[k]=false;joy.id=null;joy.x=joy.y=joy.mag=0;dragging=false;chatting=true;me.vel.x=me.vel.z=0;});addEventListener('trio-review-close',()=>{chatting=false;});
+addEventListener('pointerdown',()=>{if(AC&&AC.state!=='running')AC.resume();});
+document.addEventListener('gesturestart', (e) => e.preventDefault());
+document.addEventListener('dblclick', (e) => e.preventDefault());
+document.addEventListener('touchmove', (e) => { if (started && e.target.id !== 'chatin') e.preventDefault(); }, { passive: false });
+
+// ================= 超能力 =================
+const PW = { 1: { cd: 2, t: 0 }, 2: { cd: 5, t: 0 }, 3: { cd: 9, t: 0 } };
+let dashUntil = 0, flyUntil = 0;
+function now() { return performance.now() / 1000; }
+function power(n) {
+  if(!connected||window.__trioReviewOpen)return;
+  const p = PW[n]; if (now() < p.t) { SFX.deny(); return; } p.t = now() + p.cd;
+  const pos = me.pos.clone();
+  if (n === 1) { me.vel.y = 22; me.onGround = false; me.jumps = 2; SFX.power(); ring(pos, 0xff6fb5); burst(pos.setY(.5), [0xff6fb5, 0xffffff], 24); Q.power1 = 1; }
+  if (n === 2) { dashUntil = now() + 3; SFX.dash(); ring(pos, 0xffd000); Q.power2 = 1; }
+  if (n === 3) { flyUntil = now() + 6; me.vel.y = Math.max(me.vel.y, 6); SFX.fly(); ring(pos, 0x9be7ff); burst(pos.setY(1), [0x9be7ff, 0xffffff]); Q.power3 = 1; }
+  net({ t: 'fx', kind: 'p' + n }); checkQuest();
+}
+function jump() {
+  if (flyUntil > now()) return;
+  if (me.onGround) { me.vel.y = 11; me.onGround = false; me.jumps = 1; SFX.jump(); }
+  else if (me.jumps < 2) { me.vel.y = 10; me.jumps = 2; SFX.djump(); ring(me.pos.clone(), 0xffffff); }
+}
+
+// ================= 互动 =================
+let focus = null;
+function findFocus() {
+  const P = me.pos; let best = null, bd = 1e9;
+  const consider = (d, r, item) => { if (d < r && d < bd) { bd = d; best = item; } };
+  for (const [id, m] of Object.entries(fruits)) if (world.fruits[id] !== false) { const w = m.position; consider(Math.hypot(w.x - P.x, w.z - P.z), 3.5, { txt: '摘果子 🍎', act: () => take('fruits', id) }); }
+  for (const [id, m] of Object.entries(woods)) if (world.wood[id] !== false) consider(Math.hypot(m.position.x - P.x, m.position.z - P.z), 2.5, { txt: '捡木头 🪵', act: () => take('wood', id) });
+  consider(Math.hypot(WD.x - P.x, WD.z - P.z), 4, world.campfire ? { txt: '一起烤火 🔥', act:()=>{net({t:'warm_fire'});toast('🔥 好暖和！');SFX.fire();} } : { txt: inv.wood >= 2 ? '点燃篝火 🔥（用 2 根木头）' : '点篝火需要 2 根木头 🪵', act: () => { if (inv.wood < 2) { SFX.deny(); toast('🪵 还需要木头：' + inv.wood + '/2'); return; } inv.wood -= 2; renderInv(); net({ t: 'campfire' }); Q.fire = 1; SFX.fire(); burst(new THREE.Vector3(WD.x, 1.5, WD.z), [0xff5a1f, 0xffe066], 30); checkQuest(); } });
+  consider(Math.hypot(feedBin.position.x-P.x,feedBin.position.z-P.z),3.2,{txt:'拿饲料 🌾',act:()=>{net({t:'feed_supply'});SFX.pick();}});
+  for (const a of ANIMALS) { const d = Math.hypot(a.g.position.x - P.x, a.g.position.z - P.z); const fedAgo = Date.now() + serverOffset - (world.fedAnimals[a.id] || 0);
+    const nm = { cow: '奶牛', chicken: '小鸡', sheep: '绵羊' }[a.kind];
+    consider(d, 3, fedAgo < 8000 ? { txt: `${nm}吃饱啦，等一会儿 ❤️`, act: () => SFX.deny() } : inv.feed ? { txt: `喂${nm} 🌾`, act: () => { inv.feed--; renderInv(); net({ t: 'feed', id: a.id, kind: a.kind, at: [+a.g.position.x.toFixed(1), +a.g.position.z.toFixed(1)] }); Q.fed++; ({ cow: SFX.moo, chicken: SFX.cluck, sheep: SFX.baa })[a.kind](); burst(a.g.position.clone().setY(2), [0xff5e7e, 0xffffff]); checkQuest(); } } : { txt: `先去饲料桶拿饲料 🌾`, act: () => { SFX.deny(); toast('🌾 饲料桶在农场入口附近'); } }); }
+  for (const [id, m] of Object.entries(produceMeshes)) consider(Math.hypot(m.position.x - P.x, m.position.z - P.z), 2.5, { txt: `捡起 ${PRODUCE[produceKinds[id]]?.[0] || '🎁'}`, act: () => take('produce', id) });
+  if (world.house < 5) consider(Math.hypot(HS.x - P.x, HS.z - 5 - P.z), 4.5, { txt: inv.wood ? `盖小屋 🔨（用 1 根木头）${world.house}/5` : `盖小屋需要木头 🪵（去生存区捡）`, act: () => { if (!inv.wood) { SFX.deny(); toast('🪵 没有木头了，去生存区捡'); return; } inv.wood--; renderInv(); net({ t: 'build' }); Q.build++; burst(HS.clone().setY(2), [0xd9a066, 0xffffff], 24); } });
+  return best;
+}
+function interact(){if(!connected||window.__trioReviewOpen)return;if(qi===13&&Math.hypot(me.pos.x,me.pos.z)<8){net({t:'celebrate'});return;}if(focus)focus.act();}
+
+// ================= 开始 =================
+$('go').onclick = start; $('name').addEventListener('keydown', e => { if (e.key === 'Enter') start(); });
+async function start(){
+  if(started)return;const b=$('go');b.disabled=true;if(!await ROOM.prepare()){b.disabled=false;return;}started=true;
+  me.name = ($('name').value.trim() || ('玩家' + Math.floor(Math.random() * 100))).slice(0, 10);
+  try { localStorage.setItem('tw_name', me.name); localStorage.setItem('tw_skin', mySkin); } catch {}
+  try { AC = new (window.AudioContext || window.webkitAudioContext)(); AC.resume(); } catch {}
+  me.tag = label(me.name, { bg: 'rgba(40,190,110,.85)', scale: .55 }); me.tag.position.y = 2.75;
+  setMyChar(); $('start').style.display = 'none'; document.body.classList.add('playing'); $('hud').style.display = 'block';
+  connect(); renderQuest(); renderOnline(); SFX.quest(); toast('欢迎来到三人同乐世界！看右上角的任务指引 👉');
+}
+
+// ================= 主循环 =================
+const clock = new THREE.Clock();
+let sendT = 0, lastZone = 'hub', tpCool = 0;
+const tmpV = new THREE.Vector3(), camTarget = new THREE.Vector3(), curCam = new THREE.Vector3(0, 6, 16);
+const wCur = { top: new THREE.Color(0x4aa3ff), bot: new THREE.Color(0xdff3ff), fog: new THREE.Color(0xbfe3ff), sun: 2.2, hemi: .9, rain: 0 };
+function step() {
+  const dt = Math.min(clock.getDelta(), .05); const t = clock.elapsedTime; const tn = now();
+  if (started) {
+    // 移动
+    let ix = 0, iz = 0;
+    if (!chatting) { if (keys['w'] || keys['arrowup']) iz += 1; if (keys['s'] || keys['arrowdown']) iz -= 1; if (keys['a']) ix -= 1; if (keys['d']) ix += 1; if (keys['arrowleft']) yaw += dt * 2.2; if (keys['arrowright']) yaw -= dt * 2.2; if (keys['q']) yaw += dt * 2.2; }
+    let running = !!keys['shift'], analog = 1;
+    if (joy.id !== null && joy.mag > .12) { ix = joy.x; iz = joy.y; running = joy.mag > .92; analog = Math.min(1, .35 + joy.mag * .8); }
+    const fx = -Math.sin(yaw), fz = -Math.cos(yaw), rx = Math.cos(yaw), rz = -Math.sin(yaw);
+    let mx = fx * iz + rx * ix, mz = fz * iz + rz * ix; const ml = Math.hypot(mx, mz);
+    const flying = flyUntil > tn, dashing = dashUntil > tn;
+    const speed = (running ? 11 : 7) * analog * (dashing ? 2.2 : 1) * (flying ? 1.5 : 1);
+    if (ml > 0) { mx /= ml; mz /= ml; const tr = Math.atan2(mx, mz); let d = tr - me.ry; d = Math.atan2(Math.sin(d), Math.cos(d)); me.ry += d * Math.min(1, dt * 14); }
+    const acc = me.onGround ? 14 : 6;
+    me.vel.x += (mx * speed - me.vel.x) * Math.min(1, dt * acc); me.vel.z += (mz * speed - me.vel.z) * Math.min(1, dt * acc);
+    if (flying) { if (keys[' ']) me.vel.y += 40 * dt; me.vel.y -= 14 * dt; me.vel.y = Math.min(me.vel.y, 9); if (Math.random() < .3) burst(me.pos.clone().setY(me.pos.y + .3), [0x9be7ff, 0xffffff], 1, 1); }
+    else me.vel.y -= 32 * dt;
+    if (dashing && ml && Math.random() < .5) burst(me.pos.clone().setY(me.pos.y + .8), [0xffd000, 0xffffff], 1, 1);
+    me.pos.addScaledVector(me.vel, dt);
+    if (me.pos.y <= 0) { if (!me.onGround && me.vel.y < -14) ring(me.pos.clone(), 0xffffff); me.pos.y = 0; me.vel.y = 0; me.onGround = true; me.jumps = 0; } else if (me.pos.y > .05) me.onGround = false;
+    // 碰撞
+    for (const c of colliders) { const dx = me.pos.x - c.x, dz = me.pos.z - c.z, d = Math.hypot(dx, dz), r = c.r + .45; if (d < r && d > 0.0001 && me.pos.y < 4) { me.pos.x = c.x + dx / d * r; me.pos.z = c.z + dz / d * r; } }
+    const rr = Math.hypot(me.pos.x, me.pos.z); if (rr > 125) { me.pos.x *= 125 / rr; me.pos.z *= 125 / rr; }
+    if (me.pos.y > 60) { me.pos.y = 60; me.vel.y = Math.min(me.vel.y, 0); }
+    // 蹦床
+    for (const p of pads) if (me.onGround && Math.hypot(p.position.x - me.pos.x, p.position.z - me.pos.z) < 1.8) { me.vel.y = 20; me.onGround = false; me.jumps = 1; SFX.pad(); ring(me.pos.clone()); }
+    // 传送门
+    tpCool -= dt;
+    if (tpCool <= 0) for (const pt of portals) if (Math.hypot(pt.pos.x - me.pos.x, pt.pos.z - me.pos.z) < 2.2 && me.pos.y < 5) {
+      tpCool = 1.2; $('fade').style.opacity = .9; SFX.portal(); net({ t: 'fx', kind: 'tp' });
+      const dest = pt.dest; setTimeout(() => { me.pos.copy(dest); me.vel.set(0, 0, 0); const dir = dest.clone().setY(0); const back = Math.hypot(dest.x, dest.z) < 20; me.ry = back ? Math.atan2(-dest.x, -dest.z) + Math.PI : Math.atan2(dest.x, dest.z); yaw = me.ry + Math.PI; curCam.set(me.pos.x - Math.sin(me.ry) * 9, 5, me.pos.z - Math.cos(me.ry) * 9); $('fade').style.opacity = 0; burst(me.pos.clone().setY(1.5), [0xffffff, 0x7fb2ff]); }, 180);
+      break;
+    }
+    // 星星
+    for (const [id, s] of Object.entries(stars)) if (s.visible && s.position.distanceTo(tmpV.copy(me.pos).setY(me.pos.y + 1)) < 1.6) take('stars', id);
+    // 动画
+    me.anim = flying ? 4 : !me.onGround ? 3 : ml > 0 ? (running || dashing ? 2 : 1) : 0;
+    meRoot.position.copy(me.pos); me.char.g.rotation.y = me.ry; animateChar(me.char, me.anim, t);
+    // 区域
+    let z = 'hub'; for (const Z of ZONES) if (Math.hypot(Z.c.x - me.pos.x, Z.c.z - me.pos.z) < Z.r + 4) z = Z.key;
+    if (Math.hypot(me.pos.x, me.pos.z) < 7) Q.fountain = 1;
+    if (z !== lastZone) { lastZone = z; Q.zone = z; const Z = ZONES.find(q => q.key === z); toast('📍 ' + Z.name, 2000); SFX.portal(); }
+    $('zone').innerHTML = `${ZONES.find(q => q.key === lastZone).name}<small>${WEATHER[world.weather].icon} · ${connected ? '🟢 已联网' : '🔴 连接中'}</small>`;
+    // 互动提示
+    focus=findFocus();if(qi===13&&Math.hypot(me.pos.x,me.pos.z)<8)focus={txt:'在喷泉庆祝 🎉',act:()=>net({t:'celebrate'})};
+    if (focus) { $('prompt').style.display = 'block'; const ph = IS_TOUCH ? `👉 点 ✋ ${focus.txt}` : `<kbd>E</kbd> ${focus.txt}`; if ($('prompt').innerHTML !== ph) $('prompt').innerHTML = ph; } else $('prompt').style.display = 'none';
+    if (IS_TOUCH) { if (focus) { $('bAct').style.display = 'flex'; const bt = focus.txt.split('（')[0]; if ($('bActTxt').textContent !== bt) $('bActTxt').textContent = bt; } else $('bAct').style.display = 'none'; }
+    // 任务
+    checkQuestThrottled(dt);
+    const target=qi<14?STEPS[qi].at():null;
+    if (target) { beacon.visible = true; beacon.position.set(target.x, 0, target.z); arrow.position.y = Math.max(3, (target.y || 0) + 3) + Math.sin(t * 3) * .4; arrow.rotation.y = t * 2; const d = Math.hypot(target.x - me.pos.x, target.z - me.pos.z); $('qdist').textContent = d > 3 ? `📍 跟着黄色光柱走 · 还有 ${Math.round(d)} 米` : '📍 就在这里！'; }
+    else { beacon.visible = false; $('qdist').textContent = qi === STEPS.length - 1 ? '' : K('👆 直接按键试试', '👉 点右边的按钮试试'); }
+    // 超能力冷却显示
+    for (const n of [1, 2, 3]) { const left = Math.max(0, PW[n].t - tn); $('pw' + n).querySelector('.cd').style.height = (left / PW[n].cd * 100) + '%'; }
+    // 发送位置 15Hz
+    sendT += dt; if (sendT > .066) { sendT = 0; net({ t: 'pos', x: +me.pos.x.toFixed(2), y: +me.pos.y.toFixed(2), z: +me.pos.z.toFixed(2), ry: +me.ry.toFixed(2), anim: me.anim }); }
+  }
+  // 远端玩家插值
+  for (const o of others.values()) { o.root.position.lerp(o.target, Math.min(1, dt * 12)); let d = o.ry - o.char.g.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); o.char.g.rotation.y += d * Math.min(1, dt * 12); animateChar(o.char, o.anim, t); }
+  // 相机
+  camTarget.set(me.pos.x, me.pos.y + 1.7, me.pos.z);
+  const want = tmpV.set(camTarget.x + Math.sin(yaw) * Math.cos(pitch) * dist, camTarget.y + Math.sin(pitch) * dist, camTarget.z + Math.cos(yaw) * Math.cos(pitch) * dist);
+  if (want.y < .6) want.y = .6;
+  curCam.lerp(want, Math.min(1, dt * 10)); camera.position.copy(curCam); camera.lookAt(camTarget);
+  sun.position.set(me.pos.x + 40, 70, me.pos.z + 30); sun.target.position.copy(me.pos);
+  sky.position.copy(camera.position);
+  // 世界动画
+  wheelSpin.rotation.z = t * .15; cabins.forEach(c => c.rotation.z = -t * .15);
+  carousel.rotation.y = t * .5;
+  water.material.opacity = .75 + Math.sin(t * 2) * .1;
+  for (const s of Object.values(stars)) { s.rotation.y = t * 2; s.position.y += Math.sin(t * 2 + s.position.x) * .003; }
+  for (const f of Object.values(fruits)) f.scale.setScalar(1 + Math.sin(t * 3 + f.position.x) * .05);
+  for (const pt of portals) { pt.ring.rotation.z = t; pt.inner.material.opacity = .25 + Math.sin(t * 3) * .12; }
+  for (const p of pads) p.material.emissiveIntensity = .5 + Math.sin(t * 4) * .3;
+  for (const c of clouds) { if (c.userData.base) c.position.y = c.userData.base + Math.sin(t + c.userData.ph) * .6; else { c.position.x += dt * 1.5; if (c.position.x > 170) c.position.x = -170; } }
+  const fireOn = world.campfire; flames.forEach((f, i) => { f.visible = fireOn; f.scale.set(1 + Math.sin(t * 12 + i) * .15, 1 + Math.sin(t * 9 + i * 2) * .25, 1); f.rotation.y = t * (i + 1); });
+  fireLight.intensity = fireOn ? 40 + Math.sin(t * 15) * 8 : 0;
+  const ts = (Date.now() + serverOffset) / 1000;
+  for (const a of ANIMALS) { const px = a.hx + Math.sin(ts * .12 + a.seed) * 5, pz = a.hz + Math.cos(ts * .09 + a.seed * 2) * 5; const dx = px - a.g.position.x, dz = pz - a.g.position.z;
+    if (Math.abs(dx) + Math.abs(dz) > 1e-4) a.g.rotation.y = Math.atan2(dx, dz); a.g.position.set(px, a.kind === 'chicken' ? Math.abs(Math.sin(ts * 6 + a.seed)) * .15 : 0, pz);
+    a.heart.visible = Date.now() + serverOffset - (world.fedAnimals[a.id] || 0) < 8000; }
+  for (const m of Object.values(produceMeshes)) m.rotation.y = t * 2;
+  // 天气过渡
+  const W = WEATHER[world.weather]; const k = Math.min(1, dt * .8);
+  wCur.top.lerp(tmpC.set(W.top), k); wCur.bot.lerp(tmpC.set(W.bot), k); wCur.fog.lerp(tmpC.set(W.fog), k); wCur.sun += (W.sun - wCur.sun) * k; wCur.hemi += (W.hemi - wCur.hemi) * k; wCur.rain += (W.rain - wCur.rain) * k;
+  skyU.top.value.copy(wCur.top); skyU.bot.value.copy(wCur.bot); scene.fog.color.copy(wCur.fog); sun.intensity = wCur.sun; hemi.intensity = wCur.hemi;
+  sun.color.set(world.weather === 'sunset' ? 0xffa060 : 0xfff3dd);
+  rain.material.opacity = wCur.rain * .7; rain.visible = wCur.rain > .02;
+  if (rain.visible) { rain.position.set(me.pos.x, 0, me.pos.z); const a = rainGeo.attributes.position.array; for (let i = 1; i < a.length; i += 3) { a[i] -= dt * 30; if (a[i] < 0) a[i] = 40; } rainGeo.attributes.position.needsUpdate = true; }
+  // 粒子
+  for (let i = bursts.length - 1; i >= 0; i--) { const b = bursts[i]; b.life -= dt * 1.4; b.v.y -= 20 * dt; b.m.position.addScaledVector(b.v, dt); b.m.rotation.x += dt * 5; b.m.scale.setScalar(Math.max(.01, b.life)); if (b.life <= 0) { scene.remove(b.m); b.m.material.dispose(); bursts.splice(i, 1); } }
+  for (let i = rings.length - 1; i >= 0; i--) { const r = rings[i]; r.life -= dt * 1.8; r.m.scale.setScalar(1 + (1 - r.life) * 8); r.m.material.opacity = r.life; if (r.life <= 0) { scene.remove(r.m); r.m.geometry.dispose(); rings.splice(i, 1); } }
+  renderer.render(scene, camera);
+}
+function loop() { step(); requestAnimationFrame(loop); }
+const tmpC = new THREE.Color();
+let qT = 0; function checkQuestThrottled(dt) { qT += dt; if (qT > .25) { qT = 0; checkQuest(); } }
+requestAnimationFrame(loop);
+window.__game = { step, joy, me, others, world, Q, get qi() { return qi; }, inv };
+</script>
+</body>
+</html>

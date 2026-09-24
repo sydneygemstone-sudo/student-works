@@ -27,10 +27,10 @@
       ],
       "cost": {
         "budget_aud": 150,
-        "api_equivalent_aud": 40.22,
+        "api_equivalent_aud": 48.22,
         "range": [
-          23.65,
-          65.79
+          27.65,
+          81.79
         ],
         "items": [
           {
@@ -121,6 +121,22 @@
             "note": [
               "覆盖本轮适配和测试预估；两分支都计入，没有把未选分支当零。",
               "Covers the current adaptation/test estimate for both branches; unselected work is not treated as zero."
+            ]
+          },
+          {
+            "id": "online-r2-reviews",
+            "title": [
+              "六位数字联机、任务保存与通关测评",
+              "Six-digit rooms, saved progress and completion reviews"
+            ],
+            "aud": 8,
+            "range": [
+              4,
+              16
+            ],
+            "note": [
+              "本轮追加制作与测试的工具等值规划估算；不是供应商实付，也不把持续云运行费用算零。",
+              "Incremental tool-equivalent planning estimate for this implementation and tests, not a paid bill; ongoing hosting is not assumed to cost zero."
             ]
           }
         ],
@@ -998,6 +1014,36 @@
           ],
           "source": "R6",
           "status": "done"
+        },
+        {
+          "id": "online-r2",
+          "date": "2026-09-25 · R6 联机扩展",
+          "title": [
+            "多人房间、14任务与通关测评",
+            "Multiplayer rooms, 14 tasks and completion reviews"
+          ],
+          "summary": [
+            "教师批准现有 R6，追加真实联机入口与动态测评。",
+            "Teacher accepted the current R6 and requested online play and dynamic reviews."
+          ],
+          "brief": [
+            "六位数字邀请、最多三人、通关后完整测评、HUB 查看状态。",
+            "Six-digit invitations, three players, post-completion review and live HUB status."
+          ],
+          "tool": [
+            "核验现有 Worker → 保留旧房间 → 新任务与存储 → 表单与状态页 → 验收发布。",
+            "Verify existing Worker → preserve legacy rooms → tasks/storage → form/dashboard → test and publish."
+          ],
+          "tech": [
+            "按房间持久化、个人任务与共享世界分开、表单校验、专属查看权限。",
+            "Room persistence, separate personal/shared state, validated forms and scoped review access."
+          ],
+          "result": [
+            "原生 R6 和单机版本保留；多人反馈无需公开仓库写入。",
+            "Native R6 and solo editions remain; multiplayer feedback is not written publicly to the repository."
+          ],
+          "source": "ONLINE-R2",
+          "status": "done"
         }
       ],
       "decision": [
@@ -1348,6 +1394,17 @@
           "note": [
             "继承锁定 R5 原生渲染器和三个样式文件，来源指纹已记录。",
             "Derived from the locked native R5 renderer and three stylesheets; source fingerprints are recorded."
+          ]
+        },
+        {
+          "id": "ONLINE-R2",
+          "label": [
+            "联机与测评修订",
+            "Online and review revision"
+          ],
+          "note": [
+            "见当前项目 cloudflare/ONLINE-R2.md 与独立验收回执。",
+            "See cloudflare/ONLINE-R2.md and its dedicated acceptance report."
           ]
         }
       ],
@@ -2035,6 +2092,15 @@
           "studio-r5.css": "7852c1b590305cda2f0fe4607cb57520b1724fd87d0a3ac994368cdb1cd19fd4",
           "touch-guard.js": "5410eb2dbafe553ed4ad10638fd42a72397fdd37310324f97b8e9bfeabe93660"
         }
+      },
+      "online": {
+        "revision": "trio-online-r2-reviews-20260925",
+        "url": "https://trio-world-opus.sydney-gemstone-games.workers.dev/",
+        "max_players": 3,
+        "room_code_digits": 6,
+        "task_count": 14,
+        "review_entry": "online-reviews.html",
+        "access": "Room-scoped view capability; review text is not public GitHub content"
       }
     }
   },

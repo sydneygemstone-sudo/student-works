@@ -1,0 +1,183 @@
+{
+  "revision": "trio-online-r2-reviews-20260925",
+  "scope": "Synthetic rooms only. Real Worker runtime via Miniflare, original protocol actions and browser forms. Protocol movement is simulated; not physical-iPad/full human gameplay certification.",
+  "checks": [
+    {
+      "name": "Protocol 2 reports 6 digits, 3 players, 14 tasks",
+      "status": "PASS"
+    },
+    {
+      "name": "Six-digit room allocation",
+      "status": "PASS"
+    },
+    {
+      "name": "A numeric invitation alone cannot read reviews",
+      "status": "PASS"
+    },
+    {
+      "name": "Three distinct players join",
+      "status": "PASS"
+    },
+    {
+      "name": "Fourth player rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Premature review refused",
+      "status": "PASS"
+    },
+    {
+      "name": "Client cannot set completion directly",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 1/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 2/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 3/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 4/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 5/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 6/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 7/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 8/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 9/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Campfire debits two wood",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 10/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 11/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 12/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 13/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Thirteenth task does not unlock submission",
+      "status": "PASS"
+    },
+    {
+      "name": "Celebration away from fountain refused",
+      "status": "PASS"
+    },
+    {
+      "name": "Server completed 14/14",
+      "status": "PASS"
+    },
+    {
+      "name": "Completion timestamp recorded",
+      "status": "PASS"
+    },
+    {
+      "name": "Progress survives Worker restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Empty completion form rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Completed returning player automatically sees the full review",
+      "status": "PASS"
+    },
+    {
+      "name": "Local draft saved",
+      "status": "PASS"
+    },
+    {
+      "name": "Complete form submits from touch-enabled browser",
+      "status": "PASS"
+    },
+    {
+      "name": "Cloud dashboard includes submitted answers and pending members",
+      "status": "PASS"
+    },
+    {
+      "name": "Submission idempotency avoids duplicates",
+      "status": "PASS"
+    },
+    {
+      "name": "HUB state page reads complete submitted review",
+      "status": "PASS"
+    },
+    {
+      "name": "Dashboard updates automatically after an edit",
+      "status": "PASS"
+    },
+    {
+      "name": "Review dashboard fits width 768",
+      "status": "PASS"
+    },
+    {
+      "name": "Review dashboard fits width 390",
+      "status": "PASS"
+    },
+    {
+      "name": "R6 original four metrics retained",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual deployed multiplayer link is on HUB",
+      "status": "PASS"
+    },
+    {
+      "name": "Bilingual guide explains capacity and review access",
+      "status": "PASS"
+    },
+    {
+      "name": "No browser runtime exceptions",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "name": "Submitted review survives a second Worker restart",
+      "status": "PASS"
+    },
+    {
+      "name": "Wrong player token cannot claim a review",
+      "status": "PASS"
+    },
+    {
+      "name": "Untrusted web origin refused",
+      "status": "PASS"
+    }
+  ],
+  "failures": [],
+  "started": "2026-09-24T16:57:09.268Z",
+  "status": "PASS",
+  "finished": "2026-09-24T16:57:45.526Z"
+}
