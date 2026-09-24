@@ -2,7 +2,7 @@ name: HUB R6 build and verify
 on:
   push:
     branches: [main]
-    paths: ['scripts/build_hub_r6.py', 'scripts/r6_refine.py', 'scripts/r6_runtime_fixes.py', 'scripts/r6_finalize.py', '.github/workflows/hub-r6.yml']
+    paths: ['scripts/build_hub_r6.py', 'scripts/r6_refine.py', 'scripts/r6_runtime_fixes.py', 'scripts/r6_finalize.py', 'scripts/r6-assets/touch-check.cjs', '.github/workflows/hub-r6.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -28,6 +28,7 @@ jobs:
           python3 scripts/r6_refine.py
           python3 scripts/r6_runtime_fixes.py
           python3 scripts/r6_finalize.py
+          node scripts/r6-assets/touch-check.cjs --patch
       - name: Install browser test tools outside published source
         run: |
           npm install --prefix /tmp/hub-r6-qa playwright@1.58.2
@@ -35,7 +36,9 @@ jobs:
       - name: Run R6 acceptance
         env:
           PLAYWRIGHT_PATH: /tmp/hub-r6-qa/node_modules/playwright
-        run: node scripts/qa_hub_r6.cjs
+        run: |
+          node scripts/r6-assets/touch-check.cjs
+          node scripts/qa_hub_r6.cjs
       - name: Finalize standalone project packages
         run: python3 scripts/r6_refine.py --packages
       - name: Save source and acceptance together
