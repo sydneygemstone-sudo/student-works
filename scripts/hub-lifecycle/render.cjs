@@ -1,0 +1,7 @@
+const fs=require('fs'),path=require('path'),cp=require('child_process');
+const R=path.resolve(__dirname,'../..'),deps=process.env.HUB_LIFECYCLE_DEPS||'/tmp/hub-lifecycle/node_modules';
+const {chromium}=require(deps+'/playwright');const cli=path.join(deps,'@mermaid-js/mermaid-cli/src/cli.js');
+const config='/tmp/hub-lifecycle-puppeteer.json';fs.writeFileSync(config,JSON.stringify({executablePath:chromium.executablePath(),headless:true,args:['--no-sandbox','--disable-dev-shm-usage']}));
+const jobs=JSON.parse(fs.readFileSync(path.join(__dirname,'render-jobs.json'))),results=[];
+for(const file of jobs){const input=path.join(R,file),out=input.replace(/\.mmd$/,'.svg');cp.execFileSync(process.execPath,[cli,'-i',input,'-o',out,'-p',config,'-c',path.join(__dirname,'mermaid-config.json'),'-b','#0e2531','-w','1800','-H','1600'],{stdio:'inherit',timeout:45000});const text=fs.readFileSync(out,'utf8');if(!text.includes('<svg')||text.includes('Syntax error in text'))throw Error('Mermaid failed: '+file);const viewBox=text.match(/viewBox="([^"]+)"/);results.push({source:file,svg:path.relative(R,out),viewBox:viewBox?.[1],bytes:Buffer.byteLength(text),status:'PASS'});}
+fs.writeFileSync(path.join(R,'shared/hub-r6/lifecycle-qa/diagrams.json'),JSON.stringify({status:'PASS',renderer:'@mermaid-js/mermaid-cli',diagrams:results},null,2));console.log('Rendered '+results.length+' bilingual diagrams from their edge ledgers.');
