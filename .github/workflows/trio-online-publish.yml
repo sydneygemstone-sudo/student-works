@@ -1,0 +1,87 @@
+name: Publish verified Trio online reviews
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/trio-online/release.json', '.github/workflows/trio-online-publish.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: trio-online-publish
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check deployment authorization and live protocol
+        run: |
+          python3 -c "import json;assert json.load(open('scripts/trio-online/release.json'))['publish'] is True"
+          curl --fail --silent --show-error https://trio-world-opus.sydney-gemstone-games.workers.dev/health -o /tmp/trio-live-health.json
+          python3 -c "import json;x=json.load(open('/tmp/trio-live-health.json'));assert x['revision']=='trio-online-r2-reviews-20260925' and x['maxPlayers']==3 and x['roomCodeDigits']==6;print(x)"
+      - name: Reproduce the tested build
+        run: |
+          python3 scripts/trio-online/build.py
+          python3 scripts/trio-online/fixes.py
+          git diff --exit-code -- shared/hub-r6 classroom-2026-09-22 martins-monster-quest
+      - name: Preserve source and local test evidence
+        run: |
+          npm install --prefix /tmp/trio-online-qa miniflare@4 playwright@1.58.2 ws@8
+          /tmp/trio-online-qa/node_modules/.bin/playwright install --with-deps chromium
+          node scripts/trio-online/qa.cjs
+      - name: Save the verified Trio work only
+        run: |
+          git config user.name 'Classroom publishing'
+          git config user.email '260381690+sydneygemstone-sudo@users.noreply.github.com'
+          git add adventure-world/builds/trio-world-opus/cloudflare adventure-world/builds/trio-world-opus/online adventure-world/hub scripts/trio-online/qa.cjs
+          git diff --cached --quiet || git commit -m 'feat(trio): six-digit rooms, fourteen-task completion reviews and live R6 feedback'
+          git push origin HEAD:main
+      - name: Prepare Pages content
+        run: |
+          mkdir -p /tmp/trio-pages
+          git archive HEAD | tar -x -C /tmp/trio-pages
+          touch /tmp/trio-pages/.nojekyll
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trio-local-acceptance
+          path: adventure-world/builds/trio-world-opus/cloudflare/qa-r2/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/trio-pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm the public client has been replaced
+        run: |
+          curl --fail --silent --show-error --retry 8 --retry-all-errors --retry-delay 10 'https://sydneygemstone-sudo.github.io/student-works/adventure-world/builds/trio-world-opus/online/game.html?check=${{ github.run_id }}' -o /tmp/trio-public-game
+          grep -q 'room-client.js' /tmp/trio-public-game
+      - name: Test a new synthetic room on the live deployment
+        run: |
+          npm install --prefix /tmp/trio-online-qa miniflare@4 playwright@1.58.2 ws@8
+          /tmp/trio-online-qa/node_modules/.bin/playwright install --with-deps chromium
+          node scripts/trio-online/live-qa.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trio-live-acceptance
+          path: adventure-world/builds/trio-world-opus/cloudflare/qa-live-r2/
