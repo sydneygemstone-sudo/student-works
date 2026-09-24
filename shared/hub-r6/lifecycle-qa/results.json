@@ -1,7 +1,7 @@
 {
   "revision": "hub-r6-lifecycle-20260925",
   "mode": "isolated-presentation",
-  "started": "2026-09-24T18:00:07.636Z",
+  "started": "2026-09-24T18:07:39.649Z",
   "checks": [
     {
       "name": "martin phase counts and ordering",
@@ -529,5 +529,5 @@
   "failures": [],
   "scope": "Lifecycle calculations, evidence-led AI rating presentation, generated Mermaid topology, localization, layout and retained form input. No new gameplay or cloud-service acceptance is claimed.",
   "status": "PASS",
-  "finished": "2026-09-24T18:00:14.740Z"
+  "finished": "2026-09-24T18:07:46.567Z"
 }

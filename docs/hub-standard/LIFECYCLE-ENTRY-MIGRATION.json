@@ -1,0 +1,12 @@
+{
+  "revision": "hub-r6-lifecycle-20260925",
+  "status": "PASS",
+  "basis": "User requested replacement of the scoring/progress/lineage contract; only the current presentation-entry metadata is extended.",
+  "base_ref": "a18e698073fecac2f6a70b07f5783771073f690e",
+  "old_entry_sha256": "a2fe35215989d8ed9ec8fed25ef160f4a6cecc6b8354ed9fe16e0a52d028f5b0",
+  "current_entry_sha256": "c245e873aedf006f0e2396247eade5a19d43ec8683de18c2efb4cc673a2353ff",
+  "golden_files_unchanged": true,
+  "original_verifier_unchanged": true,
+  "original_negative_self_tests": "PASS",
+  "lifecycle_contract_sha256": "dd27ba5a5365fa1f56b87095c164deb3d1581067093e9d2f135fe96af71a6c55"
+}

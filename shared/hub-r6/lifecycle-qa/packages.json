@@ -1,12 +1,12 @@
 {
   "adventure-world": {
-    "file_count": 110,
-    "sha256": "8cc645e649028035c4da5fb006dc9f6a01e9072eea0cd8ffbbd1b93dd11a0d4b",
-    "bytes": 20830294
+    "file_count": 111,
+    "sha256": "c28d88163191e054abf5d5ae4644ba3c263636f4b4d05165ec2d121292884f71",
+    "bytes": 19719208
   },
   "martins-monster-quest": {
-    "file_count": 97,
-    "sha256": "f9dd93e9dfe3a70e166f351955157a078cc1f101c6cc7419f21aba0cc66a608b",
-    "bytes": 20507929
+    "file_count": 98,
+    "sha256": "297fa90864bdf1d92fb9b72911e44d86357e429fb2aba0d1c6a51887c8a2abbf",
+    "bytes": 19396843
   }
 }

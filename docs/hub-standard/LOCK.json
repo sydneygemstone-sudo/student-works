@@ -16,11 +16,12 @@
   "artifacts_sha256": {
     "docs/hub-standard/HUB-STANDARD.md": "d970904df9925ccb77a49a632c7ef20741f8feb0d6f98841065d47180d4ce58e",
     "docs/hub-standard/SKILL.md": "bae6bec5f063dc4993603058726d907370dbd5abf4ed68ba5a11a9c25c65c641",
-    "HUB-ENTRY.json": "a2fe35215989d8ed9ec8fed25ef160f4a6cecc6b8354ed9fe16e0a52d028f5b0",
+    "HUB-ENTRY.json": "c245e873aedf006f0e2396247eade5a19d43ec8683de18c2efb4cc673a2353ff",
     "AGENTS.md": "46b769646d1faeb9e4d0da7379bb9fd2171423b2572aafe0c4c56d2217707762",
     "CLAUDE.md": "452aeca4a25e2bc7efbbaa8e99458c60f99c1e569c5a301d4876f6f9ad8f5fbb",
     "scripts/verify_hub_standard.py": "41a183f2c7faf88190235e1dc944f237ee4072b9bb77b6851ecb0662bc364000",
-    ".github/workflows/hub-standard-lock.yml": "395969296a8ae1958d2bce7cca6b6b639bfc6727a5901fcd5f6fd777b7693584"
+    ".github/workflows/hub-standard-lock.yml": "395969296a8ae1958d2bce7cca6b6b639bfc6727a5901fcd5f6fd777b7693584",
+    "docs/hub-standard/R6-LIFECYCLE-AND-AI-REVIEW.md": "dd27ba5a5365fa1f56b87095c164deb3d1581067093e9d2f135fe96af71a6c55"
   },
   "baseline_files_sha256": {
     "classroom-2026-09-22/README.md": "e96eea2c3a3558a523cd7e2f9dcccb52923b36ea8df4203f730011b27d345e4f",
